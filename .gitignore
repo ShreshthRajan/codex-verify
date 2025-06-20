@@ -1,0 +1,111 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# IDE Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyTest
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Data and Logs
+data/verification_results.db
+data/embeddings/
+data/reports/
+*.log
+logs/
+
+# API Keys and Secrets
+.env
+.env.local
+.env.*.local
+config/secrets.yaml
+config/api_keys.yaml
+*.key
+*.pem
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ChromaDB
+chroma.sqlite3
+chroma/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Test artifacts
+test_reports/
+coverage_reports/
+.coverage.*
+
+# Demo samples with sensitive data
+demo_samples/real_codex_outputs/
+demo_samples/proprietary/
+
+# Cache directories
+.cache/
+*.cache
+
+# Compiled tree-sitter languages
+tree-sitter-*/
+
+# Local configuration overrides
+config/local_*.yaml
+config/dev_*.yaml
