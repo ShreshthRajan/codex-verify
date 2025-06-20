@@ -1,3 +1,4 @@
+# setup.py
 """
 Setup script for Codex Verification Framework
 """

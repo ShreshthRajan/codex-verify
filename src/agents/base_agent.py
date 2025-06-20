@@ -1,3 +1,4 @@
+# src/agents/base_agent.py
 """
 Base agent class for all verification agents.
 Provides common interface and utilities for multi-agent verification framework.
