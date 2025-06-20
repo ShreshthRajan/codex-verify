@@ -188,10 +188,12 @@ class SecurityAuditor(BaseAgent):
             'slack_token': r'xox[baprs]-[0-9a-zA-Z\-]+',
             'stripe_key': r'sk_live_[0-9a-zA-Z]{24}',
             'openai_api_key': r'sk-[0-9a-zA-Z]{48}',
+            'generic_sk_key': r'sk-[0-9a-zA-Z]{32,}',  # More generic OpenAI-style keys
             'anthropic_api_key': r'sk-ant-[0-9a-zA-Z\-]+',
             'jwt_token': r'eyJ[0-9a-zA-Z_\-]+\.[0-9a-zA-Z_\-]+\.[0-9a-zA-Z_\-]+',
             'private_key': r'-----BEGIN (RSA |)PRIVATE KEY-----',
             'generic_api_key': r'[aA][pP][iI][_]?[kK][eE][yY].*[\'"][0-9a-zA-Z]{32,}[\'"]',
+            'long_hex_string': r'[\'"][a-fA-F0-9]{32,}[\'"]',  # Long hex strings
         }
     
     async def _analyze_implementation(self, code: str, context: Dict[str, Any]) -> AgentResult:
@@ -528,26 +530,27 @@ class SecurityAuditor(BaseAgent):
     
     def _calculate_security_score(self, issues: List[VerificationIssue], 
                                  metrics: SecurityMetrics) -> float:
-        """Calculate overall security score"""
+        """Calculate overall security score with aggressive security penalty"""
         if not issues:
             return 1.0
         
-        # Weight different types of security issues
+        # More aggressive weights for security issues
         type_weights = {
-            "vulnerability": 0.8,
-            "secret": 0.9,
-            "code_execution": 1.0,
-            "dangerous_import": 0.4,
-            "hardcoded_secret": 0.9,
-            "taint_flow": 0.7,
-            "vulnerable_dependency": 0.5
+            "vulnerability": 1.0,      # Critical security flaws
+            "secret": 1.2,             # Secrets are extremely serious
+            "code_execution": 1.5,     # Code execution is the worst
+            "dangerous_import": 0.3,   # Imports are potential risks
+            "hardcoded_secret": 1.2,   # Same as secrets
+            "taint_flow": 0.8,         # Data flow issues
+            "vulnerable_dependency": 0.6
         }
         
+        # More aggressive severity multipliers
         severity_multipliers = {
-            Severity.LOW: 0.2,
-            Severity.MEDIUM: 0.5,
-            Severity.HIGH: 0.8,
-            Severity.CRITICAL: 1.0
+            Severity.LOW: 0.3,
+            Severity.MEDIUM: 0.6,
+            Severity.HIGH: 1.0,        # High issues get full weight
+            Severity.CRITICAL: 1.5     # Critical issues get extra penalty
         }
         
         total_penalty = 0.0
@@ -557,8 +560,9 @@ class SecurityAuditor(BaseAgent):
             issue_penalty = type_weight * severity_multiplier * issue.confidence
             total_penalty += issue_penalty
         
-        # Normalize the score (assuming max 20 critical issues would give score 0)
-        max_penalty = 20.0
+        # More aggressive normalization - even fewer issues tank the score
+        # 3 critical issues should give score ~0.5, 5+ critical issues should give score <0.3
+        max_penalty = 8.0  # Reduced from 20 to be more aggressive
         normalized_penalty = min(total_penalty / max_penalty, 1.0)
         
         return max(0.0, 1.0 - normalized_penalty)
