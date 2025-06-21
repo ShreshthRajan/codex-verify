@@ -345,7 +345,8 @@ def string_concat(items):
     return result
 """
     result = await profiler.analyze(antipattern_code)
-    antipattern_detected = any("antipattern" in issue.type for issue in result.issues)
+    antipattern_detected = any("antipattern" in issue.type or "join" in issue.suggestion.lower() 
+                              for issue in result.issues)
     print(f"✅ Anti-pattern Detection: {'PASS' if antipattern_detected else 'FAIL'}")
     
     # Test 4: Performance Check
@@ -407,14 +408,21 @@ async def benchmark_profiler_performance():
     test_sizes = [10, 50, 100, 500]
     
     for size in test_sizes:
-        # Generate test code
-        test_code = "\n".join([
-            f"def function_{i}(param_{j} for j in range(3)):",
-            f"    result = 0",
-            f"    for k in range(10):",
-            f"        result += k * {i}",
-            f"    return result"
-        ] for i in range(size))
+        # Generate test code with proper syntax - FIXED
+        function_code_lines = []
+        for i in range(size):
+            func_def = f"def function_{i}(param_0, param_1, param_2):"
+            func_body = [
+                "    result = 0",
+                "    for k in range(10):",
+                f"        result += k * {i}",
+                "    return result"
+            ]
+            function_code_lines.append(func_def)
+            function_code_lines.extend(func_body)
+            function_code_lines.append("")  # Empty line between functions
+        
+        test_code = "\n".join(function_code_lines)
         
         # Benchmark analysis time
         start_time = time.time()

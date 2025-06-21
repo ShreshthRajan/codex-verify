@@ -852,32 +852,33 @@ class PerformanceProfiler(BaseAgent):
     
     def _calculate_performance_score(self, issues: List[VerificationIssue], 
                                    metadata: Dict[str, Any]) -> float:
-        """Calculate overall performance score"""
+        """Calculate overall performance score with very aggressive penalty for complexity"""
         if not issues:
             return 1.0
         
-        # Weight different types of performance issues
+        # Very aggressive weights for performance issues
         type_weights = {
-            "complexity": 0.8,
-            "cognitive_complexity": 0.7,
-            "nesting": 0.6,
-            "function_length": 0.4,
-            "parameter_count": 0.3,
-            "time_complexity": 0.9,
-            "loop_nesting": 0.8,
-            "performance_antipattern": 0.7,
-            "execution_time": 1.0,
-            "memory_usage": 0.9,
-            "scalability": 0.6,
-            "bottleneck": 0.7,
-            "optimization": 0.2
+            "complexity": 1.5,           # Very high penalty for cyclomatic complexity
+            "cognitive_complexity": 2.0, # Cognitive complexity kills maintainability
+            "nesting": 1.8,             # Deep nesting is extremely problematic
+            "function_length": 0.8,     # Long functions hurt readability
+            "parameter_count": 0.6,     # Too many params hurt usability
+            "time_complexity": 1.5,     # Algorithm efficiency is critical
+            "loop_nesting": 1.2,        # Nested loops hurt performance badly
+            "performance_antipattern": 1.0,  # Anti-patterns matter
+            "execution_time": 1.5,      # Actual slow execution is very bad
+            "memory_usage": 1.2,        # Memory issues are serious
+            "scalability": 0.8,         # Scalability concerns matter
+            "bottleneck": 1.0,          # Bottlenecks hurt UX
+            "optimization": 0.1         # Suggestions are just hints
         }
         
+        # Very aggressive severity multipliers
         severity_multipliers = {
-            Severity.LOW: 0.2,
-            Severity.MEDIUM: 0.5,
-            Severity.HIGH: 0.8,
-            Severity.CRITICAL: 1.0
+            Severity.LOW: 0.3,
+            Severity.MEDIUM: 0.8,       # Medium issues get significant penalty
+            Severity.HIGH: 1.5,         # High issues are major problems
+            Severity.CRITICAL: 2.5      # Critical issues should destroy the score
         }
         
         total_penalty = 0.0
@@ -887,15 +888,16 @@ class PerformanceProfiler(BaseAgent):
             issue_penalty = type_weight * severity_multiplier
             total_penalty += issue_penalty
         
-        # Include runtime performance score if available
+        # Very small runtime bonus (complexity issues should dominate)
         runtime_bonus = 0.0
         if 'performance_metrics' in metadata:
             perf_metrics = metadata['performance_metrics']
             if isinstance(perf_metrics, dict) and 'performance_score' in perf_metrics:
-                runtime_bonus = perf_metrics['performance_score'] * 0.2
+                runtime_bonus = perf_metrics['performance_score'] * 0.05  # Minimal bonus
         
-        # Normalize penalty (assuming 10 high-severity issues would give score 0)
-        max_penalty = 10.0
+        # Very aggressive normalization - even 2-3 critical issues should tank score
+        # 2 critical issues should give score ~0.2, 1 critical + some others ~0.4
+        max_penalty = 4.0  # Very aggressive - reduced from 6
         normalized_penalty = min(total_penalty / max_penalty, 1.0)
         
         base_score = max(0.0, 1.0 - normalized_penalty)
