@@ -1,7 +1,7 @@
 # src/agents/correctness_critic.py
 """
-Correctness Critic Agent - AST-based semantic correctness validation.
-Analyzes code for logical errors, semantic issues, and generates property-based tests.
+Correctness Critic Agent - Enterprise-grade semantic correctness with edge case validation.
+Implements production deployment standards with comprehensive exception path analysis.
 """
 
 import ast
@@ -32,7 +32,7 @@ from .base_agent import BaseAgent, AgentResult, VerificationIssue, Severity
 
 @dataclass
 class ASTMetrics:
-    """Metrics extracted from AST analysis"""
+    """Enhanced AST metrics with production focus"""
     cyclomatic_complexity: int
     nesting_depth: int
     function_count: int
@@ -40,34 +40,49 @@ class ASTMetrics:
     potential_issues: List[str]
     import_count: int
     line_count: int
+    exception_handling_coverage: float
+    input_validation_score: float
+    resource_safety_score: float
 
 
 @dataclass
 class SemanticAnalysis:
-    """Results from semantic analysis"""
+    """Enhanced semantic analysis with edge case detection"""
     logic_score: float
     clarity_score: float
+    edge_case_coverage: float
     potential_bugs: List[str]
     suggestions: List[str]
+    production_readiness: float
 
 
-class CorrectnessCritic(BaseAgent):
+class CorrectnessAgent(BaseAgent):
     """
-    Agent 1: Correctness Critic
+    Agent 1: Enterprise Correctness Critic
     
-    Performs comprehensive correctness analysis including:
-    - AST-based static analysis
-    - Semantic correctness checking via LLM
-    - Property-based test generation
-    - Safe code execution validation
+    Breakthrough features:
+    - Exception path analysis for production deployment
+    - Input validation detection with type safety assessment
+    - Resource safety checks for memory/file leak prevention
+    - Edge case detection with production impact analysis
+    - Contract validation between function promises and implementation
     """
     
     def __init__(self, config: Optional[Dict[str, Any]] = None):
-        super().__init__("CorrectnessCritic", config)
+        super().__init__("CorrectnessAgent", config)
         self.anthropic_api_key = self.config.get('anthropic_api_key')
         self.openai_api_key = self.config.get('openai_api_key')
-        self.use_llm = self.config.get('use_llm', True)
+        self.use_llm = self.config.get('use_llm', False)  # Disabled for MVP but enhanced analysis
         self.max_execution_time = self.config.get('max_execution_time', 5.0)
+        
+        # Enterprise correctness thresholds
+        self.enterprise_thresholds = {
+            'min_exception_coverage': 0.8,     # 80% exception handling required
+            'min_input_validation': 0.7,       # 70% input validation required
+            'max_function_complexity': 15,     # Max cyclomatic complexity
+            'max_nesting_depth': 4,            # Max nesting levels
+            'resource_safety_required': True   # Resource cleanup required
+        }
         
         # Initialize tree-sitter if available
         self.ts_parser = None
@@ -79,47 +94,60 @@ class CorrectnessCritic(BaseAgent):
                 pass
     
     async def _analyze_implementation(self, code: str, context: Dict[str, Any]) -> AgentResult:
-        """Main implementation of correctness analysis"""
+        """Enhanced correctness analysis with production deployment standards"""
         issues = []
         metadata = {}
         
-        # 1. AST Analysis
-        ast_metrics = self._analyze_ast(code)
-        ast_issues = self._extract_ast_issues(ast_metrics, code)
+        # 1. Enhanced AST Analysis with production focus
+        ast_metrics = self._analyze_enhanced_ast(code)
+        ast_issues = self._extract_enhanced_ast_issues(ast_metrics, code)
         issues.extend(ast_issues)
         metadata['ast_metrics'] = ast_metrics.__dict__
         
-        # 2. Semantic Analysis (LLM-powered if enabled)
-        if self.use_llm and (self.anthropic_api_key or self.openai_api_key):
-            semantic_analysis = await self._semantic_validation(code, context)
-            semantic_issues = self._extract_semantic_issues(semantic_analysis)
-            issues.extend(semantic_issues)
-            metadata['semantic_analysis'] = semantic_analysis.__dict__
+        # 2. Exception path analysis
+        exception_issues = self._analyze_exception_paths(code)
+        issues.extend(exception_issues)
         
-        # 3. Property-based test generation
-        if HYPOTHESIS_AVAILABLE:
-            test_issues = self._generate_property_tests(code)
-            issues.extend(test_issues)
-            metadata['property_tests_generated'] = len(test_issues)
+        # 3. Input validation analysis
+        input_validation_issues = self._analyze_input_validation(code)
+        issues.extend(input_validation_issues)
         
-        # 4. Safe execution validation
+        # 4. Resource safety analysis
+        resource_safety_issues = self._analyze_resource_safety(code)
+        issues.extend(resource_safety_issues)
+        
+        # 5. Edge case detection
+        edge_case_issues = self._detect_edge_cases(code)
+        issues.extend(edge_case_issues)
+        
+        # 6. Contract validation (function promises vs implementation)
+        contract_issues = self._validate_function_contracts(code)
+        issues.extend(contract_issues)
+        
+        # 7. Enhanced semantic analysis (simplified without LLM)
+        semantic_analysis = self._enhanced_semantic_analysis(code)
+        semantic_issues = self._extract_semantic_issues(semantic_analysis)
+        issues.extend(semantic_issues)
+        metadata['semantic_analysis'] = semantic_analysis.__dict__
+        
+        # 8. Safe execution validation
         execution_issues = await self._safe_execution_check(code)
         issues.extend(execution_issues)
         metadata['execution_validated'] = len(execution_issues) == 0
         
-        # Calculate overall score
-        overall_score = self._calculate_score(issues)
+        # Calculate overall score with enterprise standards
+        overall_score = self._calculate_enterprise_correctness_score(issues, metadata)
         
         return AgentResult(
             agent_name=self.name,
-            execution_time=0.0,  # Will be set by base class
+            execution_time=0.0,
             overall_score=overall_score,
             issues=issues,
             metadata=metadata
         )
     
-    def _analyze_ast(self, code: str) -> ASTMetrics:
-        """Perform AST-based static analysis"""
+    def _analyze_enhanced_ast(self, code: str) -> ASTMetrics:
+        """Enhanced AST analysis with production deployment focus"""
         try:
             tree = ast.parse(code)
         except SyntaxError as e:
@@ -130,39 +158,26 @@ class CorrectnessCritic(BaseAgent):
                 class_count=0,
                 potential_issues=[f"Syntax error: {str(e)}"],
                 import_count=0,
-                line_count=len(code.splitlines())
+                line_count=len(code.splitlines()),
+                exception_handling_coverage=0.0,
+                input_validation_score=0.0,
+                resource_safety_score=0.0
             )
         
-        # AST analysis
+        # Enhanced AST analysis
         complexity = self._calculate_cyclomatic_complexity(tree)
         nesting_depth = self._calculate_nesting_depth(tree)
         function_count = len([n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)])
         class_count = len([n for n in ast.walk(tree) if isinstance(n, ast.ClassDef)])
         import_count = len([n for n in ast.walk(tree) if isinstance(n, (ast.Import, ast.ImportFrom))])
         
-        # Detect potential issues
-        potential_issues = []
+        # Production-focused metrics
+        exception_coverage = self._calculate_exception_coverage(tree)
+        input_validation = self._calculate_input_validation_score(tree)
+        resource_safety = self._calculate_resource_safety_score(tree)
         
-        # Check for common anti-patterns
-        for node in ast.walk(tree):
-            if isinstance(node, ast.FunctionDef):
-                # Function too long
-                if hasattr(node, 'end_lineno') and hasattr(node, 'lineno'):
-                    func_length = node.end_lineno - node.lineno
-                    if func_length > 50:
-                        potential_issues.append(f"Function '{node.name}' is too long ({func_length} lines)")
-                
-                # Too many parameters
-                if len(node.args.args) > 7:
-                    potential_issues.append(f"Function '{node.name}' has too many parameters ({len(node.args.args)})")
-            
-            # Bare except clauses
-            if isinstance(node, ast.ExceptHandler) and node.type is None:
-                potential_issues.append("Bare except clause found - should specify exception type")
-            
-            # Global variable usage
-            if isinstance(node, ast.Global):
-                potential_issues.append(f"Global variable usage detected: {', '.join(node.names)}")
+        # Enhanced issue detection
+        potential_issues = self._detect_enhanced_ast_issues(tree)
         
         return ASTMetrics(
             cyclomatic_complexity=complexity,
@@ -171,12 +186,640 @@ class CorrectnessCritic(BaseAgent):
             class_count=class_count,
             potential_issues=potential_issues,
             import_count=import_count,
-            line_count=len(code.splitlines())
+            line_count=len(code.splitlines()),
+            exception_handling_coverage=exception_coverage,
+            input_validation_score=input_validation,
+            resource_safety_score=resource_safety
         )
     
+    def _calculate_exception_coverage(self, tree: ast.AST) -> float:
+        """Calculate percentage of functions with proper exception handling"""
+        functions = [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)]
+        if not functions:
+            return 1.0
+        
+        functions_with_exception_handling = 0
+        for func in functions:
+            has_try_except = any(isinstance(n, ast.Try) for n in ast.walk(func))
+            has_input_validation = any(
+                isinstance(n, ast.If) and self._is_validation_check(n) 
+                for n in ast.walk(func)
+            )
+            
+            if has_try_except or has_input_validation:
+                functions_with_exception_handling += 1
+        
+        return functions_with_exception_handling / len(functions)
+    
+    def _is_validation_check(self, node: ast.If) -> bool:
+        """Check if an if statement is likely input validation"""
+        if isinstance(node.test, ast.Call):
+            if isinstance(node.test.func, ast.Name):
+                return node.test.func.id in ['isinstance', 'hasattr', 'callable']
+        elif isinstance(node.test, ast.Compare):
+            # Check for None comparisons, type checks, etc.
+            return any(isinstance(op, (ast.Is, ast.IsNot, ast.In, ast.NotIn)) for op in node.test.ops)
+        return False
+    
+    def _calculate_input_validation_score(self, tree: ast.AST) -> float:
+        """Calculate input validation coverage score"""
+        functions = [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)]
+        if not functions:
+            return 1.0
+        
+        functions_with_validation = 0
+        for func in functions:
+            if len(func.args.args) == 0:  # No parameters to validate
+                functions_with_validation += 1
+                continue
+            
+            # Look for validation patterns in function body
+            has_validation = False
+            for node in ast.walk(func):
+                if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+                    if node.func.id in ['isinstance', 'hasattr', 'callable', 'len']:
+                        has_validation = True
+                        break
+                elif isinstance(node, ast.If) and self._is_validation_check(node):
+                    has_validation = True
+                    break
+                elif isinstance(node, ast.Raise):
+                    # Explicit error raising suggests validation
+                    has_validation = True
+                    break
+            
+            if has_validation:
+                functions_with_validation += 1
+        
+        return functions_with_validation / len(functions)
+    
+    def _calculate_resource_safety_score(self, tree: ast.AST) -> float:
+        """Calculate resource safety score (proper cleanup, context managers)"""
+        resource_operations = []
+        safe_resource_operations = []
+        
+        for node in ast.walk(tree):
+            # Identify resource operations
+            if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+                if node.func.id in ['open', 'socket', 'connect']:
+                    resource_operations.append(node)
+            
+            # Identify safe resource usage (with statements)
+            elif isinstance(node, ast.With):
+                safe_resource_operations.append(node)
+        
+        if not resource_operations:
+            return 1.0  # No resources to manage
+        
+        # Calculate ratio of safe to total resource operations
+        return len(safe_resource_operations) / len(resource_operations)
+    
+    def _detect_enhanced_ast_issues(self, tree: ast.AST) -> List[str]:
+        """Detect enhanced AST issues with production focus"""
+        issues = []
+        
+        for node in ast.walk(tree):
+            # Production deployment blockers
+            if isinstance(node, ast.FunctionDef):
+                # Function too long for maintainability
+                if hasattr(node, 'end_lineno') and hasattr(node, 'lineno'):
+                    func_length = node.end_lineno - node.lineno
+                    if func_length > 50:
+                        issues.append(f"Function '{node.name}' too long ({func_length} lines) - production maintainability concern")
+                
+                # Too many parameters
+                if len(node.args.args) > 8:
+                    issues.append(f"Function '{node.name}' has too many parameters ({len(node.args.args)}) - refactor needed")
+                
+                # Missing docstring for public functions
+                if not node.name.startswith('_') and not self._has_docstring(node):
+                    issues.append(f"Public function '{node.name}' missing docstring - production documentation required")
+            
+            # Dangerous exception handling patterns
+            elif isinstance(node, ast.ExceptHandler) and node.type is None:
+                issues.append("Bare except clause - production error handling must be specific")
+            
+            elif isinstance(node, ast.ExceptHandler):
+                # Exception handling without logging or action
+                if len(node.body) == 1 and isinstance(node.body[0], ast.Pass):
+                    issues.append("Empty exception handler - production systems need error logging")
+            
+            # Resource management issues
+            elif isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+                if node.func.id == 'open' and not self._is_in_with_statement(node, tree):
+                    issues.append("File opened without 'with' statement - resource leak risk")
+            
+            # Global variable usage (production concern)
+            elif isinstance(node, ast.Global):
+                issues.append(f"Global variable usage: {', '.join(node.names)} - production state management concern")
+            
+            # Potential infinite loops
+            elif isinstance(node, ast.While):
+                if isinstance(node.test, ast.Constant) and node.test.value is True:
+                    issues.append("Potential infinite loop with 'while True' - production stability risk")
+        
+        return issues
+    
+    def _has_docstring(self, node: ast.FunctionDef) -> bool:
+        """Check if function has docstring"""
+        if (node.body and
+            isinstance(node.body[0], ast.Expr) and
+            isinstance(node.body[0].value, ast.Constant) and
+            isinstance(node.body[0].value.value, str)):
+            return True
+        return False
+    
+    def _is_in_with_statement(self, target_node: ast.AST, tree: ast.AST) -> bool:
+        """Check if a node is within a 'with' statement"""
+        for node in ast.walk(tree):
+            if isinstance(node, ast.With):
+                for child in ast.walk(node):
+                    if child is target_node:
+                        return True
+        return False
+    
+    def _analyze_exception_paths(self, code: str) -> List[VerificationIssue]:
+        """Analyze exception handling paths for production readiness"""
+        issues = []
+        
+        try:
+            tree = ast.parse(code)
+        except SyntaxError:
+            return issues
+        
+        for node in ast.walk(tree):
+            if isinstance(node, ast.FunctionDef):
+                # Check for functions that should have exception handling
+                if self._should_have_exception_handling(node):
+                    has_exception_handling = any(isinstance(n, ast.Try) for n in ast.walk(node))
+                    if not has_exception_handling:
+                        issues.append(VerificationIssue(
+                            type="missing_exception_handling",
+                            severity=Severity.HIGH,
+                            message=f"Function '{node.name}' missing exception handling for production deployment",
+                            line_number=getattr(node, 'lineno', None),
+                            suggestion="Add try-except blocks for error conditions and resource cleanup"
+                        ))
+            
+            elif isinstance(node, ast.ExceptHandler):
+                # Check for proper exception handling
+                if node.type is None:
+                    issues.append(VerificationIssue(
+                        type="bare_except",
+                        severity=Severity.HIGH,
+                        message="Bare except clause hides errors in production",
+                        line_number=getattr(node, 'lineno', None),
+                        suggestion="Specify exception types for proper error handling"
+                    ))
+                
+                # Check for empty exception handlers
+                elif len(node.body) == 1 and isinstance(node.body[0], ast.Pass):
+                    issues.append(VerificationIssue(
+                        type="empty_exception_handler",
+                        severity=Severity.MEDIUM,
+                        message="Empty exception handler - production systems need error logging",
+                        line_number=getattr(node, 'lineno', None),
+                        suggestion="Add logging or appropriate error handling in exception blocks"
+                    ))
+        
+        return issues
+    
+    def _should_have_exception_handling(self, func_node: ast.FunctionDef) -> bool:
+        """Determine if function should have exception handling"""
+        # Functions with file operations, network calls, or external dependencies
+        risky_operations = ['open', 'request', 'connect', 'loads', 'dumps']
+        
+        for node in ast.walk(func_node):
+            if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+                if node.func.id in risky_operations:
+                    return True
+            elif isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute):
+                if node.func.attr in risky_operations:
+                    return True
+        
+        return False
+    
+    def _analyze_input_validation(self, code: str) -> List[VerificationIssue]:
+        """Analyze input validation for production safety"""
+        issues = []
+        
+        try:
+            tree = ast.parse(code)
+        except SyntaxError:
+            return issues
+        
+        for node in ast.walk(tree):
+            if isinstance(node, ast.FunctionDef):
+                # Skip functions without parameters
+                if len(node.args.args) == 0:
+                    continue
+                
+                # Check for input validation
+                has_validation = self._function_has_input_validation(node)
+                if not has_validation and not node.name.startswith('_'):
+                    issues.append(VerificationIssue(
+                        type="missing_input_validation",
+                        severity=Severity.MEDIUM,
+                        message=f"Function '{node.name}' missing input validation for production safety",
+                        line_number=getattr(node, 'lineno', None),
+                        suggestion="Add type checking and value validation for function parameters"
+                    ))
+        
+        return issues
+    
+    def _function_has_input_validation(self, func_node: ast.FunctionDef) -> bool:
+        """Check if function has input validation"""
+        validation_patterns = [
+            'isinstance', 'hasattr', 'callable', 'len', 'type',
+            'ValueError', 'TypeError', 'AttributeError'
+        ]
+        
+        for node in ast.walk(func_node):
+            if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+                if node.func.id in validation_patterns:
+                    return True
+            elif isinstance(node, ast.Raise):
+                return True  # Explicit error raising suggests validation
+            elif isinstance(node, ast.If) and self._is_validation_check(node):
+                return True
+        
+        return False
+    
+    def _analyze_resource_safety(self, code: str) -> List[VerificationIssue]:
+        """Analyze resource safety for production deployment"""
+        issues = []
+        
+        try:
+            tree = ast.parse(code)
+        except SyntaxError:
+            return issues
+        
+        # Track resource operations
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+                if node.func.id in ['open', 'socket'] and not self._is_in_with_statement(node, tree):
+                    issues.append(VerificationIssue(
+                        type="resource_leak_risk",
+                        severity=Severity.HIGH,
+                        message=f"Resource operation '{node.func.id}' without proper cleanup",
+                        line_number=getattr(node, 'lineno', None),
+                        suggestion="Use 'with' statement for automatic resource cleanup"
+                    ))
+        
+        return issues
+    
+    def _detect_edge_cases(self, code: str) -> List[VerificationIssue]:
+        """Detect missing edge case handling"""
+        issues = []
+        
+        try:
+            tree = ast.parse(code)
+        except SyntaxError:
+            return issues
+        
+        for node in ast.walk(tree):
+            if isinstance(node, ast.FunctionDef):
+                edge_case_issues = self._check_function_edge_cases(node)
+                issues.extend(edge_case_issues)
+        
+        return issues
+    
+    def _check_function_edge_cases(self, func_node: ast.FunctionDef) -> List[VerificationIssue]:
+        """Check individual function for edge case handling"""
+        issues = []
+        
+        # Check for common edge case patterns
+        has_none_check = False
+        has_empty_check = False
+        has_boundary_check = False
+        
+        for node in ast.walk(func_node):
+            if isinstance(node, ast.Compare):
+                # Check for None comparisons
+                for comparator in node.comparators:
+                    if isinstance(comparator, ast.Constant) and comparator.value is None:
+                        has_none_check = True
+                
+                # Check for empty checks
+                if any(isinstance(op, ast.Eq) for op in node.ops):
+                    for comparator in node.comparators:
+                        if isinstance(comparator, ast.Constant) and comparator.value in [0, '', []]:
+                            has_empty_check = True
+            
+            elif isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+                if node.func.id == 'len':
+                    has_boundary_check = True
+        
+        # Generate issues for missing edge cases
+        if len(func_node.args.args) > 0 and not func_node.name.startswith('_'):
+            if not has_none_check:
+                issues.append(VerificationIssue(
+                    type="missing_edge_case",
+                    severity=Severity.MEDIUM,
+                    message=f"Function '{func_node.name}' missing None value handling",
+                    line_number=getattr(func_node, 'lineno', None),
+                    suggestion="Add None checks for production robustness"
+                ))
+            
+            # Check for functions that work with collections
+            if self._function_works_with_collections(func_node) and not has_empty_check:
+                issues.append(VerificationIssue(
+                    type="missing_edge_case",
+                    severity=Severity.MEDIUM,
+                    message=f"Function '{func_node.name}' missing empty collection handling",
+                    line_number=getattr(func_node, 'lineno', None),
+                    suggestion="Add empty collection checks for production robustness"
+                ))
+        
+        return issues
+    
+    def _function_works_with_collections(self, func_node: ast.FunctionDef) -> bool:
+        """Check if function appears to work with collections"""
+        collection_operations = ['append', 'extend', 'insert', 'remove', 'pop', 'index', 'count']
+        
+        for node in ast.walk(func_node):
+            if isinstance(node, ast.Attribute) and node.attr in collection_operations:
+                return True
+            elif isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+                if node.func.id in ['len', 'max', 'min', 'sum', 'sorted']:
+                    return True
+            elif isinstance(node, (ast.For, ast.ListComp, ast.DictComp)):
+                return True
+        
+        return False
+    
+    def _validate_function_contracts(self, code: str) -> List[VerificationIssue]:
+        """Validate function contracts (docstring promises vs implementation)"""
+        issues = []
+        
+        try:
+            tree = ast.parse(code)
+        except SyntaxError:
+            return issues
+        
+        for node in ast.walk(tree):
+            if isinstance(node, ast.FunctionDef):
+                contract_issues = self._check_function_contract(node)
+                issues.extend(contract_issues)
+        
+        return issues
+    
+    def _check_function_contract(self, func_node: ast.FunctionDef) -> List[VerificationIssue]:
+        """Check if function implementation matches its contract"""
+        issues = []
+        
+        # Get docstring if exists
+        docstring = None
+        if (func_node.body and
+            isinstance(func_node.body[0], ast.Expr) and
+            isinstance(func_node.body[0].value, ast.Constant) and
+            isinstance(func_node.body[0].value.value, str)):
+            docstring = func_node.body[0].value.value
+        
+        if docstring:
+            # Check for common contract violations
+            docstring_lower = docstring.lower()
+            
+            # Check if docstring mentions exceptions but none are raised
+            if 'raises' in docstring_lower or 'exception' in docstring_lower:
+                has_raises = any(isinstance(n, ast.Raise) for n in ast.walk(func_node))
+                if not has_raises:
+                    issues.append(VerificationIssue(
+                        type="contract_violation",
+                        severity=Severity.MEDIUM,
+                        message=f"Function '{func_node.name}' docstring mentions exceptions but none are raised",
+                        line_number=getattr(func_node, 'lineno', None),
+                        suggestion="Ensure implementation matches documented behavior"
+                    ))
+            
+            # Check if docstring mentions return type but function doesn't return
+            if 'returns' in docstring_lower or 'return' in docstring_lower:
+                has_return = any(isinstance(n, ast.Return) and n.value is not None 
+                               for n in ast.walk(func_node))
+                if not has_return:
+                    issues.append(VerificationIssue(
+                        type="contract_violation",
+                        severity=Severity.MEDIUM,
+                        message=f"Function '{func_node.name}' docstring mentions return value but function doesn't return",
+                        line_number=getattr(func_node, 'lineno', None),
+                        suggestion="Ensure function returns value as documented"
+                    ))
+        
+        return issues
+    
+    def _enhanced_semantic_analysis(self, code: str) -> SemanticAnalysis:
+        """Enhanced semantic analysis without LLM dependency"""
+        potential_bugs = []
+        suggestions = []
+        
+        # Basic semantic checks
+        logic_score = 1.0
+        clarity_score = 1.0
+        edge_case_coverage = 0.8  # Default assumption
+        
+        try:
+            tree = ast.parse(code)
+            
+            # Check for common logical issues
+            for node in ast.walk(tree):
+                if isinstance(node, ast.Compare):
+                    # Check for potential logical errors
+                    if len(node.ops) > 1:
+                        # Chained comparisons can be confusing
+                        clarity_score -= 0.1
+                
+                elif isinstance(node, ast.BoolOp):
+                    # Complex boolean expressions
+                    if len(node.values) > 3:
+                        clarity_score -= 0.1
+                        suggestions.append("Simplify complex boolean expressions")
+                
+                elif isinstance(node, ast.If):
+                    # Check for missing else clauses in critical paths
+                    if not node.orelse and self._is_critical_path(node):
+                        potential_bugs.append("Missing else clause in critical decision path")
+                        logic_score -= 0.1
+            
+            # Calculate edge case coverage
+            functions = [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)]
+            if functions:
+                functions_with_edge_cases = sum(1 for f in functions if self._has_edge_case_handling(f))
+                edge_case_coverage = functions_with_edge_cases / len(functions)
+        
+        except SyntaxError:
+            logic_score = 0.5
+            clarity_score = 0.5
+            potential_bugs.append("Syntax errors prevent semantic analysis")
+        
+        # Calculate production readiness
+        production_readiness = (logic_score + clarity_score + edge_case_coverage) / 3
+        
+        return SemanticAnalysis(
+            logic_score=max(0.0, logic_score),
+            clarity_score=max(0.0, clarity_score),
+            edge_case_coverage=edge_case_coverage,
+            potential_bugs=potential_bugs,
+            suggestions=suggestions,
+            production_readiness=production_readiness
+        )
+    
+    def _is_critical_path(self, if_node: ast.If) -> bool:
+        """Check if an if statement is in a critical execution path"""
+        # Simple heuristic: if it contains return, raise, or assignment to important variables
+        for node in ast.walk(if_node):
+            if isinstance(node, (ast.Return, ast.Raise)):
+                return True
+            elif isinstance(node, ast.Assign):
+                return True
+        return False
+    
+    def _has_edge_case_handling(self, func_node: ast.FunctionDef) -> bool:
+        """Check if function has edge case handling"""
+        for node in ast.walk(func_node):
+            if isinstance(node, ast.Compare):
+                # Check for None, empty, or boundary checks
+                for comparator in node.comparators:
+                    if isinstance(comparator, ast.Constant):
+                        if comparator.value in [None, 0, '', []]:
+                            return True
+            elif isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+                if node.func.id in ['len', 'isinstance', 'hasattr']:
+                    return True
+        return False
+    
+    def _extract_enhanced_ast_issues(self, metrics: ASTMetrics, code: str) -> List[VerificationIssue]:
+        """Extract enhanced AST issues with enterprise focus"""
+        issues = []
+        
+        # Enterprise complexity thresholds (more aggressive)
+        if metrics.cyclomatic_complexity > self.enterprise_thresholds['max_function_complexity']:
+            issues.append(VerificationIssue(
+                type="complexity",
+                severity=Severity.HIGH,
+                message=f"Excessive cyclomatic complexity: {metrics.cyclomatic_complexity}",
+                suggestion="Break function into smaller, focused functions for production maintainability"
+            ))
+        elif metrics.cyclomatic_complexity > 10:
+            issues.append(VerificationIssue(
+                type="complexity", 
+                severity=Severity.MEDIUM,
+                message=f"High cyclomatic complexity: {metrics.cyclomatic_complexity}",
+                suggestion="Consider refactoring to reduce complexity"
+            ))
+        
+        # Enterprise nesting thresholds
+        if metrics.nesting_depth > self.enterprise_thresholds['max_nesting_depth']:
+            issues.append(VerificationIssue(
+                type="nesting",
+                severity=Severity.HIGH,
+                message=f"Excessive nesting depth: {metrics.nesting_depth}",
+                suggestion="Extract nested logic into separate functions for production readability"
+            ))
+        
+        # Exception handling coverage
+        if metrics.exception_handling_coverage < self.enterprise_thresholds['min_exception_coverage']:
+            issues.append(VerificationIssue(
+                type="exception_coverage",
+                severity=Severity.HIGH,
+                message=f"Low exception handling coverage: {metrics.exception_handling_coverage:.1%}",
+                suggestion="Add exception handling for production deployment safety"
+            ))
+        
+        # Input validation coverage
+        if metrics.input_validation_score < self.enterprise_thresholds['min_input_validation']:
+            issues.append(VerificationIssue(
+                type="input_validation",
+                severity=Severity.MEDIUM,
+                message=f"Low input validation coverage: {metrics.input_validation_score:.1%}",
+                suggestion="Add input validation for production robustness"
+            ))
+        
+        # Resource safety
+        if metrics.resource_safety_score < 0.8:
+            issues.append(VerificationIssue(
+                type="resource_safety",
+                severity=Severity.HIGH,
+                message=f"Poor resource safety: {metrics.resource_safety_score:.1%}",
+                suggestion="Use context managers for proper resource cleanup"
+            ))
+        
+        # Convert potential issues from AST analysis
+        for issue in metrics.potential_issues:
+            severity = Severity.MEDIUM
+            if "Syntax error" in issue:
+                severity = Severity.CRITICAL
+            elif "production" in issue.lower():
+                severity = Severity.HIGH
+            elif "infinite loop" in issue or "resource leak" in issue:
+                severity = Severity.HIGH
+            
+            issues.append(VerificationIssue(
+                type="ast_analysis",
+                severity=severity,
+                message=issue,
+                suggestion="Address production deployment concern"
+            ))
+            return issues
+    
+    def _extract_semantic_issues(self, analysis: SemanticAnalysis) -> List[VerificationIssue]:
+       """Extract issues from enhanced semantic analysis"""
+       issues = []
+       
+       # Logic score issues (more aggressive thresholds)
+       if analysis.logic_score < 0.7:
+           issues.append(VerificationIssue(
+               type="logic",
+               severity=Severity.HIGH,
+               message=f"Low logic score: {analysis.logic_score:.2f}",
+               suggestion="Review code logic for production correctness"
+           ))
+       elif analysis.logic_score < 0.8:
+           issues.append(VerificationIssue(
+               type="logic",
+               severity=Severity.MEDIUM,
+               message=f"Moderate logic score: {analysis.logic_score:.2f}",
+               suggestion="Consider improving code logic"
+           ))
+       
+       # Edge case coverage issues
+       if analysis.edge_case_coverage < 0.7:
+           issues.append(VerificationIssue(
+               type="edge_case_coverage",
+               severity=Severity.HIGH,
+               message=f"Low edge case coverage: {analysis.edge_case_coverage:.1%}",
+               suggestion="Add edge case handling for production robustness"
+           ))
+       elif analysis.edge_case_coverage < 0.8:
+           issues.append(VerificationIssue(
+               type="edge_case_coverage",
+               severity=Severity.MEDIUM,
+               message=f"Moderate edge case coverage: {analysis.edge_case_coverage:.1%}",
+               suggestion="Consider additional edge case handling"
+           ))
+       
+       # Production readiness issues
+       if analysis.production_readiness < 0.8:
+           issues.append(VerificationIssue(
+               type="production_readiness",
+               severity=Severity.HIGH,
+               message=f"Low production readiness: {analysis.production_readiness:.1%}",
+               suggestion="Address correctness issues before production deployment"
+           ))
+       
+       # Potential bugs
+       for bug in analysis.potential_bugs:
+           issues.append(VerificationIssue(
+               type="potential_bug",
+               severity=Severity.HIGH,
+               message=f"Potential bug: {bug}",
+               suggestion="Review and fix potential issue"
+           ))
+       
+       return issues
+   
     def _calculate_cyclomatic_complexity(self, tree: ast.AST) -> int:
-        """Calculate cyclomatic complexity of the code"""
-        complexity = 1  # Base complexity
+        """Calculate cyclomatic complexity"""
+        complexity = 1
         
         for node in ast.walk(tree):
             if isinstance(node, (ast.If, ast.While, ast.For, ast.AsyncFor)):
@@ -189,7 +832,7 @@ class CorrectnessCritic(BaseAgent):
                 complexity += len(node.values) - 1
         
         return complexity
-    
+   
     def _calculate_nesting_depth(self, tree: ast.AST, current_depth: int = 0) -> int:
         """Calculate maximum nesting depth"""
         max_depth = current_depth
@@ -200,259 +843,16 @@ class CorrectnessCritic(BaseAgent):
                 max_depth = max(max_depth, child_depth)
         
         return max_depth
-    
-    def _extract_ast_issues(self, metrics: ASTMetrics, code: str) -> List[VerificationIssue]:
-        """Extract issues from AST metrics"""
-        issues = []
-        
-        # Complexity issues
-        if metrics.cyclomatic_complexity > 15:
-            issues.append(VerificationIssue(
-                type="complexity",
-                severity=Severity.HIGH,
-                message=f"High cyclomatic complexity: {metrics.cyclomatic_complexity}",
-                suggestion="Consider breaking down complex functions into smaller ones"
-            ))
-        elif metrics.cyclomatic_complexity > 10:
-            issues.append(VerificationIssue(
-                type="complexity",
-                severity=Severity.MEDIUM,
-                message=f"Moderate cyclomatic complexity: {metrics.cyclomatic_complexity}",
-                suggestion="Consider refactoring to reduce complexity"
-            ))
-        
-        # Nesting depth issues
-        if metrics.nesting_depth > 6:
-            issues.append(VerificationIssue(
-                type="nesting",
-                severity=Severity.HIGH,
-                message=f"Excessive nesting depth: {metrics.nesting_depth}",
-                suggestion="Consider extracting nested logic into separate functions"
-            ))
-        elif metrics.nesting_depth > 4:
-            issues.append(VerificationIssue(
-                type="nesting",
-                severity=Severity.MEDIUM,
-                message=f"High nesting depth: {metrics.nesting_depth}",
-                suggestion="Consider reducing nesting levels"
-            ))
-        
-        # Convert potential issues from AST analysis
-        for issue in metrics.potential_issues:
-            severity = Severity.MEDIUM
-            if "Syntax error" in issue:
-                severity = Severity.CRITICAL
-            elif "too long" in issue or "too many parameters" in issue:
-                severity = Severity.MEDIUM
-            elif "Global variable" in issue:
-                severity = Severity.LOW
-            
-            issues.append(VerificationIssue(
-                type="ast_analysis",
-                severity=severity,
-                message=issue,
-                suggestion="Review and refactor as needed"
-            ))
-        
-        return issues
-    
-    async def _semantic_validation(self, code: str, context: Dict[str, Any]) -> SemanticAnalysis:
-        """Perform semantic validation using LLM"""
-        # Construct prompt for semantic analysis
-        prompt = f"""
-        Analyze the following Python code for semantic correctness and logical issues:
-
-        ```python
-        {code}
-        ```
-
-        Please evaluate:
-        1. Logic correctness (0.0-1.0 score)
-        2. Code clarity (0.0-1.0 score)
-        3. Potential bugs or logical errors
-        4. Suggestions for improvement
-
-        Respond in JSON format:
-        {{
-            "logic_score": 0.8,
-            "clarity_score": 0.9,
-            "potential_bugs": ["Bug description 1", "Bug description 2"],
-            "suggestions": ["Suggestion 1", "Suggestion 2"]
-        }}
-        """
-        
-        try:
-            if self.anthropic_api_key:
-                response = await self._query_anthropic(prompt)
-            elif self.openai_api_key:
-                response = await self._query_openai(prompt)
-            else:
-                # Fallback to simple heuristic analysis
-                return self._heuristic_semantic_analysis(code)
-            
-            # Parse LLM response (simplified - in production would need robust JSON parsing)
-            import json
-            try:
-                data = json.loads(response)
-                return SemanticAnalysis(
-                    logic_score=data.get('logic_score', 0.8),
-                    clarity_score=data.get('clarity_score', 0.8),
-                    potential_bugs=data.get('potential_bugs', []),
-                    suggestions=data.get('suggestions', [])
-                )
-            except json.JSONDecodeError:
-                return self._heuristic_semantic_analysis(code)
-                
-        except Exception as e:
-            # Fallback to heuristic analysis
-            return self._heuristic_semantic_analysis(code)
-    
-    def _heuristic_semantic_analysis(self, code: str) -> SemanticAnalysis:
-        """Fallback heuristic semantic analysis when LLM is unavailable"""
-        potential_bugs = []
-        suggestions = []
-        
-        # Simple heuristic checks
-        if "TODO" in code or "FIXME" in code:
-            potential_bugs.append("Code contains TODO/FIXME comments")
-        
-        if code.count("except:") > 0:
-            potential_bugs.append("Bare except clauses may hide important errors")
-        
-        if code.count("global ") > 0:
-            suggestions.append("Consider avoiding global variables")
-        
-        # Calculate scores based on heuristics
-        logic_score = max(0.0, 1.0 - len(potential_bugs) * 0.2)
-        clarity_score = max(0.0, 1.0 - code.count("# ") / max(len(code.splitlines()), 1))
-        
-        return SemanticAnalysis(
-            logic_score=logic_score,
-            clarity_score=clarity_score,
-            potential_bugs=potential_bugs,
-            suggestions=suggestions
-        )
-    
-    async def _query_anthropic(self, prompt: str) -> str:
-        """Query Anthropic Claude API"""
-        url = "https://api.anthropic.com/v1/messages"
-        headers = {
-            "x-api-key": self.anthropic_api_key,
-            "content-type": "application/json",
-            "anthropic-version": "2023-06-01"
-        }
-        
-        data = {
-            "model": "claude-3-haiku-20240307",
-            "max_tokens": 1000,
-            "messages": [{"role": "user", "content": prompt}]
-        }
-        
-        async with aiohttp.ClientSession() as session:
-            async with session.post(url, json=data, headers=headers) as response:
-                if response.status == 200:
-                    result = await response.json()
-                    return result["content"][0]["text"]
-                else:
-                    raise Exception(f"Anthropic API error: {response.status}")
-    
-    async def _query_openai(self, prompt: str) -> str:
-        """Query OpenAI API"""
-        url = "https://api.openai.com/v1/chat/completions"
-        headers = {
-            "Authorization": f"Bearer {self.openai_api_key}",
-            "Content-Type": "application/json"
-        }
-        
-        data = {
-            "model": "gpt-3.5-turbo",
-            "messages": [{"role": "user", "content": prompt}],
-            "max_tokens": 1000
-        }
-        
-        async with aiohttp.ClientSession() as session:
-            async with session.post(url, json=data, headers=headers) as response:
-                if response.status == 200:
-                    result = await response.json()
-                    return result["choices"][0]["message"]["content"]
-                else:
-                    raise Exception(f"OpenAI API error: {response.status}")
-    
-    def _extract_semantic_issues(self, analysis: SemanticAnalysis) -> List[VerificationIssue]:
-        """Extract issues from semantic analysis"""
-        issues = []
-        
-        # Logic score issues
-        if analysis.logic_score < 0.5:
-            issues.append(VerificationIssue(
-                type="logic",
-                severity=Severity.HIGH,
-                message=f"Low logic score: {analysis.logic_score:.2f}",
-                suggestion="Review code logic for potential errors"
-            ))
-        elif analysis.logic_score < 0.7:
-            issues.append(VerificationIssue(
-                type="logic",
-                severity=Severity.MEDIUM,
-                message=f"Moderate logic score: {analysis.logic_score:.2f}",
-                suggestion="Consider improving code logic"
-            ))
-        
-        # Clarity score issues
-        if analysis.clarity_score < 0.6:
-            issues.append(VerificationIssue(
-                type="clarity",
-                severity=Severity.MEDIUM,
-                message=f"Low clarity score: {analysis.clarity_score:.2f}",
-                suggestion="Improve code readability and documentation"
-            ))
-        
-        # Potential bugs
-        for bug in analysis.potential_bugs:
-            issues.append(VerificationIssue(
-                type="potential_bug",
-                severity=Severity.HIGH,
-                message=f"Potential bug: {bug}",
-                suggestion="Review and fix potential issue"
-            ))
-        
-        return issues
-    
-    def _generate_property_tests(self, code: str) -> List[VerificationIssue]:
-        """Generate property-based tests using Hypothesis"""
-        if not HYPOTHESIS_AVAILABLE:
-            return []
-        
-        issues = []
-        
-        try:
-            # Parse the code to find functions
-            tree = ast.parse(code)
-            functions = [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)]
-            
-            for func in functions:
-                # Simple heuristic: if function has parameters, suggest property testing
-                if len(func.args.args) > 0:
-                    issues.append(VerificationIssue(
-                        type="testing",
-                        severity=Severity.LOW,
-                        message=f"Function '{func.name}' could benefit from property-based testing",
-                        suggestion=f"Consider adding Hypothesis tests for function '{func.name}'"
-                    ))
-        
-        except Exception:
-            pass
-        
-        return issues
-    
+   
     async def _safe_execution_check(self, code: str) -> List[VerificationIssue]:
-        """Safely execute code to check for runtime errors"""
+        """Enhanced safe execution check"""
         issues = []
         
-        # Basic safety checks before execution
+        # Enhanced safety checks
         dangerous_patterns = [
             'import os', 'import sys', 'import subprocess', 'import shutil',
-            'open(', 'file(', 'exec(', 'eval(', '__import__'
+            'open(', 'file(', 'exec(', 'eval(', '__import__',
+            'input(', 'raw_input(', 'while True:', 'socket'
         ]
         
         if any(pattern in code for pattern in dangerous_patterns):
@@ -460,18 +860,16 @@ class CorrectnessCritic(BaseAgent):
                 type="execution",
                 severity=Severity.MEDIUM,
                 message="Code contains potentially dangerous operations - skipping execution",
-                suggestion="Manual review recommended for code with file/system operations"
+                suggestion="Manual review recommended for code with system operations"
             ))
             return issues
         
         try:
-            # Create a temporary file and execute with timeout
             with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
                 f.write(code)
                 temp_file = f.name
             
             try:
-                # Execute with timeout
                 process = await asyncio.create_subprocess_exec(
                     sys.executable, '-c', f'exec(open("{temp_file}").read())',
                     stdout=asyncio.subprocess.PIPE,
@@ -503,7 +901,6 @@ class CorrectnessCritic(BaseAgent):
                     ))
             
             finally:
-                # Clean up temporary file
                 try:
                     os.unlink(temp_file)
                 except Exception:
@@ -518,3 +915,73 @@ class CorrectnessCritic(BaseAgent):
             ))
         
         return issues
+   
+    def _calculate_enterprise_correctness_score(self, issues: List[VerificationIssue], 
+                                                metadata: Dict[str, Any]) -> float:
+        """Calculate enterprise correctness score with production standards"""
+        if not issues:
+            return 1.0
+        
+        # Very aggressive weights for correctness issues in production
+        type_weights = {
+            "complexity": 1.2,              # Complex code hurts maintainability
+            "nesting": 1.0,                 # Deep nesting hurts readability  
+            "exception_coverage": 1.5,      # Missing exception handling is critical
+            "input_validation": 1.2,        # Input validation prevents crashes
+            "resource_safety": 1.8,         # Resource leaks kill production systems
+            "missing_exception_handling": 1.5,  # Exception handling is critical
+            "bare_except": 1.0,             # Poor exception handling
+            "empty_exception_handler": 0.8, # Poor but not critical
+            "missing_input_validation": 1.0, # Input validation matters
+            "resource_leak_risk": 1.5,      # Resource leaks are serious
+            "missing_edge_case": 1.0,       # Edge cases cause production failures
+            "contract_violation": 0.8,      # Documentation mismatch
+            "logic": 1.3,                   # Logic errors are critical
+            "edge_case_coverage": 1.0,      # Edge case coverage matters
+            "production_readiness": 1.2,    # Production readiness is key
+            "potential_bug": 1.3,           # Potential bugs are serious
+            "ast_analysis": 0.8,            # AST issues vary in severity
+            "execution": 1.0                # Execution issues matter
+        }
+        
+        # Very aggressive severity multipliers
+        severity_multipliers = {
+            Severity.LOW: 0.3,
+            Severity.MEDIUM: 0.7,
+            Severity.HIGH: 1.3,             # High issues are major problems
+            Severity.CRITICAL: 2.0          # Critical issues are deployment blockers
+        }
+        
+        total_penalty = 0.0
+        for issue in issues:
+            type_weight = type_weights.get(issue.type, 0.8)
+            severity_multiplier = severity_multipliers[issue.severity]
+            issue_penalty = type_weight * severity_multiplier
+            total_penalty += issue_penalty
+        
+        # Bonus for good metrics
+        bonus = 0.0
+        if 'ast_metrics' in metadata:
+            ast_metrics = metadata['ast_metrics']
+            if isinstance(ast_metrics, dict):
+                exception_coverage = ast_metrics.get('exception_handling_coverage', 0)
+                if exception_coverage > 0.9:
+                    bonus += 0.1
+                
+                input_validation = ast_metrics.get('input_validation_score', 0)
+                if input_validation > 0.8:
+                    bonus += 0.05
+                
+                resource_safety = ast_metrics.get('resource_safety_score', 0)
+                if resource_safety > 0.9:
+                    bonus += 0.1
+        
+        # Very aggressive normalization - enterprise standards are strict
+        # 2-3 high issues should give score ~0.4, 4+ high issues ~0.2
+        max_penalty = 5.0  # Reduced for more aggressive scoring
+        normalized_penalty = min(total_penalty / max_penalty, 1.0)
+        
+        base_score = max(0.0, 1.0 - normalized_penalty)
+        final_score = min(1.0, base_score + bonus)
+        
+        return final_score

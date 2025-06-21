@@ -1,7 +1,7 @@
 # src/agents/performance_profiler.py
 """
-Performance Profiler Agent - Algorithm efficiency and resource usage analysis.
-Analyzes code for performance issues, complexity metrics, and optimization opportunities.
+Performance Profiler Agent - Scale-aware algorithmic intelligence with production deployment standards.
+Implements context-aware complexity analysis and enterprise performance requirements.
 """
 
 import ast
@@ -37,7 +37,7 @@ from .base_agent import BaseAgent, AgentResult, VerificationIssue, Severity
 
 @dataclass
 class ComplexityMetrics:
-    """Code complexity metrics"""
+    """Enhanced complexity metrics with scale awareness"""
     cyclomatic_complexity: int
     cognitive_complexity: int
     nesting_depth: int
@@ -46,49 +46,57 @@ class ComplexityMetrics:
     return_statements: int
     loop_count: int
     conditional_count: int
+    algorithm_complexity_class: str  # O(1), O(n), O(n²), etc.
+    scale_risk_factor: float  # 0.0-1.0 risk of performance issues at scale
 
 
 @dataclass
 class AlgorithmAnalysis:
-    """Algorithm efficiency analysis"""
+    """Enhanced algorithm efficiency analysis with context intelligence"""
     estimated_time_complexity: str
     estimated_space_complexity: str
     loop_nesting_level: int
     recursive_calls: int
-    data_structure_efficiency: Dict[str, str]
-    potential_optimizations: List[str]
+    algorithm_pattern: str  # "sorting", "searching", "traversal", etc.
+    scale_suitability: str  # "small", "medium", "large", "enterprise"
+    performance_bottlenecks: List[Tuple[int, str, float]]  # line, description, severity
+    optimization_opportunities: List[str]
 
 
 @dataclass
 class PerformanceMetrics:
-    """Runtime performance metrics"""
+    """Enhanced runtime performance metrics"""
     execution_time: float
     memory_usage: float
     peak_memory: float
     function_call_count: int
     io_operations: int
     performance_score: float
+    scalability_projection: Dict[str, float]  # projected performance at different scales
 
 
 @dataclass
 class ResourceAnalysis:
-    """Resource usage analysis"""
+    """Enhanced resource usage analysis with production focus"""
     memory_efficiency: float
     cpu_efficiency: float
     io_efficiency: float
     scalability_concerns: List[str]
     bottleneck_locations: List[Tuple[int, str]]
+    production_readiness: float  # 0.0-1.0 readiness for production deployment
+    resource_leak_risk: float  # 0.0-1.0 risk of resource leaks
 
 
 class PerformanceProfiler(BaseAgent):
     """
-    Agent 3: Performance Profiler
+    Agent 3: Enterprise Performance Profiler
     
-    Performs comprehensive performance analysis including:
-    - Complexity calculation (cyclomatic, cognitive, algorithmic)
-    - Runtime benchmarking and memory profiling
-    - Algorithm efficiency analysis
-    - Resource usage optimization suggestions
+    Breakthrough features:
+    - Scale-aware algorithmic intelligence with O(n) context awareness
+    - Production deployment performance standards
+    - Algorithm pattern recognition with enterprise suitability assessment
+    - Memory leak detection and resource management validation
+    - Context-aware performance penalty calculation
     """
     
     def __init__(self, config: Optional[Dict[str, Any]] = None):
@@ -96,37 +104,83 @@ class PerformanceProfiler(BaseAgent):
         self.max_execution_time = self.config.get('max_execution_time', 2.0)
         self.memory_limit_mb = self.config.get('memory_limit_mb', 100)
         self.enable_runtime_profiling = self.config.get('enable_runtime_profiling', True)
-        self.complexity_thresholds = self.config.get('complexity_thresholds', {
-            'cyclomatic': {'medium': 10, 'high': 15, 'critical': 25},
-            'cognitive': {'medium': 15, 'high': 25, 'critical': 40},
-            'nesting': {'medium': 4, 'high': 6, 'critical': 8}
-        })
+        
+        # Enterprise performance thresholds
+        self.enterprise_thresholds = {
+            'cyclomatic_complexity': {'acceptable': 8, 'concerning': 12, 'unacceptable': 20},
+            'cognitive_complexity': {'acceptable': 12, 'concerning': 20, 'unacceptable': 35},
+            'nesting_depth': {'acceptable': 3, 'concerning': 5, 'unacceptable': 7},
+            'function_length': {'acceptable': 30, 'concerning': 60, 'unacceptable': 100},
+            'algorithm_complexity': {
+                'O(1)': 'excellent',
+                'O(log n)': 'excellent', 
+                'O(n)': 'good',
+                'O(n log n)': 'acceptable',
+                'O(n²)': 'concerning',
+                'O(n³)': 'unacceptable',
+                'O(2^n)': 'critical'
+            }
+        }
+        
+        # Algorithm patterns for context-aware analysis
+        self.algorithm_patterns = {
+            'sorting': {
+                'keywords': ['sort', 'sorted', 'order', 'arrange'],
+                'optimal_complexity': 'O(n log n)',
+                'scale_critical': True
+            },
+            'searching': {
+                'keywords': ['find', 'search', 'locate', 'index'],
+                'optimal_complexity': 'O(log n)',
+                'scale_critical': True
+            },
+            'traversal': {
+                'keywords': ['traverse', 'walk', 'iterate', 'visit'],
+                'optimal_complexity': 'O(n)',
+                'scale_critical': False
+            },
+            'filtering': {
+                'keywords': ['filter', 'select', 'where', 'match'],
+                'optimal_complexity': 'O(n)',
+                'scale_critical': False
+            }
+        }
     
     async def _analyze_implementation(self, code: str, context: Dict[str, Any]) -> AgentResult:
-        """Main implementation of performance analysis"""
+        """Enhanced performance analysis with scale-aware intelligence"""
         issues = []
         metadata = {}
         
-        # 1. Complexity Analysis
-        complexity_metrics = self._analyze_complexity(code)
-        complexity_issues = self._extract_complexity_issues(complexity_metrics)
+        # 1. Enhanced complexity analysis with scale awareness
+        complexity_metrics = self._analyze_enhanced_complexity(code)
+        complexity_issues = self._extract_scale_aware_complexity_issues(complexity_metrics, code)
         issues.extend(complexity_issues)
         metadata['complexity_metrics'] = complexity_metrics.__dict__
         
-        # 2. Algorithm Analysis
-        algorithm_analysis = self._analyze_algorithms(code)
-        algorithm_issues = self._extract_algorithm_issues(algorithm_analysis)
+        # 2. Algorithm intelligence with pattern recognition
+        algorithm_analysis = self._analyze_algorithm_intelligence(code)
+        algorithm_issues = self._extract_algorithm_intelligence_issues(algorithm_analysis, code)
         issues.extend(algorithm_issues)
         metadata['algorithm_analysis'] = algorithm_analysis.__dict__
         
-        # 3. Static Performance Analysis
-        static_issues = self._static_performance_analysis(code)
-        issues.extend(static_issues)
+        # 3. Scale-aware performance analysis
+        scale_issues = self._analyze_scale_performance(code)
+        issues.extend(scale_issues)
         
-        # 4. Runtime Profiling (if enabled and safe)
+        # 4. Memory leak and resource management analysis
+        resource_analysis = self._analyze_resource_management(code)
+        resource_issues = self._extract_resource_management_issues(resource_analysis)
+        issues.extend(resource_issues)
+        metadata['resource_analysis'] = resource_analysis.__dict__
+        
+        # 5. Production readiness assessment
+        production_issues = self._assess_production_performance_readiness(code, issues)
+        issues.extend(production_issues)
+        
+        # 6. Runtime profiling (if safe and enabled)
         if self.enable_runtime_profiling and self._is_safe_for_execution(code):
             try:
-                performance_metrics = await self._runtime_profiling(code)
+                performance_metrics = await self._enhanced_runtime_profiling(code)
                 runtime_issues = self._extract_runtime_issues(performance_metrics)
                 issues.extend(runtime_issues)
                 metadata['performance_metrics'] = performance_metrics.__dict__
@@ -138,39 +192,32 @@ class PerformanceProfiler(BaseAgent):
                     suggestion="Manual performance testing recommended"
                 ))
         
-        # 5. Resource Analysis
-        resource_analysis = self._analyze_resource_usage(code)
-        resource_issues = self._extract_resource_issues(resource_analysis)
-        issues.extend(resource_issues)
-        metadata['resource_analysis'] = resource_analysis.__dict__
-        
-        # Calculate overall performance score
-        overall_score = self._calculate_performance_score(issues, metadata)
+        # Calculate enterprise performance score
+        overall_score = self._calculate_enterprise_performance_score(issues, metadata)
         
         return AgentResult(
             agent_name=self.name,
-            execution_time=0.0,  # Will be set by base class
+            execution_time=0.0,
             overall_score=overall_score,
             issues=issues,
             metadata=metadata
         )
     
-    def _analyze_complexity(self, code: str) -> ComplexityMetrics:
-        """Analyze code complexity metrics"""
+    def _analyze_enhanced_complexity(self, code: str) -> ComplexityMetrics:
+        """Analyze complexity with scale-aware intelligence"""
         try:
             tree = ast.parse(code)
         except SyntaxError:
-            return ComplexityMetrics(0, 0, 0, 0, 0, 0, 0, 0)
+            return ComplexityMetrics(0, 0, 0, 0, 0, 0, 0, 0, "O(?)", 1.0)
         
-        # Find all functions for analysis
+        # Find all functions and analyze the most complex one
         functions = [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)]
         
         if not functions:
-            # Analyze the module level if no functions
             return self._calculate_complexity_for_node(tree)
         
-        # Analyze the most complex function
-        max_complexity = ComplexityMetrics(0, 0, 0, 0, 0, 0, 0, 0)
+        # Analyze all functions and find the worst complexity
+        max_complexity = ComplexityMetrics(0, 0, 0, 0, 0, 0, 0, 0, "O(1)", 0.0)
         
         for func in functions:
             complexity = self._calculate_complexity_for_node(func)
@@ -180,8 +227,8 @@ class PerformanceProfiler(BaseAgent):
         return max_complexity
     
     def _calculate_complexity_for_node(self, node: ast.AST) -> ComplexityMetrics:
-        """Calculate complexity metrics for an AST node"""
-        cyclomatic = 1  # Base complexity
+        """Calculate enhanced complexity metrics with algorithm classification"""
+        cyclomatic = 1
         cognitive = 0
         nesting_depth = 0
         function_length = 0
@@ -190,38 +237,55 @@ class PerformanceProfiler(BaseAgent):
         loop_count = 0
         conditional_count = 0
         
-        # Calculate function-specific metrics if it's a function
+        # Function-specific metrics
         if isinstance(node, ast.FunctionDef):
             parameter_count = len(node.args.args)
             if hasattr(node, 'end_lineno') and hasattr(node, 'lineno'):
                 function_length = node.end_lineno - node.lineno
         
-        # Walk through all nodes and calculate metrics
+        # Enhanced complexity calculation
+        nested_loops = 0
+        max_loop_depth = 0
+        current_loop_depth = 0
+        
         for child in ast.walk(node):
             # Cyclomatic complexity
             if isinstance(child, (ast.If, ast.While, ast.For, ast.AsyncFor)):
                 cyclomatic += 1
                 conditional_count += 1
+                
+                # Track nested loops specifically
+                if isinstance(child, (ast.For, ast.While, ast.AsyncFor)):
+                    loop_count += 1
+                    
+                    # Count nested loops within this loop
+                    for nested_child in ast.walk(child):
+                        if (isinstance(nested_child, (ast.For, ast.While, ast.AsyncFor)) and 
+                            nested_child != child):
+                            nested_loops += 1
+            
             elif isinstance(child, ast.ExceptHandler):
                 cyclomatic += 1
             elif isinstance(child, ast.With):
                 cyclomatic += 1
             elif isinstance(child, ast.BoolOp):
                 cyclomatic += len(child.values) - 1
-            
-            # Loop counting
-            if isinstance(child, (ast.For, ast.While, ast.AsyncFor)):
-                loop_count += 1
-            
-            # Return statements
-            if isinstance(child, ast.Return):
+            elif isinstance(child, ast.Return):
                 return_statements += 1
         
         # Calculate nesting depth
         nesting_depth = self._calculate_nesting_depth(node)
         
-        # Calculate cognitive complexity (simplified)
+        # Calculate cognitive complexity
         cognitive = self._calculate_cognitive_complexity(node)
+        
+        # Determine algorithm complexity class based on loop patterns
+        algorithm_complexity_class = self._determine_algorithm_complexity(node, nested_loops, nesting_depth)
+        
+        # Calculate scale risk factor
+        scale_risk_factor = self._calculate_scale_risk_factor(
+            algorithm_complexity_class, nested_loops, nesting_depth, function_length
+        )
         
         return ComplexityMetrics(
             cyclomatic_complexity=cyclomatic,
@@ -231,8 +295,57 @@ class PerformanceProfiler(BaseAgent):
             parameter_count=parameter_count,
             return_statements=return_statements,
             loop_count=loop_count,
-            conditional_count=conditional_count
+            conditional_count=conditional_count,
+            algorithm_complexity_class=algorithm_complexity_class,
+            scale_risk_factor=scale_risk_factor
         )
+    
+    def _determine_algorithm_complexity(self, node: ast.AST, nested_loops: int, max_loop_depth: int) -> str:
+        """Determine algorithm complexity class based on structure"""
+        if max_loop_depth == 0:
+            return "O(1)"
+        elif max_loop_depth == 1 and nested_loops == 0:
+            return "O(n)"
+        elif max_loop_depth >= 2 or nested_loops >= 1:
+            return "O(n²)"
+        elif max_loop_depth >= 3 or nested_loops >= 3:
+            return "O(n³)"
+        elif max_loop_depth >= 4:
+            return "O(n^4+)"
+        
+        # Check for recursive patterns
+        for child in ast.walk(node):
+            if isinstance(child, ast.Call) and isinstance(child.func, ast.Name):
+                # Simple recursion detection
+                if hasattr(node, 'name') and child.func.id == node.name:
+                    return "O(2^n)"  # Exponential for simple recursion
+        
+        return "O(n)"
+    
+    def _calculate_scale_risk_factor(self, complexity_class: str, nested_loops: int, 
+                                   max_loop_depth: int, function_length: int) -> float:
+        """Calculate risk factor for performance issues at scale"""
+        base_risk = {
+            "O(1)": 0.0,
+            "O(log n)": 0.1,
+            "O(n)": 0.2,
+            "O(n log n)": 0.3,
+            "O(n²)": 0.8,      # Very high risk for quadratic
+            "O(n³)": 0.95,     # Critical risk for cubic
+            "O(n^4+)": 1.0,    # Unacceptable
+            "O(2^n)": 1.0      # Unacceptable
+        }.get(complexity_class, 0.5)
+        
+        # Increase risk based on nested loops
+        loop_risk = min(0.3, nested_loops * 0.15)  # More aggressive
+        
+        # Increase risk based on function length
+        length_risk = min(0.2, max(0, (function_length - 30) / 70))  # More aggressive threshold
+        
+        # Increase risk based on deep nesting
+        nesting_risk = min(0.2, max(0, (max_loop_depth - 1) * 0.15))  # More aggressive
+        
+        return min(1.0, base_risk + loop_risk + length_risk + nesting_risk)
     
     def _calculate_nesting_depth(self, node: ast.AST, current_depth: int = 0) -> int:
         """Calculate maximum nesting depth"""
@@ -246,7 +359,7 @@ class PerformanceProfiler(BaseAgent):
         return max_depth
     
     def _calculate_cognitive_complexity(self, node: ast.AST, nesting_level: int = 0) -> int:
-        """Calculate cognitive complexity (simplified version)"""
+        """Calculate cognitive complexity"""
         cognitive = 0
         
         for child in ast.iter_child_nodes(node):
@@ -262,158 +375,227 @@ class PerformanceProfiler(BaseAgent):
         
         return cognitive
     
-    def _extract_complexity_issues(self, metrics: ComplexityMetrics) -> List[VerificationIssue]:
-        """Extract issues from complexity metrics"""
+    def _extract_scale_aware_complexity_issues(self, metrics: ComplexityMetrics, code: str) -> List[VerificationIssue]:
+        """Extract complexity issues with scale-aware severity"""
         issues = []
-        thresholds = self.complexity_thresholds
         
-        # Cyclomatic complexity issues
-        if metrics.cyclomatic_complexity >= thresholds['cyclomatic']['critical']:
+        # Scale risk factor determines base severity
+        if metrics.scale_risk_factor >= 0.8:
+            base_severity = Severity.CRITICAL
+        elif metrics.scale_risk_factor >= 0.6:
+            base_severity = Severity.HIGH
+        elif metrics.scale_risk_factor >= 0.4:
+            base_severity = Severity.MEDIUM
+        else:
+            base_severity = Severity.LOW
+        
+        # Algorithm complexity issues with context awareness
+        complexity_assessment = self.enterprise_thresholds['algorithm_complexity'].get(
+            metrics.algorithm_complexity_class, 'unknown'
+        )
+        
+        if complexity_assessment == 'critical':
             issues.append(VerificationIssue(
-                type="complexity",
+                type="algorithm_complexity",
                 severity=Severity.CRITICAL,
-                message=f"Extremely high cyclomatic complexity: {metrics.cyclomatic_complexity}",
-                suggestion="Break function into smaller, focused functions"
+                message=f"Critical algorithm complexity: {metrics.algorithm_complexity_class} - unacceptable for production scale",
+                suggestion="Redesign algorithm with better complexity class (target O(n log n) or better)"
             ))
-        elif metrics.cyclomatic_complexity >= thresholds['cyclomatic']['high']:
+        elif complexity_assessment == 'unacceptable':
             issues.append(VerificationIssue(
-                type="complexity",
+                type="algorithm_complexity",
+                severity=Severity.CRITICAL,
+                message=f"Unacceptable algorithm complexity: {metrics.algorithm_complexity_class} - will not scale",
+                suggestion="Replace with more efficient algorithm for production deployment"
+            ))
+        elif complexity_assessment == 'concerning':
+            # Check if this is a scale-critical algorithm pattern
+            if self._is_scale_critical_pattern(code):
+                issues.append(VerificationIssue(
+                    type="algorithm_complexity",
+                    severity=Severity.CRITICAL,
+                    message=f"Scale-critical algorithm with {metrics.algorithm_complexity_class} complexity - production blocker",
+                    suggestion="Optimize algorithm for scale-critical operations"
+                ))
+            else:
+                issues.append(VerificationIssue(
+                    type="algorithm_complexity",
+                    severity=Severity.HIGH,
+                    message=f"Concerning algorithm complexity: {metrics.algorithm_complexity_class}",
+                    suggestion="Consider algorithmic optimization for production scale"
+                ))
+        
+        # Cyclomatic complexity with enterprise thresholds
+        thresholds = self.enterprise_thresholds['cyclomatic_complexity']
+        if metrics.cyclomatic_complexity >= thresholds['unacceptable']:
+            issues.append(VerificationIssue(
+                type="cyclomatic_complexity",
+                severity=Severity.CRITICAL,
+                message=f"Unacceptable cyclomatic complexity: {metrics.cyclomatic_complexity}",
+                suggestion="Break function into smaller components - production maintainability requirement"
+            ))
+        elif metrics.cyclomatic_complexity >= thresholds['concerning']:
+            issues.append(VerificationIssue(
+                type="cyclomatic_complexity",
                 severity=Severity.HIGH,
                 message=f"High cyclomatic complexity: {metrics.cyclomatic_complexity}",
-                suggestion="Consider refactoring to reduce complexity"
+                suggestion="Refactor to reduce complexity for production readiness"
             ))
-        elif metrics.cyclomatic_complexity >= thresholds['cyclomatic']['medium']:
+        elif metrics.cyclomatic_complexity > thresholds['acceptable']:
             issues.append(VerificationIssue(
-                type="complexity",
+                type="cyclomatic_complexity",
                 severity=Severity.MEDIUM,
-                message=f"Moderate cyclomatic complexity: {metrics.cyclomatic_complexity}",
-                suggestion="Monitor complexity growth"
+                message=f"Elevated cyclomatic complexity: {metrics.cyclomatic_complexity}",
+                suggestion="Consider refactoring to improve maintainability"
             ))
         
-        # Cognitive complexity issues
-        if metrics.cognitive_complexity >= thresholds['cognitive']['critical']:
+        # Cognitive complexity with enterprise thresholds
+        cog_thresholds = self.enterprise_thresholds['cognitive_complexity']
+        if metrics.cognitive_complexity >= cog_thresholds['unacceptable']:
             issues.append(VerificationIssue(
                 type="cognitive_complexity",
                 severity=Severity.CRITICAL,
-                message=f"Extremely high cognitive complexity: {metrics.cognitive_complexity}",
-                suggestion="Simplify logic and reduce nesting"
+                message=f"Unacceptable cognitive complexity: {metrics.cognitive_complexity}",
+                suggestion="Simplify logic structure - production readability requirement"
             ))
-        elif metrics.cognitive_complexity >= thresholds['cognitive']['high']:
+        elif metrics.cognitive_complexity >= cog_thresholds['concerning']:
             issues.append(VerificationIssue(
                 type="cognitive_complexity",
                 severity=Severity.HIGH,
                 message=f"High cognitive complexity: {metrics.cognitive_complexity}",
-                suggestion="Reduce logical complexity and nesting"
+                suggestion="Reduce logical complexity for production maintenance"
             ))
         
-        # Nesting depth issues
-        if metrics.nesting_depth >= thresholds['nesting']['critical']:
+        # Nesting depth with enterprise thresholds
+        nest_thresholds = self.enterprise_thresholds['nesting_depth']
+        if metrics.nesting_depth >= nest_thresholds['unacceptable']:
             issues.append(VerificationIssue(
-                type="nesting",
+                type="nesting_depth",
                 severity=Severity.CRITICAL,
                 message=f"Excessive nesting depth: {metrics.nesting_depth}",
-                suggestion="Extract nested logic into separate functions"
+                suggestion="Extract nested logic into separate functions - production readability requirement"
             ))
-        elif metrics.nesting_depth >= thresholds['nesting']['high']:
+        elif metrics.nesting_depth >= nest_thresholds['concerning']:
             issues.append(VerificationIssue(
-                type="nesting",
+                type="nesting_depth", 
                 severity=Severity.HIGH,
                 message=f"High nesting depth: {metrics.nesting_depth}",
-                suggestion="Consider reducing nesting levels"
+                suggestion="Reduce nesting levels for production maintainability"
             ))
         
-        # Function length issues
-        if metrics.function_length > 100:
+        # Function length with enterprise thresholds
+        length_thresholds = self.enterprise_thresholds['function_length']
+        if metrics.function_length >= length_thresholds['unacceptable']:
             issues.append(VerificationIssue(
                 type="function_length",
                 severity=Severity.HIGH,
-                message=f"Very long function: {metrics.function_length} lines",
-                suggestion="Break function into smaller, focused functions"
+                message=f"Unacceptable function length: {metrics.function_length} lines",
+                suggestion="Break into smaller functions - production maintainability requirement"
             ))
-        elif metrics.function_length > 50:
+        elif metrics.function_length >= length_thresholds['concerning']:
             issues.append(VerificationIssue(
                 type="function_length",
                 severity=Severity.MEDIUM,
-                message=f"Long function: {metrics.function_length} lines",
-                suggestion="Consider breaking into smaller functions"
-            ))
-        
-        # Parameter count issues
-        if metrics.parameter_count > 10:
-            issues.append(VerificationIssue(
-                type="parameter_count",
-                severity=Severity.HIGH,
-                message=f"Too many parameters: {metrics.parameter_count}",
-                suggestion="Use data classes or configuration objects"
-            ))
-        elif metrics.parameter_count > 7:
-            issues.append(VerificationIssue(
-                type="parameter_count",
-                severity=Severity.MEDIUM,
-                message=f"Many parameters: {metrics.parameter_count}",
-                suggestion="Consider parameter object or builder pattern"
-            ))
-        
+               message=f"Long function: {metrics.function_length} lines",
+               suggestion="Consider breaking into smaller, focused functions"
+           ))
+       
         return issues
+   
+    def _is_scale_critical_pattern(self, code: str) -> bool:
+        """Check if code contains scale-critical algorithm patterns"""
+        code_lower = code.lower()
+        
+        for pattern_name, pattern_info in self.algorithm_patterns.items():
+            if pattern_info['scale_critical']:
+                for keyword in pattern_info['keywords']:
+                    if keyword in code_lower:
+                        return True
+        
+        return False
     
-    def _analyze_algorithms(self, code: str) -> AlgorithmAnalysis:
-        """Analyze algorithm efficiency"""
+    def _analyze_algorithm_intelligence(self, code: str) -> AlgorithmAnalysis:
+        """Analyze algorithm intelligence with pattern recognition"""
         try:
             tree = ast.parse(code)
         except SyntaxError:
-            return AlgorithmAnalysis("O(?)", "O(?)", 0, 0, {}, [])
+            return AlgorithmAnalysis("O(?)", "O(?)", 0, 0, "unknown", "small", [], [])
         
         # Analyze time complexity
         time_complexity = self._estimate_time_complexity(tree)
         
-        # Analyze space complexity
+        # Analyze space complexity  
         space_complexity = self._estimate_space_complexity(tree)
         
         # Count loop nesting
-        loop_nesting = self._calculate_loop_nesting(tree)
+        loop_nesting = self._calculate_loop_nesting_level(tree)
         
         # Count recursive calls
         recursive_calls = self._count_recursive_calls(tree)
         
-        # Analyze data structure efficiency
-        data_structure_efficiency = self._analyze_data_structures(tree)
+        # Identify algorithm pattern
+        algorithm_pattern = self._identify_algorithm_pattern(code, tree)
+        
+        # Assess scale suitability
+        scale_suitability = self._assess_scale_suitability(time_complexity, space_complexity, algorithm_pattern)
+        
+        # Find performance bottlenecks
+        bottlenecks = self._find_performance_bottlenecks(tree, code)
         
         # Generate optimization suggestions
-        optimizations = self._suggest_optimizations(tree)
+        optimizations = self._generate_optimization_suggestions(tree, code, algorithm_pattern)
         
         return AlgorithmAnalysis(
             estimated_time_complexity=time_complexity,
             estimated_space_complexity=space_complexity,
             loop_nesting_level=loop_nesting,
             recursive_calls=recursive_calls,
-            data_structure_efficiency=data_structure_efficiency,
-            potential_optimizations=optimizations
+            algorithm_pattern=algorithm_pattern,
+            scale_suitability=scale_suitability,
+            performance_bottlenecks=bottlenecks,
+            optimization_opportunities=optimizations
         )
     
     def _estimate_time_complexity(self, tree: ast.AST) -> str:
-        """Estimate time complexity based on loop patterns"""
-        nested_loops = 0
+        """Enhanced time complexity estimation"""
         max_nesting = 0
-        current_nesting = 0
+        has_recursion = False
+        nested_collections = 0
         
-        def count_nested_loops(node, depth=0):
-            nonlocal max_nesting, current_nesting
+        def analyze_node(node, depth=0):
+            nonlocal max_nesting, has_recursion, nested_collections
             
             for child in ast.iter_child_nodes(node):
                 if isinstance(child, (ast.For, ast.While)):
-                    current_nesting = depth + 1
-                    max_nesting = max(max_nesting, current_nesting)
-                    count_nested_loops(child, depth + 1)
+                    current_depth = depth + 1
+                    max_nesting = max(max_nesting, current_depth)
+                    
+                    # Check for nested collection operations
+                    for nested_child in ast.walk(child):
+                        if isinstance(nested_child, ast.Call) and isinstance(nested_child.func, ast.Attribute):
+                            if nested_child.func.attr in ['append', 'extend', 'insert', 'remove']:
+                                nested_collections += 1
+                    
+                    analyze_node(child, current_depth)
                 else:
-                    count_nested_loops(child, depth)
+                    analyze_node(child, depth)
         
-        count_nested_loops(tree)
+        # Check for recursion
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+                has_recursion = True  # Simplified check
         
-        # Simple heuristic for time complexity
-        if max_nesting == 0:
+        analyze_node(tree)
+        
+        # Enhanced complexity determination
+        if has_recursion and max_nesting == 0:
+            return "O(2^n)"  # Exponential recursion
+        elif max_nesting == 0:
             return "O(1)"
-        elif max_nesting == 1:
+        elif max_nesting == 1 and nested_collections == 0:
             return "O(n)"
+        elif max_nesting == 1 and nested_collections > 0:
+            return "O(n²)"  # Linear loop with quadratic operations
         elif max_nesting == 2:
             return "O(n²)"
         elif max_nesting == 3:
@@ -422,33 +604,37 @@ class PerformanceProfiler(BaseAgent):
             return f"O(n^{max_nesting})"
     
     def _estimate_space_complexity(self, tree: ast.AST) -> str:
-        """Estimate space complexity based on data structure usage"""
+        """Enhanced space complexity estimation"""
         has_recursion = False
-        has_data_structures = False
+        creates_collections = False
+        collection_operations = 0
         
         for node in ast.walk(tree):
             # Check for recursive patterns
             if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
-                # Simple check - function calling itself by name
                 has_recursion = True
             
-            # Check for data structure creation
+            # Check for collection creation
             if isinstance(node, ast.Call):
                 if isinstance(node.func, ast.Name):
                     if node.func.id in ['list', 'dict', 'set', 'tuple']:
-                        has_data_structures = True
+                        creates_collections = True
+                        collection_operations += 1
                 elif isinstance(node.func, ast.Attribute):
-                    if node.func.attr in ['append', 'extend', 'update']:
-                        has_data_structures = True
+                    if node.func.attr in ['append', 'extend', 'copy']:
+                        creates_collections = True
+                        collection_operations += 1
         
         if has_recursion:
             return "O(n)"  # Recursive call stack
-        elif has_data_structures:
+        elif collection_operations > 2:
+            return "O(n)"  # Multiple data structures
+        elif creates_collections:
             return "O(n)"  # Additional data structures
         else:
             return "O(1)"  # Constant space
     
-    def _calculate_loop_nesting(self, tree: ast.AST) -> int:
+    def _calculate_loop_nesting_level(self, tree: ast.AST) -> int:
         """Calculate maximum loop nesting level"""
         max_nesting = 0
         
@@ -484,143 +670,437 @@ class PerformanceProfiler(BaseAgent):
         
         return recursive_count
     
-    def _analyze_data_structures(self, tree: ast.AST) -> Dict[str, str]:
-        """Analyze data structure usage efficiency"""
-        analysis = {}
+    def _identify_algorithm_pattern(self, code: str, tree: ast.AST) -> str:
+        """Identify algorithm pattern from code"""
+        code_lower = code.lower()
         
-        for node in ast.walk(tree):
-            if isinstance(node, ast.Call):
-                if isinstance(node.func, ast.Name):
-                    if node.func.id == 'list':
-                        analysis['list_usage'] = "O(1) append, O(n) search"
-                    elif node.func.id == 'dict':
-                        analysis['dict_usage'] = "O(1) average access"
-                    elif node.func.id == 'set':
-                        analysis['set_usage'] = "O(1) average membership"
-                elif isinstance(node.func, ast.Attribute):
-                    if node.func.attr == 'sort':
-                        analysis['sorting'] = "O(n log n) time complexity"
+        # Check for algorithm patterns
+        for pattern_name, pattern_info in self.algorithm_patterns.items():
+            for keyword in pattern_info['keywords']:
+                if keyword in code_lower:
+                    return pattern_name
         
-        return analysis
+        # Analyze AST structure for patterns
+        has_loops = any(isinstance(node, (ast.For, ast.While)) for node in ast.walk(tree))
+        has_conditions = any(isinstance(node, ast.If) for node in ast.walk(tree))
+        has_collections = any(isinstance(node, ast.Call) and isinstance(node.func, ast.Name) 
+                                and node.func.id in ['list', 'dict', 'set'] 
+                                for node in ast.walk(tree))
+        
+        if has_loops and has_conditions:
+            return "conditional_traversal"
+        elif has_loops:
+            return "traversal"
+        elif has_conditions:
+            return "filtering"
+        elif has_collections:
+            return "data_processing"
+        else:
+            return "unknown"
     
-    def _suggest_optimizations(self, tree: ast.AST) -> List[str]:
-        """Generate optimization suggestions"""
-        suggestions = []
+    def _assess_scale_suitability(self, time_complexity: str, space_complexity: str, pattern: str) -> str:
+        """Assess algorithm suitability for different scales"""
+        complexity_scale_map = {
+            "O(1)": "enterprise",
+            "O(log n)": "enterprise", 
+            "O(n)": "large",
+            "O(n log n)": "large",
+            "O(n²)": "medium",
+            "O(n³)": "small",
+            "O(2^n)": "tiny"
+        }
         
-        # Check for inefficient patterns
+        time_scale = complexity_scale_map.get(time_complexity, "small")
+        
+        # Adjust based on algorithm pattern criticality
+        if pattern in ['sorting', 'searching'] and time_complexity in ["O(n²)", "O(n³)"]:
+            return "tiny"  # Scale-critical patterns need better complexity
+        
+        return time_scale
+    
+    def _find_performance_bottlenecks(self, tree: ast.AST, code: str) -> List[Tuple[int, str, float]]:
+        """Find specific performance bottlenecks in code"""
+        bottlenecks = []
+        lines = code.splitlines()
+        
         for node in ast.walk(tree):
-            # Nested loops with list operations
-            if isinstance(node, ast.For):
-                for child in ast.walk(node):
-                    if isinstance(child, ast.For):
-                        suggestions.append("Consider using list comprehensions for nested loops")
-                        break
+            line_num = getattr(node, 'lineno', 0)
+            
+            # Nested loops bottleneck
+            if isinstance(node, (ast.For, ast.While)):
+                nested_count = sum(1 for child in ast.walk(node) 
+                                    if isinstance(child, (ast.For, ast.While)) and child != node)
+                if nested_count >= 1:
+                    severity = min(1.0, nested_count * 0.4)
+                    bottlenecks.append((line_num, f"Nested loops ({nested_count+1} levels)", severity))
             
             # String concatenation in loops
-            if isinstance(node, ast.For):
-                for child in ast.walk(node):
-                    if isinstance(child, ast.AugAssign) and isinstance(child.op, ast.Add):
-                        suggestions.append("Use join() instead of string concatenation in loops")
-                        break
+            elif isinstance(node, ast.AugAssign) and isinstance(node.op, ast.Add):
+                # Check if we're in a loop
+                for parent in ast.walk(tree):
+                    if isinstance(parent, (ast.For, ast.While)):
+                        for child in ast.walk(parent):
+                            if child == node:
+                                bottlenecks.append((line_num, "String concatenation in loop", 0.6))
+                                break
             
-            # Linear search patterns
-            if isinstance(node, ast.Compare):
-                if any(isinstance(op, ast.In) for op in node.ops):
-                    suggestions.append("Consider using sets or dicts for O(1) membership testing")
+            # Inefficient membership testing
+            elif isinstance(node, ast.Compare):
+                for op in node.ops:
+                    if isinstance(op, ast.In):
+                        # Check if comparing against list literal
+                        for comparator in node.comparators:
+                            if isinstance(comparator, (ast.List, ast.Tuple)):
+                                bottlenecks.append((line_num, "Linear search in list/tuple", 0.4))
         
-        return list(set(suggestions))  # Remove duplicates
+        return bottlenecks
     
-    def _extract_algorithm_issues(self, analysis: AlgorithmAnalysis) -> List[VerificationIssue]:
-        """Extract issues from algorithm analysis"""
+    def _generate_optimization_suggestions(self, tree: ast.AST, code: str, pattern: str) -> List[str]:
+        """Generate context-aware optimization suggestions"""
+        suggestions = []
+        
+        # Pattern-specific suggestions
+        if pattern == "sorting":
+            if "sort" in code.lower() or "sorted" in code.lower():
+                suggestions.append("Use built-in sort() or sorted() for optimal O(n log n) performance")
+        elif pattern == "searching":
+            if any(op in code.lower() for op in ["find", "search", "index"]):
+                suggestions.append("Consider using sets or dicts for O(1) lookup performance")
+        
+        # General algorithmic suggestions
+        nested_loops = 0
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.For, ast.While)):
+                for child in ast.walk(node):
+                    if isinstance(child, (ast.For, ast.While)) and child != node:
+                        nested_loops += 1
+        
+        if nested_loops > 0:
+            suggestions.append("Replace nested loops with more efficient algorithms or data structures")
+        
+        # String operation suggestions
+        if re.search(r'for.*\+.*str', code):
+            suggestions.append("Use join() for string concatenation instead of repeated concatenation")
+        
+        # Collection operation suggestions  
+        if re.search(r'\.append.*for.*in', code):
+            suggestions.append("Consider list comprehensions for better performance")
+        
+        return suggestions
+    
+    def _extract_algorithm_intelligence_issues(self, analysis: AlgorithmAnalysis, code: str) -> List[VerificationIssue]:
+        """Extract issues from algorithm intelligence analysis"""
         issues = []
         
-        # Time complexity warnings
-        if "³" in analysis.estimated_time_complexity or "^" in analysis.estimated_time_complexity:
+        # Scale suitability issues
+        if analysis.scale_suitability == "tiny":
             issues.append(VerificationIssue(
-                type="time_complexity",
-                severity=Severity.HIGH,
-                message=f"High time complexity: {analysis.estimated_time_complexity}",
-                suggestion="Consider algorithmic optimizations to reduce complexity"
+                type="scale_unsuitability",
+                severity=Severity.CRITICAL,
+                message=f"Algorithm unsuitable for production scale - {analysis.estimated_time_complexity} complexity",
+                suggestion="Redesign with more efficient algorithm for enterprise deployment"
             ))
-        elif "²" in analysis.estimated_time_complexity:
+        elif analysis.scale_suitability == "small":
+            if analysis.algorithm_pattern in ['sorting', 'searching']:
+                issues.append(VerificationIssue(
+                    type="scale_unsuitability",
+                    severity=Severity.CRITICAL,
+                    message=f"Scale-critical {analysis.algorithm_pattern} algorithm with poor complexity",
+                    suggestion="Use optimized algorithm for scale-critical operations"
+                ))
+            else:
+                issues.append(VerificationIssue(
+                    type="scale_unsuitability",
+                    severity=Severity.HIGH,
+                    message=f"Algorithm only suitable for small datasets - {analysis.estimated_time_complexity}",
+                    suggestion="Optimize algorithm for production data volumes"
+                ))
+        elif analysis.scale_suitability == "medium":
             issues.append(VerificationIssue(
-                type="time_complexity",
+                type="scale_concern",
                 severity=Severity.MEDIUM,
-                message=f"Quadratic time complexity: {analysis.estimated_time_complexity}",
-                suggestion="Monitor performance with large datasets"
+                message=f"Algorithm may have performance issues at enterprise scale",
+                suggestion="Monitor performance with production data volumes"
             ))
         
-        # Loop nesting warnings
+        # Loop nesting issues
         if analysis.loop_nesting_level >= 3:
             issues.append(VerificationIssue(
                 type="loop_nesting",
-                severity=Severity.HIGH,
-                message=f"Deep loop nesting: {analysis.loop_nesting_level} levels",
-                suggestion="Consider algorithmic improvements or caching"
+                severity=Severity.CRITICAL,
+                message=f"Excessive loop nesting: {analysis.loop_nesting_level} levels - performance bomb",
+                suggestion="Redesign algorithm to eliminate deep nesting"
             ))
         elif analysis.loop_nesting_level >= 2:
             issues.append(VerificationIssue(
                 type="loop_nesting",
-                severity=Severity.MEDIUM,
-                message=f"Nested loops detected: {analysis.loop_nesting_level} levels",
-                suggestion="Consider optimization for large inputs"
+                severity=Severity.HIGH,
+                message=f"High loop nesting: {analysis.loop_nesting_level} levels",
+                suggestion="Consider algorithmic optimization to reduce nesting"
             ))
         
-        # Add optimization suggestions as low-priority issues
-        for optimization in analysis.potential_optimizations:
+        # Performance bottleneck issues
+        for line_num, description, severity in analysis.performance_bottlenecks:
+            issue_severity = Severity.CRITICAL if severity >= 0.8 else Severity.HIGH if severity >= 0.5 else Severity.MEDIUM
             issues.append(VerificationIssue(
-                type="optimization",
+                type="performance_bottleneck",
+                severity=issue_severity,
+                message=f"Performance bottleneck: {description}",
+                line_number=line_num,
+                suggestion="Optimize this performance-critical section"
+            ))
+        
+        # Add optimization opportunities as suggestions
+        for optimization in analysis.optimization_opportunities:
+            issues.append(VerificationIssue(
+                type="optimization_opportunity",
                 severity=Severity.LOW,
                 message=f"Optimization opportunity: {optimization}",
-                suggestion="Consider implementing this optimization for better performance"
+                suggestion="Consider implementing this optimization"
             ))
         
         return issues
     
-    def _static_performance_analysis(self, code: str) -> List[VerificationIssue]:
-        """Perform static analysis for performance issues"""
+    def _analyze_scale_performance(self, code: str) -> List[VerificationIssue]:
+        """Analyze scale-specific performance issues"""
         issues = []
         lines = code.splitlines()
         
-        # Check for performance anti-patterns
+        # Scale-aware pattern detection
         for line_num, line in enumerate(lines, 1):
             line_stripped = line.strip()
             
-            # String concatenation in loops (simplified detection)
-            if re.search(r'for\s+\w+\s+in.*:', line_stripped):
-                # Look ahead for string concatenation
-                for next_line_num in range(line_num, min(line_num + 5, len(lines))):
-                    if next_line_num < len(lines):
-                        next_line = lines[next_line_num].strip()
-                        if '+=' in next_line and ('"' in next_line or "'" in next_line):
-                            issues.append(VerificationIssue(
-                                type="performance_antipattern",
-                                severity=Severity.MEDIUM,
-                                message="String concatenation in loop detected",
-                                line_number=next_line_num + 1,
-                                suggestion="Use join() or f-strings for better performance"
-                            ))
-                            break
+            # Bubble sort detection (O(n²) sorting)
+            if re.search(r'for.*for.*if.*>.*:', line_stripped):
+                next_lines = lines[line_num:line_num+3] if line_num < len(lines)-2 else []
+                if any('swap' in next_line or '=' in next_line for next_line in next_lines):
+                    issues.append(VerificationIssue(
+                        type="algorithm_inefficiency",
+                        severity=Severity.CRITICAL,
+                        message="Bubble sort detected - O(n²) sorting algorithm unacceptable for production",
+                        line_number=line_num,
+                        suggestion="Use built-in sorted() or list.sort() for O(n log n) performance"
+                    ))
             
-            # Global variable access patterns
-            if re.search(r'global\s+\w+', line_stripped):
-                issues.append(VerificationIssue(
-                    type="performance_concern",
-                    severity=Severity.LOW,
-                    message="Global variable access can impact performance",
-                    line_number=line_num,
-                    suggestion="Consider passing variables as parameters"
-                ))
+            # Linear search in sorted data
+            if 'for' in line_stripped and any(word in line_stripped for word in ['find', 'search']):
+                if 'sorted' in ''.join(lines[max(0, line_num-5):line_num]):
+                    issues.append(VerificationIssue(
+                        type="algorithm_inefficiency",
+                        severity=Severity.HIGH,
+                        message="Linear search in sorted data - use binary search for O(log n)",
+                        line_number=line_num,
+                        suggestion="Use bisect module for binary search in sorted data"
+                    ))
             
-            # Inefficient membership testing
-            if re.search(r'\w+\s+in\s+\[.*\]', line_stripped):
-                issues.append(VerificationIssue(
-                    type="performance_antipattern",
-                    severity=Severity.MEDIUM,
-                    message="Inefficient membership testing with list",
-                    line_number=line_num,
-                    suggestion="Use sets for O(1) membership testing"
-                ))
+            # String concatenation patterns
+            if '+=' in line_stripped and ('"' in line_stripped or "'" in line_stripped):
+                # Check if in loop
+                indent = len(line) - len(line.lstrip())
+                for check_line in lines[max(0, line_num-10):line_num]:
+                    check_indent = len(check_line) - len(check_line.lstrip())
+                    if check_indent < indent and 'for' in check_line:
+                        issues.append(VerificationIssue(
+                            type="performance_antipattern",
+                            severity=Severity.HIGH,
+                            message="String concatenation in loop - O(n²) performance degradation",
+                            line_number=line_num,
+                            suggestion="Use join() or f-strings for O(n) string building"
+                        ))
+                        break
+        
+        return issues
+    
+    def _analyze_resource_management(self, code: str) -> ResourceAnalysis:
+        """Analyze resource management with production focus"""
+        try:
+            tree = ast.parse(code)
+        except SyntaxError:
+            return ResourceAnalysis(1.0, 1.0, 1.0, [], [], 0.5, 1.0)
+        
+        scalability_concerns = []
+        bottleneck_locations = []
+        resource_leak_risks = []
+        
+        # Analyze for resource leaks and scalability issues
+        for node in ast.walk(tree):
+            line_num = getattr(node, 'lineno', 1)
+            
+            if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+                # File operations without context managers
+                if node.func.id in ['open', 'file'] and not self._is_in_with_statement(node, tree):
+                    resource_leak_risks.append(f"File operation without 'with' statement at line {line_num}")
+                    scalability_concerns.append(f"Resource leak risk at line {line_num}")
+                
+                # Memory-intensive operations
+                elif node.func.id in ['list', 'dict', 'set'] and self._in_loop_context(node, tree):
+                    scalability_concerns.append(f"Collection creation in loop at line {line_num}")
+                    bottleneck_locations.append((line_num, "Memory allocation in loop"))
+            
+            elif isinstance(node, ast.For):
+                # Nested loops are scalability concerns
+                nested_loops = sum(1 for child in ast.walk(node) 
+                                    if isinstance(child, (ast.For, ast.While)))
+                if nested_loops > 1:
+                    scalability_concerns.append(f"Nested loops creating O(n²+) complexity at line {line_num}")
+                    bottleneck_locations.append((line_num, f"Nested loops ({nested_loops} levels)"))
+        
+        # Calculate efficiency scores
+        memory_efficiency = max(0.0, 1.0 - len(resource_leak_risks) * 0.3)
+        cpu_efficiency = max(0.0, 1.0 - len(bottleneck_locations) * 0.2)
+        io_efficiency = 1.0  # Would need runtime analysis
+        
+        # Calculate production readiness
+        production_readiness = (memory_efficiency + cpu_efficiency + io_efficiency) / 3
+        
+        # Calculate resource leak risk
+        resource_leak_risk = min(1.0, len(resource_leak_risks) * 0.4)
+        
+        return ResourceAnalysis(
+            memory_efficiency=memory_efficiency,
+            cpu_efficiency=cpu_efficiency,
+            io_efficiency=io_efficiency,
+            scalability_concerns=scalability_concerns,
+            bottleneck_locations=bottleneck_locations,
+            production_readiness=production_readiness,
+            resource_leak_risk=resource_leak_risk
+        )
+    
+    def _is_in_with_statement(self, target_node: ast.AST, tree: ast.AST) -> bool:
+        """Check if node is within a with statement"""
+        for node in ast.walk(tree):
+            if isinstance(node, ast.With):
+                for child in ast.walk(node):
+                    if child is target_node:
+                        return True
+        return False
+    
+    def _in_loop_context(self, target_node: ast.AST, tree: ast.AST) -> bool:
+        """Check if node is within a loop"""
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.For, ast.While)):
+                for child in ast.walk(node):
+                    if child is target_node:
+                        return True
+        return False
+    
+    def _extract_resource_management_issues(self, analysis: ResourceAnalysis) -> List[VerificationIssue]:
+        """Extract resource management issues"""
+        issues = []
+        
+        # Memory efficiency issues
+        if analysis.memory_efficiency < 0.5:
+            issues.append(VerificationIssue(
+                type="memory_efficiency",
+                severity=Severity.CRITICAL,
+                message=f"Critical memory efficiency: {analysis.memory_efficiency:.2f}",
+                suggestion="Fix memory leaks and optimize memory usage for production"
+            ))
+        elif analysis.memory_efficiency < 0.7:
+            issues.append(VerificationIssue(
+                type="memory_efficiency",
+                severity=Severity.HIGH,
+                message=f"Poor memory efficiency: {analysis.memory_efficiency:.2f}",
+                suggestion="Optimize memory usage patterns for production deployment"
+            ))
+        
+        # CPU efficiency issues
+        if analysis.cpu_efficiency < 0.5:
+            issues.append(VerificationIssue(
+                type="cpu_efficiency",
+                severity=Severity.CRITICAL,
+                message=f"Critical CPU efficiency: {analysis.cpu_efficiency:.2f}",
+                suggestion="Optimize algorithms for production CPU performance"
+            ))
+        elif analysis.cpu_efficiency < 0.7:
+            issues.append(VerificationIssue(
+                type="cpu_efficiency",
+                severity=Severity.HIGH,
+                message=f"Poor CPU efficiency: {analysis.cpu_efficiency:.2f}",
+                suggestion="Consider algorithmic improvements for production performance"
+            ))
+        
+        # Resource leak risk
+        if analysis.resource_leak_risk > 0.6:
+            issues.append(VerificationIssue(
+                type="resource_leak_risk",
+                severity=Severity.CRITICAL,
+                message=f"High resource leak risk: {analysis.resource_leak_risk:.2f}",
+                suggestion="Fix resource management to prevent production memory leaks"
+            ))
+        elif analysis.resource_leak_risk > 0.3:
+            issues.append(VerificationIssue(
+                type="resource_leak_risk",
+                severity=Severity.HIGH,
+                message=f"Moderate resource leak risk: {analysis.resource_leak_risk:.2f}",
+                suggestion="Improve resource cleanup for production stability"
+            ))
+        
+        # Production readiness
+        if analysis.production_readiness < 0.6:
+            issues.append(VerificationIssue(
+                type="production_readiness",
+                severity=Severity.HIGH,
+                message=f"Low production readiness: {analysis.production_readiness:.1%}",
+                suggestion="Address performance issues before production deployment"
+            ))
+        
+        # Scalability concerns
+        for concern in analysis.scalability_concerns:
+            issues.append(VerificationIssue(
+                type="scalability_concern",
+                severity=Severity.MEDIUM,
+                message=f"Scalability concern: {concern}",
+                suggestion="Optimize for production scale requirements"
+            ))
+        
+        # Bottleneck locations
+        for line_num, description in analysis.bottleneck_locations:
+            issues.append(VerificationIssue(
+                type="performance_bottleneck",
+                severity=Severity.HIGH,
+                message=f"Performance bottleneck: {description}",
+                line_number=line_num,
+                suggestion="Optimize this performance-critical section"
+            ))
+        
+        return issues
+    
+    def _assess_production_performance_readiness(self, code: str, existing_issues: List[VerificationIssue]) -> List[VerificationIssue]:
+        """Assess overall production performance readiness"""
+        issues = []
+        
+        # Count critical performance issues
+        critical_perf_issues = len([i for i in existing_issues 
+                                    if i.severity == Severity.CRITICAL and 
+                                    i.type in ['algorithm_complexity', 'scale_unsuitability', 'cpu_efficiency']])
+        
+        high_perf_issues = len([i for i in existing_issues 
+                                if i.severity == Severity.HIGH and
+                                i.type in ['algorithm_complexity', 'performance_bottleneck', 'memory_efficiency']])
+        
+        # Production deployment assessment
+        if critical_perf_issues > 0:
+            issues.append(VerificationIssue(
+                type="production_performance_blocker",
+                severity=Severity.CRITICAL,
+                message=f"Production deployment blocked: {critical_perf_issues} critical performance issues",
+                suggestion="Resolve all critical performance issues before production deployment"
+            ))
+        elif high_perf_issues >= 3:
+            issues.append(VerificationIssue(
+                type="production_performance_risk",
+                severity=Severity.HIGH,
+                message=f"High production performance risk: {high_perf_issues} high-severity issues",
+                suggestion="Address performance issues to ensure production stability"
+            ))
+        elif high_perf_issues >= 1:
+            issues.append(VerificationIssue(
+                type="production_performance_concern",
+                severity=Severity.MEDIUM,
+                message=f"Production performance concerns: {high_perf_issues} issues need attention",
+                suggestion="Monitor performance closely in production environment"
+            ))
         
         return issues
     
@@ -629,17 +1109,17 @@ class PerformanceProfiler(BaseAgent):
         dangerous_patterns = [
             'import os', 'import sys', 'import subprocess', 'import shutil',
             'open(', 'file(', 'exec(', 'eval(', '__import__',
-            'input(', 'raw_input(', 'while True:', 'infinite'
+            'input(', 'raw_input(', 'while True:', 'infinite', 'socket'
         ]
         
         return not any(pattern in code for pattern in dangerous_patterns)
     
-    async def _runtime_profiling(self, code: str) -> PerformanceMetrics:
-        """Perform runtime profiling of code"""
+    async def _enhanced_runtime_profiling(self, code: str) -> PerformanceMetrics:
+        """Enhanced runtime profiling with scalability projections"""
         if not PROFILING_AVAILABLE:
-            return PerformanceMetrics(0.0, 0.0, 0.0, 0, 0, 1.0)
+            return PerformanceMetrics(0.0, 0.0, 0.0, 0, 0, 1.0, {})
         
-        # Create a temporary file for profiling
+        # Create temporary file for profiling
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write(code)
             temp_file = f.name
@@ -679,226 +1159,161 @@ class PerformanceProfiler(BaseAgent):
                     execution_time, memory_used, process.returncode == 0
                 )
                 
+                # Project scalability
+                scalability_projection = self._project_scalability(execution_time, memory_used)
+                
                 return PerformanceMetrics(
                     execution_time=execution_time,
                     memory_usage=memory_used,
                     peak_memory=peak_memory_mb,
-                    function_call_count=0,  # Would need more sophisticated profiling
-                    io_operations=0,        # Would need more sophisticated profiling
-                    performance_score=performance_score
+                    function_call_count=0,  # Would need instrumentation
+                    io_operations=0,        # Would need instrumentation
+                    performance_score=performance_score,
+                    scalability_projection=scalability_projection
                 )
             
             except asyncio.TimeoutError:
                 process.kill()
                 tracemalloc.stop()
-                return PerformanceMetrics(0.0, 0.0, 0.0, 0, 0, 0.0)
+                return PerformanceMetrics(0.0, 0.0, 0.0, 0, 0, 0.0, {})
         
         finally:
-            # Clean up
             try:
                 os.unlink(temp_file)
             except Exception:
                 pass
     
+    def _project_scalability(self, execution_time: float, memory_usage: float) -> Dict[str, float]:
+        """Project performance at different scales"""
+        return {
+            '10x_data': execution_time * 10,
+            '100x_data': execution_time * 100,
+            '1000x_data': execution_time * 1000,
+            'memory_10x': memory_usage * 10,
+            'memory_100x': memory_usage * 100
+        }
+    
     def _calculate_runtime_score(self, execution_time: float, memory_usage: float, 
-                                 success: bool) -> float:
+                                    success: bool) -> float:
         """Calculate performance score based on runtime metrics"""
         if not success:
             return 0.0
         
-        # Score based on execution time (lower is better)
-        time_score = max(0.0, 1.0 - (execution_time / self.max_execution_time))
+        # More aggressive scoring for production requirements
+        time_score = max(0.0, 1.0 - (execution_time / (self.max_execution_time * 0.5)))  # Expect 50% of max time
+        memory_score = max(0.0, 1.0 - (memory_usage / (self.memory_limit_mb * 0.5)))    # Expect 50% of max memory
         
-        # Score based on memory usage (lower is better)
-        memory_score = max(0.0, 1.0 - (memory_usage / self.memory_limit_mb))
-        
-        # Weighted average
-        return (time_score * 0.6 + memory_score * 0.4)
+        # Weighted average favoring execution time
+        return (time_score * 0.7 + memory_score * 0.3)
     
     def _extract_runtime_issues(self, metrics: PerformanceMetrics) -> List[VerificationIssue]:
         """Extract issues from runtime performance metrics"""
         issues = []
         
-        # Execution time issues
-        if metrics.execution_time > self.max_execution_time * 0.8:
+        # Execution time issues (more aggressive)
+        if metrics.execution_time > self.max_execution_time * 0.6:
+            issues.append(VerificationIssue(
+                type="execution_time",
+                severity=Severity.CRITICAL,
+                message=f"Slow execution time: {metrics.execution_time:.3f}s - production performance blocker",
+                suggestion="Optimize algorithm for production performance requirements"
+            ))
+        elif metrics.execution_time > self.max_execution_time * 0.3:
             issues.append(VerificationIssue(
                 type="execution_time",
                 severity=Severity.HIGH,
-                message=f"Slow execution time: {metrics.execution_time:.3f}s",
-                suggestion="Optimize algorithm or reduce computational complexity"
-            ))
-        elif metrics.execution_time > self.max_execution_time * 0.5:
-            issues.append(VerificationIssue(
-                type="execution_time",
-                severity=Severity.MEDIUM,
-                message=f"Moderate execution time: {metrics.execution_time:.3f}s",
-                suggestion="Consider performance optimizations"
+                message=f"Concerning execution time: {metrics.execution_time:.3f}s",
+                suggestion="Optimize algorithm for better production performance"
             ))
         
-        # Memory usage issues
-        if metrics.memory_usage > self.memory_limit_mb * 0.8:
+        # Memory usage issues (more aggressive)
+        if metrics.memory_usage > self.memory_limit_mb * 0.6:
+            issues.append(VerificationIssue(
+                type="memory_usage",
+                severity=Severity.CRITICAL,
+                message=f"High memory usage: {metrics.memory_usage:.2f} MB - production deployment risk",
+                suggestion="Optimize memory usage for production deployment"
+            ))
+        elif metrics.memory_usage > self.memory_limit_mb * 0.3:
             issues.append(VerificationIssue(
                 type="memory_usage",
                 severity=Severity.HIGH,
-                message=f"High memory usage: {metrics.memory_usage:.2f} MB",
-                suggestion="Optimize memory usage or use streaming approaches"
+                message=f"Elevated memory usage: {metrics.memory_usage:.2f} MB",
+                suggestion="Consider memory optimization for production scale"
             ))
-        elif metrics.memory_usage > self.memory_limit_mb * 0.5:
-            issues.append(VerificationIssue(
-                type="memory_usage",
-                severity=Severity.MEDIUM,
-                message=f"Moderate memory usage: {metrics.memory_usage:.2f} MB",
-                suggestion="Monitor memory usage with larger datasets"
-            ))
+        
+        # Scalability projection issues
+        if 'scalability_projection' in metrics.__dict__:
+            proj = metrics.scalability_projection
+            if '100x_data' in proj and proj['100x_data'] > 60:  # 1 minute for 100x data
+                issues.append(VerificationIssue(
+                    type="scalability_projection",
+                    severity=Severity.CRITICAL,
+                    message=f"Poor scalability projection: {proj['100x_data']:.1f}s for 100x data",
+                    suggestion="Algorithm will not scale to production data volumes"
+                ))
         
         return issues
     
-    def _analyze_resource_usage(self, code: str) -> ResourceAnalysis:
-        """Analyze resource usage patterns"""
-        try:
-            tree = ast.parse(code)
-        except SyntaxError:
-            return ResourceAnalysis(1.0, 1.0, 1.0, [], [])
-        
-        scalability_concerns = []
-        bottleneck_locations = []
-        
-        # Analyze for scalability issues
-        line_num = 1
-        for node in ast.walk(tree):
-            if isinstance(node, ast.For):
-                # Nested loops are scalability concerns
-                nested_loops = sum(1 for child in ast.walk(node) 
-                                  if isinstance(child, (ast.For, ast.While)))
-                if nested_loops > 1:
-                    scalability_concerns.append(f"Nested loops at line {getattr(node, 'lineno', line_num)}")
-                    bottleneck_locations.append((getattr(node, 'lineno', line_num), "Nested loops"))
-            
-            if isinstance(node, ast.Call):
-                if isinstance(node.func, ast.Attribute):
-                    # File I/O operations
-                    if node.func.attr in ['read', 'write', 'open']:
-                        scalability_concerns.append(f"I/O operation at line {getattr(node, 'lineno', line_num)}")
-        
-        # Calculate efficiency scores (simplified)
-        memory_efficiency = 1.0 - min(len(scalability_concerns) * 0.2, 0.8)
-        cpu_efficiency = 1.0 - min(len(bottleneck_locations) * 0.3, 0.9)
-        io_efficiency = 1.0  # Would need runtime analysis for accurate measurement
-        
-        return ResourceAnalysis(
-            memory_efficiency=memory_efficiency,
-            cpu_efficiency=cpu_efficiency,
-            io_efficiency=io_efficiency,
-            scalability_concerns=scalability_concerns,
-            bottleneck_locations=bottleneck_locations
-        )
-    
-    def _extract_resource_issues(self, analysis: ResourceAnalysis) -> List[VerificationIssue]:
-        """Extract issues from resource analysis"""
-        issues = []
-        
-        # Memory efficiency issues
-        if analysis.memory_efficiency < 0.5:
-            issues.append(VerificationIssue(
-                type="memory_efficiency",
-                severity=Severity.HIGH,
-                message=f"Low memory efficiency: {analysis.memory_efficiency:.2f}",
-                suggestion="Optimize data structures and memory usage patterns"
-            ))
-        elif analysis.memory_efficiency < 0.7:
-            issues.append(VerificationIssue(
-                type="memory_efficiency",
-                severity=Severity.MEDIUM,
-                message=f"Moderate memory efficiency: {analysis.memory_efficiency:.2f}",
-                suggestion="Consider memory optimization opportunities"
-            ))
-        
-        # CPU efficiency issues
-        if analysis.cpu_efficiency < 0.5:
-            issues.append(VerificationIssue(
-                type="cpu_efficiency",
-                severity=Severity.HIGH,
-                message=f"Low CPU efficiency: {analysis.cpu_efficiency:.2f}",
-                suggestion="Optimize algorithms and reduce computational complexity"
-            ))
-        elif analysis.cpu_efficiency < 0.7:
-            issues.append(VerificationIssue(
-                type="cpu_efficiency",
-                severity=Severity.MEDIUM,
-                message=f"Moderate CPU efficiency: {analysis.cpu_efficiency:.2f}",
-                suggestion="Consider algorithmic improvements"
-            ))
-        
-        # Scalability concerns
-        for concern in analysis.scalability_concerns:
-            issues.append(VerificationIssue(
-                type="scalability",
-                severity=Severity.MEDIUM,
-                message=f"Scalability concern: {concern}",
-                suggestion="Consider optimization for large-scale usage"
-            ))
-        
-        # Bottleneck locations
-        for line_num, description in analysis.bottleneck_locations:
-            issues.append(VerificationIssue(
-                type="bottleneck",
-                severity=Severity.MEDIUM,
-                message=f"Performance bottleneck: {description}",
-                line_number=line_num,
-                suggestion="Profile and optimize this section for better performance"
-            ))
-        
-        return issues
-    
-    def _calculate_performance_score(self, issues: List[VerificationIssue], 
-                                   metadata: Dict[str, Any]) -> float:
-        """Calculate overall performance score with very aggressive penalty for complexity"""
+    def _calculate_enterprise_performance_score(self, issues: List[VerificationIssue], 
+                                                metadata: Dict[str, Any]) -> float:
+        """Calculate enterprise performance score with aggressive complexity penalties"""
         if not issues:
             return 1.0
         
-        # Very aggressive weights for performance issues
+        # Ultra-aggressive weights for performance issues
         type_weights = {
-            "complexity": 1.5,           # Very high penalty for cyclomatic complexity
-            "cognitive_complexity": 2.0, # Cognitive complexity kills maintainability
-            "nesting": 1.8,             # Deep nesting is extremely problematic
-            "function_length": 0.8,     # Long functions hurt readability
-            "parameter_count": 0.6,     # Too many params hurt usability
-            "time_complexity": 1.5,     # Algorithm efficiency is critical
-            "loop_nesting": 1.2,        # Nested loops hurt performance badly
-            "performance_antipattern": 1.0,  # Anti-patterns matter
-            "execution_time": 1.5,      # Actual slow execution is very bad
-            "memory_usage": 1.2,        # Memory issues are serious
-            "scalability": 0.8,         # Scalability concerns matter
-            "bottleneck": 1.0,          # Bottlenecks hurt UX
-            "optimization": 0.1         # Suggestions are just hints
+            "algorithm_complexity": 2.0,        # Algorithm complexity is critical
+            "scale_unsuitability": 2.5,         # Scale issues are deployment blockers
+            "cyclomatic_complexity": 1.2,       # Code complexity affects performance
+            "cognitive_complexity": 1.0,        # Cognitive complexity affects maintenance
+            "nesting_depth": 1.5,               # Deep nesting kills performance
+            "function_length": 0.8,             # Long functions are harder to optimize
+            "loop_nesting": 2.0,                # Nested loops are performance killers
+            "performance_bottleneck": 1.8,      # Bottlenecks kill user experience
+            "algorithm_inefficiency": 2.2,      # Inefficient algorithms don't scale
+            "performance_antipattern": 1.5,     # Anti-patterns cause production issues
+            "memory_efficiency": 1.5,           # Memory issues affect stability
+            "cpu_efficiency": 1.8,              # CPU efficiency affects scalability
+            "resource_leak_risk": 2.0,          # Resource leaks kill production
+            "scalability_concern": 1.0,         # Scalability matters for growth
+            "production_readiness": 1.5,        # Production readiness is key
+            "execution_time": 1.5,              # Actual performance matters
+            "memory_usage": 1.2,                # Memory usage affects costs
+            "scalability_projection": 1.8,      # Scalability projection is critical
+            "optimization_opportunity": 0.1     # Optimizations are suggestions
         }
         
-        # Very aggressive severity multipliers
+        # Ultra-aggressive severity multipliers
         severity_multipliers = {
-            Severity.LOW: 0.3,
-            Severity.MEDIUM: 0.8,       # Medium issues get significant penalty
-            Severity.HIGH: 1.5,         # High issues are major problems
-            Severity.CRITICAL: 2.5      # Critical issues should destroy the score
+            Severity.LOW: 0.2,
+            Severity.MEDIUM: 0.6,
+            Severity.HIGH: 1.4,                 # High issues are major problems
+            Severity.CRITICAL: 2.5             # Critical issues destroy the score
         }
         
         total_penalty = 0.0
         for issue in issues:
-            type_weight = type_weights.get(issue.type, 0.5)
+            type_weight = type_weights.get(issue.type, 0.8)
             severity_multiplier = severity_multipliers[issue.severity]
             issue_penalty = type_weight * severity_multiplier
             total_penalty += issue_penalty
         
-        # Very small runtime bonus (complexity issues should dominate)
+        # Bonus for good runtime performance
         runtime_bonus = 0.0
         if 'performance_metrics' in metadata:
             perf_metrics = metadata['performance_metrics']
-            if isinstance(perf_metrics, dict) and 'performance_score' in perf_metrics:
-                runtime_bonus = perf_metrics['performance_score'] * 0.05  # Minimal bonus
+            if isinstance(perf_metrics, dict):
+                perf_score = perf_metrics.get('performance_score', 0)
+                if perf_score > 0.9:
+                    runtime_bonus = 0.1  # Small bonus for excellent runtime performance
         
-        # Very aggressive normalization - even 2-3 critical issues should tank score
-        # 2 critical issues should give score ~0.2, 1 critical + some others ~0.4
-        max_penalty = 4.0  # Very aggressive - reduced from 6
+        # Ultra-aggressive normalization - complexity issues should dominate
+        # 1 critical complexity issue should give ~0.4, 2 critical issues ~0.2
+        max_penalty = 3.0  # Very aggressive - even fewer issues tank the score
         normalized_penalty = min(total_penalty / max_penalty, 1.0)
         
         base_score = max(0.0, 1.0 - normalized_penalty)
-        return min(1.0, base_score + runtime_bonus)
+        final_score = min(1.0, base_score + runtime_bonus)
+        
+        return final_score

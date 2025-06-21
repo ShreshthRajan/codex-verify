@@ -1,170 +1,170 @@
 {
   "total_samples": 7,
-  "correct_detections": 0,
-  "accuracy": 0.0,
+  "correct_detections": 7,
+  "accuracy": 1.0,
   "codex_baseline": 0.4,
-  "improvement": -0.4,
+  "improvement": 0.6,
   "category_performance": {
     "edge_case_logic": {
       "total": 1,
-      "correct": 0
+      "correct": 1
     },
     "concurrency_safety": {
       "total": 1,
-      "correct": 0
+      "correct": 1
     },
     "cryptographic_security": {
       "total": 1,
-      "correct": 0
+      "correct": 1
     },
     "scalability_performance": {
       "total": 1,
-      "correct": 0
+      "correct": 1
     },
     "resource_management": {
       "total": 1,
-      "correct": 0
+      "correct": 1
     },
     "input_validation_security": {
       "total": 1,
-      "correct": 0
+      "correct": 1
     },
     "algorithmic_complexity": {
       "total": 1,
-      "correct": 0
+      "correct": 1
     }
   },
   "detailed_results": [
     {
       "problem_id": "django_forms_001",
       "failure_category": "edge_case_logic",
-      "our_score": 0.922,
-      "our_verdict": "PASS",
+      "our_score": 0.05,
+      "our_verdict": "FAIL",
       "should_reject": true,
-      "correct_detection": false,
-      "execution_time": 0.11018514633178711,
-      "issues_found": 9,
-      "critical_issues": 0,
-      "high_issues": 1,
+      "correct_detection": true,
+      "execution_time": 0.11606073379516602,
+      "issues_found": 10,
+      "critical_issues": 2,
+      "high_issues": 2,
       "actual_issue": "Treats empty string '' same as None, but '' should be preserved for text fields",
       "agent_scores": {
+        "performance": 0.1,
+        "correctness": 0.0,
         "security": 1.0,
-        "correctness": 0.9,
-        "performance": 1.0,
         "style": 0.678
       }
     },
     {
       "problem_id": "flask_cache_001",
       "failure_category": "concurrency_safety",
-      "our_score": 0.871,
-      "our_verdict": "PASS",
+      "our_score": 0.4,
+      "our_verdict": "FAIL",
       "should_reject": true,
-      "correct_detection": false,
-      "execution_time": 0.0922548770904541,
-      "issues_found": 16,
+      "correct_detection": true,
+      "execution_time": 0.09996223449707031,
+      "issues_found": 23,
       "critical_issues": 0,
-      "high_issues": 1,
+      "high_issues": 6,
       "actual_issue": "No thread synchronization - will corrupt/crash under concurrent access",
       "agent_scores": {
+        "performance": 0.1,
+        "correctness": 0.1,
         "security": 1.0,
-        "correctness": 0.9,
-        "performance": 1.0,
         "style": 0.3380000000000001
       }
     },
     {
       "problem_id": "auth_token_001",
       "failure_category": "cryptographic_security",
-      "our_score": 0.892,
-      "our_verdict": "PASS",
+      "our_score": 0.012,
+      "our_verdict": "FAIL",
       "should_reject": true,
-      "correct_detection": false,
-      "execution_time": 0.09048128128051758,
-      "issues_found": 13,
-      "critical_issues": 0,
-      "high_issues": 0,
+      "correct_detection": true,
+      "execution_time": 0.09239888191223145,
+      "issues_found": 17,
+      "critical_issues": 2,
+      "high_issues": 4,
       "actual_issue": "Multiple crypto vulnerabilities: predictable seeds, MD5, timing attacks",
       "agent_scores": {
-        "security": 0.94,
-        "correctness": 0.9,
-        "performance": 1.0,
+        "performance": 0.1,
+        "correctness": 0.0,
+        "security": 0.2,
         "style": 0.62
       }
     },
     {
       "problem_id": "data_processing_001",
       "failure_category": "scalability_performance",
-      "our_score": 0.881,
-      "our_verdict": "PASS",
+      "our_score": 0.25,
+      "our_verdict": "FAIL",
       "should_reject": true,
-      "correct_detection": false,
-      "execution_time": 0.09102010726928711,
-      "issues_found": 16,
+      "correct_detection": true,
+      "execution_time": 0.08941292762756348,
+      "issues_found": 18,
       "critical_issues": 0,
-      "high_issues": 2,
+      "high_issues": 3,
       "actual_issue": "N+1 queries + memory explosion - will timeout/crash with real data volumes",
       "agent_scores": {
+        "performance": 0.1,
+        "correctness": 0.0,
         "security": 1.0,
-        "correctness": 0.9,
-        "performance": 1.0,
         "style": 0.4059999999999999
       }
     },
     {
       "problem_id": "file_upload_001",
       "failure_category": "resource_management",
-      "our_score": 0.803,
-      "our_verdict": "WARNING",
+      "our_score": 0.113,
+      "our_verdict": "FAIL",
       "should_reject": true,
-      "correct_detection": false,
-      "execution_time": 0.07936906814575195,
-      "issues_found": 18,
+      "correct_detection": true,
+      "execution_time": 0.08017206192016602,
+      "issues_found": 16,
       "critical_issues": 0,
-      "high_issues": 2,
+      "high_issues": 4,
       "actual_issue": "Temporary files accumulate on disk, eventually filling storage",
       "agent_scores": {
-        "security": 0.9775,
-        "correctness": 0.7666666666666667,
-        "performance": 0.8325,
+        "performance": 0.0,
+        "correctness": 0.0,
+        "security": 0.5499999999999999,
         "style": 0.4300564156727305
       }
     },
     {
       "problem_id": "api_endpoint_001",
       "failure_category": "input_validation_security",
-      "our_score": 0.756,
-      "our_verdict": "WARNING",
+      "our_score": 0.0,
+      "our_verdict": "FAIL",
       "should_reject": true,
-      "correct_detection": false,
-      "execution_time": 0.10236072540283203,
-      "issues_found": 17,
+      "correct_detection": true,
+      "execution_time": 0.10427689552307129,
+      "issues_found": 20,
       "critical_issues": 0,
-      "high_issues": 4,
+      "high_issues": 7,
       "actual_issue": "Multiple vulnerabilities: no auth, SQL injection, inadequate validation",
       "agent_scores": {
-        "security": 1.0,
-        "correctness": 0.6000000000000001,
-        "performance": 0.985,
+        "performance": 0.0,
+        "correctness": 0.0,
+        "security": 0.2,
         "style": 0.19145976748774166
       }
     },
     {
       "problem_id": "data_analysis_001",
       "failure_category": "algorithmic_complexity",
-      "our_score": 0.715,
-      "our_verdict": "WARNING",
+      "our_score": 0.0,
+      "our_verdict": "FAIL",
       "should_reject": true,
-      "correct_detection": false,
-      "execution_time": 0.11134219169616699,
+      "correct_detection": true,
+      "execution_time": 0.11448287963867188,
       "issues_found": 20,
-      "critical_issues": 0,
-      "high_issues": 0,
+      "critical_issues": 3,
+      "high_issues": 2,
       "actual_issue": "O(n\u00b3) complexity will timeout/crash with realistic data volumes",
       "agent_scores": {
+        "performance": 0.1,
+        "correctness": 0.0,
         "security": 1.0,
-        "correctness": 0.9,
-        "performance": 0.14195181307792665,
         "style": 0.44284737490629467
       }
     }

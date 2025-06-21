@@ -16,7 +16,7 @@ import json
 from pathlib import Path
 
 from ..agents.base_agent import BaseAgent, AgentResult, VerificationIssue, Severity
-from ..agents.correctness_critic import CorrectnessCritic
+from ..agents.correctness_critic import CorrectnessAgent
 from ..agents.security_auditor import SecurityAuditor
 from ..agents.performance_profiler import PerformanceProfiler
 from ..agents.style_maintainability import StyleMaintainabilityJudge
@@ -143,7 +143,7 @@ class AsyncOrchestrator:
         
         # Map of agent names to classes
         agent_classes = {
-            'correctness': CorrectnessCritic,
+            'correctness': CorrectnessAgent,
             'security': SecurityAuditor,
             'performance': PerformanceProfiler,
             'style': StyleMaintainabilityJudge
