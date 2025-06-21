@@ -44,7 +44,7 @@ class VerificationFramework:
 
 #### 1. Correctness Critic
 - **AST-based static analysis** with 10+ issue type detection
-- **Semantic validation** via Claude 3.7 API with structured prompts
+- **Semantic validation** through pattern matching and rule-based analysis
 - **Edge case detection** through control flow analysis
 - **Exception path validation** ensuring comprehensive error handling
 
@@ -200,9 +200,9 @@ streamlit run ui/streamlit_dashboard.py
 ## Deployment Architecture
 
 ### Local-First Design
-- **Zero cloud dependencies** for sensitive codebases
-- **Optional LLM enhancement** via configurable API integration
-- **Complete offline operation** with local analysis engines
+- **Zero external dependencies** for complete offline operation
+- **Rule-based semantic analysis** using local pattern matching engines
+- **AST-driven validation** without requiring cloud API calls
 
 ### Scalability
 - **Parallel agent execution** with async coordination
