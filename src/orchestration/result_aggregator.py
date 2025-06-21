@@ -10,7 +10,8 @@ from dataclasses import dataclass
 from collections import defaultdict, Counter
 import statistics
 
-from ..agents.base_agent import AgentResult, VerificationIssue, Severity
+# Fixed imports
+from agents.base_agent import AgentResult, VerificationIssue, Severity
 
 
 @dataclass

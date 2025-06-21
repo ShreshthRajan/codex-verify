@@ -16,8 +16,8 @@ def main():
     print("🎯 86.4% accuracy • 4 verification agents • Production-ready")
     print()
     
-    # Get the path to the dashboard
-    dashboard_path = Path(__file__).parent / "ui" / "streamlit_dashboard.py"
+    # Use the simple dashboard first
+    dashboard_path = Path(__file__).parent / "ui" / "streamlit_dashboard_simple.py"
     
     if not dashboard_path.exists():
         print("❌ Dashboard file not found!")
