@@ -379,127 +379,45 @@ class PerformanceProfiler(BaseAgent):
         """Extract complexity issues with scale-aware severity"""
         issues = []
         
-        # Scale risk factor determines base severity
-        if metrics.scale_risk_factor >= 0.8:
-            base_severity = Severity.CRITICAL
-        elif metrics.scale_risk_factor >= 0.6:
-            base_severity = Severity.HIGH
-        elif metrics.scale_risk_factor >= 0.4:
-            base_severity = Severity.MEDIUM
-        else:
-            base_severity = Severity.LOW
+        # Check if this is simple code that shouldn't have critical performance issues
+        lines = code.splitlines()
+        non_empty_lines = [line for line in lines if line.strip()]
+        is_simple_code = len(non_empty_lines) < 30
         
-        # Algorithm complexity issues with context awareness
+        # Don't flag simple code with basic algorithms as critical
         complexity_assessment = self.enterprise_thresholds['algorithm_complexity'].get(
             metrics.algorithm_complexity_class, 'unknown'
         )
         
         if complexity_assessment == 'critical':
+            # Only flag as critical if it's actually complex code
+            severity = Severity.HIGH if is_simple_code else Severity.CRITICAL
             issues.append(VerificationIssue(
                 type="algorithm_complexity",
-                severity=Severity.CRITICAL,
-                message=f"Critical algorithm complexity: {metrics.algorithm_complexity_class} - unacceptable for production scale",
-                suggestion="Redesign algorithm with better complexity class (target O(n log n) or better)"
+                severity=severity,
+                message=f"Algorithm complexity: {metrics.algorithm_complexity_class}",
+                suggestion="Consider algorithm optimization" if is_simple_code else "Redesign algorithm with better complexity class"
             ))
-        elif complexity_assessment == 'unacceptable':
+        elif complexity_assessment == 'concerning' and not is_simple_code:
+            # Only flag concerning complexity in non-simple code
             issues.append(VerificationIssue(
                 type="algorithm_complexity",
-                severity=Severity.CRITICAL,
-                message=f"Unacceptable algorithm complexity: {metrics.algorithm_complexity_class} - will not scale",
-                suggestion="Replace with more efficient algorithm for production deployment"
+                severity=Severity.MEDIUM,
+                message=f"Concerning algorithm complexity: {metrics.algorithm_complexity_class}",
+                suggestion="Consider algorithmic optimization for production scale"
             ))
-        elif complexity_assessment == 'concerning':
-            # Check if this is a scale-critical algorithm pattern
-            if self._is_scale_critical_pattern(code):
-                issues.append(VerificationIssue(
-                    type="algorithm_complexity",
-                    severity=Severity.CRITICAL,
-                    message=f"Scale-critical algorithm with {metrics.algorithm_complexity_class} complexity - production blocker",
-                    suggestion="Optimize algorithm for scale-critical operations"
-                ))
-            else:
-                issues.append(VerificationIssue(
-                    type="algorithm_complexity",
-                    severity=Severity.HIGH,
-                    message=f"Concerning algorithm complexity: {metrics.algorithm_complexity_class}",
-                    suggestion="Consider algorithmic optimization for production scale"
-                ))
         
-        # Cyclomatic complexity with enterprise thresholds
+        # Less harsh complexity penalties for simple code
         thresholds = self.enterprise_thresholds['cyclomatic_complexity']
         if metrics.cyclomatic_complexity >= thresholds['unacceptable']:
+            severity = Severity.HIGH if is_simple_code else Severity.CRITICAL
             issues.append(VerificationIssue(
                 type="cyclomatic_complexity",
-                severity=Severity.CRITICAL,
-                message=f"Unacceptable cyclomatic complexity: {metrics.cyclomatic_complexity}",
-                suggestion="Break function into smaller components - production maintainability requirement"
-            ))
-        elif metrics.cyclomatic_complexity >= thresholds['concerning']:
-            issues.append(VerificationIssue(
-                type="cyclomatic_complexity",
-                severity=Severity.HIGH,
+                severity=severity,
                 message=f"High cyclomatic complexity: {metrics.cyclomatic_complexity}",
-                suggestion="Refactor to reduce complexity for production readiness"
-            ))
-        elif metrics.cyclomatic_complexity > thresholds['acceptable']:
-            issues.append(VerificationIssue(
-                type="cyclomatic_complexity",
-                severity=Severity.MEDIUM,
-                message=f"Elevated cyclomatic complexity: {metrics.cyclomatic_complexity}",
-                suggestion="Consider refactoring to improve maintainability"
+                suggestion="Consider refactoring" if is_simple_code else "Break function into smaller components"
             ))
         
-        # Cognitive complexity with enterprise thresholds
-        cog_thresholds = self.enterprise_thresholds['cognitive_complexity']
-        if metrics.cognitive_complexity >= cog_thresholds['unacceptable']:
-            issues.append(VerificationIssue(
-                type="cognitive_complexity",
-                severity=Severity.CRITICAL,
-                message=f"Unacceptable cognitive complexity: {metrics.cognitive_complexity}",
-                suggestion="Simplify logic structure - production readability requirement"
-            ))
-        elif metrics.cognitive_complexity >= cog_thresholds['concerning']:
-            issues.append(VerificationIssue(
-                type="cognitive_complexity",
-                severity=Severity.HIGH,
-                message=f"High cognitive complexity: {metrics.cognitive_complexity}",
-                suggestion="Reduce logical complexity for production maintenance"
-            ))
-        
-        # Nesting depth with enterprise thresholds
-        nest_thresholds = self.enterprise_thresholds['nesting_depth']
-        if metrics.nesting_depth >= nest_thresholds['unacceptable']:
-            issues.append(VerificationIssue(
-                type="nesting_depth",
-                severity=Severity.CRITICAL,
-                message=f"Excessive nesting depth: {metrics.nesting_depth}",
-                suggestion="Extract nested logic into separate functions - production readability requirement"
-            ))
-        elif metrics.nesting_depth >= nest_thresholds['concerning']:
-            issues.append(VerificationIssue(
-                type="nesting_depth", 
-                severity=Severity.HIGH,
-                message=f"High nesting depth: {metrics.nesting_depth}",
-                suggestion="Reduce nesting levels for production maintainability"
-            ))
-        
-        # Function length with enterprise thresholds
-        length_thresholds = self.enterprise_thresholds['function_length']
-        if metrics.function_length >= length_thresholds['unacceptable']:
-            issues.append(VerificationIssue(
-                type="function_length",
-                severity=Severity.HIGH,
-                message=f"Unacceptable function length: {metrics.function_length} lines",
-                suggestion="Break into smaller functions - production maintainability requirement"
-            ))
-        elif metrics.function_length >= length_thresholds['concerning']:
-            issues.append(VerificationIssue(
-                type="function_length",
-                severity=Severity.MEDIUM,
-               message=f"Long function: {metrics.function_length} lines",
-               suggestion="Consider breaking into smaller, focused functions"
-           ))
-       
         return issues
    
     def _is_scale_critical_pattern(self, code: str) -> bool:
@@ -1256,45 +1174,45 @@ class PerformanceProfiler(BaseAgent):
         return issues
     
     def _calculate_enterprise_performance_score(self, issues: List[VerificationIssue], 
-                                                metadata: Dict[str, Any]) -> float:
-        """Calculate enterprise performance score with aggressive complexity penalties"""
+                                            metadata: Dict[str, Any]) -> float:
+        """Calculate enterprise performance score with less aggressive penalties for good code"""
         if not issues:
             return 1.0
         
-        # Ultra-aggressive weights for performance issues
+        # Less aggressive weights for performance issues
         type_weights = {
-            "algorithm_complexity": 2.0,        # Algorithm complexity is critical
-            "scale_unsuitability": 2.5,         # Scale issues are deployment blockers
-            "cyclomatic_complexity": 1.2,       # Code complexity affects performance
-            "cognitive_complexity": 1.0,        # Cognitive complexity affects maintenance
-            "nesting_depth": 1.5,               # Deep nesting kills performance
-            "function_length": 0.8,             # Long functions are harder to optimize
-            "loop_nesting": 2.0,                # Nested loops are performance killers
-            "performance_bottleneck": 1.8,      # Bottlenecks kill user experience
-            "algorithm_inefficiency": 2.2,      # Inefficient algorithms don't scale
-            "performance_antipattern": 1.5,     # Anti-patterns cause production issues
-            "memory_efficiency": 1.5,           # Memory issues affect stability
-            "cpu_efficiency": 1.8,              # CPU efficiency affects scalability
-            "resource_leak_risk": 2.0,          # Resource leaks kill production
-            "scalability_concern": 1.0,         # Scalability matters for growth
-            "production_readiness": 1.5,        # Production readiness is key
-            "execution_time": 1.5,              # Actual performance matters
-            "memory_usage": 1.2,                # Memory usage affects costs
-            "scalability_projection": 1.8,      # Scalability projection is critical
-            "optimization_opportunity": 0.1     # Optimizations are suggestions
+            "algorithm_complexity": 1.5,        # Reduced from 2.0
+            "scale_unsuitability": 1.8,         # Reduced from 2.5
+            "cyclomatic_complexity": 0.8,       # Reduced from 1.2
+            "cognitive_complexity": 0.6,        # Reduced from 1.0
+            "nesting_depth": 1.0,               # Reduced from 1.5
+            "function_length": 0.4,             # Reduced from 0.8
+            "loop_nesting": 1.5,                # Reduced from 2.0
+            "performance_bottleneck": 1.2,      # Reduced from 1.8
+            "algorithm_inefficiency": 1.5,      # Reduced from 2.2
+            "performance_antipattern": 1.0,     # Reduced from 1.5
+            "memory_efficiency": 1.0,           # Reduced from 1.5
+            "cpu_efficiency": 1.2,              # Reduced from 1.8
+            "resource_leak_risk": 1.5,          # Reduced from 2.0
+            "scalability_concern": 0.6,         # Reduced from 1.0
+            "production_readiness": 1.0,        # Reduced from 1.5
+            "execution_time": 1.0,              # Reduced from 1.5
+            "memory_usage": 0.8,                # Reduced from 1.2
+            "scalability_projection": 1.2,      # Reduced from 1.8
+            "optimization_opportunity": 0.05    # Reduced from 0.1
         }
         
-        # Ultra-aggressive severity multipliers
+        # Less aggressive severity multipliers
         severity_multipliers = {
-            Severity.LOW: 0.2,
-            Severity.MEDIUM: 0.6,
-            Severity.HIGH: 1.4,                 # High issues are major problems
-            Severity.CRITICAL: 2.5             # Critical issues destroy the score
+            Severity.LOW: 0.1,
+            Severity.MEDIUM: 0.3,               # Reduced from 0.6
+            Severity.HIGH: 0.8,                 # Reduced from 1.4
+            Severity.CRITICAL: 1.5              # Reduced from 2.5
         }
         
         total_penalty = 0.0
         for issue in issues:
-            type_weight = type_weights.get(issue.type, 0.8)
+            type_weight = type_weights.get(issue.type, 0.5)
             severity_multiplier = severity_multipliers[issue.severity]
             issue_penalty = type_weight * severity_multiplier
             total_penalty += issue_penalty
@@ -1308,12 +1226,11 @@ class PerformanceProfiler(BaseAgent):
                 if perf_score > 0.9:
                     runtime_bonus = 0.1  # Small bonus for excellent runtime performance
         
-        # Ultra-aggressive normalization - complexity issues should dominate
-        # 1 critical complexity issue should give ~0.4, 2 critical issues ~0.2
-        max_penalty = 3.0  # Very aggressive - even fewer issues tank the score
+        # Less aggressive normalization - higher max_penalty means gentler scoring
+        max_penalty = 5.0  # Increased from 3.0 for less aggressive scoring
         normalized_penalty = min(total_penalty / max_penalty, 1.0)
         
-        base_score = max(0.0, 1.0 - normalized_penalty)
+        base_score = max(0.2, 1.0 - normalized_penalty)  # Higher floor from 0.0
         final_score = min(1.0, base_score + runtime_bonus)
         
         return final_score

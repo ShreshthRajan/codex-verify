@@ -1,0 +1,5440 @@
+{
+  "total_samples": 22,
+  "correct_detections": 19,
+  "accuracy": 0.8636363636363636,
+  "true_positive_rate": 0.9473684210526315,
+  "true_negative_rate": 0.3333333333333333,
+  "false_positive_rate": 0.6666666666666667,
+  "baselines": {
+    "codex": 0.4,
+    "static_analyzers": 0.65
+  },
+  "category_performance": {
+    "edge_case_logic": {
+      "total": 3,
+      "correct": 2
+    },
+    "concurrency_safety": {
+      "total": 2,
+      "correct": 2
+    },
+    "cryptographic_security": {
+      "total": 2,
+      "correct": 2
+    },
+    "scalability_performance": {
+      "total": 2,
+      "correct": 2
+    },
+    "resource_management": {
+      "total": 2,
+      "correct": 2
+    },
+    "input_validation_security": {
+      "total": 2,
+      "correct": 2
+    },
+    "algorithmic_complexity": {
+      "total": 2,
+      "correct": 2
+    },
+    "memory_management": {
+      "total": 1,
+      "correct": 1
+    },
+    "numeric_precision": {
+      "total": 1,
+      "correct": 1
+    },
+    "datetime_logic": {
+      "total": 1,
+      "correct": 1
+    },
+    "api_integration": {
+      "total": 1,
+      "correct": 1
+    },
+    "control_good": {
+      "total": 3,
+      "correct": 1
+    }
+  },
+  "difficulty_performance": {
+    "medium": {
+      "total": 8,
+      "correct": 7
+    },
+    "easy": {
+      "total": 3,
+      "correct": 2
+    },
+    "hard": {
+      "total": 8,
+      "correct": 7
+    },
+    "expert": {
+      "total": 3,
+      "correct": 3
+    }
+  },
+  "detailed_results": [
+    {
+      "problem_id": "django_forms_001",
+      "failure_category": "edge_case_logic",
+      "difficulty_level": "medium",
+      "our_score": 0.2,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.09818196296691895,
+      "issues_found": 12,
+      "critical_issues": 2,
+      "high_issues": 2,
+      "medium_issues": 5,
+      "actual_issue": "Treats empty string '' same as None, but '' should be preserved for text fields",
+      "agent_scores": {
+        "style": 0.678,
+        "performance": 0.4099999999999999,
+        "correctness": 0.8366666666666667,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "scale_unsuitability",
+          "severity": "critical",
+          "message": "Algorithm unsuitable for production scale - O(2^n) complexity",
+          "suggestion": "Redesign with more efficient algorithm for enterprise deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_blocker",
+          "severity": "critical",
+          "message": "Production deployment blocked: 1 critical performance issues",
+          "suggestion": "Resolve all critical performance issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'ValidationError'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'clean_field' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "4 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.33)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 50.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "logic",
+          "severity": "medium",
+          "message": "Moderate logic score: 0.70",
+          "suggestion": "Consider improving code logic",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "numpy_array_001",
+      "failure_category": "edge_case_logic",
+      "difficulty_level": "easy",
+      "our_score": 0.2,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.0765678882598877,
+      "issues_found": 16,
+      "critical_issues": 2,
+      "high_issues": 3,
+      "medium_issues": 5,
+      "actual_issue": "Negative indices crash instead of counting from end like standard Python",
+      "agent_scores": {
+        "style": 0.28800000000000003,
+        "performance": 0.4089999999999999,
+        "correctness": 0.8066666666666665,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "scale_unsuitability",
+          "severity": "critical",
+          "message": "Algorithm unsuitable for production scale - O(2^n) complexity",
+          "suggestion": "Redesign with more efficient algorithm for enterprise deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_blocker",
+          "severity": "critical",
+          "message": "Production deployment blocked: 1 critical performance issues",
+          "suggestion": "Resolve all critical performance issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "high",
+          "message": "Low docstring coverage: 0.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 66.7%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (81 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "5 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.33)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_docstrings",
+          "severity": "medium",
+          "message": "3 functions missing docstrings",
+          "suggestion": "Add docstrings to public functions",
+          "confidence": 1.0
+        },
+        {
+          "type": "function_naming",
+          "severity": "medium",
+          "message": "Poor function naming (score: 0.00)",
+          "suggestion": "Use snake_case for functions",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W291 trailing whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "comment_density",
+          "severity": "low",
+          "message": "Low comment density: 8.3%",
+          "suggestion": "Add explanatory comments for complex logic",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        },
+        {
+          "type": "optimization_opportunity",
+          "severity": "low",
+          "message": "Optimization opportunity: Consider using sets or dicts for O(1) lookup performance",
+          "suggestion": "Consider implementing this optimization",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "datetime_parsing_001",
+      "failure_category": "edge_case_logic",
+      "difficulty_level": "hard",
+      "our_score": 0.8,
+      "our_verdict": "WARNING",
+      "should_reject": true,
+      "correct_detection": false,
+      "execution_time": 0.0836019515991211,
+      "issues_found": 12,
+      "critical_issues": 0,
+      "high_issues": 1,
+      "medium_issues": 6,
+      "actual_issue": "Pattern 2 uses MM/DD/YYYY but code assumes YYYY/MM/DD - will create wrong dates",
+      "agent_scores": {
+        "style": 0.5357325427440827,
+        "performance": 1.0,
+        "correctness": 0.9633333333333334,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'parse_datetime' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "7 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.46)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 50.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_clarity",
+          "severity": "medium",
+          "message": "Poor code clarity (score: 0.69)",
+          "suggestion": "Use descriptive names and avoid magic numbers",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "import_organization",
+          "severity": "low",
+          "message": "Poor import organization (score: 0.30)",
+          "suggestion": "Organize imports: stdlib, third-party, local modules",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "flask_cache_001",
+      "failure_category": "concurrency_safety",
+      "difficulty_level": "medium",
+      "our_score": 0.4,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.08335709571838379,
+      "issues_found": 20,
+      "critical_issues": 0,
+      "high_issues": 5,
+      "medium_issues": 9,
+      "actual_issue": "Multiple race conditions: dict access, stats updates, cleanup iteration",
+      "agent_scores": {
+        "style": 0.2235580572170873,
+        "performance": 1.0,
+        "correctness": 0.43000000000000005,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'time'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "high",
+          "message": "Low docstring coverage: 0.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 0.0%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_readiness",
+          "severity": "high",
+          "message": "Low production readiness: 60.0%",
+          "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'cleanup_expired' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'cleanup_expired' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'set' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'set' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'get' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "6 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.57)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_docstrings",
+          "severity": "medium",
+          "message": "4 functions missing docstrings",
+          "suggestion": "Add docstrings to public functions",
+          "confidence": 1.0
+        },
+        {
+          "type": "function_naming",
+          "severity": "medium",
+          "message": "Poor function naming (score: 0.75)",
+          "suggestion": "Use snake_case for functions",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "import_organization",
+          "severity": "low",
+          "message": "Poor import organization (score: 0.30)",
+          "suggestion": "Organize imports: stdlib, third-party, local modules",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        },
+        {
+          "type": "ast_analysis",
+          "severity": "low",
+          "message": "Public function 'get' missing docstring - production documentation required",
+          "suggestion": "Address production deployment concern",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "counter_service_001",
+      "failure_category": "concurrency_safety",
+      "difficulty_level": "medium",
+      "our_score": 0.4,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.08433723449707031,
+      "issues_found": 22,
+      "critical_issues": 0,
+      "high_issues": 4,
+      "medium_issues": 10,
+      "actual_issue": "Lost increments under concurrent access - classic atomicity violation",
+      "agent_scores": {
+        "style": 0.17200000000000007,
+        "performance": 1.0,
+        "correctness": 0.6266666666666666,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "docstring_coverage",
+          "severity": "high",
+          "message": "Low docstring coverage: 16.7%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 0.0%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_readiness",
+          "severity": "high",
+          "message": "Low production readiness: 63.3%",
+          "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (93 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'reset' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'get_count' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'get_count' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'increment' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "line_length",
+          "severity": "medium",
+          "message": "1 lines exceed 88 characters",
+          "suggestion": "Keep lines under 88 characters for better readability",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "13 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.00)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_docstrings",
+          "severity": "medium",
+          "message": "3 functions missing docstrings",
+          "suggestion": "Add docstrings to public functions",
+          "confidence": 1.0
+        },
+        {
+          "type": "function_naming",
+          "severity": "medium",
+          "message": "Poor function naming (score: 0.75)",
+          "suggestion": "Use snake_case for functions",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W291 trailing whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        },
+        {
+          "type": "ast_analysis",
+          "severity": "low",
+          "message": "Public function 'get_count' missing docstring - production documentation required",
+          "suggestion": "Address production deployment concern",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "auth_token_001",
+      "failure_category": "cryptographic_security",
+      "difficulty_level": "hard",
+      "our_score": 0.2,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.08470320701599121,
+      "issues_found": 31,
+      "critical_issues": 2,
+      "high_issues": 7,
+      "medium_issues": 14,
+      "actual_issue": "Multiple crypto failures: predictable randomness, MD5, timing attacks",
+      "agent_scores": {
+        "style": 0.26588340012663103,
+        "performance": 0.4099999999999999,
+        "correctness": 0.6633333333333332,
+        "security": 0.4
+      },
+      "detailed_issues": [
+        {
+          "type": "scale_unsuitability",
+          "severity": "critical",
+          "message": "Algorithm unsuitable for production scale - O(2^n) complexity",
+          "suggestion": "Redesign with more efficient algorithm for enterprise deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_blocker",
+          "severity": "critical",
+          "message": "Production deployment blocked: 1 critical performance issues",
+          "suggestion": "Resolve all critical performance issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "bare_except",
+          "severity": "high",
+          "message": "Bare except clause hides errors in production",
+          "suggestion": "Specify exception types for proper error handling",
+          "confidence": 1.0
+        },
+        {
+          "type": "md5_usage",
+          "severity": "high",
+          "message": "MD5 is cryptographically broken",
+          "suggestion": "Use SHA-256 or stronger hash algorithms for security purposes",
+          "confidence": 0.9500000000000001
+        },
+        {
+          "type": "weak_random",
+          "severity": "high",
+          "message": "Weak random number generation for security",
+          "suggestion": "Use secrets module for cryptographically secure random generation",
+          "confidence": 0.9500000000000001
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 0.0%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_readiness",
+          "severity": "high",
+          "message": "Low production readiness: 66.7%",
+          "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "compliance_failure",
+          "severity": "high",
+          "message": "Enterprise compliance failure: 2 high vulnerabilities exceed limit",
+          "suggestion": "Reduce high-severity vulnerabilities for enterprise compliance",
+          "confidence": 1.0
+        },
+        {
+          "type": "crypto_compliance_failure",
+          "severity": "high",
+          "message": "Cryptographic compliance failure: Weak cryptographic algorithms detected",
+          "suggestion": "Use enterprise-approved cryptographic algorithms",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E722 do not use bare 'except'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (80 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (98 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'validate_token' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'validate_token' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (91 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'generate_auth_token' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'generate_auth_token' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "line_length",
+          "severity": "medium",
+          "message": "2 lines exceed 88 characters",
+          "suggestion": "Keep lines under 88 characters for better readability",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "10 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.38)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 66.7%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W291 trailing whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "import_organization",
+          "severity": "low",
+          "message": "Poor import organization (score: 0.30)",
+          "suggestion": "Organize imports: stdlib, third-party, local modules",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        },
+        {
+          "type": "ast_analysis",
+          "severity": "low",
+          "message": "Bare except clause - production error handling must be specific",
+          "suggestion": "Address production deployment concern",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "password_hash_001",
+      "failure_category": "cryptographic_security",
+      "difficulty_level": "medium",
+      "our_score": 0.2,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.07962226867675781,
+      "issues_found": 26,
+      "critical_issues": 2,
+      "high_issues": 6,
+      "medium_issues": 13,
+      "actual_issue": "Fixed salt + fast hashing + timing attacks = completely broken security",
+      "agent_scores": {
+        "style": 0.3199623433287142,
+        "performance": 0.30999999999999994,
+        "correctness": 0.6233333333333332,
+        "security": 0.7999999999999999
+      },
+      "detailed_issues": [
+        {
+          "type": "scale_unsuitability",
+          "severity": "critical",
+          "message": "Algorithm unsuitable for production scale - O(2^n) complexity",
+          "suggestion": "Redesign with more efficient algorithm for enterprise deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_blocker",
+          "severity": "critical",
+          "message": "Production deployment blocked: 1 critical performance issues",
+          "suggestion": "Resolve all critical performance issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'time'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "bare_except",
+          "severity": "high",
+          "message": "Bare except clause hides errors in production",
+          "suggestion": "Specify exception types for proper error handling",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F401 'os' imported but unused",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "dangerous_import",
+          "severity": "high",
+          "message": "High-risk import: os (risk level: 3)",
+          "suggestion": "Review security implications of os usage",
+          "confidence": 1.0
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 0.0%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_readiness",
+          "severity": "high",
+          "message": "Low production readiness: 66.7%",
+          "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E722 do not use bare 'except'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "timing_attack_comparison",
+          "severity": "medium",
+          "message": "Timing attack vulnerability in comparison",
+          "suggestion": "Address timing_attack_comparison. CWE: CWE-208",
+          "confidence": 0.9
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'verify_password' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'verify_password' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'hash_password' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'hash_password' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "7 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.52)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 75.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "execution",
+          "severity": "medium",
+          "message": "Code contains potentially dangerous operations - skipping execution",
+          "suggestion": "Manual review recommended for code with system operations",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "import_organization",
+          "severity": "low",
+          "message": "Poor import organization (score: 0.30)",
+          "suggestion": "Organize imports: stdlib, third-party, local modules",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        },
+        {
+          "type": "ast_analysis",
+          "severity": "low",
+          "message": "Bare except clause - production error handling must be specific",
+          "suggestion": "Address production deployment concern",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "data_processing_001",
+      "failure_category": "scalability_performance",
+      "difficulty_level": "medium",
+      "our_score": 0.4,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.08011412620544434,
+      "issues_found": 28,
+      "critical_issues": 0,
+      "high_issues": 8,
+      "medium_issues": 9,
+      "actual_issue": "N+1 queries + memory explosion - timeouts/crashes with real user volumes",
+      "agent_scores": {
+        "style": 0.2021995557946044,
+        "performance": 0.392,
+        "correctness": 0.7933333333333333,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "performance_bottleneck",
+          "severity": "high",
+          "message": "Performance bottleneck: Memory allocation in loop",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "high",
+          "message": "Performance bottleneck: Memory allocation in loop",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'db'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'db'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'db'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "cpu_efficiency",
+          "severity": "high",
+          "message": "Poor CPU efficiency: 0.60",
+          "suggestion": "Consider algorithmic improvements for production performance",
+          "confidence": 1.0
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 0.0%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_readiness",
+          "severity": "high",
+          "message": "Low production readiness: 66.7%",
+          "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (81 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'get_user_analytics' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'get_user_analytics' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "14 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.15)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 50.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "scale_concern",
+          "severity": "medium",
+          "message": "Algorithm may have performance issues at enterprise scale",
+          "suggestion": "Monitor performance with production data volumes",
+          "confidence": 1.0
+        },
+        {
+          "type": "scalability_concern",
+          "severity": "medium",
+          "message": "Scalability concern: Collection creation in loop at line 29",
+          "suggestion": "Optimize for production scale requirements",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_concern",
+          "severity": "medium",
+          "message": "Production performance concerns: 2 issues need attention",
+          "suggestion": "Monitor performance closely in production environment",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W291 trailing whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W291 trailing whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W291 trailing whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W291 trailing whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W291 trailing whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "search_algorithm_001",
+      "failure_category": "scalability_performance",
+      "difficulty_level": "hard",
+      "our_score": 0.2,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.0859529972076416,
+      "issues_found": 26,
+      "critical_issues": 2,
+      "high_issues": 6,
+      "medium_issues": 13,
+      "actual_issue": "O(n\u00b2) complexity + full table scans + memory explosion = complete failure at scale",
+      "agent_scores": {
+        "style": 0.1218727472498438,
+        "performance": 0.30000000000000004,
+        "correctness": 0.5533333333333332,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "scale_unsuitability",
+          "severity": "critical",
+          "message": "Algorithm unsuitable for production scale - O(n\u00b2) complexity",
+          "suggestion": "Redesign with more efficient algorithm for enterprise deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_blocker",
+          "severity": "critical",
+          "message": "Production deployment blocked: 1 critical performance issues",
+          "suggestion": "Resolve all critical performance issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F841 local variable 'all_comments' is assigned to but never used",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'db'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "high",
+          "message": "Performance bottleneck: Nested loops (2 levels)",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "loop_nesting",
+          "severity": "high",
+          "message": "High loop nesting: 2 levels",
+          "suggestion": "Consider algorithmic optimization to reduce nesting",
+          "confidence": 1.0
+        },
+        {
+          "type": "exception_coverage",
+          "severity": "high",
+          "message": "Low exception handling coverage: 0.0%",
+          "suggestion": "Add exception handling for production deployment safety",
+          "confidence": 1.0
+        },
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'calculate_similarity_score' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (84 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (82 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "medium",
+          "message": "Performance bottleneck: Nested loops (2 levels)",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'search_content' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'search_content' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "10 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.50)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 66.7%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "halstead_complexity",
+          "severity": "medium",
+          "message": "Moderate Halstead complexity: 219.7",
+          "suggestion": "Consider simplifying complex expressions",
+          "confidence": 1.0
+        },
+        {
+          "type": "algorithm_complexity",
+          "severity": "medium",
+          "message": "Concerning algorithm complexity: O(n\u00b2)",
+          "suggestion": "Consider algorithmic optimization for production scale",
+          "confidence": 1.0
+        },
+        {
+          "type": "scalability_concern",
+          "severity": "medium",
+          "message": "Scalability concern: Nested loops creating O(n\u00b2+) complexity at line 7",
+          "suggestion": "Optimize for production scale requirements",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        },
+        {
+          "type": "optimization_opportunity",
+          "severity": "low",
+          "message": "Optimization opportunity: Use built-in sort() or sorted() for optimal O(n log n) performance",
+          "suggestion": "Consider implementing this optimization",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "file_upload_001",
+      "failure_category": "resource_management",
+      "difficulty_level": "medium",
+      "our_score": 0.4,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.0842139720916748,
+      "issues_found": 34,
+      "critical_issues": 0,
+      "high_issues": 10,
+      "medium_issues": 13,
+      "actual_issue": "Resource leaks: temp files + file descriptors accumulate until system failure",
+      "agent_scores": {
+        "style": 0.09682255441202453,
+        "performance": 0.604,
+        "correctness": 0.44666666666666655,
+        "security": 0.75
+      },
+      "detailed_issues": [
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'process_content'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "resource_leak_risk",
+          "severity": "high",
+          "message": "Resource operation 'open' without proper cleanup",
+          "suggestion": "Use 'with' statement for automatic resource cleanup",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'process_line'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F401 'os' imported but unused",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "dangerous_import",
+          "severity": "high",
+          "message": "High-risk import: os (risk level: 2)",
+          "suggestion": "Review security implications of os usage",
+          "confidence": 1.0
+        },
+        {
+          "type": "resource_leak_risk",
+          "severity": "high",
+          "message": "Moderate resource leak risk: 0.40",
+          "suggestion": "Improve resource cleanup for production stability",
+          "confidence": 1.0
+        },
+        {
+          "type": "ast_analysis",
+          "severity": "high",
+          "message": "File opened without 'with' statement - resource leak risk",
+          "suggestion": "Address production deployment concern",
+          "confidence": 1.0
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 0.0%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_readiness",
+          "severity": "high",
+          "message": "Low production readiness: 66.7%",
+          "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "crypto_compliance_failure",
+          "severity": "high",
+          "message": "Cryptographic compliance failure: Weak cryptographic algorithms detected",
+          "suggestion": "Use enterprise-approved cryptographic algorithms",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'batch_process_files' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'batch_process_files' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'process_uploaded_file' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'process_uploaded_file' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "13 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.54)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 66.7%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "algorithm_complexity",
+          "severity": "medium",
+          "message": "Concerning algorithm complexity: O(n\u00b2)",
+          "suggestion": "Consider algorithmic optimization for production scale",
+          "confidence": 1.0
+        },
+        {
+          "type": "scale_concern",
+          "severity": "medium",
+          "message": "Algorithm may have performance issues at enterprise scale",
+          "suggestion": "Monitor performance with production data volumes",
+          "confidence": 1.0
+        },
+        {
+          "type": "scalability_concern",
+          "severity": "medium",
+          "message": "Scalability concern: Resource leak risk at line 41",
+          "suggestion": "Optimize for production scale requirements",
+          "confidence": 1.0
+        },
+        {
+          "type": "execution",
+          "severity": "medium",
+          "message": "Code contains potentially dangerous operations - skipping execution",
+          "suggestion": "Manual review recommended for code with system operations",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "import_organization",
+          "severity": "low",
+          "message": "Poor import organization (score: 0.30)",
+          "suggestion": "Organize imports: stdlib, third-party, local modules",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "database_connection_001",
+      "failure_category": "resource_management",
+      "difficulty_level": "hard",
+      "our_score": 0.4,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.08238101005554199,
+      "issues_found": 23,
+      "critical_issues": 0,
+      "high_issues": 4,
+      "medium_issues": 14,
+      "actual_issue": "Unbounded connection creation + cursor leaks + corrupt connection reuse",
+      "agent_scores": {
+        "style": 0.33292505669530087,
+        "performance": 1.0,
+        "correctness": 0.4,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "missing_exception_handling",
+          "severity": "high",
+          "message": "Function 'get_connection' missing exception handling for production deployment",
+          "suggestion": "Add try-except blocks for error conditions and resource cleanup",
+          "confidence": 1.0
+        },
+        {
+          "type": "exception_coverage",
+          "severity": "high",
+          "message": "Low exception handling coverage: 25.0%",
+          "suggestion": "Add exception handling for production deployment safety",
+          "confidence": 1.0
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 0.0%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_readiness",
+          "severity": "high",
+          "message": "Low production readiness: 66.7%",
+          "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'execute_query' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'execute_query' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'return_connection' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'return_connection' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "contract_violation",
+          "severity": "medium",
+          "message": "Function 'return_connection' docstring mentions return value but function doesn't return",
+          "suggestion": "Ensure function returns value as documented",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'get_connection' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'get_connection' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "7 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.67)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 50.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_docstrings",
+          "severity": "medium",
+          "message": "1 functions missing docstrings",
+          "suggestion": "Add docstrings to public functions",
+          "confidence": 1.0
+        },
+        {
+          "type": "function_naming",
+          "severity": "medium",
+          "message": "Poor function naming (score: 0.75)",
+          "suggestion": "Use snake_case for functions",
+          "confidence": 1.0
+        },
+        {
+          "type": "algorithm_complexity",
+          "severity": "medium",
+          "message": "Concerning algorithm complexity: O(n\u00b2)",
+          "suggestion": "Consider algorithmic optimization for production scale",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "import_organization",
+          "severity": "low",
+          "message": "Poor import organization (score: 0.30)",
+          "suggestion": "Organize imports: stdlib, third-party, local modules",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "api_endpoint_001",
+      "failure_category": "input_validation_security",
+      "difficulty_level": "hard",
+      "our_score": 0.4,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.08484578132629395,
+      "issues_found": 26,
+      "critical_issues": 0,
+      "high_issues": 9,
+      "medium_issues": 9,
+      "actual_issue": "Multiple security holes: no auth, SQL injection, field injection, XSS",
+      "agent_scores": {
+        "style": 0.024737056068687955,
+        "performance": 0.88,
+        "correctness": 0.55,
+        "security": 0.44999999999999996
+      },
+      "detailed_issues": [
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'db'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "sql_fstring_injection",
+          "severity": "high",
+          "message": "SQL injection via f-string formatting",
+          "suggestion": "Use parameterized queries or ORM to prevent SQL injection",
+          "confidence": 0.9500000000000001
+        },
+        {
+          "type": "sql_fstring_injection",
+          "severity": "high",
+          "message": "SQL injection via f-string formatting",
+          "suggestion": "Use parameterized queries or ORM to prevent SQL injection",
+          "confidence": 0.9
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'app'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F401 're' imported but unused",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "logic",
+          "severity": "high",
+          "message": "Low logic score: 0.40",
+          "suggestion": "Review code logic for production correctness",
+          "confidence": 1.0
+        },
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "execution",
+          "severity": "high",
+          "message": "Code execution failed: Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"<string>\", line 2, in <module>\nModuleNotFoundError: No module named 'flask'",
+          "suggestion": "Fix runtime errors before deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "compliance_failure",
+          "severity": "high",
+          "message": "Enterprise compliance failure: 2 high vulnerabilities exceed limit",
+          "suggestion": "Reduce high-severity vulnerabilities for enterprise compliance",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'update_user' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "12 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.47)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 50.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "halstead_complexity",
+          "severity": "medium",
+          "message": "Moderate Halstead complexity: 212.9",
+          "suggestion": "Consider simplifying complex expressions",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_clarity",
+          "severity": "medium",
+          "message": "Poor code clarity (score: 0.69)",
+          "suggestion": "Use descriptive names and avoid magic numbers",
+          "confidence": 1.0
+        },
+        {
+          "type": "algorithm_complexity",
+          "severity": "medium",
+          "message": "Concerning algorithm complexity: O(n\u00b2)",
+          "suggestion": "Consider algorithmic optimization for production scale",
+          "confidence": 1.0
+        },
+        {
+          "type": "scale_concern",
+          "severity": "medium",
+          "message": "Algorithm may have performance issues at enterprise scale",
+          "suggestion": "Monitor performance with production data volumes",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "import_organization",
+          "severity": "low",
+          "message": "Poor import organization (score: 0.30)",
+          "suggestion": "Organize imports: stdlib, third-party, local modules",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "file_upload_security_001",
+      "failure_category": "input_validation_security",
+      "difficulty_level": "medium",
+      "our_score": 0.2,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.0849301815032959,
+      "issues_found": 37,
+      "critical_issues": 2,
+      "high_issues": 8,
+      "medium_issues": 17,
+      "actual_issue": "File upload vulnerabilities: no content validation, path traversal, overwrite",
+      "agent_scores": {
+        "style": 0.0,
+        "performance": 0.30999999999999994,
+        "correctness": 0.4,
+        "security": 0.7999999999999999
+      },
+      "detailed_issues": [
+        {
+          "type": "scale_unsuitability",
+          "severity": "critical",
+          "message": "Algorithm unsuitable for production scale - O(2^n) complexity",
+          "suggestion": "Redesign with more efficient algorithm for enterprise deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_blocker",
+          "severity": "critical",
+          "message": "Production deployment blocked: 1 critical performance issues",
+          "suggestion": "Resolve all critical performance issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F841 local variable 'data' is assigned to but never used",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'app'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "dangerous_import",
+          "severity": "high",
+          "message": "High-risk import: os (risk level: 3)",
+          "suggestion": "Review security implications of os usage",
+          "confidence": 1.0
+        },
+        {
+          "type": "exception_coverage",
+          "severity": "high",
+          "message": "Low exception handling coverage: 66.7%",
+          "suggestion": "Add exception handling for production deployment safety",
+          "confidence": 1.0
+        },
+        {
+          "type": "ast_analysis",
+          "severity": "high",
+          "message": "Public function 'allowed_file' missing docstring - production documentation required",
+          "suggestion": "Address production deployment concern",
+          "confidence": 1.0
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 33.3%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_readiness",
+          "severity": "high",
+          "message": "Low production readiness: 67.8%",
+          "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'process_uploaded_image' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'process_uploaded_image' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (87 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'allowed_file' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'allowed_file' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "17 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.40)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 50.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_docstrings",
+          "severity": "medium",
+          "message": "1 functions missing docstrings",
+          "suggestion": "Add docstrings to public functions",
+          "confidence": 1.0
+        },
+        {
+          "type": "halstead_complexity",
+          "severity": "medium",
+          "message": "Moderate Halstead complexity: 219.7",
+          "suggestion": "Consider simplifying complex expressions",
+          "confidence": 1.0
+        },
+        {
+          "type": "variable_naming",
+          "severity": "medium",
+          "message": "Poor variable naming (score: 0.71)",
+          "suggestion": "Use snake_case for variables",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_clarity",
+          "severity": "medium",
+          "message": "Poor code clarity (score: 0.67)",
+          "suggestion": "Use descriptive names and avoid magic numbers",
+          "confidence": 1.0
+        },
+        {
+          "type": "logic",
+          "severity": "medium",
+          "message": "Moderate logic score: 0.70",
+          "suggestion": "Consider improving code logic",
+          "confidence": 1.0
+        },
+        {
+          "type": "execution",
+          "severity": "medium",
+          "message": "Code contains potentially dangerous operations - skipping execution",
+          "suggestion": "Manual review recommended for code with system operations",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "import_organization",
+          "severity": "low",
+          "message": "Poor import organization (score: 0.30)",
+          "suggestion": "Organize imports: stdlib, third-party, local modules",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "data_analysis_001",
+      "failure_category": "algorithmic_complexity",
+      "difficulty_level": "expert",
+      "our_score": 0.0,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.10498523712158203,
+      "issues_found": 55,
+      "critical_issues": 3,
+      "high_issues": 9,
+      "medium_issues": 26,
+      "actual_issue": "O(n\u00b3) total complexity: O(n\u00b2) pairs \u00d7 O(n) string ops = complete failure at scale",
+      "agent_scores": {
+        "style": 0.125,
+        "performance": 0.30000000000000004,
+        "correctness": 0.4,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "scale_unsuitability",
+          "severity": "critical",
+          "message": "Algorithm unsuitable for production scale - O(n\u00b2) complexity",
+          "suggestion": "Redesign with more efficient algorithm for enterprise deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "cpu_efficiency",
+          "severity": "critical",
+          "message": "Critical CPU efficiency: 0.40",
+          "suggestion": "Optimize algorithms for production CPU performance",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_blocker",
+          "severity": "critical",
+          "message": "Production deployment blocked: 2 critical performance issues",
+          "suggestion": "Resolve all critical performance issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "high",
+          "message": "Performance bottleneck: String concatenation in loop",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "high",
+          "message": "Performance bottleneck: Nested loops (2 levels)",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "high",
+          "message": "Performance bottleneck: Nested loops (2 levels)",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "high",
+          "message": "Performance bottleneck: String concatenation in loop",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "high",
+          "message": "Performance bottleneck: Nested loops (2 levels)",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "loop_nesting",
+          "severity": "high",
+          "message": "High loop nesting: 2 levels",
+          "suggestion": "Consider algorithmic optimization to reduce nesting",
+          "confidence": 1.0
+        },
+        {
+          "type": "exception_coverage",
+          "severity": "high",
+          "message": "Low exception handling coverage: 20.0%",
+          "suggestion": "Add exception handling for production deployment safety",
+          "confidence": 1.0
+        },
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "complexity",
+          "severity": "high",
+          "message": "Excessive cyclomatic complexity: 20",
+          "suggestion": "Break function into smaller, focused functions for production maintainability",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "medium",
+          "message": "Performance bottleneck: Nested loops (2 levels)",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'char_similarity' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (99 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (101 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'email_similarity' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "medium",
+          "message": "Performance bottleneck: Nested loops (2 levels)",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'edit_distance' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (82 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "medium",
+          "message": "Performance bottleneck: Linear search in list/tuple",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'calculate_detailed_similarity' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "medium",
+          "message": "Performance bottleneck: Nested loops (2 levels)",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'find_duplicates' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'find_duplicates' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "line_length",
+          "severity": "medium",
+          "message": "2 lines exceed 88 characters",
+          "suggestion": "Keep lines under 88 characters for better readability",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "36 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.23)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "maintainability_index",
+          "severity": "medium",
+          "message": "Moderate maintainability index: 64.6",
+          "suggestion": "Consider improving code structure and reducing complexity",
+          "confidence": 1.0
+        },
+        {
+          "type": "halstead_complexity",
+          "severity": "medium",
+          "message": "Moderate Halstead complexity: 459.5",
+          "suggestion": "Consider simplifying complex expressions",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_clarity",
+          "severity": "medium",
+          "message": "Poor code clarity (score: 0.63)",
+          "suggestion": "Use descriptive names and avoid magic numbers",
+          "confidence": 1.0
+        },
+        {
+          "type": "algorithm_complexity",
+          "severity": "medium",
+          "message": "Concerning algorithm complexity: O(n\u00b2)",
+          "suggestion": "Consider algorithmic optimization for production scale",
+          "confidence": 1.0
+        },
+        {
+          "type": "scalability_concern",
+          "severity": "medium",
+          "message": "Scalability concern: Nested loops creating O(n\u00b2+) complexity at line 7",
+          "suggestion": "Optimize for production scale requirements",
+          "confidence": 1.0
+        },
+        {
+          "type": "logic",
+          "severity": "medium",
+          "message": "Moderate logic score: 0.70",
+          "suggestion": "Consider improving code logic",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        },
+        {
+          "type": "optimization_opportunity",
+          "severity": "low",
+          "message": "Optimization opportunity: Consider using sets or dicts for O(1) lookup performance",
+          "suggestion": "Consider implementing this optimization",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "graph_analysis_001",
+      "failure_category": "algorithmic_complexity",
+      "difficulty_level": "expert",
+      "our_score": 0.2,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.0874779224395752,
+      "issues_found": 36,
+      "critical_issues": 2,
+      "high_issues": 9,
+      "medium_issues": 11,
+      "actual_issue": "O(n! \u00d7 n\u00b2) complexity: exponential path finding for every pair of nodes",
+      "agent_scores": {
+        "style": 0.16999999999999993,
+        "performance": 0.30000000000000004,
+        "correctness": 0.45,
+        "security": 0.7999999999999999
+      },
+      "detailed_issues": [
+        {
+          "type": "scale_unsuitability",
+          "severity": "critical",
+          "message": "Algorithm unsuitable for production scale - O(n\u00b2) complexity",
+          "suggestion": "Redesign with more efficient algorithm for enterprise deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_blocker",
+          "severity": "critical",
+          "message": "Production deployment blocked: 1 critical performance issues",
+          "suggestion": "Resolve all critical performance issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "high",
+          "message": "Performance bottleneck: Nested loops (2 levels)",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'build_graph'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "loop_nesting",
+          "severity": "high",
+          "message": "High loop nesting: 2 levels",
+          "suggestion": "Consider algorithmic optimization to reduce nesting",
+          "confidence": 1.0
+        },
+        {
+          "type": "exception_coverage",
+          "severity": "high",
+          "message": "Low exception handling coverage: 66.7%",
+          "suggestion": "Add exception handling for production deployment safety",
+          "confidence": 1.0
+        },
+        {
+          "type": "logic",
+          "severity": "high",
+          "message": "Low logic score: 0.50",
+          "suggestion": "Review code logic for production correctness",
+          "confidence": 1.0
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 66.7%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_readiness",
+          "severity": "high",
+          "message": "Low production readiness: 72.2%",
+          "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "crypto_compliance_failure",
+          "severity": "high",
+          "message": "Cryptographic compliance failure: Weak cryptographic algorithms detected",
+          "suggestion": "Use enterprise-approved cryptographic algorithms",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (86 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "medium",
+          "message": "Performance bottleneck: Nested loops (2 levels)",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'analyze_social_network' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (86 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'dfs_all_paths' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'find_all_shortest_paths' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "17 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.43)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 75.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "scalability_concern",
+          "severity": "medium",
+          "message": "Scalability concern: Nested loops creating O(n\u00b2+) complexity at line 48",
+          "suggestion": "Optimize for production scale requirements",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        },
+        {
+          "type": "optimization_opportunity",
+          "severity": "low",
+          "message": "Optimization opportunity: Consider using sets or dicts for O(1) lookup performance",
+          "suggestion": "Consider implementing this optimization",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "event_system_001",
+      "failure_category": "memory_management",
+      "difficulty_level": "hard",
+      "our_score": 0.4,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.09139704704284668,
+      "issues_found": 39,
+      "critical_issues": 0,
+      "high_issues": 10,
+      "medium_issues": 17,
+      "actual_issue": "Multiple memory leaks: unbounded event history, unreferenced callbacks, zombie subscriptions",
+      "agent_scores": {
+        "style": 0.0,
+        "performance": 0.88,
+        "correctness": 0.4,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "bare_except",
+          "severity": "high",
+          "message": "Bare except clause hides errors in production",
+          "suggestion": "Specify exception types for proper error handling",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'json'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'time'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'time'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "high",
+          "message": "Low docstring coverage: 40.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "exception_coverage",
+          "severity": "high",
+          "message": "Low exception handling coverage: 71.4%",
+          "suggestion": "Add exception handling for production deployment safety",
+          "confidence": 1.0
+        },
+        {
+          "type": "ast_analysis",
+          "severity": "high",
+          "message": "Public function 'send_to_client' missing docstring - production documentation required",
+          "suggestion": "Address production deployment concern",
+          "confidence": 1.0
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 14.3%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_readiness",
+          "severity": "high",
+          "message": "Low production readiness: 68.1%",
+          "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'disconnect' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E722 do not use bare 'except'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'send_to_client' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'send_to_client' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (88 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'handle_connection' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'handle_connection' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'publish' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'subscribe' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "20 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.52)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_docstrings",
+          "severity": "medium",
+          "message": "3 functions missing docstrings",
+          "suggestion": "Add docstrings to public functions",
+          "confidence": 1.0
+        },
+        {
+          "type": "function_naming",
+          "severity": "medium",
+          "message": "Poor function naming (score: 0.71)",
+          "suggestion": "Use snake_case for functions",
+          "confidence": 1.0
+        },
+        {
+          "type": "algorithm_complexity",
+          "severity": "medium",
+          "message": "Concerning algorithm complexity: O(n\u00b2)",
+          "suggestion": "Consider algorithmic optimization for production scale",
+          "confidence": 1.0
+        },
+        {
+          "type": "scale_concern",
+          "severity": "medium",
+          "message": "Algorithm may have performance issues at enterprise scale",
+          "suggestion": "Monitor performance with production data volumes",
+          "confidence": 1.0
+        },
+        {
+          "type": "execution",
+          "severity": "medium",
+          "message": "Code contains potentially dangerous operations - skipping execution",
+          "suggestion": "Manual review recommended for code with system operations",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "financial_calculation_001",
+      "failure_category": "numeric_precision",
+      "difficulty_level": "hard",
+      "our_score": 0.4,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.09636306762695312,
+      "issues_found": 38,
+      "critical_issues": 0,
+      "high_issues": 6,
+      "medium_issues": 19,
+      "actual_issue": "Financial precision errors: wrong rounding, accumulated floating point errors",
+      "agent_scores": {
+        "style": 0.0016984128272796541,
+        "performance": 0.758,
+        "correctness": 0.4,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "performance_bottleneck",
+          "severity": "high",
+          "message": "Performance bottleneck: String concatenation in loop",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F401 'math' imported but unused",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "exception_coverage",
+          "severity": "high",
+          "message": "Low exception handling coverage: 0.0%",
+          "suggestion": "Add exception handling for production deployment safety",
+          "confidence": 1.0
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 33.3%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_readiness",
+          "severity": "high",
+          "message": "Low production readiness: 71.1%",
+          "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (88 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (80 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'amortization_schedule' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'amortization_schedule' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (118 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'calculate_monthly_payment' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'calculate_monthly_payment' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'calculate_compound_interest' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'calculate_compound_interest' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "line_length",
+          "severity": "medium",
+          "message": "1 lines exceed 88 characters",
+          "suggestion": "Keep lines under 88 characters for better readability",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "18 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.42)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 75.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "algorithm_complexity",
+          "severity": "medium",
+          "message": "Concerning algorithm complexity: O(n\u00b2)",
+          "suggestion": "Consider algorithmic optimization for production scale",
+          "confidence": 1.0
+        },
+        {
+          "type": "scale_concern",
+          "severity": "medium",
+          "message": "Algorithm may have performance issues at enterprise scale",
+          "suggestion": "Monitor performance with production data volumes",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_concern",
+          "severity": "medium",
+          "message": "Production performance concerns: 1 issues need attention",
+          "suggestion": "Monitor performance closely in production environment",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "timezone_conversion_001",
+      "failure_category": "datetime_logic",
+      "difficulty_level": "expert",
+      "our_score": 0.4,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.08741188049316406,
+      "issues_found": 38,
+      "critical_issues": 0,
+      "high_issues": 6,
+      "medium_issues": 15,
+      "actual_issue": "Timezone logic errors: no DST handling, wrong historical conversions, event skipping",
+      "agent_scores": {
+        "style": 0.0,
+        "performance": 0.776,
+        "correctness": 0.43333333333333335,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "performance_bottleneck",
+          "severity": "high",
+          "message": "Performance bottleneck: String concatenation in loop",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F401 'datetime.timedelta' imported but unused",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "exception_coverage",
+          "severity": "high",
+          "message": "Low exception handling coverage: 0.0%",
+          "suggestion": "Add exception handling for production deployment safety",
+          "confidence": 1.0
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 0.0%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_readiness",
+          "severity": "high",
+          "message": "Low production readiness: 63.3%",
+          "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "medium",
+          "message": "Performance bottleneck: Linear search in list/tuple",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'get_user_local_time' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'get_user_local_time' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'schedule_recurring_event' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'schedule_recurring_event' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'convert_timezone' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "25 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.30)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 75.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "halstead_complexity",
+          "severity": "medium",
+          "message": "Moderate Halstead complexity: 268.1",
+          "suggestion": "Consider simplifying complex expressions",
+          "confidence": 1.0
+        },
+        {
+          "type": "scale_concern",
+          "severity": "medium",
+          "message": "Algorithm may have performance issues at enterprise scale",
+          "suggestion": "Monitor performance with production data volumes",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_concern",
+          "severity": "medium",
+          "message": "Production performance concerns: 1 issues need attention",
+          "suggestion": "Monitor performance closely in production environment",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W291 trailing whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W291 trailing whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "import_organization",
+          "severity": "low",
+          "message": "Poor import organization (score: 0.30)",
+          "suggestion": "Organize imports: stdlib, third-party, local modules",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "payment_integration_001",
+      "failure_category": "api_integration",
+      "difficulty_level": "hard",
+      "our_score": 0.2,
+      "our_verdict": "FAIL",
+      "should_reject": true,
+      "correct_detection": true,
+      "execution_time": 0.12053680419921875,
+      "issues_found": 50,
+      "critical_issues": 2,
+      "high_issues": 10,
+      "medium_issues": 19,
+      "actual_issue": "Payment integration failures: no idempotency, exposed credentials, no atomicity",
+      "agent_scores": {
+        "style": 0.0,
+        "performance": 0.31999999999999995,
+        "correctness": 0.4,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "scale_unsuitability",
+          "severity": "critical",
+          "message": "Algorithm unsuitable for production scale - O(2^n) complexity",
+          "suggestion": "Redesign with more efficient algorithm for enterprise deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_blocker",
+          "severity": "critical",
+          "message": "Production deployment blocked: 1 critical performance issues",
+          "suggestion": "Resolve all critical performance issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F841 local variable 'e' is assigned to but never used",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'send_confirmation_email'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'update_inventory'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'create_order'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F821 undefined name 'PAYMENT_API_KEY'",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F401 'json' imported but unused",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "exception_coverage",
+          "severity": "high",
+          "message": "Low exception handling coverage: 50.0%",
+          "suggestion": "Add exception handling for production deployment safety",
+          "confidence": 1.0
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 0.0%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_readiness",
+          "severity": "high",
+          "message": "Low production readiness: 63.3%",
+          "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (84 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'handle_checkout' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'handle_checkout' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (83 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'refund_payment' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'refund_payment' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'process_payment' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'process_payment' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "41 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.20)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 50.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_docstrings",
+          "severity": "medium",
+          "message": "1 functions missing docstrings",
+          "suggestion": "Add docstrings to public functions",
+          "confidence": 1.0
+        },
+        {
+          "type": "maintainability_index",
+          "severity": "medium",
+          "message": "Moderate maintainability index: 66.9",
+          "suggestion": "Consider improving code structure and reducing complexity",
+          "confidence": 1.0
+        },
+        {
+          "type": "halstead_complexity",
+          "severity": "medium",
+          "message": "Moderate Halstead complexity: 303.6",
+          "suggestion": "Consider simplifying complex expressions",
+          "confidence": 1.0
+        },
+        {
+          "type": "function_naming",
+          "severity": "medium",
+          "message": "Poor function naming (score: 0.75)",
+          "suggestion": "Use snake_case for functions",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_clarity",
+          "severity": "medium",
+          "message": "Poor code clarity (score: 0.70)",
+          "suggestion": "Use descriptive names and avoid magic numbers",
+          "confidence": 1.0
+        },
+        {
+          "type": "algorithm_complexity",
+          "severity": "medium",
+          "message": "Concerning algorithm complexity: O(n\u00b2)",
+          "suggestion": "Consider algorithmic optimization for production scale",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "import_organization",
+          "severity": "low",
+          "message": "Poor import organization (score: 0.30)",
+          "suggestion": "Organize imports: stdlib, third-party, local modules",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "good_code_001",
+      "failure_category": "control_good",
+      "difficulty_level": "easy",
+      "our_score": 0.2,
+      "our_verdict": "FAIL",
+      "should_reject": false,
+      "correct_detection": false,
+      "execution_time": 0.0815439224243164,
+      "issues_found": 22,
+      "critical_issues": 2,
+      "high_issues": 3,
+      "medium_issues": 8,
+      "actual_issue": "None - this is good code",
+      "agent_scores": {
+        "style": 0.3547941149596751,
+        "performance": 0.33799999999999997,
+        "correctness": 0.55,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "scale_unsuitability",
+          "severity": "critical",
+          "message": "Algorithm unsuitable for production scale - O(2^n) complexity",
+          "suggestion": "Redesign with more efficient algorithm for enterprise deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_blocker",
+          "severity": "critical",
+          "message": "Production deployment blocked: 1 critical performance issues",
+          "suggestion": "Resolve all critical performance issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F401 're' imported but unused",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "logic",
+          "severity": "high",
+          "message": "Low logic score: 0.50",
+          "suggestion": "Review code logic for production correctness",
+          "confidence": 1.0
+        },
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "medium",
+          "message": "Performance bottleneck: Linear search in list/tuple",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (96 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'validate_password' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "line_length",
+          "severity": "medium",
+          "message": "1 lines exceed 88 characters",
+          "suggestion": "Keep lines under 88 characters for better readability",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "8 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.45)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 50.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "import_organization",
+          "severity": "low",
+          "message": "Poor import organization (score: 0.30)",
+          "suggestion": "Organize imports: stdlib, third-party, local modules",
+          "confidence": 1.0
+        },
+        {
+          "type": "comment_density",
+          "severity": "low",
+          "message": "Low comment density: 9.5%",
+          "suggestion": "Add explanatory comments for complex logic",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "good_code_002",
+      "failure_category": "control_good",
+      "difficulty_level": "easy",
+      "our_score": 0.8,
+      "our_verdict": "WARNING",
+      "should_reject": false,
+      "correct_detection": true,
+      "execution_time": 0.07636213302612305,
+      "issues_found": 12,
+      "critical_issues": 0,
+      "high_issues": 1,
+      "medium_issues": 4,
+      "actual_issue": "None - this is good code",
+      "agent_scores": {
+        "style": 0.714,
+        "performance": 1.0,
+        "correctness": 0.9633333333333334,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'binary_search' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "5 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.47)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 50.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "comment_density",
+          "severity": "low",
+          "message": "Low comment density: 0.0%",
+          "suggestion": "Add explanatory comments for complex logic",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        },
+        {
+          "type": "optimization_opportunity",
+          "severity": "low",
+          "message": "Optimization opportunity: Consider using sets or dicts for O(1) lookup performance",
+          "suggestion": "Consider implementing this optimization",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "good_code_003",
+      "failure_category": "control_good",
+      "difficulty_level": "medium",
+      "our_score": 0.2,
+      "our_verdict": "FAIL",
+      "should_reject": false,
+      "correct_detection": false,
+      "execution_time": 0.07978391647338867,
+      "issues_found": 23,
+      "critical_issues": 2,
+      "high_issues": 4,
+      "medium_issues": 12,
+      "actual_issue": "None - this is good code with proper cleanup",
+      "agent_scores": {
+        "style": 0.5368488991632443,
+        "performance": 0.30999999999999994,
+        "correctness": 0.4999999999999999,
+        "security": 0.7999999999999999
+      },
+      "detailed_issues": [
+        {
+          "type": "scale_unsuitability",
+          "severity": "critical",
+          "message": "Algorithm unsuitable for production scale - O(2^n) complexity",
+          "suggestion": "Redesign with more efficient algorithm for enterprise deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_blocker",
+          "severity": "critical",
+          "message": "Production deployment blocked: 1 critical performance issues",
+          "suggestion": "Resolve all critical performance issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_exception_handling",
+          "severity": "high",
+          "message": "Function 'analyze_processed_file' missing exception handling for production deployment",
+          "suggestion": "Add try-except blocks for error conditions and resource cleanup",
+          "confidence": 1.0
+        },
+        {
+          "type": "dangerous_import",
+          "severity": "high",
+          "message": "High-risk import: os (risk level: 2)",
+          "suggestion": "Review security implications of os usage",
+          "confidence": 1.0
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 33.3%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_readiness",
+          "severity": "high",
+          "message": "Low production readiness: 77.8%",
+          "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'analyze_processed_file' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'process_content' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'process_content' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'process_file_safely' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'process_file_safely' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "8 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.52)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 75.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "execution",
+          "severity": "medium",
+          "message": "Code contains potentially dangerous operations - skipping execution",
+          "suggestion": "Manual review recommended for code with system operations",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "import_organization",
+          "severity": "low",
+          "message": "Poor import organization (score: 0.30)",
+          "suggestion": "Organize imports: stdlib, third-party, local modules",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    }
+  ],
+  "failures": [
+    {
+      "problem_id": "datetime_parsing_001",
+      "failure_category": "edge_case_logic",
+      "difficulty_level": "hard",
+      "our_score": 0.8,
+      "our_verdict": "WARNING",
+      "should_reject": true,
+      "correct_detection": false,
+      "execution_time": 0.0836019515991211,
+      "issues_found": 12,
+      "critical_issues": 0,
+      "high_issues": 1,
+      "medium_issues": 6,
+      "actual_issue": "Pattern 2 uses MM/DD/YYYY but code assumes YYYY/MM/DD - will create wrong dates",
+      "agent_scores": {
+        "style": 0.5357325427440827,
+        "performance": 1.0,
+        "correctness": 0.9633333333333334,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'parse_datetime' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "7 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.46)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 50.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_clarity",
+          "severity": "medium",
+          "message": "Poor code clarity (score: 0.69)",
+          "suggestion": "Use descriptive names and avoid magic numbers",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "import_organization",
+          "severity": "low",
+          "message": "Poor import organization (score: 0.30)",
+          "suggestion": "Organize imports: stdlib, third-party, local modules",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "good_code_001",
+      "failure_category": "control_good",
+      "difficulty_level": "easy",
+      "our_score": 0.2,
+      "our_verdict": "FAIL",
+      "should_reject": false,
+      "correct_detection": false,
+      "execution_time": 0.0815439224243164,
+      "issues_found": 22,
+      "critical_issues": 2,
+      "high_issues": 3,
+      "medium_issues": 8,
+      "actual_issue": "None - this is good code",
+      "agent_scores": {
+        "style": 0.3547941149596751,
+        "performance": 0.33799999999999997,
+        "correctness": 0.55,
+        "security": 1.0
+      },
+      "detailed_issues": [
+        {
+          "type": "scale_unsuitability",
+          "severity": "critical",
+          "message": "Algorithm unsuitable for production scale - O(2^n) complexity",
+          "suggestion": "Redesign with more efficient algorithm for enterprise deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_blocker",
+          "severity": "critical",
+          "message": "Production deployment blocked: 1 critical performance issues",
+          "suggestion": "Resolve all critical performance issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "high",
+          "message": "Flake8: F401 're' imported but unused",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "logic",
+          "severity": "high",
+          "message": "Low logic score: 0.50",
+          "suggestion": "Review code logic for production correctness",
+          "confidence": 1.0
+        },
+        {
+          "type": "potential_bug",
+          "severity": "high",
+          "message": "Potential bug: Missing else clause in critical decision path",
+          "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "performance_bottleneck",
+          "severity": "medium",
+          "message": "Performance bottleneck: Linear search in list/tuple",
+          "suggestion": "Optimize this performance-critical section",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E501 line too long (96 > 79 characters)",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'validate_password' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "line_length",
+          "severity": "medium",
+          "message": "1 lines exceed 88 characters",
+          "suggestion": "Keep lines under 88 characters for better readability",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "8 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.45)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 50.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "import_organization",
+          "severity": "low",
+          "message": "Poor import organization (score: 0.30)",
+          "suggestion": "Organize imports: stdlib, third-party, local modules",
+          "confidence": 1.0
+        },
+        {
+          "type": "comment_density",
+          "severity": "low",
+          "message": "Low comment density: 9.5%",
+          "suggestion": "Add explanatory comments for complex logic",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    },
+    {
+      "problem_id": "good_code_003",
+      "failure_category": "control_good",
+      "difficulty_level": "medium",
+      "our_score": 0.2,
+      "our_verdict": "FAIL",
+      "should_reject": false,
+      "correct_detection": false,
+      "execution_time": 0.07978391647338867,
+      "issues_found": 23,
+      "critical_issues": 2,
+      "high_issues": 4,
+      "medium_issues": 12,
+      "actual_issue": "None - this is good code with proper cleanup",
+      "agent_scores": {
+        "style": 0.5368488991632443,
+        "performance": 0.30999999999999994,
+        "correctness": 0.4999999999999999,
+        "security": 0.7999999999999999
+      },
+      "detailed_issues": [
+        {
+          "type": "scale_unsuitability",
+          "severity": "critical",
+          "message": "Algorithm unsuitable for production scale - O(2^n) complexity",
+          "suggestion": "Redesign with more efficient algorithm for enterprise deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_performance_blocker",
+          "severity": "critical",
+          "message": "Production deployment blocked: 1 critical performance issues",
+          "suggestion": "Resolve all critical performance issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_exception_handling",
+          "severity": "high",
+          "message": "Function 'analyze_processed_file' missing exception handling for production deployment",
+          "suggestion": "Add try-except blocks for error conditions and resource cleanup",
+          "confidence": 1.0
+        },
+        {
+          "type": "dangerous_import",
+          "severity": "high",
+          "message": "High-risk import: os (risk level: 2)",
+          "suggestion": "Review security implications of os usage",
+          "confidence": 1.0
+        },
+        {
+          "type": "edge_case_coverage",
+          "severity": "high",
+          "message": "Low edge case coverage: 33.3%",
+          "suggestion": "Add edge case handling for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "production_readiness",
+          "severity": "high",
+          "message": "Low production readiness: 77.8%",
+          "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'analyze_processed_file' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'process_content' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'process_content' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "medium",
+          "message": "Flake8: E302 expected 2 blank lines, found 1",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_input_validation",
+          "severity": "medium",
+          "message": "Function 'process_file_safely' missing input validation for production safety",
+          "suggestion": "Add type checking and value validation for function parameters",
+          "confidence": 1.0
+        },
+        {
+          "type": "missing_edge_case",
+          "severity": "medium",
+          "message": "Function 'process_file_safely' missing None value handling",
+          "suggestion": "Add None checks for production robustness",
+          "confidence": 1.0
+        },
+        {
+          "type": "spacing",
+          "severity": "medium",
+          "message": "8 spacing/formatting issues",
+          "suggestion": "Fix spacing around operators, commas, and brackets",
+          "confidence": 1.0
+        },
+        {
+          "type": "code_formatting",
+          "severity": "medium",
+          "message": "Poor code formatting (score: 0.52)",
+          "suggestion": "Consider using black or autopep8 for consistent formatting",
+          "confidence": 1.0
+        },
+        {
+          "type": "docstring_coverage",
+          "severity": "medium",
+          "message": "Low docstring coverage: 75.0%",
+          "suggestion": "Add docstrings to reach 80% coverage",
+          "confidence": 1.0
+        },
+        {
+          "type": "execution",
+          "severity": "medium",
+          "message": "Code contains potentially dangerous operations - skipping execution",
+          "suggestion": "Manual review recommended for code with system operations",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "flake8",
+          "severity": "low",
+          "message": "Flake8: W293 blank line contains whitespace",
+          "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "import_organization",
+          "severity": "low",
+          "message": "Poor import organization (score: 0.30)",
+          "suggestion": "Organize imports: stdlib, third-party, local modules",
+          "confidence": 1.0
+        },
+        {
+          "type": "black_formatting",
+          "severity": "low",
+          "message": "Code is not Black-formatted",
+          "suggestion": "Run 'black' to auto-format the code",
+          "confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

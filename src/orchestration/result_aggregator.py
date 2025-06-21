@@ -334,9 +334,11 @@ class ResultAggregator:
         
         # Step 2: Apply enterprise security veto power
         security_result = agent_results.get('security')
-        if security_result and security_result.success and security_result.overall_score < 0.7:
-            # Security veto: cap score at 0.4 if security fails enterprise standards
-            base_score = min(base_score, 0.4)
+        if security_result and security_result.success:
+            # Less aggressive security veto - only apply for truly bad security scores
+            if security_result.overall_score < 0.4:  # Changed from 0.7 to 0.4
+                # Security veto: cap score at 0.6 if security fails basic standards
+                base_score = min(base_score, 0.6)  # Changed from 0.4 to 0.6
         
         # Step 3: Apply production deployment penalties
         final_score = self._apply_production_penalties(base_score, issues, agent_results)

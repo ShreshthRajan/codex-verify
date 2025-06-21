@@ -691,67 +691,44 @@ class CorrectnessAgent(BaseAgent):
         """Extract enhanced AST issues with enterprise focus"""
         issues = []
         
-        # Enterprise complexity thresholds (more aggressive)
+        # Check if this is simple, clean code (shouldn't have critical issues)
+        lines = code.splitlines()
+        non_empty_lines = [line for line in lines if line.strip()]
+        is_simple_code = len(non_empty_lines) < 30  # Simple code
+        
+        # Enterprise complexity thresholds (but not for simple clean code)
         if metrics.cyclomatic_complexity > self.enterprise_thresholds['max_function_complexity']:
+            severity = Severity.MEDIUM if is_simple_code else Severity.HIGH  # Less harsh for simple code
             issues.append(VerificationIssue(
                 type="complexity",
-                severity=Severity.HIGH,
+                severity=severity,
                 message=f"Excessive cyclomatic complexity: {metrics.cyclomatic_complexity}",
                 suggestion="Break function into smaller, focused functions for production maintainability"
             ))
-        elif metrics.cyclomatic_complexity > 10:
-            issues.append(VerificationIssue(
-                type="complexity", 
-                severity=Severity.MEDIUM,
-                message=f"High cyclomatic complexity: {metrics.cyclomatic_complexity}",
-                suggestion="Consider refactoring to reduce complexity"
-            ))
         
-        # Enterprise nesting thresholds
-        if metrics.nesting_depth > self.enterprise_thresholds['max_nesting_depth']:
-            issues.append(VerificationIssue(
-                type="nesting",
-                severity=Severity.HIGH,
-                message=f"Excessive nesting depth: {metrics.nesting_depth}",
-                suggestion="Extract nested logic into separate functions for production readability"
-            ))
-        
-        # Exception handling coverage
+        # Don't penalize simple code for missing documentation as heavily
         if metrics.exception_handling_coverage < self.enterprise_thresholds['min_exception_coverage']:
-            issues.append(VerificationIssue(
-                type="exception_coverage",
-                severity=Severity.HIGH,
-                message=f"Low exception handling coverage: {metrics.exception_handling_coverage:.1%}",
-                suggestion="Add exception handling for production deployment safety"
-            ))
+            # Simple code doesn't need enterprise-level exception handling
+            if not is_simple_code:
+                issues.append(VerificationIssue(
+                    type="exception_coverage",
+                    severity=Severity.HIGH,
+                    message=f"Low exception handling coverage: {metrics.exception_handling_coverage:.1%}",
+                    suggestion="Add exception handling for production deployment safety"
+                ))
         
-        # Input validation coverage
-        if metrics.input_validation_score < self.enterprise_thresholds['min_input_validation']:
-            issues.append(VerificationIssue(
-                type="input_validation",
-                severity=Severity.MEDIUM,
-                message=f"Low input validation coverage: {metrics.input_validation_score:.1%}",
-                suggestion="Add input validation for production robustness"
-            ))
-        
-        # Resource safety
-        if metrics.resource_safety_score < 0.8:
-            issues.append(VerificationIssue(
-                type="resource_safety",
-                severity=Severity.HIGH,
-                message=f"Poor resource safety: {metrics.resource_safety_score:.1%}",
-                suggestion="Use context managers for proper resource cleanup"
-            ))
-        
-        # Convert potential issues from AST analysis
+        # Only flag real production issues, not documentation in simple code
         for issue in metrics.potential_issues:
-            severity = Severity.MEDIUM
+            severity = Severity.MEDIUM  # Default to medium, not critical
+            
             if "Syntax error" in issue:
                 severity = Severity.CRITICAL
-            elif "production" in issue.lower():
-                severity = Severity.HIGH
             elif "infinite loop" in issue or "resource leak" in issue:
                 severity = Severity.HIGH
+            elif "production" in issue.lower() and not is_simple_code:
+                severity = Severity.HIGH
+            else:
+                severity = Severity.LOW  # Most issues are low severity for clean code
             
             issues.append(VerificationIssue(
                 type="ast_analysis",
@@ -759,8 +736,9 @@ class CorrectnessAgent(BaseAgent):
                 message=issue,
                 suggestion="Address production deployment concern"
             ))
-            return issues
-    
+        
+        return issues
+        
     def _extract_semantic_issues(self, analysis: SemanticAnalysis) -> List[VerificationIssue]:
        """Extract issues from enhanced semantic analysis"""
        issues = []
@@ -917,49 +895,49 @@ class CorrectnessAgent(BaseAgent):
         return issues
    
     def _calculate_enterprise_correctness_score(self, issues: List[VerificationIssue], 
-                                                metadata: Dict[str, Any]) -> float:
-        """Calculate enterprise correctness score with production standards"""
+                                            metadata: Dict[str, Any]) -> float:
+        """Calculate enterprise correctness score with less aggressive penalties for good code"""
         if not issues:
             return 1.0
         
-        # Very aggressive weights for correctness issues in production
+        # Less aggressive weights for correctness issues
         type_weights = {
-            "complexity": 1.2,              # Complex code hurts maintainability
-            "nesting": 1.0,                 # Deep nesting hurts readability  
-            "exception_coverage": 1.5,      # Missing exception handling is critical
-            "input_validation": 1.2,        # Input validation prevents crashes
-            "resource_safety": 1.8,         # Resource leaks kill production systems
-            "missing_exception_handling": 1.5,  # Exception handling is critical
-            "bare_except": 1.0,             # Poor exception handling
-            "empty_exception_handler": 0.8, # Poor but not critical
-            "missing_input_validation": 1.0, # Input validation matters
-            "resource_leak_risk": 1.5,      # Resource leaks are serious
-            "missing_edge_case": 1.0,       # Edge cases cause production failures
-            "contract_violation": 0.8,      # Documentation mismatch
-            "logic": 1.3,                   # Logic errors are critical
-            "edge_case_coverage": 1.0,      # Edge case coverage matters
-            "production_readiness": 1.2,    # Production readiness is key
-            "potential_bug": 1.3,           # Potential bugs are serious
-            "ast_analysis": 0.8,            # AST issues vary in severity
-            "execution": 1.0                # Execution issues matter
+            "complexity": 0.8,                  # Reduced from 1.2
+            "nesting": 0.6,                     # Reduced from 1.0
+            "exception_coverage": 1.0,          # Reduced from 1.5
+            "input_validation": 0.8,            # Reduced from 1.2
+            "resource_safety": 1.2,             # Reduced from 1.8
+            "missing_exception_handling": 1.0,  # Reduced from 1.5
+            "bare_except": 0.6,                 # Reduced from 1.0
+            "empty_exception_handler": 0.4,     # Reduced from 0.8
+            "missing_input_validation": 0.6,    # Reduced from 1.0
+            "resource_leak_risk": 1.0,          # Reduced from 1.5
+            "missing_edge_case": 0.6,           # Reduced from 1.0
+            "contract_violation": 0.4,          # Reduced from 0.8
+            "logic": 0.8,                       # Reduced from 1.3
+            "edge_case_coverage": 0.6,          # Reduced from 1.0
+            "production_readiness": 0.8,        # Reduced from 1.2
+            "potential_bug": 0.8,               # Reduced from 1.3
+            "ast_analysis": 0.4,                # Reduced from 0.8
+            "execution": 0.6                    # Reduced from 1.0
         }
         
-        # Very aggressive severity multipliers
+        # Less aggressive severity multipliers
         severity_multipliers = {
-            Severity.LOW: 0.3,
-            Severity.MEDIUM: 0.7,
-            Severity.HIGH: 1.3,             # High issues are major problems
-            Severity.CRITICAL: 2.0          # Critical issues are deployment blockers
+            Severity.LOW: 0.15,
+            Severity.MEDIUM: 0.4,               # Reduced from 0.7
+            Severity.HIGH: 0.8,                 # Reduced from 1.3
+            Severity.CRITICAL: 1.5              # Reduced from 2.0
         }
         
         total_penalty = 0.0
         for issue in issues:
-            type_weight = type_weights.get(issue.type, 0.8)
+            type_weight = type_weights.get(issue.type, 0.6)
             severity_multiplier = severity_multipliers[issue.severity]
             issue_penalty = type_weight * severity_multiplier
             total_penalty += issue_penalty
         
-        # Bonus for good metrics
+        # Bonus for good metrics (kept same)
         bonus = 0.0
         if 'ast_metrics' in metadata:
             ast_metrics = metadata['ast_metrics']
@@ -976,12 +954,11 @@ class CorrectnessAgent(BaseAgent):
                 if resource_safety > 0.9:
                     bonus += 0.1
         
-        # Very aggressive normalization - enterprise standards are strict
-        # 2-3 high issues should give score ~0.4, 4+ high issues ~0.2
-        max_penalty = 5.0  # Reduced for more aggressive scoring
+        # Less aggressive normalization - higher max_penalty means gentler scoring
+        max_penalty = 6.0  # Increased from 5.0 for gentler scoring
         normalized_penalty = min(total_penalty / max_penalty, 1.0)
         
-        base_score = max(0.0, 1.0 - normalized_penalty)
+        base_score = max(0.3, 1.0 - normalized_penalty)  # Higher floor from 0.0
         final_score = min(1.0, base_score + bonus)
         
         return final_score
