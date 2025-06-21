@@ -1,0 +1,21 @@
+
+thresholds:
+  # Individual agent minimum scores
+  correctness_min_score: 0.85
+  security_min_score: 0.90
+  performance_min_score: 0.80
+  style_min_score: 0.85
+  
+  # Overall verification thresholds
+  overall_min_score: 0.85
+  warning_threshold: 0.70
+  
+  # Issue count thresholds
+  max_critical_issues: 0
+  max_high_issues: 3
+  max_medium_issues: 10
+
+# Output settings
+output_format: "json"
+include_suggestions: true
+include_metadata: true

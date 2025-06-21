@@ -31,6 +31,7 @@ class VerificationIssue:
     file_path: Optional[str] = None
     suggestion: Optional[str] = None
     confidence: float = 1.0
+    agent_source: Optional[str] = None
 
 
 @dataclass

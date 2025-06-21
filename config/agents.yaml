@@ -1,0 +1,31 @@
+# config/agents.yaml
+# Simplified agent configuration for MVP
+
+enabled_agents: ["correctness", "security", "performance", "style"]
+
+# Agent configurations
+agent_configs:
+  correctness:
+    enabled: true
+    enable_llm_validation: false  # Disable for MVP
+  
+  security:
+    enabled: true
+    min_entropy_threshold: 4.5
+    check_dependencies: false  # Simplified for MVP
+  
+  performance:
+    enabled: true
+    complexity_threshold: 10
+    enable_profiling: false  # Simplified for MVP
+  
+  style:
+    enabled: true
+    max_line_length: 88
+    min_docstring_coverage: 0.8
+
+# Performance settings
+enable_caching: true
+cache_ttl: 3600
+max_execution_time: 30.0
+parallel_execution: true
