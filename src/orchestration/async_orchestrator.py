@@ -15,13 +15,14 @@ import hashlib
 import json
 from pathlib import Path
 
-from ..agents.base_agent import BaseAgent, AgentResult, VerificationIssue, Severity
-from ..agents.correctness_critic import CorrectnessAgent
-from ..agents.security_auditor import SecurityAuditor
-from ..agents.performance_profiler import PerformanceProfiler
-from ..agents.style_maintainability import StyleMaintainabilityJudge
-from .result_aggregator import ResultAggregator
-from .caching_layer import CachingLayer
+# Fixed imports - use absolute imports
+from agents.base_agent import BaseAgent, AgentResult, VerificationIssue, Severity
+from agents.correctness_critic import CorrectnessAgent
+from agents.security_auditor import SecurityAuditor
+from agents.performance_profiler import PerformanceProfiler
+from agents.style_maintainability import StyleMaintainabilityJudge
+from orchestration.result_aggregator import ResultAggregator
+from orchestration.caching_layer import CachingLayer
 
 
 @dataclass

@@ -424,37 +424,117 @@ class CachingLayer:
         return stats
     
     async def health_check(self) -> Dict[str, Any]:
-        """Perform health check on cache system"""
-        stats = self.get_stats()
-        
-        health = {
-            'status': 'healthy',
-            'enabled': self.enabled,
-            'memory_usage_mb': stats.memory_usage_bytes / (1024 * 1024),
-            'disk_usage_mb': stats.disk_usage_bytes / (1024 * 1024),
-            'hit_rate': stats.hit_rate,
-            'memory_utilization': stats.memory_usage_bytes / self.memory_limit_bytes,
-            'disk_utilization': stats.disk_usage_bytes / self.disk_limit_bytes,
-            'avg_retrieval_time_ms': stats.avg_retrieval_time * 1000
-        }
-        
-        # Determine health status
         if not self.enabled:
-            health['status'] = 'disabled'
-        elif health['memory_utilization'] > 0.9 or health['disk_utilization'] > 0.9:
-            health['status'] = 'degraded'
-            health['warnings'] = ['High cache utilization']
-        elif health['hit_rate'] < 0.3 and stats.total_requests > 10:
-            health['status'] = 'degraded'
-            health['warnings'] = ['Low cache hit rate']
+            return {"status": "disabled"}
         
-        return health
-    
+        try:
+            # Test memory cache
+            test_key = "health_check"
+            test_value = {"test": True, "timestamp": time.time()}
+            
+            start_time = time.time()
+            await self.set(test_key, test_value)
+            cached_value = await self.get(test_key)
+            retrieval_time = time.time() - start_time
+            
+            memory_ok = cached_value is not None
+            
+            # Check disk cache
+            disk_ok = self.cache_dir.exists() and self.cache_dir.is_dir()
+            
+            # Calculate cache usage
+            cache_files = list(self.cache_dir.glob("*.cache"))
+            total_disk_size = sum(f.stat().st_size for f in cache_files if f.exists())
+            
+            # Determine status
+            status = "healthy"
+            warnings = []
+            
+            if not memory_ok:
+                status = "degraded"
+                warnings.append("Memory cache test failed")
+            
+            if total_disk_size > 100 * 1024 * 1024:  # 100MB warning
+                warnings.append("High disk cache usage")
+            
+            if retrieval_time > 0.1:  # 100ms warning
+                warnings.append("Slow cache retrieval")
+            
+            return {
+                "status": status,
+                "memory_cache_entries": len(self.memory_cache),
+                "disk_cache_entries": len(cache_files),
+                "disk_usage_mb": total_disk_size / (1024 * 1024),
+                "cache_directory": str(self.cache_dir),
+                "ttl": self.ttl,
+                "retrieval_time_ms": retrieval_time * 1000,
+                "warnings": warnings if warnings else None
+            }
+            
+        except Exception as e:
+            return {
+                "status": "unhealthy",
+                "error": str(e)
+            }
+        
     async def warm_cache(self, items: List[Tuple[str, Any, int]]):
         """Pre-warm cache with provided items"""
         for key, value, ttl in items:
             await self.set(key, value, ttl)
     
+    async def cleanup_with_size_management(self):
+        """Enhanced cleanup with intelligent size management"""
+        if not self.enabled:
+            return
+        
+        current_time = time.time()
+        
+        # Cleanup memory cache
+        expired_keys = [
+            key for key, (_, timestamp) in self.memory_cache.items()
+            if current_time - timestamp >= self.ttl
+        ]
+        
+        for key in expired_keys:
+            del self.memory_cache[key]
+        
+        # Enhanced disk cleanup with size management
+        cache_files = []
+        total_size = 0
+        
+        for cache_file in self.cache_dir.glob("*.cache"):
+            try:
+                stat = cache_file.stat()
+                
+                # Check if expired
+                with open(cache_file, 'rb') as f:
+                    cached_data, timestamp = pickle.load(f)
+                
+                if current_time - timestamp >= self.ttl:
+                    cache_file.unlink()
+                else:
+                    cache_files.append((cache_file, stat.st_size, timestamp))
+                    total_size += stat.st_size
+                    
+            except Exception:
+                # Remove corrupted files
+                cache_file.unlink(missing_ok=True)
+        
+        # If total size > 50MB, remove oldest files
+        if total_size > 50 * 1024 * 1024:  # 50MB limit
+            # Sort by timestamp (oldest first)
+            cache_files.sort(key=lambda x: x[2])
+            
+            # Remove oldest files until under 40MB
+            for cache_file, file_size, _ in cache_files:
+                if total_size <= 40 * 1024 * 1024:
+                    break
+                try:
+                    cache_file.unlink()
+                    total_size -= file_size
+                except Exception:
+                    pass
+                
     async def cleanup(self):
         """Cleanup resources"""
         if self._cleanup_task:
