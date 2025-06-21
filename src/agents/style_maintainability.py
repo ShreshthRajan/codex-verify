@@ -231,33 +231,34 @@ class StyleMaintainabilityJudge(BaseAgent):
         
         imports = []
         import_positions = []
+        non_import_positions = []
         
         for node in ast.walk(tree):
             if isinstance(node, (ast.Import, ast.ImportFrom)):
                 imports.append(node)
                 import_positions.append(getattr(node, 'lineno', 0))
+            elif not isinstance(node, ast.Module):
+                non_import_positions.append(getattr(node, 'lineno', float('inf')))
         
         if not imports:
             return 1.0
         
-        # Check if imports are at the top
-        first_non_import = None
-        for node in ast.walk(tree):
-            if not isinstance(node, (ast.Import, ast.ImportFrom, ast.Module)):
-                first_non_import = getattr(node, 'lineno', float('inf'))
-                break
+        # Check if imports are at the top (before other code)
+        first_non_import = min(non_import_positions) if non_import_positions else float('inf')
+        imports_after_code = any(pos > first_non_import for pos in import_positions)
         
-        imports_at_top = all(pos < first_non_import for pos in import_positions)
-        
-        # Check if imports are grouped (stdlib, third-party, local)
-        # Simplified: just check if they're somewhat organized
+        # Check if imports are grouped/organized
         is_organized = import_positions == sorted(import_positions)
         
         score = 0.5  # Base score
-        if imports_at_top:
-            score += 0.3
+        if not imports_after_code:
+            score += 0.3  # Good: imports at top
         if is_organized:
-            score += 0.2
+            score += 0.2  # Good: imports sorted
+        
+        # Penalty for imports scattered throughout code
+        if imports_after_code:
+            score = max(0.0, score - 0.4)
         
         return min(1.0, score)
     
@@ -379,6 +380,13 @@ class StyleMaintainabilityJudge(BaseAgent):
         """Extract issues from documentation metrics"""
         issues = []
         
+        # Only check documentation if there's actual code to document
+        total_documentable = metrics.total_functions + metrics.total_classes
+        
+        # Skip documentation checks for empty code
+        if total_documentable == 0:
+            return issues
+        
         # Docstring coverage
         if metrics.docstring_coverage < self.min_docstring_coverage:
             severity = Severity.HIGH if metrics.docstring_coverage < 0.5 else Severity.MEDIUM
@@ -411,8 +419,8 @@ class StyleMaintainabilityJudge(BaseAgent):
                     suggestion="Add docstrings to classes"
                 ))
         
-        # Low comment density
-        if metrics.comment_density < 0.1:
+        # Low comment density - only if there are lines of code
+        if metrics.comment_density < 0.1 and total_documentable > 0:
             issues.append(VerificationIssue(
                 type="comment_density",
                 severity=Severity.LOW,
@@ -605,23 +613,36 @@ class StyleMaintainabilityJudge(BaseAgent):
         """Extract issues from maintainability metrics"""
         issues = []
         
-        # Low maintainability index
-        if metrics.maintainability_index < 65:
-            severity = Severity.HIGH if metrics.maintainability_index < 40 else Severity.MEDIUM
+        # Low maintainability index - more aggressive thresholds
+        if metrics.maintainability_index < 50:
             issues.append(VerificationIssue(
                 type="maintainability_index",
-                severity=severity,
+                severity=Severity.HIGH,
                 message=f"Low maintainability index: {metrics.maintainability_index:.1f}",
                 suggestion="Reduce complexity and improve code organization"
             ))
+        elif metrics.maintainability_index < 70:
+            issues.append(VerificationIssue(
+                type="maintainability_index",
+                severity=Severity.MEDIUM,
+                message=f"Moderate maintainability index: {metrics.maintainability_index:.1f}",
+                suggestion="Consider improving code structure and reducing complexity"
+            ))
         
-        # High Halstead complexity
-        if metrics.halstead_complexity > 1000:
+        # High Halstead complexity - more aggressive threshold
+        if metrics.halstead_complexity > 500:
+            issues.append(VerificationIssue(
+                type="halstead_complexity",
+                severity=Severity.HIGH,
+                message=f"High Halstead complexity: {metrics.halstead_complexity:.1f}",
+                suggestion="Simplify expressions and reduce operator usage"
+            ))
+        elif metrics.halstead_complexity > 200:
             issues.append(VerificationIssue(
                 type="halstead_complexity",
                 severity=Severity.MEDIUM,
-                message=f"High Halstead complexity: {metrics.halstead_complexity:.1f}",
-                suggestion="Simplify expressions and reduce operator usage"
+                message=f"Moderate Halstead complexity: {metrics.halstead_complexity:.1f}",
+                suggestion="Consider simplifying complex expressions"
             ))
         
         # Code duplication
@@ -689,7 +710,9 @@ class StyleMaintainabilityJudge(BaseAgent):
         
         for node in ast.walk(tree):
             if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Store):
-                variables.append(node.id)
+                # Skip special variables like loop counters
+                if node.id not in ['i', 'j', 'k', 'x', 'y', 'z', '_']:
+                    variables.append(node.id)
         
         if not variables:
             return 1.0
@@ -698,8 +721,16 @@ class StyleMaintainabilityJudge(BaseAgent):
         convention = self.naming_conventions.get('variable', 'snake_case')
         pattern = self.naming_patterns.get(convention, r'.*')
         
-        compliant_vars = sum(1 for var in variables if re.match(pattern, var))
-        return compliant_vars / len(variables)
+        compliant_vars = 0
+        for var in variables:
+            if re.match(pattern, var):
+                compliant_vars += 1
+            # Also check for overly short single-letter names (except common ones)
+            elif len(var) == 1 and var not in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']:
+                # Single letter variables are generally bad
+                continue
+        
+        return compliant_vars / len(variables) if variables else 1.0
     
     def _analyze_function_naming(self, tree: ast.AST) -> float:
         """Analyze function naming conventions"""
@@ -716,7 +747,14 @@ class StyleMaintainabilityJudge(BaseAgent):
         convention = self.naming_conventions.get('function', 'snake_case')
         pattern = self.naming_patterns.get(convention, r'.*')
         
-        compliant_funcs = sum(1 for func in functions if re.match(pattern, func))
+        compliant_funcs = 0
+        for func in functions:
+            # Penalize single-letter function names (except common ones like __init__, etc.)
+            if len(func) == 1 and not func.startswith('_'):
+                continue  # Not compliant - single letter names are bad
+            elif re.match(pattern, func):
+                compliant_funcs += 1
+        
         return compliant_funcs / len(functions)
     
     def _analyze_class_naming(self, tree: ast.AST) -> float:
@@ -734,8 +772,44 @@ class StyleMaintainabilityJudge(BaseAgent):
         convention = self.naming_conventions.get('class', 'PascalCase')
         pattern = self.naming_patterns.get(convention, r'.*')
         
-        compliant_classes = sum(1 for cls in classes if re.match(pattern, cls))
+        compliant_classes = 0
+        for cls in classes:
+            # Penalize single-letter class names
+            if len(cls) == 1:
+                continue  # Not compliant - single letter class names are bad
+            elif re.match(pattern, cls):
+                compliant_classes += 1
+        
         return compliant_classes / len(classes)
+    
+    def _analyze_code_clarity(self, code: str, tree: ast.AST) -> float:
+        """Analyze code clarity and understandability"""
+        clarity_score = 1.0
+        
+        # Penalize overly short variable names
+        short_names = 0
+        total_names = 0
+        
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Name):
+                total_names += 1
+                if len(node.id) <= 2 and node.id not in ['i', 'j', 'k', 'x', 'y', 'z']:
+                    short_names += 1
+        
+        if total_names > 0:
+            clarity_score -= (short_names / total_names) * 0.3
+        
+        # Penalize magic numbers
+        magic_numbers = 0
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+                if node.value not in [0, 1, -1, 2]:  # Common acceptable numbers
+                    magic_numbers += 1
+        
+        if magic_numbers > 0:
+            clarity_score -= min(magic_numbers * 0.1, 0.3)
+        
+        return max(0.0, clarity_score)
     
     def _analyze_logical_structure(self, tree: ast.AST) -> float:
         """Analyze logical structure and organization"""
@@ -1002,43 +1076,50 @@ class StyleMaintainabilityJudge(BaseAgent):
     
     def _calculate_quality_score(self, issues: List[VerificationIssue], 
                                 metadata: Dict[str, Any]) -> float:
-        """Calculate overall code quality score"""
+        """Calculate overall code quality score with more aggressive penalties"""
         if not issues:
             return 1.0
         
-        # Weight different types of quality issues
+        # Check for empty code case first
+        if (not metadata.get('style_metrics', {}).get('line_length_violations', 1) and 
+            not metadata.get('documentation_metrics', {}).get('total_functions', 1) and
+            not metadata.get('documentation_metrics', {}).get('total_classes', 1)):
+            return 1.0  # Perfect score for truly empty code
+        
+        # More aggressive weights for quality issues
         type_weights = {
-            "line_length": 0.3,
-            "indentation": 0.4,
-            "spacing": 0.3,
-            "import_organization": 0.2,
-            "code_formatting": 0.4,
-            "docstring_coverage": 0.8,
-            "missing_docstrings": 0.6,
+            "line_length": 0.4,
+            "indentation": 0.5,
+            "spacing": 0.4,
+            "import_organization": 0.3,
+            "code_formatting": 0.5,
+            "docstring_coverage": 1.0,      # Documentation is critical
+            "missing_docstrings": 0.7,
             "comment_density": 0.2,
-            "maintainability_index": 0.9,
-            "halstead_complexity": 0.5,
-            "code_duplication": 0.7,
-            "architectural_concerns": 0.8,
-            "refactoring_opportunities": 0.3,
-            "variable_naming": 0.6,
-            "function_naming": 0.6,
-            "class_naming": 0.6,
-            "code_clarity": 0.7,
+            "maintainability_index": 1.2,   # Maintainability is very important
+            "halstead_complexity": 0.6,
+            "code_duplication": 0.8,
+            "architectural_concerns": 1.0,
+            "refactoring_opportunities": 0.4,
+            "variable_naming": 0.7,
+            "function_naming": 0.7,
+            "class_naming": 0.7,
+            "code_clarity": 0.8,
             "logical_structure": 0.4,
-            "consistency": 0.5,
+            "consistency": 0.6,
             "black_formatting": 0.2,
             "flake8": 0.4,
-            "srp_violation": 0.8,
-            "god_function": 0.9,
-            "deep_inheritance": 0.6
+            "srp_violation": 1.0,
+            "god_function": 1.2,
+            "deep_inheritance": 0.7
         }
         
+        # More aggressive severity multipliers
         severity_multipliers = {
             Severity.LOW: 0.3,
-            Severity.MEDIUM: 0.6,
-            Severity.HIGH: 1.0,
-            Severity.CRITICAL: 1.3
+            Severity.MEDIUM: 0.7,
+            Severity.HIGH: 1.2,             # High issues are major problems
+            Severity.CRITICAL: 1.8          # Critical issues severely impact score
         }
         
         total_penalty = 0.0
@@ -1055,7 +1136,7 @@ class StyleMaintainabilityJudge(BaseAgent):
             if isinstance(doc_metrics, dict):
                 coverage = doc_metrics.get('docstring_coverage', 0.0)
                 if coverage > 0.8:
-                    doc_bonus = 0.1 * (coverage - 0.8)
+                    doc_bonus = 0.15 * coverage  # Increased bonus for good docs
         
         # Bonus for high maintainability
         maintainability_bonus = 0.0
@@ -1066,9 +1147,11 @@ class StyleMaintainabilityJudge(BaseAgent):
                 if mi > 80:
                     maintainability_bonus = 0.1 * ((mi - 80) / 20)
         
-        # Normalize penalty (assuming 8 high-severity issues would give score 0)
-        max_penalty = 8.0
+        # More aggressive normalization - fewer issues should tank the score
+        max_penalty = 5.0  # Further reduced for more aggressive scoring
         normalized_penalty = min(total_penalty / max_penalty, 1.0)
         
         base_score = max(0.0, 1.0 - normalized_penalty)
-        return min(1.0, base_score + doc_bonus + maintainability_bonus)
+        final_score = min(1.0, base_score + doc_bonus + maintainability_bonus)
+            
+        return final_score
