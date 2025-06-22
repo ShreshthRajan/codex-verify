@@ -102,16 +102,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.09631991386413574,
+      "execution_time": 0.09393572807312012,
       "issues_found": 10,
       "critical_issues": 0,
       "high_issues": 2,
       "medium_issues": 5,
       "actual_issue": "Treats empty string '' same as None, but '' should be preserved for text fields",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.678,
+        "security": 1.0,
         "correctness": 0.8366666666666667
       },
       "detailed_issues": [
@@ -195,16 +195,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.07863807678222656,
+      "execution_time": 0.0767207145690918,
       "issues_found": 13,
       "critical_issues": 0,
       "high_issues": 3,
       "medium_issues": 5,
       "actual_issue": "Negative indices crash instead of counting from end like standard Python",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.28800000000000003,
+        "security": 1.0,
         "correctness": 0.8066666666666665
       },
       "detailed_issues": [
@@ -309,16 +309,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.09925699234008789,
+      "execution_time": 0.09497809410095215,
       "issues_found": 34,
       "critical_issues": 0,
       "high_issues": 7,
       "medium_issues": 10,
       "actual_issue": "Async coordination failures: deadlock potential, race conditions, no error recovery",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.0,
+        "security": 1.0,
         "correctness": 0.58
       },
       "detailed_issues": [
@@ -570,7 +570,7 @@
       "our_verdict": "ERROR",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.09760284423828125,
+      "execution_time": 0.0942080020904541,
       "issues_found": 1,
       "critical_issues": 1,
       "high_issues": 0,
@@ -595,16 +595,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.09170007705688477,
+      "execution_time": 0.08809924125671387,
       "issues_found": 35,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 18,
       "actual_issue": "Integer overflow vulnerabilities: silent truncation, wrong calculations, no bounds checking",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.09799999999999986,
+        "security": 1.0,
         "correctness": 0.4
       },
       "detailed_issues": [
@@ -863,16 +863,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.09859013557434082,
+      "execution_time": 0.10046601295471191,
       "issues_found": 56,
       "critical_issues": 0,
       "high_issues": 11,
       "medium_issues": 23,
       "actual_issue": "Logging security failures: injection attacks, sensitive data exposure, unbounded growth",
       "agent_scores": {
-        "security": 0.75,
         "performance": 1.0,
         "style": 0.0,
+        "security": 0.75,
         "correctness": 0.4
       },
       "detailed_issues": [
@@ -912,17 +912,17 @@
           "confidence": 1.0
         },
         {
-          "type": "dangerous_import",
-          "severity": "high",
-          "message": "High-risk import: sys (risk level: 2)",
-          "suggestion": "Review security implications of sys usage",
-          "confidence": 1.0
-        },
-        {
           "type": "flake8",
           "severity": "high",
           "message": "Flake8: F401 'sys' imported but unused",
           "suggestion": "Fix style violations according to PEP 8",
+          "confidence": 1.0
+        },
+        {
+          "type": "dangerous_import",
+          "severity": "high",
+          "message": "High-risk import: sys (risk level: 2)",
+          "suggestion": "Review security implications of sys usage",
           "confidence": 1.0
         },
         {
@@ -1278,16 +1278,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.08736300468444824,
+      "execution_time": 0.08401298522949219,
       "issues_found": 19,
       "critical_issues": 0,
       "high_issues": 3,
       "medium_issues": 7,
       "actual_issue": "None - this is good code",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.3547941149596751,
+        "security": 1.0,
         "correctness": 0.55
       },
       "detailed_issues": [
@@ -1434,16 +1434,16 @@
       "our_verdict": "WARNING",
       "should_reject": false,
       "correct_detection": true,
-      "execution_time": 0.08088302612304688,
+      "execution_time": 0.07876420021057129,
       "issues_found": 12,
       "critical_issues": 0,
       "high_issues": 1,
       "medium_issues": 5,
       "actual_issue": "None - this is good code",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.714,
+        "security": 1.0,
         "correctness": 0.9633333333333334
       },
       "detailed_issues": [
@@ -1541,16 +1541,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.0831458568572998,
+      "execution_time": 0.08090496063232422,
       "issues_found": 21,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 12,
       "actual_issue": "None - this is good code with proper cleanup",
       "agent_scores": {
-        "security": 0.7999999999999999,
         "performance": 1.0,
         "style": 0.5368488991632443,
+        "security": 0.7999999999999999,
         "correctness": 0.4999999999999999
       },
       "detailed_issues": [
@@ -1711,16 +1711,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.0812828540802002,
+      "execution_time": 0.0804598331451416,
       "issues_found": 21,
       "critical_issues": 0,
       "high_issues": 2,
       "medium_issues": 13,
       "actual_issue": "None - this is properly thread-safe code",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.46199999999999997,
+        "security": 1.0,
         "correctness": 0.5933333333333333
       },
       "detailed_issues": [
@@ -1881,16 +1881,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.09631681442260742,
+      "execution_time": 0.09455013275146484,
       "issues_found": 31,
       "critical_issues": 0,
       "high_issues": 10,
       "medium_issues": 9,
       "actual_issue": "None - this is secure code with proper validation",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.0,
+        "security": 1.0,
         "correctness": 0.55
       },
       "detailed_issues": [
@@ -2121,16 +2121,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.08381414413452148,
+      "execution_time": 0.0785207748413086,
       "issues_found": 22,
       "critical_issues": 0,
       "high_issues": 5,
       "medium_issues": 6,
       "actual_issue": "N+1 queries + memory explosion - timeouts/crashes with real user volumes",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.2021995557946044,
+        "security": 1.0,
         "correctness": 0.7933333333333333
       },
       "detailed_issues": [
@@ -2298,16 +2298,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.0901181697845459,
+      "execution_time": 0.08755302429199219,
       "issues_found": 19,
       "critical_issues": 0,
       "high_issues": 5,
       "medium_issues": 10,
       "actual_issue": "O(n\u00b2) complexity + full table scans + memory explosion = complete failure at scale",
       "agent_scores": {
-        "security": 1.0,
         "performance": 0.975,
         "style": 0.1218727472498438,
+        "security": 1.0,
         "correctness": 0.5533333333333332
       },
       "detailed_issues": [
@@ -2454,16 +2454,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.09712719917297363,
+      "execution_time": 0.09275579452514648,
       "issues_found": 36,
       "critical_issues": 0,
       "high_issues": 6,
       "medium_issues": 14,
       "actual_issue": "Cache management failures: unbounded growth, no LRU, caching errors",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.0,
+        "security": 1.0,
         "correctness": 0.4
       },
       "detailed_issues": [
@@ -2729,16 +2729,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.09185504913330078,
+      "execution_time": 0.08683109283447266,
       "issues_found": 32,
       "critical_issues": 0,
       "high_issues": 11,
       "medium_issues": 10,
       "actual_issue": "Resource leaks: temp files + file descriptors accumulate until system failure",
       "agent_scores": {
-        "security": 0.75,
         "performance": 1.0,
         "style": 0.09682255441202453,
+        "security": 0.75,
         "correctness": 0.44666666666666655
       },
       "detailed_issues": [
@@ -2771,13 +2771,6 @@
           "confidence": 1.0
         },
         {
-          "type": "dangerous_import",
-          "severity": "high",
-          "message": "High-risk import: os (risk level: 2)",
-          "suggestion": "Review security implications of os usage",
-          "confidence": 1.0
-        },
-        {
           "type": "flake8",
           "severity": "high",
           "message": "Flake8: F401 'os' imported but unused",
@@ -2785,10 +2778,10 @@
           "confidence": 1.0
         },
         {
-          "type": "crypto_compliance_failure",
+          "type": "dangerous_import",
           "severity": "high",
-          "message": "Cryptographic compliance failure: Weak cryptographic algorithms detected",
-          "suggestion": "Use enterprise-approved cryptographic algorithms",
+          "message": "High-risk import: os (risk level: 2)",
+          "suggestion": "Review security implications of os usage",
           "confidence": 1.0
         },
         {
@@ -2796,6 +2789,13 @@
           "severity": "high",
           "message": "Extreme loop nesting: 4 levels",
           "suggestion": "Redesign algorithm to reduce nesting complexity",
+          "confidence": 1.0
+        },
+        {
+          "type": "crypto_compliance_failure",
+          "severity": "high",
+          "message": "Cryptographic compliance failure: Weak cryptographic algorithms detected",
+          "suggestion": "Use enterprise-approved cryptographic algorithms",
           "confidence": 1.0
         },
         {
@@ -2976,16 +2976,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.08788585662841797,
+      "execution_time": 0.08525896072387695,
       "issues_found": 22,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 13,
       "actual_issue": "Unbounded connection creation + cursor leaks + corrupt connection reuse",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.33292505669530087,
+        "security": 1.0,
         "correctness": 0.4
       },
       "detailed_issues": [
@@ -3153,16 +3153,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.08877706527709961,
+      "execution_time": 0.08483505249023438,
       "issues_found": 27,
       "critical_issues": 0,
       "high_issues": 5,
       "medium_issues": 12,
       "actual_issue": "Multiple memory leaks: unbounded lists, temp buffers, no cleanup",
       "agent_scores": {
-        "security": 1.0,
         "performance": 0.988,
         "style": 0.026246774933729,
+        "security": 1.0,
         "correctness": 0.4999999999999999
       },
       "detailed_issues": [
@@ -3365,16 +3365,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.09071016311645508,
+      "execution_time": 0.08789491653442383,
       "issues_found": 25,
       "critical_issues": 0,
       "high_issues": 9,
       "medium_issues": 8,
       "actual_issue": "Multiple security holes: no auth, SQL injection, field injection, XSS",
       "agent_scores": {
-        "security": 0.44999999999999996,
         "performance": 1.0,
         "style": 0.024737056068687955,
+        "security": 0.44999999999999996,
         "correctness": 0.55
       },
       "detailed_issues": [
@@ -3563,16 +3563,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.08666777610778809,
+      "execution_time": 0.0829460620880127,
       "issues_found": 30,
       "critical_issues": 0,
       "high_issues": 8,
       "medium_issues": 12,
       "actual_issue": "File upload vulnerabilities: no content validation, path traversal, overwrite",
       "agent_scores": {
-        "security": 0.7999999999999999,
         "performance": 1.0,
         "style": 0.02622087267714271,
+        "security": 0.7999999999999999,
         "correctness": 0.4
       },
       "detailed_issues": [
@@ -3796,7 +3796,7 @@
       "our_verdict": "ERROR",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.10070276260375977,
+      "execution_time": 0.09767603874206543,
       "issues_found": 1,
       "critical_issues": 1,
       "high_issues": 0,
@@ -3821,16 +3821,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.1013801097869873,
+      "execution_time": 0.09771084785461426,
       "issues_found": 27,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 13,
       "actual_issue": "O(n\u00b3) total complexity: O(n\u00b2) pairs \u00d7 O(n) string ops = complete failure at scale",
       "agent_scores": {
-        "security": 1.0,
         "performance": 0.988,
         "style": 0.0,
+        "security": 1.0,
         "correctness": 0.6066666666666666
       },
       "detailed_issues": [
@@ -4033,16 +4033,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.08579111099243164,
+      "execution_time": 0.15739202499389648,
       "issues_found": 22,
       "critical_issues": 0,
       "high_issues": 5,
       "medium_issues": 6,
       "actual_issue": "O(n! \u00d7 n\u00b2) complexity: exponential path finding for every pair of nodes",
       "agent_scores": {
-        "security": 0.7999999999999999,
         "performance": 1.0,
         "style": 0.4837364125900707,
+        "security": 0.7999999999999999,
         "correctness": 0.55
       },
       "detailed_issues": [
@@ -4210,16 +4210,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.09692192077636719,
+      "execution_time": 0.1014409065246582,
       "issues_found": 30,
       "critical_issues": 0,
       "high_issues": 5,
       "medium_issues": 14,
       "actual_issue": "Exponential recursion: mutable defaults, repeated calculations, no memoization",
       "agent_scores": {
-        "security": 1.0,
         "performance": 0.988,
         "style": 0.30199999999999994,
+        "security": 1.0,
         "correctness": 0.4
       },
       "detailed_issues": [
@@ -4443,16 +4443,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.08671808242797852,
+      "execution_time": 0.08668708801269531,
       "issues_found": 21,
       "critical_issues": 0,
       "high_issues": 7,
       "medium_issues": 7,
       "actual_issue": "Multiple memory leaks: unbounded event history, unreferenced callbacks, zombie subscriptions",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.04756538346032592,
+        "security": 1.0,
         "correctness": 0.5133333333333332
       },
       "detailed_issues": [
@@ -4613,16 +4613,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.08260011672973633,
+      "execution_time": 0.07988810539245605,
       "issues_found": 22,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 11,
       "actual_issue": "Financial precision errors: wrong rounding, accumulated floating point errors",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.2801109187650312,
+        "security": 1.0,
         "correctness": 0.6466666666666666
       },
       "detailed_issues": [
@@ -4790,16 +4790,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.10502123832702637,
+      "execution_time": 0.07917308807373047,
       "issues_found": 19,
       "critical_issues": 0,
       "high_issues": 5,
       "medium_issues": 5,
       "actual_issue": "Timezone logic errors: no DST handling, wrong historical conversions, event skipping",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.26937599369324866,
+        "security": 1.0,
         "correctness": 0.8166666666666668
       },
       "detailed_issues": [
@@ -4946,16 +4946,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.09832215309143066,
+      "execution_time": 0.0948951244354248,
       "issues_found": 20,
       "critical_issues": 0,
       "high_issues": 6,
       "medium_issues": 7,
       "actual_issue": "Payment integration failures: no idempotency, exposed credentials, no atomicity",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.02665119663204358,
+        "security": 1.0,
         "correctness": 0.6999999999999998
       },
       "detailed_issues": [
@@ -5109,16 +5109,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.08590912818908691,
+      "execution_time": 0.08201026916503906,
       "issues_found": 22,
       "critical_issues": 0,
       "high_issues": 3,
       "medium_issues": 11,
       "actual_issue": "Regex ReDoS vulnerabilities: catastrophic backtracking patterns cause hanging",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.3857264907210484,
+        "security": 1.0,
         "correctness": 0.6066666666666666
       },
       "detailed_issues": [
@@ -5286,16 +5286,16 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.0973050594329834,
+      "execution_time": 0.09228801727294922,
       "issues_found": 28,
       "critical_issues": 0,
       "high_issues": 5,
       "medium_issues": 10,
       "actual_issue": "State mutation bugs: mutable references, uncontrolled mutations, memory leaks",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.08599999999999997,
+        "security": 1.0,
         "correctness": 0.4
       },
       "detailed_issues": [
@@ -5505,16 +5505,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 6.914138793945312e-05,
+      "execution_time": 6.198883056640625e-05,
       "issues_found": 19,
       "critical_issues": 0,
       "high_issues": 3,
       "medium_issues": 7,
       "actual_issue": "None - this is good code",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.3547941149596751,
+        "security": 1.0,
         "correctness": 0.55
       },
       "detailed_issues": [
@@ -5661,16 +5661,16 @@
       "our_verdict": "WARNING",
       "should_reject": false,
       "correct_detection": true,
-      "execution_time": 1.8835067749023438e-05,
+      "execution_time": 2.2649765014648438e-05,
       "issues_found": 12,
       "critical_issues": 0,
       "high_issues": 1,
       "medium_issues": 5,
       "actual_issue": "None - this is good code",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.714,
+        "security": 1.0,
         "correctness": 0.9633333333333334
       },
       "detailed_issues": [
@@ -5768,16 +5768,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 1.5974044799804688e-05,
+      "execution_time": 2.002716064453125e-05,
       "issues_found": 21,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 12,
       "actual_issue": "None - this is good code with proper cleanup",
       "agent_scores": {
-        "security": 0.7999999999999999,
         "performance": 1.0,
         "style": 0.5368488991632443,
+        "security": 0.7999999999999999,
         "correctness": 0.4999999999999999
       },
       "detailed_issues": [
@@ -5938,16 +5938,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 1.8835067749023438e-05,
+      "execution_time": 1.3828277587890625e-05,
       "issues_found": 21,
       "critical_issues": 0,
       "high_issues": 2,
       "medium_issues": 13,
       "actual_issue": "None - this is properly thread-safe code",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.46199999999999997,
+        "security": 1.0,
         "correctness": 0.5933333333333333
       },
       "detailed_issues": [
@@ -6108,16 +6108,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.09603381156921387,
+      "execution_time": 0.09272289276123047,
       "issues_found": 32,
       "critical_issues": 0,
       "high_issues": 10,
       "medium_issues": 10,
       "actual_issue": "None - this is secure code with proper validation",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.0,
+        "security": 1.0,
         "correctness": 0.55
       },
       "detailed_issues": [
@@ -6357,7 +6357,7 @@
       "our_verdict": "ERROR",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.09760284423828125,
+      "execution_time": 0.0942080020904541,
       "issues_found": 1,
       "critical_issues": 1,
       "high_issues": 0,
@@ -6382,16 +6382,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.08736300468444824,
+      "execution_time": 0.08401298522949219,
       "issues_found": 19,
       "critical_issues": 0,
       "high_issues": 3,
       "medium_issues": 7,
       "actual_issue": "None - this is good code",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.3547941149596751,
+        "security": 1.0,
         "correctness": 0.55
       },
       "detailed_issues": [
@@ -6538,16 +6538,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.0831458568572998,
+      "execution_time": 0.08090496063232422,
       "issues_found": 21,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 12,
       "actual_issue": "None - this is good code with proper cleanup",
       "agent_scores": {
-        "security": 0.7999999999999999,
         "performance": 1.0,
         "style": 0.5368488991632443,
+        "security": 0.7999999999999999,
         "correctness": 0.4999999999999999
       },
       "detailed_issues": [
@@ -6708,16 +6708,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.0812828540802002,
+      "execution_time": 0.0804598331451416,
       "issues_found": 21,
       "critical_issues": 0,
       "high_issues": 2,
       "medium_issues": 13,
       "actual_issue": "None - this is properly thread-safe code",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.46199999999999997,
+        "security": 1.0,
         "correctness": 0.5933333333333333
       },
       "detailed_issues": [
@@ -6878,16 +6878,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.09631681442260742,
+      "execution_time": 0.09455013275146484,
       "issues_found": 31,
       "critical_issues": 0,
       "high_issues": 10,
       "medium_issues": 9,
       "actual_issue": "None - this is secure code with proper validation",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.0,
+        "security": 1.0,
         "correctness": 0.55
       },
       "detailed_issues": [
@@ -7118,7 +7118,7 @@
       "our_verdict": "ERROR",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.10070276260375977,
+      "execution_time": 0.09767603874206543,
       "issues_found": 1,
       "critical_issues": 1,
       "high_issues": 0,
@@ -7143,16 +7143,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 6.914138793945312e-05,
+      "execution_time": 6.198883056640625e-05,
       "issues_found": 19,
       "critical_issues": 0,
       "high_issues": 3,
       "medium_issues": 7,
       "actual_issue": "None - this is good code",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.3547941149596751,
+        "security": 1.0,
         "correctness": 0.55
       },
       "detailed_issues": [
@@ -7299,16 +7299,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 1.5974044799804688e-05,
+      "execution_time": 2.002716064453125e-05,
       "issues_found": 21,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 12,
       "actual_issue": "None - this is good code with proper cleanup",
       "agent_scores": {
-        "security": 0.7999999999999999,
         "performance": 1.0,
         "style": 0.5368488991632443,
+        "security": 0.7999999999999999,
         "correctness": 0.4999999999999999
       },
       "detailed_issues": [
@@ -7469,16 +7469,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 1.8835067749023438e-05,
+      "execution_time": 1.3828277587890625e-05,
       "issues_found": 21,
       "critical_issues": 0,
       "high_issues": 2,
       "medium_issues": 13,
       "actual_issue": "None - this is properly thread-safe code",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.46199999999999997,
+        "security": 1.0,
         "correctness": 0.5933333333333333
       },
       "detailed_issues": [
@@ -7639,16 +7639,16 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.09603381156921387,
+      "execution_time": 0.09272289276123047,
       "issues_found": 32,
       "critical_issues": 0,
       "high_issues": 10,
       "medium_issues": 10,
       "actual_issue": "None - this is secure code with proper validation",
       "agent_scores": {
-        "security": 1.0,
         "performance": 1.0,
         "style": 0.0,
+        "security": 1.0,
         "correctness": 0.55
       },
       "detailed_issues": [
