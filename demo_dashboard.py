@@ -13,18 +13,18 @@ def main():
     
     print("🔍 CodeX-Verify Dashboard")
     print("=" * 40)
-    print("🎯 86.4% accuracy • 4 verification agents • Production-ready")
+    print("🎯 Multi-agent verification • 4 agents • Production-ready")
     print()
     
-    # Use the simple dashboard first
-    dashboard_path = Path(__file__).parent / "ui" / "streamlit_dashboard_simple.py"
+    # Use the FULL dashboard, not the simple one
+    dashboard_path = Path(__file__).parent / "ui" / "streamlit_dashboard.py"
     
     if not dashboard_path.exists():
         print("❌ Dashboard file not found!")
         print(f"Expected: {dashboard_path}")
         return
     
-    print(f"🚀 Launching dashboard...")
+    print(f"🚀 Launching full dashboard...")
     print(f"📁 Location: {dashboard_path}")
     print()
     print("🌐 The dashboard will open in your browser automatically")
@@ -32,7 +32,7 @@ def main():
     print()
     
     try:
-        # Launch Streamlit
+        # Launch Streamlit with the FULL dashboard
         subprocess.run([
             sys.executable, "-m", "streamlit", "run", 
             str(dashboard_path),

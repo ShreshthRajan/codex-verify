@@ -462,3 +462,87 @@ def create_orchestrator(config_path: Optional[str] = None, **kwargs) -> AsyncOrc
             setattr(config, key, value)
     
     return AsyncOrchestrator(config)
+
+def to_json(self, indent=2):
+    """Convert result to JSON string"""
+    import json
+    return json.dumps({
+        'overall_score': self.overall_score,
+        'overall_status': self.overall_status,
+        'execution_time': self.execution_time,
+        'agent_results': {
+            name: {
+                'score': result.overall_score,
+                'issues': len(result.issues),
+                'success': result.success,
+                'execution_time': result.execution_time
+            }
+            for name, result in self.agent_results.items()
+        },
+        'total_issues': len(self.aggregated_issues),
+        'critical_issues': len([i for i in self.aggregated_issues if i.severity.value == 'critical']),
+        'high_issues': len([i for i in self.aggregated_issues if i.severity.value == 'high']),
+        'timestamp': time.time()
+    }, indent=indent, default=str)
+
+def to_yaml(self):
+    """Convert result to YAML string"""
+    import yaml
+    data = {
+        'verification_report': {
+            'overall_score': f"{self.overall_score:.1%}",
+            'status': self.overall_status,
+            'execution_time': f"{self.execution_time:.3f}s",
+            'agents': {
+                name: {
+                    'score': f"{result.overall_score:.1%}",
+                    'issues_found': len(result.issues),
+                    'execution_time': f"{result.execution_time:.3f}s"
+                }
+                for name, result in self.agent_results.items()
+            },
+            'summary': {
+                'total_issues': len(self.aggregated_issues),
+                'critical_issues': len([i for i in self.aggregated_issues if i.severity.value == 'critical']),
+                'high_issues': len([i for i in self.aggregated_issues if i.severity.value == 'high'])
+            }
+        }
+    }
+    return yaml.dump(data, default_flow_style=False)
+
+def to_dict(self):
+    """Convert result to dictionary"""
+    return {
+        'overall_score': self.overall_score,
+        'overall_status': self.overall_status,
+        'execution_time': self.execution_time,
+        'agent_results': {
+            name: {
+                'score': result.overall_score,
+                'issues': [
+                    {
+                        'type': issue.type,
+                        'severity': issue.severity.value,
+                        'message': issue.message,
+                        'line_number': issue.line_number,
+                        'suggestion': issue.suggestion
+                    }
+                    for issue in result.issues
+                ],
+                'metadata': result.metadata,
+                'success': result.success,
+                'execution_time': result.execution_time
+            }
+            for name, result in self.agent_results.items()
+        },
+        'aggregated_issues': [
+            {
+                'type': issue.type,
+                'severity': issue.severity.value,
+                'message': issue.message,
+                'line_number': issue.line_number,
+                'suggestion': issue.suggestion
+            }
+            for issue in self.aggregated_issues
+        ]
+    }

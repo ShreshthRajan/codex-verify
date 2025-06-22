@@ -10,7 +10,6 @@ import json
 import time
 import plotly.express as px
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 import pandas as pd
 from typing import Dict, List, Any, Optional
 import sys
@@ -23,9 +22,16 @@ src_path = project_root / "src"
 if str(src_path) not in sys.path:
     sys.path.insert(0, str(src_path))
 
-# Now imports should work
-from orchestration.async_orchestrator import AsyncOrchestrator, VerificationConfig
-from agents.base_agent import Severity
+# Import verification system
+try:
+    from orchestration.async_orchestrator import AsyncOrchestrator, VerificationConfig
+    from agents.base_agent import Severity
+    ORCHESTRATOR_AVAILABLE = True
+except ImportError as e:
+    st.error(f"⚠️ Orchestration system not available: {e}")
+    st.stop()  # Stop execution if imports fail
+
+
 # Inline components to avoid import issues
 class VerificationResultsComponent:
     def render(self, result):
@@ -43,6 +49,9 @@ class VerificationResultsComponent:
     
     def render_detailed_analysis(self, result):
         self.render(result)
+
+
+
 
 class MetricsChartsComponent:
     def render_result_charts(self, result):
@@ -132,6 +141,7 @@ st.markdown("""
 class CodeXVerifyDashboard:
     """Main dashboard controller for CodeX-Verify"""
     
+
     def __init__(self):
         self.orchestrator = None
         self.verification_results = VerificationResultsComponent()
@@ -205,6 +215,23 @@ class CodeXVerifyDashboard:
                 delta="Production ready",
                 help="Correctness, Security, Performance, Style & Maintainability"
             )
+    
+    def _ensure_orchestrator_available(self):
+        """Ensure orchestration system is available"""
+        if not ORCHESTRATOR_AVAILABLE:
+            st.error("🚨 Verification System Unavailable")
+            st.markdown("""
+            **The verification orchestration system is not properly configured.**
+            
+            Please ensure:
+            1. All agent modules are properly installed
+            2. The orchestration layer is configured
+            3. Dependencies are met
+            
+            **For demo purposes, showing simulated results.**
+            """)
+            return False
+        return True
     
     def _render_sidebar(self):
         """Render sidebar configuration and controls"""
@@ -412,7 +439,12 @@ class CodeXVerifyDashboard:
             try:
                 # Initialize orchestrator with configuration
                 config = VerificationConfig.default()
-                config.enabled_agents = set(st.session_state.enabled_agents)
+                
+                # Set enabled agents based on sidebar selection
+                if hasattr(st.session_state, 'enabled_agents') and st.session_state.enabled_agents:
+                    config.enabled_agents = set(st.session_state.enabled_agents)
+                else:
+                    config.enabled_agents = {'correctness', 'security', 'performance', 'style'}
                 
                 # Adjust config based on mode
                 if mode == "⚡ Quick Check":
@@ -423,28 +455,33 @@ class CodeXVerifyDashboard:
                 elif mode == "⚡ Performance Focus":
                     config.enabled_agents = {'performance', 'correctness'}
                 
-                orchestrator = AsyncOrchestrator(config)
-                
-                # Run verification with progress updates
                 progress_bar.progress(20)
                 status_text.text("🧠 Initializing agents...")
-                time.sleep(0.5)
+                time.sleep(0.3)
                 
                 progress_bar.progress(40)
                 status_text.text("🔍 Analyzing code...")
                 
-                # Run async verification
-                loop = asyncio.new_event_loop()
-                asyncio.set_event_loop(loop)
-                result = loop.run_until_complete(orchestrator.verify_code(code, context))
-                loop.close()
+                # Create orchestrator and run verification
+                orchestrator = AsyncOrchestrator(config)
+                
+                # Run async verification in a new event loop
+                try:
+                    loop = asyncio.new_event_loop()
+                    asyncio.set_event_loop(loop)
+                    result = loop.run_until_complete(orchestrator.verify_code(code, context))
+                    loop.close()
+                except Exception as async_error:
+                    st.error(f"Verification error: {str(async_error)}")
+                    return
                 
                 progress_bar.progress(80)
                 status_text.text("📊 Aggregating results...")
-                time.sleep(0.3)
+                time.sleep(0.2)
                 
                 progress_bar.progress(100)
                 status_text.text("✅ Verification complete!")
+                time.sleep(0.5)
                 
                 # Store results
                 st.session_state.current_result = result
@@ -461,7 +498,13 @@ class CodeXVerifyDashboard:
             except Exception as e:
                 progress_container.empty()
                 st.error(f"❌ Verification failed: {str(e)}")
-                st.exception(e)
+                
+                # Show debug info
+                with st.expander("🔍 Debug Information"):
+                    st.text(f"Error type: {type(e).__name__}")
+                    st.text(f"Error message: {str(e)}")
+                    import traceback
+                    st.code(traceback.format_exc())
     
     def _show_verification_results(self, result):
         """Display verification results with rich formatting"""
@@ -476,9 +519,19 @@ class CodeXVerifyDashboard:
             "ERROR": "error"
         }
         
+        overall_status = getattr(result, 'overall_status', 'UNKNOWN')
+        if overall_status == 'UNKNOWN':
+            # Calculate status from score
+            if result.overall_score >= 0.85:
+                overall_status = "PASS"
+            elif result.overall_score >= 0.7:
+                overall_status = "WARNING"
+            else:
+                overall_status = "FAIL"
+        
         st.status(
-            f"Overall Status: {result.overall_status}",
-            state=status_color.get(result.overall_status, "info")
+            f"Overall Status: {overall_status}",
+            state=status_color.get(overall_status, "info")
         )
         
         # Key metrics row
@@ -493,6 +546,7 @@ class CodeXVerifyDashboard:
             )
         
         with col2:
+            # Count issues by severity
             critical_issues = len([i for i in result.aggregated_issues if i.severity == Severity.CRITICAL])
             st.metric(
                 "Critical Issues",
@@ -510,9 +564,10 @@ class CodeXVerifyDashboard:
             )
         
         with col4:
+            exec_time = getattr(result, 'execution_time', 0.0)
             st.metric(
                 "Execution Time",
-                f"⚡ {result.execution_time:.2f}s",
+                f"⚡ {exec_time:.2f}s",
                 help="Total verification time for all agents"
             )
         
@@ -524,35 +579,71 @@ class CodeXVerifyDashboard:
         for i, (agent_name, agent_result) in enumerate(result.agent_results.items()):
             with agent_cols[i]:
                 # Agent status card
-                status_icon = "✅" if agent_result.success and agent_result.overall_score >= 0.8 else "⚠️" if agent_result.overall_score >= 0.6 else "❌"
+                agent_score = getattr(agent_result, 'overall_score', 0.0)
+                agent_success = getattr(agent_result, 'success', True)
+                agent_issues = getattr(agent_result, 'issues', [])
+                agent_time = getattr(agent_result, 'execution_time', 0.0)
+                
+                status_icon = "✅" if agent_success and agent_score >= 0.8 else "⚠️" if agent_score >= 0.6 else "❌"
                 
                 st.markdown(f"""
-                <div class="metric-card">
+                <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #007acc;">
                     <h4>{status_icon} {agent_name.title()}</h4>
-                    <p><strong>Score:</strong> {agent_result.overall_score:.1%}</p>
-                    <p><strong>Issues:</strong> {len(agent_result.issues)}</p>
-                    <p><strong>Time:</strong> {agent_result.execution_time:.3f}s</p>
+                    <p><strong>Score:</strong> {agent_score:.1%}</p>
+                    <p><strong>Issues:</strong> {len(agent_issues)}</p>
+                    <p><strong>Time:</strong> {agent_time:.3f}s</p>
                 </div>
                 """, unsafe_allow_html=True)
         
         # Detailed results in expandable sections
         with st.expander("🔍 Detailed Issue Analysis", expanded=True):
-            self.verification_results.render(result)
+            if result.aggregated_issues:
+                for i, issue in enumerate(result.aggregated_issues, 1):
+                    severity_color = {"critical": "🚨", "high": "⚠️", "medium": "ℹ️", "low": "💡"}
+                    icon = severity_color.get(issue.severity.value, "📝")
+                    
+                    st.write(f"{icon} **{i}. {issue.type.replace('_', ' ').title()}**")
+                    st.write(f"   {issue.message}")
+                    if hasattr(issue, 'line_number') and issue.line_number:
+                        st.write(f"   📍 Line {issue.line_number}")
+                    if hasattr(issue, 'suggestion') and issue.suggestion:
+                        st.write(f"   💡 {issue.suggestion}")
+                    st.write("")
+            else:
+                st.success("🎉 Excellent! No issues detected across all verification agents.")
         
         # Charts and visualizations
         with st.expander("📈 Verification Analytics"):
-            self.metrics_charts.render_result_charts(result)
-        
-        # Recommendations
-        if result.recommendations:
-            with st.expander("💡 Recommendations", expanded=True):
-                for i, rec in enumerate(result.recommendations, 1):
-                    st.markdown(f"{i}. {rec}")
-        
-        # Enterprise assessment
-        if 'enterprise_metrics' in result.metadata:
-            with st.expander("🏢 Enterprise Assessment"):
-                self._render_enterprise_assessment(result.metadata['enterprise_metrics'])
+            # Create agent performance chart
+            import plotly.express as px
+            import pandas as pd
+            
+            agent_data = []
+            for agent_name, agent_result in result.agent_results.items():
+                agent_data.append({
+                    'Agent': agent_name.title(),
+                    'Score': getattr(agent_result, 'overall_score', 0.0),
+                    'Issues': len(getattr(agent_result, 'issues', [])),
+                    'Time': getattr(agent_result, 'execution_time', 0.0)
+                })
+            
+            if agent_data:
+                df = pd.DataFrame(agent_data)
+                
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    fig = px.bar(df, x='Agent', y='Score', 
+                            title="Agent Performance Scores",
+                            color='Score',
+                            color_continuous_scale='RdYlGn')
+                    st.plotly_chart(fig, use_container_width=True)
+                
+                with col2:
+                    fig = px.scatter(df, x='Time', y='Issues', 
+                                size='Score', color='Agent',
+                                title="Performance vs Issues Detected")
+                    st.plotly_chart(fig, use_container_width=True)
     
     def _render_results_tab(self):
         """Render results analysis tab"""
@@ -902,133 +993,112 @@ class CodeXVerifyDashboard:
             )
     
     def _get_demo_code(self, demo_type: str) -> str:
-        """Get demo code examples"""
+        """Get demo code examples from your actual test cases"""
         demos = {
-            "swe_bench": '''def fibonacci(n):
-    """Calculate fibonacci number with potential optimization issues."""
-    if n <= 1:
-        return n
-    
-    # Inefficient recursive approach - O(2^n) complexity
-    return fibonacci(n-1) + fibonacci(n-2)
+            "swe_bench": '''def find_duplicates(records):
+        """Find duplicate records in dataset efficiently"""
+        duplicates = []
+        
+        # BUG: O(n²) comparison - exponential growth with data size
+        for i, record1 in enumerate(records):
+            for j, record2 in enumerate(records[i+1:], i+1):
+                # BUG: Expensive similarity calculation for every pair
+                similarity = calculate_detailed_similarity(record1, record2)
+                if similarity > 0.8:
+                    duplicates.append((i, j, similarity))
+        
+        return duplicates
 
-    def process_user_data(user_input):
-    """Process user data with security vulnerabilities."""
-    import os
-    
-    # SQL injection vulnerability
-    query = f"SELECT * FROM users WHERE name = '{user_input}'"
-    
-    # Command injection vulnerability  
-    os.system(f"echo {user_input}")
-    
-    # Hardcoded secret
-    api_key = "sk-1234567890abcdef"
-    
-    return query
-
-    # Missing error handling
-    def divide_numbers(a, b):
-    return a / b  # No zero division check
-
-    # Performance issue
-    def find_duplicates(items):
-    duplicates = []
-    for i in range(len(items)):
-        for j in range(i+1, len(items)):
-            if items[i] == items[j]:
-                duplicates.append(items[i])
-    return duplicates''',
+    def calculate_detailed_similarity(record1, record2):
+        """Calculate comprehensive similarity between records"""
+        fields = ['name', 'email', 'phone', 'address', 'company', 'notes']
+        field_weights = [0.3, 0.25, 0.2, 0.15, 0.05, 0.05]
+        
+        total_score = 0
+        for field, weight in zip(fields, field_weights):
+            val1 = str(record1.get(field, '')).lower()
+            val2 = str(record2.get(field, '')).lower()
             
+            # BUG: Multiple expensive string operations per comparison
+            if field in ['name', 'company', 'notes']:
+                # BUG: O(n*m) edit distance for text fields
+                score = 1 - (edit_distance(val1, val2) / max(len(val1), len(val2), 1))
+            else:
+                score = char_similarity(val1, val2)
+                
+            total_score += score * weight
+        
+        return total_score''',
+                
             "security": '''import pickle
     import subprocess
     import hashlib
 
-    # Multiple security vulnerabilities for testing
-    class SecurityTestCase:
-    def __init__(self):
-        # Hardcoded credentials
-        self.password = "admin123"
-        self.api_key = "sk-1234567890abcdefghijklmnop"
-        
-    def unsafe_deserialization(self, data):
-        # Dangerous pickle usage
-        return pickle.loads(data)
-    
-    def command_injection(self, filename):
-        # Command injection vulnerability
-        subprocess.call(f"cat {filename}", shell=True)
-    
-    def weak_crypto(self, password):
-        # Weak hashing algorithm
-        return hashlib.md5(password.encode()).hexdigest()
-    
-    def sql_injection(self, user_id):
-        # SQL injection via string formatting
-        query = "SELECT * FROM users WHERE id = %s" % user_id
-        return query
-    
-    def eval_execution(self, user_code):
-        # Code execution vulnerability
-        return eval(user_code)''',
+    class PaymentProcessor:
+        def __init__(self, api_key, endpoint):
+            self.api_key = api_key
+            self.endpoint = endpoint
             
-            "performance": '''import time
-    import random
-
-    def inefficient_sort(arr):
-    """Bubble sort implementation - O(n²) complexity"""
-    n = len(arr)
-    for i in range(n):
-        for j in range(0, n-i-1):
-            if arr[j] > arr[j+1]:
-                arr[j], arr[j+1] = arr[j+1], arr[j]
-    return arr
-
-    def nested_loops_performance_issue(matrix):
-    """Triple nested loops creating O(n³) complexity"""
-    result = []
-    for i in range(len(matrix)):
-        for j in range(len(matrix[i])):
-            for k in range(len(matrix)):
-                # Expensive operation in nested context
-                result.append(matrix[i][j] * matrix[k][j])
-    return result
-
-    def memory_inefficient_function():
-    """Creates memory management issues"""
-    huge_list = []
-    for i in range(1000000):
-        huge_list.append([random.random() for _ in range(100)])
-    
-    # Memory not properly managed
-    return huge_list
-
-    def string_concatenation_issue(items):
-    """Inefficient string building in loop"""
-    result = ""
-    for item in items:
-        result += str(item) + ", "  # O(n²) string concatenation
-    return result
-
-    class ComplexAlgorithm:
-    """Complex class with multiple performance issues"""
-    
-    def fibonacci_recursive(self, n):
-        """Exponential time complexity"""
-        if n <= 1:
-            return n
-        return self.fibonacci_recursive(n-1) + self.fibonacci_recursive(n-2)
-    
-    def search_in_unsorted(self, arr, target):
-        """Linear search when binary could be used"""
-        for item in arr:
-            if item == target:
-                return True
-        return False'''
+        def process_payment(self, amount, card_token, order_id):
+            """Process payment through external API"""
+            
+            payment_data = {
+                'amount': amount * 100,  # Convert to cents
+                'currency': 'USD',
+                'card_token': card_token,
+                'order_id': order_id,
+                'api_key': self.api_key  # BUG: API key in request body (logged)
+            }
+            
+            try:
+                # BUG: No timeout - can hang indefinitely
+                response = requests.post(self.endpoint, json=payment_data)
+                
+                if response.status_code == 200:
+                    result = response.json()
+                    return {
+                        'success': True,
+                        'transaction_id': result.get('transaction_id'),
+                        'status': result.get('status')
+                    }
+                else:
+                    # BUG: Returning sensitive error details to client
+                    return {
+                        'success': False,
+                        'error': response.text,  # May contain sensitive info
+                        'status_code': response.status_code
+                    }
+                    
+            except requests.exceptions.RequestException as e:
+                # BUG: No retry logic for network failures
+                # BUG: Exposing internal error details
+                return {
+                    'success': False,
+                    'error': str(e)
+                }''',
+                
+            "performance": '''def binary_search(arr, target):
+        """Efficient binary search implementation"""
+        if not arr:
+            return -1
+        
+        left, right = 0, len(arr) - 1
+        
+        while left <= right:
+            mid = left + (right - left) // 2  # Avoid overflow
+            
+            if arr[mid] == target:
+                return mid
+            elif arr[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        
+        return -1'''
         }
         
         return demos.get(demo_type, "# Demo code not found")
-    
+        
     def _show_share_options(self, result):
         """Show options for sharing verification results"""
         st.subheader("📧 Share Verification Results")
@@ -1052,3 +1122,13 @@ class CodeXVerifyDashboard:
             if st.button("🔗 Generate Share Link"):
                 # In a real implementation, this would generate a shareable link
                 st.info("Share link: https://codex-verify.com/results/abc123")
+
+
+# At the very bottom of the file, replace any existing main call with:
+if __name__ == "__main__":
+    dashboard = CodeXVerifyDashboard()
+    dashboard.run()
+else:
+    # This runs when imported by streamlit
+    dashboard = CodeXVerifyDashboard()
+    dashboard.run()
