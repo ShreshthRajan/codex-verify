@@ -335,16 +335,16 @@ class CodeXVerifyDashboard:
         context = {}
         
         if input_method == "✍️ Write/Paste Code":
-            # Check for demo mode
-            if st.session_state.demo_mode and 'demo_code' in st.session_state:
-                code_to_verify = st.session_state.demo_code
+            # Check for demo mode with error handling
+            initial_code = ""
+            if st.session_state.get('demo_mode', False) and st.session_state.get('demo_code'):
+                initial_code = st.session_state.demo_code
                 st.session_state.demo_mode = False  # Reset demo mode
-            else:
-                code_to_verify = ""
+                st.success("🎮 Demo code loaded! Click 'Verify Code' to run analysis.")
             
             code_to_verify = st.text_area(
                 "Enter your Python code:",
-                value=code_to_verify,
+                value=initial_code,
                 height=300,
                 placeholder="def hello_world():\n    return 'Hello, World!'\n\nprint(hello_world())",
                 help="Paste or type your Python code here for comprehensive verification"
@@ -358,9 +358,12 @@ class CodeXVerifyDashboard:
             )
             
             if uploaded_file is not None:
-                code_to_verify = str(uploaded_file.read(), "utf-8")
-                context['file_name'] = uploaded_file.name
-                st.code(code_to_verify, language='python')
+                try:
+                    code_to_verify = str(uploaded_file.read(), "utf-8")
+                    context['file_name'] = uploaded_file.name
+                    st.code(code_to_verify, language='python')
+                except Exception as e:
+                    st.error(f"Error reading file: {str(e)}")
         
         elif input_method == "🔗 GitHub URL":
             github_url = st.text_input(
@@ -371,7 +374,6 @@ class CodeXVerifyDashboard:
             
             if github_url and st.button("Fetch Code"):
                 try:
-                    # Simple GitHub raw content fetching
                     if "github.com" in github_url and "/blob/" in github_url:
                         raw_url = github_url.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/")
                         import requests
@@ -408,11 +410,10 @@ class CodeXVerifyDashboard:
                 st.session_state.verification_history.clear()
                 st.rerun()
         
-        # Real-time code preview with basic syntax highlighting
+        # Code preview
         if code_to_verify.strip():
             st.subheader("📋 Code Preview")
             
-            # Basic code metrics
             lines = len(code_to_verify.splitlines())
             chars = len(code_to_verify)
             
@@ -428,7 +429,6 @@ class CodeXVerifyDashboard:
     def _run_verification(self, code: str, context: Dict[str, Any], mode: str):
         """Execute code verification with progress tracking"""
         
-        # Create progress tracking
         progress_container = st.container()
         
         with progress_container:
@@ -437,10 +437,8 @@ class CodeXVerifyDashboard:
             status_text = st.empty()
             
             try:
-                # Initialize orchestrator with configuration
                 config = VerificationConfig.default()
                 
-                # Set enabled agents based on sidebar selection
                 if hasattr(st.session_state, 'enabled_agents') and st.session_state.enabled_agents:
                     config.enabled_agents = set(st.session_state.enabled_agents)
                 else:
@@ -462,17 +460,19 @@ class CodeXVerifyDashboard:
                 progress_bar.progress(40)
                 status_text.text("🔍 Analyzing code...")
                 
-                # Create orchestrator and run verification
                 orchestrator = AsyncOrchestrator(config)
                 
-                # Run async verification in a new event loop
                 try:
                     loop = asyncio.new_event_loop()
                     asyncio.set_event_loop(loop)
                     result = loop.run_until_complete(orchestrator.verify_code(code, context))
                     loop.close()
                 except Exception as async_error:
-                    st.error(f"Verification error: {str(async_error)}")
+                    progress_container.empty()
+                    st.error(f"❌ Verification error: {str(async_error)}")
+                    with st.expander("🔍 Error Details"):
+                        st.text(f"Error type: {type(async_error).__name__}")
+                        st.code(str(async_error))
                     return
                 
                 progress_bar.progress(80)
@@ -491,15 +491,14 @@ class CodeXVerifyDashboard:
                     'code_preview': code[:200] + "..." if len(code) > 200 else code
                 })
                 
-                # Clear progress and show results
                 progress_container.empty()
                 self._show_verification_results(result)
                 
             except Exception as e:
                 progress_container.empty()
-                st.error(f"❌ Verification failed: {str(e)}")
+                st.error("❌ Verification System Error")
+                st.markdown(f"**Error:** {str(e)}")
                 
-                # Show debug info
                 with st.expander("🔍 Debug Information"):
                     st.text(f"Error type: {type(e).__name__}")
                     st.text(f"Error message: {str(e)}")
@@ -510,15 +509,7 @@ class CodeXVerifyDashboard:
         """Display verification results with rich formatting"""
         st.subheader("📊 Verification Results")
         
-        # Overall status banner
-        status_color = {
-            "PASS": "success",
-            "WARNING": "warning", 
-            "FAIL": "error",
-            "TIMEOUT": "error",
-            "ERROR": "error"
-        }
-        
+        # Overall status banner - Fix the status values
         overall_status = getattr(result, 'overall_status', 'UNKNOWN')
         if overall_status == 'UNKNOWN':
             # Calculate status from score
@@ -529,10 +520,13 @@ class CodeXVerifyDashboard:
             else:
                 overall_status = "FAIL"
         
-        st.status(
-            f"Overall Status: {overall_status}",
-            state=status_color.get(overall_status, "info")
-        )
+        # Use correct Streamlit status values
+        if overall_status == "PASS":
+            st.status("✅ Verification Passed", state="complete", expanded=True)
+        elif overall_status == "WARNING":
+            st.status("⚠️ Verification Passed with Warnings", state="complete", expanded=True)
+        else:
+            st.status("❌ Verification Failed", state="error", expanded=True)
         
         # Key metrics row
         col1, col2, col3, col4 = st.columns(4)
@@ -546,7 +540,6 @@ class CodeXVerifyDashboard:
             )
         
         with col2:
-            # Count issues by severity
             critical_issues = len([i for i in result.aggregated_issues if i.severity == Severity.CRITICAL])
             st.metric(
                 "Critical Issues",
@@ -574,76 +567,92 @@ class CodeXVerifyDashboard:
         # Agent results breakdown
         st.subheader("🤖 Agent Performance")
         
-        agent_cols = st.columns(len(result.agent_results))
+        if result.agent_results:
+            agent_cols = st.columns(len(result.agent_results))
+            
+            for i, (agent_name, agent_result) in enumerate(result.agent_results.items()):
+                with agent_cols[i]:
+                    agent_score = getattr(agent_result, 'overall_score', 0.0)
+                    agent_success = getattr(agent_result, 'success', True)
+                    agent_issues = getattr(agent_result, 'issues', [])
+                    agent_time = getattr(agent_result, 'execution_time', 0.0)
+                    
+                    status_icon = "✅" if agent_success and agent_score >= 0.8 else "⚠️" if agent_score >= 0.6 else "❌"
+                    
+                    st.markdown(f"""
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #007acc; margin-bottom: 1rem;">
+                        <h4>{status_icon} {agent_name.title()}</h4>
+                        <p><strong>Score:</strong> {agent_score:.1%}</p>
+                        <p><strong>Issues:</strong> {len(agent_issues)}</p>
+                        <p><strong>Time:</strong> {agent_time:.3f}s</p>
+                    </div>
+                    """, unsafe_allow_html=True)
         
-        for i, (agent_name, agent_result) in enumerate(result.agent_results.items()):
-            with agent_cols[i]:
-                # Agent status card
-                agent_score = getattr(agent_result, 'overall_score', 0.0)
-                agent_success = getattr(agent_result, 'success', True)
-                agent_issues = getattr(agent_result, 'issues', [])
-                agent_time = getattr(agent_result, 'execution_time', 0.0)
-                
-                status_icon = "✅" if agent_success and agent_score >= 0.8 else "⚠️" if agent_score >= 0.6 else "❌"
-                
-                st.markdown(f"""
-                <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #007acc;">
-                    <h4>{status_icon} {agent_name.title()}</h4>
-                    <p><strong>Score:</strong> {agent_score:.1%}</p>
-                    <p><strong>Issues:</strong> {len(agent_issues)}</p>
-                    <p><strong>Time:</strong> {agent_time:.3f}s</p>
-                </div>
-                """, unsafe_allow_html=True)
-        
-        # Detailed results in expandable sections
+        # Detailed issue analysis
         with st.expander("🔍 Detailed Issue Analysis", expanded=True):
             if result.aggregated_issues:
+                st.markdown("### Issues Found:")
                 for i, issue in enumerate(result.aggregated_issues, 1):
-                    severity_color = {"critical": "🚨", "high": "⚠️", "medium": "ℹ️", "low": "💡"}
-                    icon = severity_color.get(issue.severity.value, "📝")
+                    severity_icons = {"critical": "🚨", "high": "⚠️", "medium": "ℹ️", "low": "💡"}
+                    icon = severity_icons.get(issue.severity.value, "📝")
                     
-                    st.write(f"{icon} **{i}. {issue.type.replace('_', ' ').title()}**")
-                    st.write(f"   {issue.message}")
-                    if hasattr(issue, 'line_number') and issue.line_number:
-                        st.write(f"   📍 Line {issue.line_number}")
-                    if hasattr(issue, 'suggestion') and issue.suggestion:
-                        st.write(f"   💡 {issue.suggestion}")
-                    st.write("")
+                    # Create a clean issue display
+                    with st.container():
+                        col1, col2 = st.columns([1, 20])
+                        with col1:
+                            st.write(icon)
+                        with col2:
+                            st.markdown(f"**{issue.type.replace('_', ' ').title()}** - {issue.severity.value.upper()}")
+                            st.markdown(f"*{issue.message}*")
+                            if hasattr(issue, 'line_number') and issue.line_number:
+                                st.caption(f"📍 Line {issue.line_number}")
+                            if hasattr(issue, 'suggestion') and issue.suggestion:
+                                st.success(f"💡 **Suggestion:** {issue.suggestion}")
+                            st.divider()
             else:
-                st.success("🎉 Excellent! No issues detected across all verification agents.")
+                st.success("🎉 **Excellent!** No issues detected across all verification agents.")
+                st.balloons()
         
-        # Charts and visualizations
-        with st.expander("📈 Verification Analytics"):
-            # Create agent performance chart
-            import plotly.express as px
-            import pandas as pd
-            
-            agent_data = []
-            for agent_name, agent_result in result.agent_results.items():
-                agent_data.append({
-                    'Agent': agent_name.title(),
-                    'Score': getattr(agent_result, 'overall_score', 0.0),
-                    'Issues': len(getattr(agent_result, 'issues', [])),
-                    'Time': getattr(agent_result, 'execution_time', 0.0)
-                })
-            
-            if agent_data:
-                df = pd.DataFrame(agent_data)
+        # Performance analytics
+        with st.expander("📈 Performance Analytics"):
+            if result.agent_results:
+                import plotly.express as px
+                import pandas as pd
                 
-                col1, col2 = st.columns(2)
+                agent_data = []
+                for agent_name, agent_result in result.agent_results.items():
+                    agent_data.append({
+                        'Agent': agent_name.title(),
+                        'Score': getattr(agent_result, 'overall_score', 0.0),
+                        'Issues': len(getattr(agent_result, 'issues', [])),
+                        'Time (ms)': getattr(agent_result, 'execution_time', 0.0) * 1000
+                    })
                 
-                with col1:
-                    fig = px.bar(df, x='Agent', y='Score', 
-                            title="Agent Performance Scores",
-                            color='Score',
-                            color_continuous_scale='RdYlGn')
-                    st.plotly_chart(fig, use_container_width=True)
-                
-                with col2:
-                    fig = px.scatter(df, x='Time', y='Issues', 
-                                size='Score', color='Agent',
-                                title="Performance vs Issues Detected")
-                    st.plotly_chart(fig, use_container_width=True)
+                if agent_data:
+                    df = pd.DataFrame(agent_data)
+                    
+                    col1, col2 = st.columns(2)
+                    
+                    with col1:
+                        fig = px.bar(df, x='Agent', y='Score', 
+                                title="🎯 Agent Performance Scores",
+                                color='Score',
+                                color_continuous_scale='RdYlGn',
+                                range_y=[0, 1])
+                        fig.update_layout(height=400)
+                        st.plotly_chart(fig, use_container_width=True)
+                    
+                    with col2:
+                        fig = px.scatter(df, x='Time (ms)', y='Issues', 
+                                    size='Score', color='Agent',
+                                    title="⚡ Performance vs Issues Detected",
+                                    size_max=20)
+                        fig.update_layout(height=400)
+                        st.plotly_chart(fig, use_container_width=True)
+                    
+                    # Summary table
+                    st.subheader("📊 Agent Summary")
+                    st.dataframe(df, use_container_width=True, hide_index=True)
     
     def _render_results_tab(self):
         """Render results analysis tab"""
