@@ -225,17 +225,39 @@ streamlit run ui/streamlit_dashboard.py
 
 ## Project Structure
 
-```
+## Project Structure
+
+```text
 codex-verify/
-├── src/agents/           # 4 verification agents
-├── src/orchestration/    # Async orchestration engine
-├── ui/                   # Streamlit dashboard + CLI
-├── config/               # YAML config files
-├── tests/                # Comprehensive test suite
-├── docs/                 # Technical docs
+├── src/
+│   ├── agents/                 # 4 verification agents
+│   │   ├── base_agent.py
+│   │   ├── correctness_critic.py
+│   │   ├── security_auditor.py
+│   │   ├── performance_profiler.py
+│   │   ├── style_maintainability_judge.py
+│   ├── orchestration/          # Async orchestration engine
+│   │   ├── async_orchestrator.py
+│   │   ├── caching_layer.py
+│   │   ├── result_aggregator.py
+├── ui/
+│   ├── cli_interface.py        # CLI interface
+│   ├── streamlit_dashboard.py  # Streamlit dashboard
+│   ├── components/             # UI components
+│   │   ├── code_editor.py
+│   │   ├── feedback_component.py
+│   │   ├── metrics_charts.py
+│   │   ├── verification_report.py
+├── config/                     # YAML config files
+├── tests/                      # Comprehensive test suite
+├── demo_samples/               # Demo test cases & example data
+├── swe_bench_real_evaluator.py # Real SWE-bench runner
+├── swe_bench_mirror_evaluator.py # Mirror benchmark runner
+├── README.md
+├── requirements.txt
+├── setup.py
 ```
 
----
 
 ## Development & Testing
 
