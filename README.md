@@ -219,21 +219,6 @@ streamlit run ui/streamlit_dashboard.py
 # Access at http://localhost:8501
 ```
 
-### API Integration
-```python
-from src.orchestration.async_orchestrator import AsyncOrchestrator, VerificationConfig
-
-# Configure for enterprise use
-config = VerificationConfig.default()
-config.enabled_agents = {'security', 'correctness', 'performance', 'style'}
-
-# Initialize orchestrator
-orchestrator = AsyncOrchestrator(config)
-
-# Verify code
-report = await orchestrator.verify_code(code, context)
-print(f"Score: {report.overall_score:.1%}, Status: {report.overall_status}")
-```
 
 ## Configuration
 
