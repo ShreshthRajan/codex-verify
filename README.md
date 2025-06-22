@@ -10,9 +10,11 @@
 
 ## Problem Statement
 
-LLM-generated code is currently unsuitable for direct enterprise deployment due to a **40–60% false positive rate**, as demonstrated by SWE-bench, Meta Prompt Testing, and SecRepoBench benchmarks. Code may appear correct or pass basic test cases, but fails in production due to subtle correctness, security, performance, or maintainability issues.
+LLM-generated code is currently unsuitable for direct enterprise deployment due to a **40–60% rate of undetected bad outputs**, as demonstrated by Codex SWE-bench, Meta Prompt Testing, and SecRepoBench. Code may pass test cases, but still fail in production due to subtle correctness, security, performance, or maintainability issues.
 
-**CodeX‑Verify** is the first *multi-agent verification* system designed to eliminate this barrier:
+The primary goal of this project is to improve **true positive detection** of such bad outputs — reducing the risk of unsafe code shipping undetected. False positive rate on “good” code is tunable, but not the immediate focus.
+
+**CodeX‑Verify** is the first *multi-agent verification* system addressing this barrier:
 
 * **70.6% accuracy** (+30.6 pts over Codex baseline)
 * **91.7% true positive rate** for actual bugs
