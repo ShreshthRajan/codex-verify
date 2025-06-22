@@ -87,9 +87,12 @@ graph TB
 
 ---
 
+---
+
+
 ## Technical Breakthroughs
 
-1. **Compound Vulnerability Detection** — first system with exponential risk scoring for interacting vulnerabilities:
+1. **Compound Vulnerability Detection** — Novel compound vulnerability detection with risk amplification scoring:
 
 ```python
 compound_multipliers = {
@@ -123,13 +126,15 @@ async def _execute_agents_parallel(self, code, context):
 
 ## Comparison to SOTA
 
-| System                  | Accuracy         | False Positive Rate (good code) | True Positive Rate (bugs) | Notes                                  |
-| ----------------------- | ---------------- | ------------------------------- | ------------------------- | -------------------------------------- |
-| Codex (SWE‑bench)       | \~40%            | \~40–60%                        | —                         | No verification                        |
-| Meta Prompt Testing     | 75%              | 8.6% (good func)                | —                         | Function-level only                    |
-| SecRepoBench            | \~70% (security) | —                               | —                         | Security focus only                    |
-| **CodeX‑Verify (ours)** | **70.6%**        | **80% * (current, tunable)**      | **91.7%**                 | Full multi-agent across all dimensions |
-
+| System                  | Accuracy/Performance | False Positive Rate | True Positive Rate | Scope/Notes                                  |
+|------------------------|---------------------|-------------------|-------------------|----------------------------------------------|
+| **Codex (SWE-bench)**     | 22.7% (2025)       | ~40-60%          | —                 | No verification system                       |
+| **Meta Prompt Testing**   | 89.0% (boosted)    | 8.6%             | 75%               | Function-level validation only (Wang & Zhu, 2024) |
+| **SecRepoBench**          | <25% secure-pass@1 | —                | —                 | Repository-level security (318 tasks, 19 LLMs) |
+| **BaxBench**              | 38% secure-pass@1  | —                | —                 | Backend security (392 tasks, best model GPT-4) |
+| **Static Analyzers**      | ~65%               | 15-25%           | 60-80%            | Traditional SAST tools                       |
+| **SWE-bench Empirical Study** | 29.6% incorrect | —            | 98% detection     | Real production bugs (Xia et al., 2025)     |
+| **CodeX-Verify (ours)**   | **70.6%**          | **80%** (tunable) | **91.7%**        | **Full multi-agent across all dimensions**   |
 
 *Note:*
 FPR is currently high on "good code" because the verifier is enforced to be **strict for enterprise deployment**:
@@ -141,21 +146,24 @@ crypto_compliance_required: True
 ```
 
 **Any flagged issue blocks deploy**, as intended.
-This FPR is tunable but and not the focus of the SWE‑bench goal (which targets reducing *false positives on bad Codex outputs*).
+This FPR is tunable but not the focus of the SWE-bench goal (which targets reducing *false positives on bad Codex outputs*).
 The verifier exceeds that goal with 91.7% TPR and 98% real-world detection.
 
 ---
 
-## Relevant Papers
+## **Relevant Papers**
 
-1. *Utilizing Precise and Complete Code Context to Guide LLM in Automatic False Positive Mitigation*
-2. *Minimizing False Positives in Static Bug Detection via LLM-Enhanced Path Feasibility Analysis*
-3. *Validating LLM-Generated Programs with Metamorphic Prompt Testing*
-4. *Are "Solved Issues" in SWE-bench Really Solved Correctly?*
-5. *SecRepoBench: Benchmarking LLMs for Secure Code Generation in Real-World Repositories*
-6. *BaxBench: Evaluating Security of LLM-generated Code*
-7. *LLM4CodeBench*
-8. *SWE‑bench: Can Foundation Models Solve Software Engineering Tasks?*
+1. *Validating LLM-Generated Programs with Metamorphic Prompt Testing* - Wang & Zhu (2024)
+2. *Are "Solved Issues" in SWE-bench Really Solved Correctly? An Empirical Study* - Xia et al. (2025)
+3. *SecRepoBench: Benchmarking LLMs for Secure Code Generation in Real-World Repositories* - Dilgren et al. (2025)
+4. *BaxBench: Can LLMs Generate Secure and Correct Backends?* - Vero et al. (2025)
+5. *Vulnerability Detection with Code Language Models: How Far Are We?* - Ding et al. (2024)
+6. *When LLMs meet cybersecurity: a systematic literature review* - (2025)
+7. *SWE-bench: Can Language Models Resolve Real-world Github Issues?* - Jimenez et al. (2024)
+8. *Utilizing Precise and Complete Code Context to Guide LLM in Automatic False Positive Mitigation* - (2024)
+9. *Minimizing False Positives in Static Bug Detection via LLM-Enhanced Path Feasibility Analysis* - (2024)
+10. *LLM4CodeBench*
+11. *SWE‑bench: Can Foundation Models Solve Software Engineering Tasks?*
 
 ---
 
