@@ -22,7 +22,8 @@ The primary goal of this project is to improve **true positive detection** of su
 * **Sub‑200 ms latency** (CI/CD and PR pipeline ready)
 * **Enterprise production gating** with zero-tolerance deploy blockers
 
-  * “good code” = should pass verification without blocking deploy — correct, secure, performant, maintainable
+
+** “good code” = should pass verification without blocking deploy — correct, secure, performant, maintainable
 
 
 ---
