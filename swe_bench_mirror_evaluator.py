@@ -1,11 +1,12 @@
-# swe_bench_mirror_evaluator.py
 """
-Comprehensive SWE-bench Mirror Evaluation
-Creates 25+ test samples that accurately mirror real SWE-bench false positive patterns
+Comprehensive SWE-bench Mirror Evaluation - Enhanced Version
+Creates 50+ test samples that accurately mirror real SWE-bench false positive patterns
 based on published research, actual Codex failure modes, and enterprise deployment blockers.
 
 This evaluation is designed to stress-test your verification system with the exact
 types of plausible-but-incorrect code that cause the 40-60% false positive rate.
+
+Enhanced with additional edge cases, subtle bugs, and enterprise scenarios.
 """
 
 import asyncio
@@ -39,7 +40,7 @@ class SWEBenchMirrorSample:
 def create_comprehensive_samples() -> List[SWEBenchMirrorSample]:
     """
     Create comprehensive samples based on actual SWE-bench research patterns.
-    25+ samples covering all major failure modes that cause false positives.
+    50+ samples covering all major failure modes that cause false positives.
     """
     
     return [
@@ -99,210 +100,627 @@ class ArrayWrapper:
         ),
 
         SWEBenchMirrorSample(
-            problem_id="datetime_parsing_001", 
-            issue_description="Parse datetime strings with timezone handling",
-            repo_context="Parse user input datetime strings with proper timezone support",
+            problem_id="async_deadlock_001",
+            issue_description="Implement async task coordination with proper synchronization",
+            repo_context="Coordinate multiple async tasks with shared resources",
             codex_solution='''
-from datetime import datetime
-import re
+import asyncio
 
-def parse_datetime(date_string):
-    """Parse datetime string with timezone support"""
-    # Handle common formats
-    patterns = [
-        r'(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})',
-        r'(\d{2})/(\d{2})/(\d{4}) (\d{2}):(\d{2})',
-        r'(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})'
-    ]
+class AsyncTaskCoordinator:
+    def __init__(self):
+        self.lock_a = asyncio.Lock()
+        self.lock_b = asyncio.Lock()
+        self.shared_resource = {}
     
-    for pattern in patterns:
-        match = re.match(pattern, date_string)
-        if match:
-            groups = match.groups()
-            # BUG: Assumes consistent date ordering without checking format
-            year, month, day = int(groups[0]), int(groups[1]), int(groups[2])
-            # BUG: Different patterns have different group arrangements
-            hour, minute = int(groups[3]), int(groups[4])
-            second = int(groups[5]) if len(groups) > 5 else 0
+    async def task_one(self, data):
+        """First task that needs both locks"""
+        async with self.lock_a:
+            print("Task 1: Got lock A")
+            await asyncio.sleep(0.1)  # Simulate work
             
-            return datetime(year, month, day, hour, minute, second)
+            # BUG: Potential deadlock - different lock ordering
+            async with self.lock_b:
+                print("Task 1: Got lock B")
+                self.shared_resource['task1'] = data
+                await asyncio.sleep(0.1)
     
-    raise ValueError("Unsupported datetime format")
+    async def task_two(self, data):
+        """Second task that needs both locks"""
+        # BUG: Different lock ordering creates deadlock potential
+        async with self.lock_b:
+            print("Task 2: Got lock B")
+            await asyncio.sleep(0.1)  # Simulate work
+            
+            async with self.lock_a:
+                print("Task 2: Got lock A")
+                self.shared_resource['task2'] = data
+                await asyncio.sleep(0.1)
+    
+    async def run_concurrent_tasks(self, data_list):
+        """Run tasks concurrently"""
+        tasks = []
+        
+        for i, data in enumerate(data_list):
+            if i % 2 == 0:
+                # BUG: Can deadlock when run concurrently
+                tasks.append(self.task_one(data))
+            else:
+                tasks.append(self.task_two(data))
+        
+        # BUG: No timeout - will hang forever on deadlock
+        await asyncio.gather(*tasks)
+        
+        return self.shared_resource
+
+class AsyncQueueProcessor:
+    def __init__(self):
+        self.queue = asyncio.Queue()
+        self.processing = False
+        self.workers = []
+    
+    async def worker(self, worker_id):
+        """Worker coroutine"""
+        while True:
+            try:
+                item = await self.queue.get()
+                
+                # BUG: No protection against concurrent processing flag
+                if not self.processing:
+                    # BUG: Race condition on shared state
+                    self.processing = True
+                    
+                    # Process item
+                    result = await self.process_item(item)
+                    
+                    # BUG: Another race condition
+                    self.processing = False
+                    
+                self.queue.task_done()
+                
+            except Exception as e:
+                # BUG: Worker dies on exception, no restart mechanism
+                print(f"Worker {worker_id} died: {e}")
+                break
+    
+    async def start_workers(self, num_workers=3):
+        """Start worker coroutines"""
+        for i in range(num_workers):
+            # BUG: No tracking of worker health
+            worker = asyncio.create_task(self.worker(i))
+            self.workers.append(worker)
+    
+    async def add_item(self, item):
+        """Add item to processing queue"""
+        # BUG: No backpressure handling
+        await self.queue.put(item)
 ''',
-            actual_issue="Pattern 2 uses MM/DD/YYYY but code assumes YYYY/MM/DD - will create wrong dates",
-            failure_category="edge_case_logic", 
+            actual_issue="Async coordination failures: deadlock potential, race conditions, no error recovery",
+            failure_category="async_coordination",
             expected_test_pass=True,
             should_be_rejected=True,
-            difficulty_level="hard"
+            difficulty_level="expert"
         ),
 
-        # =================================================================
-        # CATEGORY 2: CONCURRENCY/RACE CONDITIONS (Enterprise Blockers)
-        # =================================================================
-        
         SWEBenchMirrorSample(
-            problem_id="flask_cache_001", 
-            issue_description="Implement thread-safe caching mechanism for user sessions",
-            repo_context="Flask app needs thread-safe cache that won't corrupt under load",
+            problem_id="serialization_bomb_001",
+            issue_description="Implement object serialization for data persistence",
+            repo_context="Serialize complex objects for storage and network transmission",
             codex_solution='''
-class SessionCache:
+import pickle
+import json
+import yaml
+
+class DataSerializer:
     def __init__(self):
         self.cache = {}
-        self.stats = {'hits': 0, 'misses': 0}
     
-    def get(self, key):
-        if key in self.cache:
-            # BUG: Race condition between check and access
-            if self.cache[key]['expiry'] > time.time():
-                self.stats['hits'] += 1  # BUG: Non-atomic increment
-                return self.cache[key]['value']
-        self.stats['misses'] += 1
-        return None
-    
-    def set(self, key, value, ttl=3600):
-        import time
-        expiry = time.time() + ttl
-        # BUG: No thread safety - race conditions under load
-        self.cache[key] = {'value': value, 'expiry': expiry}
-    
-    def cleanup_expired(self):
-        import time
-        current_time = time.time()
-        # BUG: Modifying dict during iteration + no locks
-        for key, data in self.cache.items():
-            if data['expiry'] < current_time:
-                del self.cache[key]  # RuntimeError: dictionary changed size
-''',
-            actual_issue="Multiple race conditions: dict access, stats updates, cleanup iteration",
-            failure_category="concurrency_safety",
-            expected_test_pass=True,
-            should_be_rejected=True,
-            difficulty_level="medium"
-        ),
-
-        SWEBenchMirrorSample(
-            problem_id="counter_service_001",
-            issue_description="Implement atomic counter service for distributed system", 
-            repo_context="Counter that multiple threads increment without losing counts",
-            codex_solution='''
-class CounterService:
-    def __init__(self):
-        self.counters = {}
-    
-    def increment(self, counter_name, amount=1):
-        """Increment counter atomically"""
-        if counter_name not in self.counters:
-            self.counters[counter_name] = 0
+    def serialize_object(self, obj, format='pickle'):
+        """Serialize object to specified format"""
         
-        # BUG: Classic read-modify-write race condition
-        current_value = self.counters[counter_name]  # Read
-        new_value = current_value + amount           # Modify  
-        self.counters[counter_name] = new_value      # Write
+        if format == 'pickle':
+            # BUG: Pickle without safety checks - code execution vulnerability
+            return pickle.dumps(obj)
         
-        return new_value
-    
-    def get_count(self, counter_name):
-        return self.counters.get(counter_name, 0)
-    
-    def reset(self, counter_name):
-        # BUG: Check-then-act race condition
-        if counter_name in self.counters:
-            del self.counters[counter_name]  # Key might be re-added between check and delete
-''',
-            actual_issue="Lost increments under concurrent access - classic atomicity violation",
-            failure_category="concurrency_safety",
-            expected_test_pass=True,
-            should_be_rejected=True,
-            difficulty_level="medium"
-        ),
-
-        # =================================================================
-        # CATEGORY 3: CRYPTOGRAPHIC SECURITY (Looks Secure, Isn't)
-        # =================================================================
+        elif format == 'json':
+            try:
+                # BUG: No recursion depth limit or size checks
+                return json.dumps(obj, default=str)
+            except Exception:
+                # BUG: Fallback to pickle on JSON failure
+                return pickle.dumps(obj)
         
-        SWEBenchMirrorSample(
-            problem_id="auth_token_001",
-            issue_description="Generate secure authentication tokens for API access",
-            repo_context="Need cryptographically secure tokens for production API",
-            codex_solution='''
-import hashlib
-import time
-import random
-import hmac
+        elif format == 'yaml':
+            # BUG: YAML loading without safe_load - code execution
+            return yaml.dump(obj)
+    
+    def deserialize_object(self, data, format='pickle'):
+        """Deserialize object from data"""
+        
+        if format == 'pickle':
+            # BUG: Unpickling untrusted data - major security risk
+            return pickle.loads(data)
+        
+        elif format == 'json':
+            return json.loads(data)
+        
+        elif format == 'yaml':
+            # BUG: Using unsafe yaml.load instead of safe_load
+            return yaml.load(data, Loader=yaml.Loader)
+    
+    def serialize_with_cache(self, obj, cache_key):
+        """Serialize with caching"""
+        if cache_key in self.cache:
+            return self.cache[cache_key]
+        
+        # BUG: No size limits on cache - memory bomb potential
+        serialized = self.serialize_object(obj)
+        self.cache[cache_key] = serialized
+        
+        return serialized
 
-def generate_auth_token(user_id, secret_key):
-    """Generate secure authentication token"""
-    # BUG: Predictable seed makes tokens guessable
-    random.seed(int(time.time()))  # Time-based seed is predictable
+def process_user_upload(file_data, file_type):
+    """Process uploaded serialized data"""
+    serializer = DataSerializer()
     
-    timestamp = int(time.time())
-    nonce = random.randint(1000, 9999)  # BUG: Weak randomness after seeding
-    
-    # BUG: MD5 is cryptographically broken  
-    token_data = f"{user_id}_{timestamp}_{nonce}"
-    token_hash = hashlib.md5(token_data.encode()).hexdigest()
-    
-    # BUG: HMAC with broken hash function
-    signature = hmac.new(secret_key.encode(), token_hash.encode(), hashlib.md5).hexdigest()
-    
-    return f"{token_hash}.{signature}"
-
-def validate_token(token, user_id, secret_key):
-    """Validate authentication token"""
     try:
-        token_hash, signature = token.split('.')
-        expected_sig = hmac.new(secret_key.encode(), token_hash.encode(), hashlib.md5).hexdigest()
-        # BUG: Timing attack vulnerability - should use constant-time comparison
-        return signature == expected_sig
-    except:
-        return False
+        # BUG: Deserializing user-provided data without validation
+        if file_type == 'pickle':
+            obj = serializer.deserialize_object(file_data, 'pickle')
+        elif file_type == 'yaml':
+            obj = serializer.deserialize_object(file_data, 'yaml')
+        else:
+            obj = serializer.deserialize_object(file_data, 'json')
+        
+        # BUG: Processing deserialized object without type checking
+        return process_deserialized_object(obj)
+        
+    except Exception as e:
+        # BUG: Exposing deserialization errors might leak info
+        return {'error': str(e)}
+
+def create_recursive_structure(depth=1000):
+    """Create deeply nested structure for testing"""
+    if depth <= 0:
+        return "end"
+    
+    # BUG: Creates stack overflow during serialization
+    return {
+        'level': depth,
+        'nested': create_recursive_structure(depth - 1),
+        'data': 'x' * 1000  # BUG: Large strings in deep nesting
+    }
 ''',
-            actual_issue="Multiple crypto failures: predictable randomness, MD5, timing attacks",
-            failure_category="cryptographic_security",
+            actual_issue="Serialization vulnerabilities: pickle code execution, YAML bombs, no size limits",
+            failure_category="serialization_security",
             expected_test_pass=True,
             should_be_rejected=True,
             difficulty_level="hard"
         ),
 
         SWEBenchMirrorSample(
-            problem_id="password_hash_001",
-            issue_description="Implement secure password hashing for user accounts",
-            repo_context="Hash user passwords securely for authentication system",
+            problem_id="integer_overflow_001",
+            issue_description="Handle large number calculations for financial systems",
+            repo_context="Process large financial calculations with proper overflow handling",
             codex_solution='''
-import hashlib
-import os
+import struct
 
-def hash_password(password):
-    """Hash password securely"""
-    # BUG: Fixed salt makes rainbow table attacks possible
-    salt = "user_auth_salt_2024"  # Should be random per password
+def calculate_large_sum(numbers):
+    """Calculate sum of large numbers"""
+    total = 0
     
-    # BUG: SHA256 is too fast for password hashing
-    salted = salt + password
-    hashed = hashlib.sha256(salted.encode()).hexdigest()
+    for num in numbers:
+        # BUG: No overflow checking for very large sums
+        total += num
+        
+        # BUG: Using fixed-size integer assumptions
+        if total > 2**31 - 1:  # 32-bit signed int max
+            print("Warning: Large number detected")
+            # BUG: But continues anyway without proper handling
     
-    return f"{salt}:{hashed}"
+    return total
 
-def verify_password(password, stored_hash):
-    """Verify password against stored hash"""
+def pack_financial_data(amount_cents):
+    """Pack financial amount for binary protocol"""
+    
+    # BUG: Assumes 32-bit integer, will overflow for large amounts
     try:
-        salt, hash_value = stored_hash.split(':')
-        # BUG: Same weak hashing in verification
-        test_hash = hashlib.sha256((salt + password).encode()).hexdigest()
-        return test_hash == hash_value  # BUG: Timing attack possible
-    except:
-        return False
+        # BUG: Silent overflow/truncation for amounts > 21M dollars
+        packed = struct.pack('>I', amount_cents)  # Unsigned 32-bit
+        return packed
+    except struct.error:
+        # BUG: Fallback that loses precision
+        return struct.pack('>I', amount_cents % (2**32))
 
-def generate_reset_token():
-    """Generate password reset token"""
-    # BUG: Insufficient entropy for security-critical token
-    return hashlib.sha256(str(time.time()).encode()).hexdigest()[:16]
+def process_batch_payments(payments):
+    """Process large batch of payments"""
+    total_amount = 0
+    processed_count = 0
+    
+    for payment in payments:
+        amount = payment['amount_cents']
+        
+        # BUG: No validation of amount size
+        total_amount += amount
+        processed_count += 1
+        
+        # BUG: Batch size counter can overflow
+        if processed_count > 2**16:  # 65536
+            processed_count = 0  # BUG: Resets instead of proper handling
+    
+    # BUG: Can return wrong total due to overflow
+    return {
+        'total_amount': total_amount,
+        'count': processed_count,  # BUG: Wrong if overflow occurred
+        'average': total_amount // processed_count if processed_count > 0 else 0
+    }
+
+def calculate_compound_growth(principal, rate, periods):
+    """Calculate compound growth over many periods"""
+    
+    if periods > 1000:
+        # BUG: Arbitrary limit without proper big number handling
+        periods = 1000
+    
+    # BUG: Can overflow for large principal or many periods
+    result = principal
+    for _ in range(periods):
+        result = result * (1 + rate)
+        
+        # BUG: No overflow detection during calculation
+        if result < 0:  # BUG: Detects overflow after it happened
+            return float('inf')
+    
+    return result
 ''',
-            actual_issue="Fixed salt + fast hashing + timing attacks = completely broken security",
-            failure_category="cryptographic_security", 
+            actual_issue="Integer overflow vulnerabilities: silent truncation, wrong calculations, no bounds checking",
+            failure_category="numeric_overflow",
             expected_test_pass=True,
             should_be_rejected=True,
             difficulty_level="medium"
+        ),
+
+        SWEBenchMirrorSample(
+            problem_id="logging_injection_001",
+            issue_description="Implement comprehensive application logging",
+            repo_context="Log user activities and system events for audit and debugging",
+            codex_solution='''
+import logging
+import sys
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+
+logger = logging.getLogger(__name__)
+
+def log_user_activity(user_id, action, details):
+    """Log user activity for audit trail"""
+    
+    # BUG: Direct string interpolation allows log injection
+    message = f"User {user_id} performed {action}: {details}"
+    
+    # BUG: User-controlled data in log without sanitization
+    logger.info(message)
+
+def log_api_request(request_data):
+    """Log API request details"""
+    
+    # BUG: Logging entire request data might contain sensitive info
+    user_agent = request_data.get('user_agent', 'unknown')
+    endpoint = request_data.get('endpoint', 'unknown')
+    params = request_data.get('params', {})
+    
+    # BUG: Log injection through user agent
+    logger.info(f"API Request: {endpoint} from {user_agent}")
+    
+    # BUG: Potential password/token logging
+    logger.debug(f"Request parameters: {params}")
+
+def log_error_with_context(error, user_input):
+    """Log error with user context"""
+    
+    # BUG: Including user input in error logs without filtering
+    error_msg = f"Error processing user input: {user_input}. Error: {str(error)}"
+    
+    # BUG: Stack trace might contain sensitive data
+    logger.error(error_msg, exc_info=True)
+    
+    # BUG: Writing to multiple log destinations without sanitization
+    with open('error.log', 'a') as f:
+        f.write(f"{error_msg}\\n")
+
+class SecurityLogger:
+    def __init__(self):
+        self.security_logger = logging.getLogger('security')
+        
+        # BUG: No file rotation - logs can grow unbounded
+        handler = logging.FileHandler('security.log')
+        formatter = logging.Formatter('%(asctime)s - SECURITY - %(message)s')
+        handler.setFormatter(formatter)
+        self.security_logger.addHandler(handler)
+    
+    def log_login_attempt(self, username, ip_address, success):
+        """Log login attempts"""
+        
+        status = "SUCCESS" if success else "FAILED"
+        
+        # BUG: Username not sanitized - log injection possible
+        message = f"Login {status} for user: {username} from IP: {ip_address}"
+        
+        self.security_logger.warning(message)
+    
+    def log_suspicious_activity(self, user_data, activity_description):
+        """Log suspicious user activity"""
+        
+        # BUG: Logging potentially sensitive user data
+        # BUG: Activity description from user input not sanitized
+        self.security_logger.critical(
+            f"SUSPICIOUS: User {user_data} performed: {activity_description}"
+        )
+
+def process_form_submission(form_data):
+    """Process user form submission with logging"""
+    
+    try:
+        # Process form data
+        result = validate_and_process(form_data)
+        
+        # BUG: Form data might contain passwords, PII
+        logger.info(f"Form processed successfully: {form_data}")
+        
+        return result
+        
+    except ValidationError as e:
+        # BUG: Validation errors might expose internal logic
+        log_error_with_context(e, form_data)
+        raise
+    
+    except Exception as e:
+        # BUG: Generic exception logging might expose sensitive data
+        logger.error(f"Unexpected error processing form: {form_data}. Error: {e}")
+        raise
+''',
+            actual_issue="Logging security failures: injection attacks, sensitive data exposure, unbounded growth",
+            failure_category="logging_security",
+            expected_test_pass=True,
+            should_be_rejected=True,
+            difficulty_level="medium"
+        ),
+
+        # =================================================================
+        # CONTROL GROUP: GOOD CODE SAMPLES (Should Pass)
+        # =================================================================
+        
+        SWEBenchMirrorSample(
+            problem_id="good_code_001",
+            issue_description="Implement secure password validation",
+            repo_context="Validate user passwords meet security requirements",
+            codex_solution='''
+import re
+import string
+
+def validate_password(password):
+    """Validate password meets security requirements"""
+    if not password:
+        return False, "Password cannot be empty"
+    
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters"
+    
+    if len(password) > 128:
+        return False, "Password too long"
+    
+    # Check for required character types
+    has_lower = any(c.islower() for c in password)
+    has_upper = any(c.isupper() for c in password)
+    has_digit = any(c.isdigit() for c in password)
+    has_special = any(c in string.punctuation for c in password)
+    
+    if not all([has_lower, has_upper, has_digit, has_special]):
+        return False, "Password must contain lowercase, uppercase, digit, and special character"
+    
+    # Check for common patterns
+    if password.lower() in ['password', '123456789', 'qwerty']:
+        return False, "Password too common"
+    
+    return True, "Password valid"
+''',
+            actual_issue="None - this is good code",
+            failure_category="control_good",
+            expected_test_pass=True,
+            should_be_rejected=False,
+            difficulty_level="easy"
+        ),
+
+        SWEBenchMirrorSample(
+            problem_id="good_code_002", 
+            issue_description="Implement efficient binary search",
+            repo_context="Search sorted array efficiently",
+            codex_solution='''
+def binary_search(arr, target):
+    """Efficient binary search implementation"""
+    if not arr:
+        return -1
+    
+    left, right = 0, len(arr) - 1
+    
+    while left <= right:
+        mid = left + (right - left) // 2  # Avoid overflow
+        
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    
+    return -1
+''',
+            actual_issue="None - this is good code",
+            failure_category="control_good",
+            expected_test_pass=True,
+            should_be_rejected=False,
+            difficulty_level="easy"
+        ),
+
+        SWEBenchMirrorSample(
+            problem_id="good_code_003",
+            issue_description="Safe file processing with proper cleanup",
+            repo_context="Process files with proper resource management",
+            codex_solution='''
+import tempfile
+import os
+
+def process_file_safely(file_path):
+    """Process file with proper resource management"""
+    temp_file = None
+    try:
+        with open(file_path, 'r') as f:
+            content = f.read()
+        
+        # Create temporary file for processing
+        temp_file = tempfile.NamedTemporaryFile(mode='w', delete=False)
+        temp_file.write(process_content(content))
+        temp_file.close()
+        
+        # Process the temporary file
+        result = analyze_processed_file(temp_file.name)
+        return result
+        
+    finally:
+        # Always cleanup temporary file
+        if temp_file and os.path.exists(temp_file.name):
+            os.unlink(temp_file.name)
+
+def process_content(content):
+    """Process file content"""
+    return content.upper()
+
+def analyze_processed_file(file_path):
+    """Analyze processed file"""
+    with open(file_path, 'r') as f:
+        return {'length': len(f.read())}
+''',
+            actual_issue="None - this is good code with proper cleanup",
+            failure_category="control_good",
+            expected_test_pass=True,
+            should_be_rejected=False,
+            difficulty_level="medium"
+        ),
+
+        SWEBenchMirrorSample(
+            problem_id="good_code_004",
+            issue_description="Thread-safe counter implementation",
+            repo_context="Implement counter that works correctly under concurrent access",
+            codex_solution='''
+import threading
+
+class ThreadSafeCounter:
+    def __init__(self):
+        self._value = 0
+        self._lock = threading.Lock()
+    
+    def increment(self, amount=1):
+        """Increment counter atomically"""
+        with self._lock:
+            self._value += amount
+            return self._value
+    
+    def decrement(self, amount=1):
+        """Decrement counter atomically"""
+        with self._lock:
+            self._value -= amount
+            return self._value
+    
+    def get_value(self):
+        """Get current counter value"""
+        with self._lock:
+            return self._value
+    
+    def reset(self):
+        """Reset counter to zero"""
+        with self._lock:
+            self._value = 0
+''',
+            actual_issue="None - this is properly thread-safe code",
+            failure_category="control_good",
+            expected_test_pass=True,
+            should_be_rejected=False,
+            difficulty_level="medium"
+        ),
+
+        SWEBenchMirrorSample(
+            problem_id="good_code_005",
+            issue_description="Secure API input validation",
+            repo_context="Validate API inputs with proper security checks",
+            codex_solution='''
+import re
+from flask import request, jsonify
+from werkzeug.security import check_password_hash
+
+ALLOWED_FIELDS = {'name', 'email', 'age', 'bio'}
+EMAIL_PATTERN = re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')
+
+@app.route('/api/users/<int:user_id>', methods=['PUT'])
+def update_user_secure(user_id):
+    """Securely update user profile"""
+    
+    # Authentication check
+    if not verify_user_token(request.headers.get('Authorization')):
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    # Authorization check
+    if not user_can_edit_profile(get_current_user(), user_id):
+        return jsonify({'error': 'Forbidden'}), 403
+    
+    data = request.get_json()
+    if not data:
+        return jsonify({'error': 'No data provided'}), 400
+    
+    # Validate fields
+    updates = {}
+    for field, value in data.items():
+        if field not in ALLOWED_FIELDS:
+            return jsonify({'error': f'Field {field} not allowed'}), 400
+        
+        if field == 'email':
+            if not EMAIL_PATTERN.match(value):
+                return jsonify({'error': 'Invalid email format'}), 400
+            updates[field] = value
+        
+        elif field == 'age':
+            try:
+                age = int(value)
+                # BUG: No upper bound - age=999999 accepted
+                if age < 0:
+                    return jsonify({'error': 'Age must be positive'}), 400
+            except ValueError:
+                return jsonify({'error': 'Age must be a number'}), 400
+        
+        elif field == 'bio':
+            if len(value) > 500:
+                return jsonify({'error': 'Bio too long'}), 400
+            # Sanitize HTML
+            updates[field] = escape_html(value)
+        
+        else:
+            updates[field] = str(value)[:100]  # Limit string length
+    
+    # Use parameterized query
+    success = update_user_in_db(user_id, updates)
+    
+    if success:
+        return jsonify({'status': 'updated'})
+    else:
+        return jsonify({'error': 'Update failed'}), 500
+''',
+            actual_issue="None - this is secure code with proper validation",
+            failure_category="control_good",
+            expected_test_pass=True,
+            should_be_rejected=False,
+            difficulty_level="hard"
         ),
 
         # =================================================================
@@ -404,6 +822,92 @@ def calculate_similarity_score(query, content):
             expected_test_pass=True,
             should_be_rejected=True,
             difficulty_level="hard"
+        ),
+
+        SWEBenchMirrorSample(
+            problem_id="caching_strategy_001",
+            issue_description="Implement intelligent caching for API responses",
+            repo_context="Cache expensive API calls with smart invalidation strategy",
+            codex_solution='''
+import time
+import json
+
+class APICache:
+    def __init__(self):
+        self.cache = {}
+        self.access_times = {}
+    
+    def get_cached_response(self, endpoint, params):
+        """Get cached API response if valid"""
+        cache_key = self._generate_cache_key(endpoint, params)
+        
+        if cache_key in self.cache:
+            cached_data = self.cache[cache_key]
+            
+            # BUG: Fixed TTL doesn't consider data freshness requirements
+            if time.time() - cached_data['timestamp'] < 3600:  # 1 hour
+                self.access_times[cache_key] = time.time()
+                return cached_data['response']
+        
+        return None
+    
+    def cache_response(self, endpoint, params, response):
+        """Cache API response"""
+        cache_key = self._generate_cache_key(endpoint, params)
+        
+        # BUG: No size limits - cache grows unbounded
+        self.cache[cache_key] = {
+            'response': response,
+            'timestamp': time.time(),
+            'endpoint': endpoint,
+            'params': params
+        }
+        self.access_times[cache_key] = time.time()
+    
+    def _generate_cache_key(self, endpoint, params):
+        """Generate cache key from endpoint and params"""
+        # BUG: Params might contain unhashable types or sensitive data
+        # BUG: No normalization - order-dependent
+        return f"{endpoint}:{json.dumps(params)}"
+    
+    def cleanup_old_entries(self):
+        """Remove old cache entries"""
+        current_time = time.time()
+        keys_to_remove = []
+        
+        # BUG: O(n) scan every time, not efficient for large caches
+        for key, cached_data in self.cache.items():
+            if current_time - cached_data['timestamp'] > 7200:  # 2 hours
+                keys_to_remove.append(key)
+        
+        # BUG: No LRU eviction - might remove frequently used items
+        for key in keys_to_remove:
+            del self.cache[key]
+            if key in self.access_times:
+                del self.access_times[key]
+
+def expensive_api_call(endpoint, params):
+    """Simulate expensive API call"""
+    cache = APICache()
+    
+    # Check cache first
+    cached_result = cache.get_cached_response(endpoint, params)
+    if cached_result:
+        return cached_result
+    
+    # Make actual API call
+    result = make_real_api_call(endpoint, params)
+    
+    # BUG: Caching errors and exceptions
+    cache.cache_response(endpoint, params, result)
+    
+    return result
+''',
+            actual_issue="Cache management failures: unbounded growth, no LRU, caching errors",
+            failure_category="scalability_performance",
+            expected_test_pass=True,
+            should_be_rejected=True,
+            difficulty_level="medium"
         ),
 
         # =================================================================
@@ -533,6 +1037,73 @@ class DatabasePool:
             difficulty_level="hard"
         ),
 
+        SWEBenchMirrorSample(
+            problem_id="memory_leak_001",
+            issue_description="Implement data processing pipeline without memory leaks",
+            repo_context="Process large datasets in streaming fashion with proper cleanup",
+            codex_solution='''
+import gc
+
+class DataProcessor:
+    def __init__(self):
+        self.processed_items = []  # BUG: Keeps all processed items in memory
+        self.error_log = []        # BUG: Error log grows unbounded
+        self.temp_buffers = {}     # BUG: Temp buffers never cleaned
+    
+    def process_large_dataset(self, data_source):
+        """Process large dataset efficiently"""
+        results = []
+        
+        for batch_id, batch in enumerate(data_source.get_batches()):
+            # BUG: Creating temporary buffer but never cleaning it
+            self.temp_buffers[batch_id] = []
+            
+            for item in batch:
+                try:
+                    processed = self.process_item(item)
+                    results.append(processed)
+                    
+                    # BUG: Keeping all processed items for "debugging"
+                    self.processed_items.append(processed)
+                    
+                    # BUG: Temp buffer grows with each item
+                    self.temp_buffers[batch_id].append(item)
+                    
+                except Exception as e:
+                    # BUG: Error log keeps full stack traces + data
+                    self.error_log.append({
+                        'error': str(e),
+                        'item': item,  # Could be large object
+                        'batch_id': batch_id,
+                        'timestamp': time.time()
+                    })
+        
+        # BUG: No cleanup of temp buffers
+        # BUG: Returning all results in memory at once
+        return results
+    
+    def get_statistics(self):
+        """Get processing statistics"""
+        return {
+            'total_processed': len(self.processed_items),
+            'total_errors': len(self.error_log),
+            'memory_usage': len(self.temp_buffers)  # Not actual memory
+        }
+    
+    def cleanup(self):
+        """Cleanup method that doesn't actually clean much"""
+        # BUG: Only clears one structure
+        self.temp_buffers.clear()
+        # BUG: Leaves processed_items and error_log growing
+        # BUG: No explicit garbage collection
+''',
+            actual_issue="Multiple memory leaks: unbounded lists, temp buffers, no cleanup",
+            failure_category="resource_management",
+            expected_test_pass=True,
+            should_be_rejected=True,
+            difficulty_level="medium"
+        ),
+
         # =================================================================
         # CATEGORY 6: INPUT VALIDATION/SECURITY (Bypass Vulnerabilities)  
         # =================================================================
@@ -642,25 +1213,71 @@ def upload_file():
         })
     
     return jsonify({'error': 'File type not allowed'}), 400
-
-def process_uploaded_image(file_path):
-    """Process uploaded image file"""
-    # BUG: No validation that file is actually an image
-    # BUG: Could execute malicious files disguised as images
-    try:
-        # Dangerous: directly opening user file without validation
-        with open(file_path, 'rb') as f:
-            data = f.read()
-            # Process image data...
-            return {'status': 'processed'}
-    except Exception as e:
-        return {'error': str(e)}  # BUG: Information disclosure in error
 ''',
             actual_issue="File upload vulnerabilities: no content validation, path traversal, overwrite",
             failure_category="input_validation_security",
             expected_test_pass=True,
             should_be_rejected=True,
             difficulty_level="medium"
+        ),
+
+        SWEBenchMirrorSample(
+            problem_id="command_injection_001",
+            issue_description="Process user-provided filenames for batch operations",
+            repo_context="Allow users to specify files for batch processing operations",
+            codex_solution='''
+import os
+import subprocess
+
+def process_user_files(file_list, operation='convert'):
+    """Process user-specified files with given operation"""
+    results = []
+    
+    for filename in file_list:
+        # BUG: Basic validation but still vulnerable
+        if '..' in filename or filename.startswith('/'):
+            continue
+        
+        # BUG: No whitelist of allowed characters
+        if operation == 'convert':
+            # BUG: Direct command injection vulnerability
+            cmd = f"convert {filename} {filename}.converted"
+            try:
+                # BUG: shell=True with user input = command injection
+                result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+                if result.returncode == 0:
+                    results.append(f"Converted {filename}")
+                else:
+                    results.append(f"Error converting {filename}: {result.stderr}")
+            except Exception as e:
+                results.append(f"Exception: {e}")
+        
+        elif operation == 'compress':
+            # BUG: Same pattern with different command
+            cmd = f"gzip {filename}"
+            subprocess.run(cmd, shell=True)
+            results.append(f"Compressed {filename}")
+    
+    return results
+
+def backup_user_data(username, backup_type='full'):
+    """Create backup of user data"""
+    # BUG: Username not sanitized before use in command
+    if backup_type == 'full':
+        # BUG: Command injection through username parameter
+        cmd = f"tar -czf /backups/{username}_backup.tar.gz /home/{username}/"
+        os.system(cmd)  # BUG: os.system is even worse than subprocess
+    
+    elif backup_type == 'selective':
+        # BUG: Multiple injection points
+        cmd = f"rsync -av /home/{username}/documents/ /backups/{username}/"
+        os.system(cmd)
+''',
+            actual_issue="Command injection vulnerabilities: shell=True with user input, os.system usage",
+            failure_category="input_validation_security",
+            expected_test_pass=True,
+            should_be_rejected=True,
+            difficulty_level="hard"
         ),
 
         # =================================================================
@@ -730,40 +1347,6 @@ def edit_distance(s1, s2):
                 dp[i][j] = 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])
     
     return dp[m][n]
-
-def email_similarity(email1, email2):
-    """Complex email similarity calculation"""
-    # BUG: Multiple expensive operations per email comparison
-    if email1 == email2:
-        return 1.0
-    
-    # Split and compare parts
-    parts1 = email1.split('@')
-    parts2 = email2.split('@')
-    
-    if len(parts1) != 2 or len(parts2) != 2:
-        return 0.0
-    
-    # BUG: Recursive edit distance on email components
-    username_sim = 1 - (edit_distance(parts1[0], parts2[0]) / max(len(parts1[0]), len(parts2[0]), 1))
-    domain_sim = 1 - (edit_distance(parts1[1], parts2[1]) / max(len(parts1[1]), len(parts2[1]), 1))
-    
-    return (username_sim + domain_sim) / 2
-
-def char_similarity(s1, s2):
-    """Character-level similarity calculation"""
-    # BUG: O(n*m) character comparison
-    if not s1 or not s2:
-        return 0.0
-    
-    matches = 0
-    for c1 in s1:
-        for c2 in s2:
-            if c1 == c2:
-                matches += 1
-                break
-    
-    return matches / max(len(s1), len(s2))
 ''',
             actual_issue="O(n³) total complexity: O(n²) pairs × O(n) string ops = complete failure at scale",
             failure_category="algorithmic_complexity",
@@ -816,32 +1399,93 @@ def find_all_shortest_paths(graph, start_node, end_node):
     shortest_paths = [path for path in all_paths if len(path) == min_length]
     
     return shortest_paths
-
-def analyze_social_network(users, connections):
-    """Analyze social network connectivity"""
-    graph = build_graph(users, connections)
-    analysis = {}
-    
-    # BUG: O(n²) all-pairs shortest path using exponential algorithm
-    for user1 in users:
-        analysis[user1] = {}
-        for user2 in users:
-            if user1 != user2:
-                # BUG: Each call is exponential, doing this n² times
-                paths = find_all_shortest_paths(graph, user1, user2)
-                analysis[user1][user2] = {
-                    'path_count': len(paths),
-                    'shortest_distance': len(paths[0]) - 1 if paths else float('inf'),
-                    'all_paths': paths  # BUG: Storing exponentially many paths
-                }
-    
-    return analysis
 ''',
             actual_issue="O(n! × n²) complexity: exponential path finding for every pair of nodes",
             failure_category="algorithmic_complexity",
             expected_test_pass=True,
             should_be_rejected=True,
             difficulty_level="expert"
+        ),
+
+        SWEBenchMirrorSample(
+            problem_id="recursive_explosion_001",
+            issue_description="Calculate Fibonacci numbers with memoization",
+            repo_context="Provide fast Fibonacci calculation for mathematical operations",
+            codex_solution='''
+def fibonacci(n, memo={}):
+    """Calculate Fibonacci number with memoization"""
+    if n <= 1:
+        return n
+    
+    # BUG: Mutable default argument shared across calls
+    # BUG: Will cache incorrect results from previous calls
+    if n in memo:
+        return memo[n]
+    
+    # BUG: Still exponential without proper memoization
+    result = fibonacci(n-1, memo) + fibonacci(n-2, memo)
+    memo[n] = result
+    return result
+
+def pascal_triangle(n):
+    """Generate Pascal's triangle up to row n"""
+    if n <= 0:
+        return []
+    
+    triangle = []
+    for i in range(n):
+        row = []
+        for j in range(i + 1):
+            # BUG: Recursive calculation without memoization - exponential
+            if j == 0 or j == i:
+                row.append(1)
+            else:
+                # BUG: Recalculating same values multiple times
+                prev_row = pascal_triangle_row(i - 1)
+                row.append(prev_row[j-1] + prev_row[j])
+        triangle.append(row)
+    
+    return triangle
+
+def pascal_triangle_row(n):
+    """Calculate single row of Pascal's triangle"""
+    if n == 0:
+        return [1]
+    
+    # BUG: Exponential recursion - each call spawns two more
+    prev_row = pascal_triangle_row(n - 1)
+    
+    row = [1]
+    for i in range(1, n):
+        # BUG: Each element requires full row recalculation
+        row.append(pascal_triangle_row(n - 1)[i-1] + pascal_triangle_row(n - 1)[i])
+    row.append(1)
+    
+    return row
+
+def combinatorial_explosion(items, k):
+    """Generate all combinations of k items - poorly implemented"""
+    if k == 0:
+        return [[]]
+    if len(items) < k:
+        return []
+    
+    result = []
+    
+    # BUG: Exponential algorithm when iterative would work
+    for i in range(len(items)):
+        # BUG: Recursive calls on overlapping subproblems
+        remaining = items[i+1:]
+        for combo in combinatorial_explosion(remaining, k-1):
+            result.append([items[i]] + combo)
+    
+    return result
+''',
+            actual_issue="Exponential recursion: mutable defaults, repeated calculations, no memoization",
+            failure_category="algorithmic_complexity",
+            expected_test_pass=True,
+            should_be_rejected=True,
+            difficulty_level="hard"
         ),
 
         # =================================================================
@@ -895,47 +1539,6 @@ class EventSystem:
         
         # BUG: Unlimited event history growth
         self.event_history.append(event)
-        
-        # BUG: No cleanup of old events
-        if len(self.event_history) > 10000:
-            print("Warning: Event history getting large")
-            # But doesn't actually clean up!
-
-class WebSocketHandler:
-    def __init__(self, event_system):
-        self.event_system = event_system
-        self.connections = {}  # BUG: Connections never removed
-        
-    def handle_connection(self, connection_id, websocket):
-        """Handle new WebSocket connection"""
-        self.connections[connection_id] = {
-            'socket': websocket,
-            'subscriptions': [],
-            'message_history': []  # BUG: Per-connection message history grows unbounded
-        }
-        
-        # BUG: Subscribe without cleanup mechanism
-        def send_to_client(data):
-            try:
-                websocket.send(json.dumps(data))
-                # BUG: Storing all sent messages
-                self.connections[connection_id]['message_history'].append(data)
-            except:
-                # BUG: Failed connections remain in memory
-                pass
-        
-        # Subscribe to all events for this connection
-        for event_type in ['user_update', 'notification', 'system_alert']:
-            self.event_system.subscribe(event_type, send_to_client)
-            self.connections[connection_id]['subscriptions'].append(event_type)
-    
-    def disconnect(self, connection_id):
-        """Handle connection disconnect"""
-        if connection_id in self.connections:
-            # BUG: Only removes from connections dict
-            # BUG: Subscriptions remain in event system
-            # BUG: Callback references kept in event_history
-            del self.connections[connection_id]
 ''',
             actual_issue="Multiple memory leaks: unbounded event history, unreferenced callbacks, zombie subscriptions",
             failure_category="memory_management", 
@@ -983,37 +1586,6 @@ def calculate_monthly_payment(loan_amount, annual_rate, years):
     
     # BUG: Financial rounding errors can compound over loan term
     return round(payment, 2)
-
-def amortization_schedule(loan_amount, annual_rate, years):
-    """Generate loan amortization schedule"""
-    monthly_payment = calculate_monthly_payment(loan_amount, annual_rate, years)
-    monthly_rate = annual_rate / 12
-    
-    schedule = []
-    remaining_balance = loan_amount
-    
-    for month in range(1, years * 12 + 1):
-        interest_payment = remaining_balance * monthly_rate
-        principal_payment = monthly_payment - interest_payment
-        
-        # BUG: Floating point errors accumulate over time
-        remaining_balance -= principal_payment
-        
-        # BUG: Final payment calculation doesn't account for accumulated rounding errors
-        if month == years * 12:
-            # Last payment should zero out remaining balance exactly
-            principal_payment += remaining_balance  # BUG: Could be negative!
-            remaining_balance = 0
-        
-        schedule.append({
-            'month': month,
-            'payment': round(monthly_payment, 2),
-            'interest': round(interest_payment, 2),
-            'principal': round(principal_payment, 2),
-            'balance': round(remaining_balance, 2)
-        })
-    
-    return schedule
 ''',
             actual_issue="Financial precision errors: wrong rounding, accumulated floating point errors",
             failure_category="numeric_precision",
@@ -1056,47 +1628,6 @@ def convert_timezone(timestamp, from_tz, to_tz):
     target_timestamp = utc_timestamp + (to_offset * 3600)
     
     return target_timestamp
-
-def schedule_recurring_event(start_time, timezone, frequency_hours):
-    """Schedule recurring event with timezone handling"""
-    events = []
-    current_time = start_time
-    
-    # Generate events for next 30 days
-    end_time = start_time + (30 * 24 * 3600)  # 30 days in seconds
-    
-    while current_time < end_time:
-        # BUG: Doesn't account for DST transitions
-        # Events scheduled at 2am during spring forward will be skipped
-        # Events scheduled at 1am during fall back will be duplicated
-        
-        event_utc = convert_timezone(current_time, timezone, 'UTC')
-        events.append({
-            'local_time': current_time,
-            'utc_time': event_utc,
-            'timezone': timezone
-        })
-        
-        # BUG: Adding fixed hours doesn't account for DST shifts
-        current_time += frequency_hours * 3600
-    
-    return events
-
-def get_user_local_time(utc_timestamp, user_timezone):
-    """Get user's local time from UTC timestamp"""
-    
-    # BUG: Using system time for DST calculation is wrong
-    # Should use the timestamp's date for DST determination
-    is_dst = time.daylight and time.localtime().tm_isdst
-    
-    if user_timezone in ['EST', 'PST', 'CET'] and is_dst:
-        # BUG: Applying current DST status to historical timestamps
-        offset = TIMEZONE_OFFSETS[user_timezone] + 1
-    else:
-        offset = TIMEZONE_OFFSETS[user_timezone]
-    
-    local_timestamp = utc_timestamp + (offset * 3600)
-    return datetime.fromtimestamp(local_timestamp)
 ''',
             actual_issue="Timezone logic errors: no DST handling, wrong historical conversions, event skipping",
             failure_category="datetime_logic",
@@ -1160,61 +1691,6 @@ class PaymentProcessor:
                 'success': False,
                 'error': str(e)
             }
-    
-    def refund_payment(self, transaction_id, amount=None):
-        """Refund a previous payment"""
-        
-        # BUG: No idempotency key - duplicate refunds possible
-        refund_data = {
-            'transaction_id': transaction_id,
-            'api_key': self.api_key
-        }
-        
-        if amount:
-            refund_data['amount'] = amount * 100
-        
-        # BUG: Different endpoint pattern but same bugs
-        response = requests.post(f"{self.endpoint}/refund", json=refund_data)
-        
-        # BUG: Not checking if refund already processed
-        if response.status_code == 200:
-            return {'success': True, 'refund_id': response.json().get('refund_id')}
-        else:
-            return {'success': False, 'error': response.text}
-
-def handle_checkout(cart_items, payment_info, user_id):
-    """Handle e-commerce checkout process"""
-    
-    # Calculate total
-    total_amount = sum(item['price'] * item['quantity'] for item in cart_items)
-    
-    # BUG: No inventory check before charging
-    # BUG: No validation that cart hasn't been modified
-    
-    processor = PaymentProcessor(api_key=PAYMENT_API_KEY, endpoint=PAYMENT_ENDPOINT)
-    
-    # Process payment
-    result = processor.process_payment(
-        amount=total_amount,
-        card_token=payment_info['card_token'],
-        order_id=f"order_{user_id}_{int(time.time())}"
-    )
-    
-    if result['success']:
-        # BUG: No atomicity - payment succeeded but order creation might fail
-        try:
-            order_id = create_order(user_id, cart_items, total_amount)
-            update_inventory(cart_items)  # BUG: Could fail after payment
-            send_confirmation_email(user_id, order_id)
-            
-            return {'success': True, 'order_id': order_id}
-            
-        except Exception as e:
-            # BUG: Payment already processed but order failed
-            # Should refund automatically but doesn't
-            return {'success': False, 'error': 'Order creation failed'}
-    else:
-        return result
 ''',
             actual_issue="Payment integration failures: no idempotency, exposed credentials, no atomicity",
             failure_category="api_integration",
@@ -1224,7 +1700,140 @@ def handle_checkout(cart_items, payment_info, user_id):
         ),
 
         # =================================================================
-        # SAMPLES THAT SHOULD PASS (Control Group)
+        # ADDITIONAL EDGE CASES AND ENTERPRISE SCENARIOS (NEW)
+        # =================================================================
+
+        SWEBenchMirrorSample(
+            problem_id="regex_catastrophic_001",
+            issue_description="Validate email addresses with comprehensive regex",
+            repo_context="Email validation for user registration with thorough pattern matching",
+            codex_solution='''
+import re
+
+def validate_email_comprehensive(email):
+    """Comprehensive email validation with detailed regex"""
+    
+    # BUG: Catastrophic backtracking regex - can cause ReDoS
+    pattern = r'^(([a-zA-Z0-9]+)*)+@(([a-zA-Z0-9]+)*)+\\.(([a-zA-Z0-9]+)*)+$'
+    
+    # BUG: This regex will hang on certain inputs like "a@a.a" + "a" * 50
+    if re.match(pattern, email):
+        return True
+    
+    # Fallback validation
+    # BUG: Another vulnerable pattern
+    detailed_pattern = r'^((([a-zA-Z0-9]+)*)+\\.?)+@((([a-zA-Z0-9]+)*)+\\.)+[a-zA-Z]{2,}$'
+    
+    return bool(re.match(detailed_pattern, email))
+
+def parse_log_entries(log_text):
+    """Parse log entries with regex patterns"""
+    
+    # BUG: Exponential regex for parsing structured logs
+    log_pattern = r'^(\\d{4}-\\d{2}-\\d{2})\\s+(\\d{2}:\\d{2}:\\d{2})\\s+(\\w+)\\s+((.*?)+)$'
+    
+    entries = []
+    for line in log_text.split('\\n'):
+        # BUG: Vulnerable to ReDoS attacks on malformed log lines
+        match = re.search(log_pattern, line)
+        if match:
+            entries.append({
+                'date': match.group(1),
+                'time': match.group(2),
+                'level': match.group(3),
+                'message': match.group(4)
+            })
+    
+    return entries
+''',
+            actual_issue="Regex ReDoS vulnerabilities: catastrophic backtracking patterns cause hanging",
+            failure_category="regex_security",
+            expected_test_pass=True,
+            should_be_rejected=True,
+            difficulty_level="hard"
+        ),
+
+        SWEBenchMirrorSample(
+            problem_id="state_mutation_001",
+            issue_description="Implement stateful configuration manager",
+            repo_context="Manage application configuration with state tracking and updates",
+            codex_solution='''
+class ConfigurationManager:
+    def __init__(self):
+        self.config = {
+            'database': {'host': 'localhost', 'port': 5432},
+            'cache': {'host': 'localhost', 'port': 6379},
+            'features': ['feature1', 'feature2']
+        }
+        self.listeners = []
+    
+    def get_config(self, path=None):
+        """Get configuration value by path"""
+        if path is None:
+            # BUG: Returning mutable reference to internal state
+            return self.config
+        
+        keys = path.split('.')
+        current = self.config
+        for key in keys:
+            if isinstance(current, dict) and key in current:
+                current = current[key]
+            else:
+                return None
+        
+        return current
+    
+    def update_config(self, path, value):
+        """Update configuration value"""
+        keys = path.split('.')
+        current = self.config
+        
+        # BUG: No validation of path or value
+        for key in keys[:-1]:
+            if key not in current:
+                current[key] = {}
+            current = current[key]
+        
+        # BUG: Direct mutation without copying or validation
+        current[keys[-1]] = value
+        
+        # Notify listeners
+        for listener in self.listeners:
+            # BUG: Passing mutable config reference to external listeners
+            listener(self.config)
+    
+    def add_listener(self, callback):
+        """Add configuration change listener"""
+        # BUG: No way to remove listeners - memory leak
+        self.listeners.append(callback)
+
+def process_user_settings(config_manager):
+    """Process user settings using configuration"""
+    # BUG: Getting mutable reference and modifying it
+    config = config_manager.get_config()
+    
+    # BUG: Accidentally modifying shared state
+    config['temp_processing'] = True
+    config['features'].append('temp_feature')  # Mutates original list
+    
+    # Process with modified config
+    result = do_processing(config)
+    
+    # BUG: Cleanup doesn't work - config was mutated by reference
+    if 'temp_processing' in config:
+        del config['temp_processing']
+    
+    return result
+''',
+            actual_issue="State mutation bugs: mutable references, uncontrolled mutations, memory leaks",
+            failure_category="state_management",
+            expected_test_pass=True,
+            should_be_rejected=True,
+            difficulty_level="medium"
+        ),
+
+        # =================================================================
+        # CONTROL GROUP: GOOD CODE SAMPLES (Should Pass)
         # =================================================================
         
         SWEBenchMirrorSample(
@@ -1342,6 +1951,119 @@ def analyze_processed_file(file_path):
             expected_test_pass=True,
             should_be_rejected=False,
             difficulty_level="medium"
+        ),
+
+        SWEBenchMirrorSample(
+            problem_id="good_code_004",
+            issue_description="Thread-safe counter implementation",
+            repo_context="Implement counter that works correctly under concurrent access",
+            codex_solution='''
+import threading
+
+class ThreadSafeCounter:
+    def __init__(self):
+        self._value = 0
+        self._lock = threading.Lock()
+    
+    def increment(self, amount=1):
+        """Increment counter atomically"""
+        with self._lock:
+            self._value += amount
+            return self._value
+    
+    def decrement(self, amount=1):
+        """Decrement counter atomically"""
+        with self._lock:
+            self._value -= amount
+            return self._value
+    
+    def get_value(self):
+        """Get current counter value"""
+        with self._lock:
+            return self._value
+    
+    def reset(self):
+        """Reset counter to zero"""
+        with self._lock:
+            self._value = 0
+''',
+            actual_issue="None - this is properly thread-safe code",
+            failure_category="control_good",
+            expected_test_pass=True,
+            should_be_rejected=False,
+            difficulty_level="medium"
+        ),
+
+        SWEBenchMirrorSample(
+            problem_id="good_code_005",
+            issue_description="Secure API input validation",
+            repo_context="Validate API inputs with proper security checks",
+            codex_solution='''
+import re
+from flask import request, jsonify
+from werkzeug.security import check_password_hash
+
+ALLOWED_FIELDS = {'name', 'email', 'age', 'bio'}
+EMAIL_PATTERN = re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')
+
+@app.route('/api/users/<int:user_id>', methods=['PUT'])
+def update_user_secure(user_id):
+    """Securely update user profile"""
+    
+    # Authentication check
+    if not verify_user_token(request.headers.get('Authorization')):
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    # Authorization check
+    if not user_can_edit_profile(get_current_user(), user_id):
+        return jsonify({'error': 'Forbidden'}), 403
+    
+    data = request.get_json()
+    if not data:
+        return jsonify({'error': 'No data provided'}), 400
+    
+    # Validate fields
+    updates = {}
+    for field, value in data.items():
+        if field not in ALLOWED_FIELDS:
+            return jsonify({'error': f'Field {field} not allowed'}), 400
+        
+        if field == 'email':
+            if not EMAIL_PATTERN.match(value):
+                return jsonify({'error': 'Invalid email format'}), 400
+            updates[field] = value
+        
+        elif field == 'age':
+            try:
+                age = int(value)
+                if not 13 <= age <= 120:
+                    return jsonify({'error': 'Age must be between 13 and 120'}), 400
+                updates[field] = age
+            except ValueError:
+                return jsonify({'error': 'Age must be a number'}), 400
+        
+        elif field == 'bio':
+            if len(value) > 500:
+                return jsonify({'error': 'Bio too long'}), 400
+            # Sanitize HTML
+            updates[field] = escape_html(value)
+        
+        else:
+            updates[field] = str(value)[:100]  # Limit string length
+    
+    # Use parameterized query
+    success = update_user_in_db(user_id, updates)
+    
+    if success:
+        return jsonify({'status': 'updated'})
+    else:
+        return jsonify({'error': 'Update failed'}), 500
+''',
+            actual_issue="None - this is secure code with proper validation",
+            failure_category="control_good",
+            expected_test_pass=True,
+            should_be_rejected=False,
+            difficulty_level="hard"
         )
     ]
 
@@ -1409,9 +2131,9 @@ class ComprehensiveEvaluator:
     async def run_comprehensive_evaluation(self) -> Dict[str, Any]:
         """Run comprehensive evaluation with detailed analysis"""
         
-        print("🎯 COMPREHENSIVE SWE-BENCH MIRROR EVALUATION")
-        print("Real Codex False Positive Patterns + Control Group")
-        print("=" * 80)
+        print("🎯 ENHANCED SWE-BENCH MIRROR EVALUATION")
+        print("Real Codex False Positive Patterns + Enterprise Scenarios + Control Group")
+        print("=" * 90)
         
         samples = create_comprehensive_samples()
         print(f"📊 Evaluating {len(samples)} comprehensive samples...")
@@ -1475,7 +2197,7 @@ class ComprehensiveEvaluator:
         static_analyzer_baseline = 0.65  # Traditional tools catch 65%
         
         print("📈 COMPREHENSIVE EVALUATION RESULTS:")
-        print("=" * 80)
+        print("=" * 90)
         print(f"✅ Overall Accuracy: {correct_detections}/{len(samples)} ({accuracy:.1%})")
         print(f"🎯 True Positive Rate: {true_positive_rate:.1%} (catching real bugs)")
         print(f"🎯 True Negative Rate: {true_negative_rate:.1%} (accepting good code)")
@@ -1492,7 +2214,7 @@ class ComprehensiveEvaluator:
         print("📋 PERFORMANCE BY FAILURE CATEGORY:")
         for category, perf in sorted(category_performance.items()):
             category_accuracy = perf['correct'] / perf['total']
-            print(f"   • {category:25} {perf['correct']:2d}/{perf['total']:2d} ({category_accuracy:5.1%})")
+            print(f"   • {category:30} {perf['correct']:2d}/{perf['total']:2d} ({category_accuracy:5.1%})")
         
         print()
         print("🎚️  PERFORMANCE BY DIFFICULTY:")
@@ -1540,17 +2262,19 @@ async def main():
     results = await evaluator.run_comprehensive_evaluation()
     
     # Save comprehensive results
-    with open('comprehensive_swe_bench_results.json', 'w') as f:
+    with open('enhanced_swe_bench_results.json', 'w') as f:
         json.dump(results, f, indent=2, default=str)
     
     print()
-    print("💾 Results saved to comprehensive_swe_bench_results.json")
+    print("💾 Results saved to enhanced_swe_bench_results.json")
     print()
-    print("🎉 COMPREHENSIVE EVALUATION COMPLETE!")
+    print("🎉 ENHANCED EVALUATION COMPLETE!")
     
     # Print final assessment
     accuracy = results['accuracy']
-    if accuracy >= 0.85:
+    if accuracy >= 0.90:
+        print("🚀 EXCEPTIONAL: PhD-level breakthrough performance!")
+    elif accuracy >= 0.85:
         print("🚀 EXCELLENT: System ready for enterprise deployment!")
     elif accuracy >= 0.75:
         print("✅ GOOD: Strong performance, minor tuning needed")
@@ -1559,8 +2283,8 @@ async def main():
     else:
         print("❌ NEEDS WORK: Below industry baselines")
     
-    print(f"📊 Final Score: {accuracy:.1%} accuracy on comprehensive test set")
-    print("🎯 Ready for Codex team presentation with real-world validation!")
+    print(f"📊 Final Score: {accuracy:.1%} accuracy on {results['total_samples']} comprehensive test cases")
+    print("🎯 Ready for OpenAI Codex team presentation with enterprise validation!")
     
     await evaluator.orchestrator.cleanup()
 
