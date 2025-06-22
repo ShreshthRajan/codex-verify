@@ -1,6 +1,6 @@
 # CodeX-Verify: Multi-Agent Code Verification Framework
 
-**Enterprise-grade verification system addressing the 40-60% false positive rate in LLM code generation**
+**Enterprise-grade verification system addressing the 40-60% false positive rate (Codex) in LLM code generation**
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -198,8 +198,9 @@ cd codex-verify
 # Install dependencies  
 pip install -r requirements.txt
 
-# Run verification
-python -m src.orchestration.async_orchestrator --code "your_code.py"
+# Run swe bench lite and simulation tests 
+python swe_bench_mirror_evaluator.py
+python swe_bench_real_evaluator.py
 ```
 
 ### Streamlit Dashboard
@@ -208,18 +209,6 @@ python -m src.orchestration.async_orchestrator --code "your_code.py"
 streamlit run ui/streamlit_dashboard.py
 
 # Access at http://localhost:8501
-```
-
-### CLI Integration
-```bash
-# Single file verification
-python ui/cli_interface.py verify --file code.py --strict
-
-# Batch processing
-python ui/cli_interface.py batch --directory src/ --output report.json
-
-# CI/CD integration
-python ui/cli_interface.py ci --threshold 0.85 --fail-on-critical
 ```
 
 ### API Integration
