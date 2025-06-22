@@ -23,7 +23,7 @@ The primary goal of this project is to improve **true positive detection** of su
 * **Enterprise production gating** with zero-tolerance deploy blockers
 
 
-** “good code” = should pass verification without blocking deploy — correct, secure, performant, maintainable
+* “good code” = should pass verification without blocking deploy — correct, secure, performant, maintainable
 
 
 ---
