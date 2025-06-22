@@ -52,7 +52,7 @@ graph TB
 
 ### Correctness Critic
 
-* AST-based static analysis (multi-language: Python, JS, etc.)
+* AST-based static analysis (multi-language: Python, etc.)
 * Exception path analysis
 * Input validation & type safety
 * Edge case coverage
