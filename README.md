@@ -12,7 +12,7 @@
 
 LLM-generated code is  unsuitable for direct enterprise deployment due to a **40–60% rate of undetected bad outputs**, as demonstrated by SWE-bench, Meta Prompt Testing, and SecRepoBench. Code may pass test cases but still fails in production due to subtle correctness, security, performance, or maintainability issues.
 
-The primary goal of this project is to improve **true positive detection** of such bad outputs — reducing the risk of unsafe code shipping undetected. False positive rate on “good” code is tunable, but not the immediate focus.
+The primary goal of this project is to improve **true positive detection** of such bad outputs — reducing the risk of unsafe code shipping undetected. False positive rate on “good”* code is tunable, but not the immediate focus.
 
 **CodeX‑Verify** is a *multi-agent verification* system addressing this barrier:
 
@@ -21,6 +21,9 @@ The primary goal of this project is to improve **true positive detection** of su
 * **98% detection** of SWE-bench real production issues
 * **Sub‑200 ms latency** (CI/CD and PR pipeline ready)
 * **Enterprise production gating** with zero-tolerance deploy blockers
+
+  * “good code” = should pass verification without blocking deploy — correct, secure, performant, maintainable
+
 
 ---
 
