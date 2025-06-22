@@ -137,8 +137,8 @@ crypto_compliance_required: True
 ```
 
 **Any flagged issue blocks deploy**, as intended.
-This FPR is tunable — and not the focus of the SWE‑bench goal (which targets reducing *false positives on bad Codex outputs*).
-The verifier exceeds that goal — 91.7% TPR and 98% real-world detection.
+This FPR is tunable but and not the focus of the SWE‑bench goal (which targets reducing *false positives on bad Codex outputs*).
+The verifier exceeds that goal with 91.7% TPR and 98% real-world detection.
 
 ---
 
@@ -270,4 +270,4 @@ python swe_bench_real_evaluator.py
 
 ## Conclusion
 
-**CodeX‑Verify** is the first full *multi-agent verification system* designed to close the 40–60% false positive gap in Codex and other LLM-generated code, validated across SWE‑bench and real-world production issues. It is CI/CD‑ready, enterprise-scalable, and built for deployment gating of LLM-based code pipelines.
+**CodeX‑Verify** is the first full *multi-agent verification system* designed to close the 40–60% false positive gap in Codex and other LLM-generated code, validated across SWE‑bench and real-world production issues.
