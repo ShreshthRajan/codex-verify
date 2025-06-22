@@ -10,7 +10,7 @@
 
 Current LLM code generation suffers from a critical enterprise adoption barrier: **40-60% of "solved" problems contain plausible but incorrect implementations**. While these solutions pass basic tests, they fail in production due to subtle correctness, security, performance, and maintainability issues.
 
-CodeX-Verify solves this through intelligent multi-agent verification that achieves **70.6% accuracy** on comprehensive test cases, with **91.7% true positive rate** for actual bugs while maintaining practical false positive rates. Below are cited papers. 
+CodeX-Verify solves this through intelligent multi-agent verification that achieves **70.6% accuracy** on comprehensive test cases, with **91.7% true positive rate** for actual bugs while maintaining practical false positive rates. To date (06/21/25) these are SOTA public benchmarks, per the papers below. 
 
 ## Relevant Papers 
 1. Utilizing Precise and Complete Code Context to Guide LLM in Automatic False Positive Mitigation
