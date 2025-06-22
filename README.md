@@ -10,7 +10,7 @@
 
 ## Current State 
 
-LLM-generated code is currently unsuitable for direct enterprise deployment due to a **40–60% rate of undetected bad outputs**, as demonstrated by SWE-bench, Meta Prompt Testing, and SecRepoBench. Code may pass test cases, but still fail in production due to subtle correctness, security, performance, or maintainability issues.
+LLM-generated code is  unsuitable for direct enterprise deployment due to a **40–60% rate of undetected bad outputs**, as demonstrated by SWE-bench, Meta Prompt Testing, and SecRepoBench. Code may pass test cases but still fails in production due to subtle correctness, security, performance, or maintainability issues.
 
 The primary goal of this project is to improve **true positive detection** of such bad outputs — reducing the risk of unsafe code shipping undetected. False positive rate on “good” code is tunable, but not the immediate focus.
 
