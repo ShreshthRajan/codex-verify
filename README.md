@@ -10,7 +10,15 @@
 
 Current LLM code generation suffers from a critical enterprise adoption barrier: **40-60% of "solved" problems contain plausible but incorrect implementations**. While these solutions pass basic tests, they fail in production due to subtle correctness, security, performance, and maintainability issues.
 
-CodeX-Verify solves this through intelligent multi-agent verification that achieves **70.6% accuracy** on comprehensive test cases, with **91.7% true positive rate** for actual bugs while maintaining practical false positive rates.
+CodeX-Verify solves this through intelligent multi-agent verification that achieves **70.6% accuracy** on comprehensive test cases, with **91.7% true positive rate** for actual bugs while maintaining practical false positive rates. Below are cited papers. 
+
+## Relevant Papers 
+1. Utilizing Precise and Complete Code Context to Guide LLM in Automatic False Positive Mitigation
+2. Minimizing False Positives in Static Bug Detection via LLM-Enhanced Path Feasibility Analysis
+3. Validating LLM-Generated Programs with Metamorphic Prompt Testing
+4. Are "Solved Issues" in SWE-bench Really Solved Correctly? An Empirical Study
+5. SecRepoBench: Benchmarking LLMs for Secure Code Generation in Real-World Repositories
+
 
 ## Architecture Overview
 
