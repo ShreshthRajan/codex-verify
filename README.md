@@ -126,15 +126,16 @@ async def _execute_agents_parallel(self, code, context):
 
 ## Comparison to SOTA
 
-| System                  | Accuracy/Performance | False Positive Rate | True Positive Rate | Scope/Notes                                  |
-|------------------------|---------------------|-------------------|-------------------|----------------------------------------------|
-| **Codex (SWE-bench)**     | 22.7% (2025)       | ~40-60%          | —                 | No verification system                       |
-| **Meta Prompt Testing**   | 89.0% (boosted)    | 8.6%             | 75%               | Function-level validation only (Wang & Zhu, 2024) |
-| **SecRepoBench**          | <25% secure-pass@1 | —                | —                 | Repository-level security (318 tasks, 19 LLMs) |
-| **BaxBench**              | 38% secure-pass@1  | —                | —                 | Backend security (392 tasks, best model GPT-4) |
-| **Static Analyzers**      | ~65%               | 15-25%           | 60-80%            | Traditional SAST tools                       |
-| **SWE-bench Empirical Study** | 29.6% incorrect | —            | 98% detection     | Real production bugs (Xia et al., 2025)     |
-| **CodeX-Verify (ours)**   | **70.6%**          | **80%** (tunable) | **91.7%**        | **Full multi-agent across all dimensions**   |
+| System                     | Accuracy/Performance | False Positive Rate | True Positive Rate | Scope/Notes                                    |
+|----------------------------|---------------------|-------------------|-------------------|-----------------------------------------------|
+| **o3 (SWE-bench Verified)**   | 72% (2025)         | —                 | —                 | Latest OpenAI reasoning model                  |
+| **GPT-4.1 (SWE-bench Verified)** | 54.6% (2025)    | —                 | —                 | Latest OpenAI API model                       |
+| **Meta Prompt Testing**       | 89.0% (boosted)    | 8.6%             | 75%               | Function-level validation (Wang & Zhu, 2024) |
+| **SecRepoBench**              | <25% secure-pass@1 | —                | —                 | Repository-level security (318 tasks, 19 LLMs)|
+| **BaxBench**                  | 38% secure-pass@1  | —                | —                 | Backend security (392 tasks, GPT-4 best)     |
+| **Static Analyzers**          | ~65%               | 15-25%           | 60-80%            | Traditional SAST tools                        |
+| **SWE-bench Empirical Study** | 29.6% incorrect    | —                | 98% detection     | Real production bugs (Xia et al., 2025)      |
+| **CodeX-Verify (ours)**       | **70.6%**          | **80%** (tunable)| **91.7%**         | **Full multi-agent across all dimensions**   |
 
 *Note:*
 FPR is currently high on "good code" because the verifier is enforced to be **strict for enterprise deployment**:
