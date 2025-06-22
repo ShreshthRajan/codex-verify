@@ -125,11 +125,13 @@ async def _execute_agents_parallel(self, code, context):
 | **CodeX‑Verify (ours)** | **70.6%**        | **80% * (current, tunable)**      | **91.7%**                 | Full multi-agent across all dimensions |
 
 *Verifier was enforced to be strict on "good" code:
+```python
 max_critical_vulnerabilities: 0
 max_high_vulnerabilities: 1
 crypto_compliance_required: True
-
+```
 ANY warning fails a PR — hence FPR is high on good code — BUT that is not the original SWE-bench goal. Will need threshold tuning to reduce FPR on good-code
+
 ---
 
 ## Relevant Papers
