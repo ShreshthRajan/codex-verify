@@ -14,7 +14,7 @@ LLM-generated code is  unsuitable for direct enterprise deployment due to a **40
 
 The primary goal of this project is to improve **true positive detection** of such bad outputs — reducing the risk of unsafe code shipping undetected. False positive rate on “good” code is tunable, but not the immediate focus.
 
-**CodeX‑Verify** is the first *multi-agent verification* system addressing this barrier:
+**CodeX‑Verify** is a *multi-agent verification* system addressing this barrier:
 
 * **70.6% accuracy** (+30.6 pts over Codex baseline)
 * **91.7% true positive rate** for actual bugs
@@ -270,4 +270,4 @@ python swe_bench_real_evaluator.py
 
 ## Conclusion
 
-**CodeX‑Verify** is the first full *multi-agent verification system* designed to close the 40–60% false positive gap in Codex and other LLM-generated code, validated across SWE‑bench and real-world production issues.
+**CodeX‑Verify** is a full *multi-agent verification system* designed to close the 40–60% false positive gap in Codex and other LLM-generated code, validated across SWE‑bench and real-world production issues.
