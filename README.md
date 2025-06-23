@@ -49,7 +49,6 @@ graph TB
     Report --> Dashboard[StreamlitDashboard]
     Report --> CLI[CLIInterface]
 ```
-
 ---
 
 ## Core Innovations: Multi-Agent Verification
