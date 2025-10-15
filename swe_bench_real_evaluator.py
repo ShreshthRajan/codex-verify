@@ -772,7 +772,7 @@ async def main():
     """Run the complete real SWE-bench validation"""
     
     # Configuration options
-    SAMPLE_SIZE = 50  # Number of samples to evaluate (adjust as needed)
+    SAMPLE_SIZE = 500  # Number of samples to evaluate (scaled up for publication)
     
     print("🎯 CODEX-VERIFY Real SWE-bench Validation")
     print("Testing against actual GitHub issues from production repositories")

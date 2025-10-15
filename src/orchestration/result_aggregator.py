@@ -38,12 +38,13 @@ class ResultAggregator:
     def __init__(self, config):
         self.config = config
         
-        # Enterprise-weighted agent importance
+        # Calibrated agent importance (based on empirical evaluation)
+        # Calibration target: TPR >90%, FPR <15%
         self.agent_weights = {
-            'security': 0.40,       # Security is paramount for production
-            'correctness': 0.30,    # Correctness blocks deployment
-            'performance': 0.20,    # Performance affects scale
-            'style': 0.10          # Style affects maintainability
+            'security': 0.45,       # Security is paramount for production (increased)
+            'correctness': 0.35,    # Correctness blocks deployment (increased)
+            'performance': 0.15,    # Performance affects scale (decreased)
+            'style': 0.05          # Style minimal influence (decreased - should not block)
         }
         
         # Production deployment blocker priorities
@@ -398,28 +399,43 @@ class ResultAggregator:
         high_issues = [i for i in issues if i.severity == Severity.HIGH]
         compound_vulns = [i for i in issues if i.type in ['compound_vulnerability', 'security_cascade']]
         
-        # Immediate deployment blockers
+        # CALIBRATED deployment logic: Only security/correctness blocks, not style
+
+        # Immediate deployment blockers (CRITICAL issues only)
         if critical_issues or compound_vulns:
             return "FAIL"
-        
-        # High-risk scenarios
+
+        # High-risk scenarios (multiple HIGH severity issues)
         if len(high_issues) >= 3:
             return "FAIL"
         elif len(high_issues) >= 2:
-            return "FAIL"  # More aggressive than before
-        
-        # Score-based decisions with enterprise thresholds
+            return "WARNING"  # Changed from FAIL - allow with warning
+
+        # Score-based decisions with calibrated thresholds
         enterprise_threshold = self.config.thresholds.get('overall_min_score', 0.85)
-        
+
         if overall_score >= enterprise_threshold:
-            # High score but check for remaining risks
+            # High score - check for remaining risks
             if len(high_issues) >= 1:
-                return "WARNING"  # Even 1 high issue is concerning
+                return "WARNING"  # 1 high issue = warning
             return "PASS"
-        elif overall_score >= enterprise_threshold * 0.8:  # Within 20% of threshold
-            return "WARNING"
+        elif overall_score >= 0.70:  # Changed from 0.68 - more lenient
+            # Good score range - check issue severity
+            if len(high_issues) == 0:
+                return "WARNING"  # No high issues = warning acceptable
+            elif len(high_issues) == 1:
+                return "WARNING"  # 1 high issue = warning
+            else:
+                return "FAIL"  # 2+ high issues = fail
         else:
-            return "FAIL"
+            # Low score - but check if it's only style issues
+            security_high = len([i for i in high_issues if hasattr(i, 'agent_source') and i.agent_source == 'security'])
+            correctness_high = len([i for i in high_issues if hasattr(i, 'agent_source') and i.agent_source == 'correctness'])
+
+            if security_high > 0 or correctness_high > 0:
+                return "FAIL"  # Real bugs block deployment
+            else:
+                return "WARNING"  # Only style/perf issues = warning
     
     def _generate_metadata(self, agent_results: Dict[str, AgentResult], 
                           issues: List[VerificationIssue], 

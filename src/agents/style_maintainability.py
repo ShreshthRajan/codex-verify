@@ -266,36 +266,36 @@ class StyleMaintainabilityJudge(BaseAgent):
         """Extract issues from style metrics"""
         issues = []
         
-        # Line length violations
+        # Line length violations (CALIBRATED: LOW severity - style, not blocker)
         if metrics.line_length_violations > 0:
-            severity = Severity.MEDIUM if metrics.line_length_violations < 5 else Severity.HIGH
+            severity = Severity.LOW  # Changed: style issues never block deployment
             issues.append(VerificationIssue(
                 type="line_length",
                 severity=severity,
                 message=f"{metrics.line_length_violations} lines exceed {self.max_line_length} characters",
                 suggestion=f"Keep lines under {self.max_line_length} characters for better readability"
             ))
-        
-        # Indentation issues
+
+        # Indentation issues (CALIBRATED: LOW severity)
         if metrics.indentation_inconsistencies > 0:
             issues.append(VerificationIssue(
                 type="indentation",
-                severity=Severity.MEDIUM,
+                severity=Severity.LOW,  # Changed from MEDIUM - style should not block
                 message=f"{metrics.indentation_inconsistencies} indentation inconsistencies",
                 suggestion="Use consistent 4-space indentation"
             ))
-        
-        # Spacing issues
+
+        # Spacing issues (CALIBRATED: already LOW - good!)
         if metrics.spacing_issues > 0:
-            severity = Severity.LOW if metrics.spacing_issues < 3 else Severity.MEDIUM
+            severity = Severity.LOW  # Always LOW for style
             issues.append(VerificationIssue(
                 type="spacing",
                 severity=severity,
                 message=f"{metrics.spacing_issues} spacing/formatting issues",
                 suggestion="Fix spacing around operators, commas, and brackets"
             ))
-        
-        # Import organization
+
+        # Import organization (already LOW - good!)
         if metrics.import_organization_score < 0.7:
             issues.append(VerificationIssue(
                 type="import_organization",
@@ -303,12 +303,12 @@ class StyleMaintainabilityJudge(BaseAgent):
                 message=f"Poor import organization (score: {metrics.import_organization_score:.2f})",
                 suggestion="Organize imports: stdlib, third-party, local modules"
             ))
-        
-        # Code formatting
+
+        # Code formatting (CALIBRATED: LOW severity)
         if metrics.code_formatting_score < 0.8:
             issues.append(VerificationIssue(
                 type="code_formatting",
-                severity=Severity.MEDIUM,
+                severity=Severity.LOW,  # Changed from MEDIUM - style should not block
                 message=f"Poor code formatting (score: {metrics.code_formatting_score:.2f})",
                 suggestion="Consider using black or autopep8 for consistent formatting"
             ))
@@ -387,34 +387,34 @@ class StyleMaintainabilityJudge(BaseAgent):
         if total_documentable == 0:
             return issues
         
-        # Docstring coverage
+        # Docstring coverage (CALIBRATED: LOW/MEDIUM - documentation improves maintainability but doesn't block)
         if metrics.docstring_coverage < self.min_docstring_coverage:
-            severity = Severity.HIGH if metrics.docstring_coverage < 0.5 else Severity.MEDIUM
+            severity = Severity.MEDIUM if metrics.docstring_coverage < 0.3 else Severity.LOW  # Changed from HIGH
             issues.append(VerificationIssue(
                 type="docstring_coverage",
                 severity=severity,
                 message=f"Low docstring coverage: {metrics.docstring_coverage:.1%}",
                 suggestion=f"Add docstrings to reach {self.min_docstring_coverage:.0%} coverage"
             ))
-        
-        # Missing function docstrings
+
+        # Missing function docstrings (CALIBRATED: LOW severity)
         if metrics.total_functions > 0:
             missing_func_docs = metrics.total_functions - metrics.functions_with_docstrings
             if missing_func_docs > 0:
                 issues.append(VerificationIssue(
                     type="missing_docstrings",
-                    severity=Severity.MEDIUM,
+                    severity=Severity.LOW,  # Changed from MEDIUM - docs don't block deployment
                     message=f"{missing_func_docs} functions missing docstrings",
                     suggestion="Add docstrings to public functions"
                 ))
-        
-        # Missing class docstrings
+
+        # Missing class docstrings (CALIBRATED: LOW severity)
         if metrics.total_classes > 0:
             missing_class_docs = metrics.total_classes - metrics.classes_with_docstrings
             if missing_class_docs > 0:
                 issues.append(VerificationIssue(
                     type="missing_docstrings",
-                    severity=Severity.MEDIUM,
+                    severity=Severity.LOW,  # Changed from MEDIUM - docs don't block deployment
                     message=f"{missing_class_docs} classes missing docstrings",
                     suggestion="Add docstrings to classes"
                 ))
@@ -872,43 +872,43 @@ class StyleMaintainabilityJudge(BaseAgent):
         """Extract issues from readability metrics"""
         issues = []
         
-        # Variable naming issues
+        # Variable naming issues (CALIBRATED: LOW severity - style, not blocker)
         if metrics.variable_naming_score < 0.8:
             issues.append(VerificationIssue(
                 type="variable_naming",
-                severity=Severity.MEDIUM,
+                severity=Severity.LOW,  # Changed from MEDIUM - style should not block
                 message=f"Poor variable naming (score: {metrics.variable_naming_score:.2f})",
                 suggestion=f"Use {self.naming_conventions.get('variable', 'snake_case')} for variables"
             ))
-        
-        # Function naming issues
+
+        # Function naming issues (CALIBRATED: LOW severity)
         if metrics.function_naming_score < 0.8:
             issues.append(VerificationIssue(
                 type="function_naming",
-                severity=Severity.MEDIUM,
+                severity=Severity.LOW,  # Changed from MEDIUM - style should not block
                 message=f"Poor function naming (score: {metrics.function_naming_score:.2f})",
                 suggestion=f"Use {self.naming_conventions.get('function', 'snake_case')} for functions"
             ))
-        
-        # Class naming issues
+
+        # Class naming issues (CALIBRATED: LOW severity)
         if metrics.class_naming_score < 0.8:
             issues.append(VerificationIssue(
                 type="class_naming",
-                severity=Severity.MEDIUM,
+                severity=Severity.LOW,  # Changed from MEDIUM - style should not block
                 message=f"Poor class naming (score: {metrics.class_naming_score:.2f})",
                 suggestion=f"Use {self.naming_conventions.get('class', 'PascalCase')} for classes"
             ))
-        
-        # Code clarity issues
+
+        # Code clarity issues (CALIBRATED: LOW severity)
         if metrics.code_clarity_score < 0.7:
             issues.append(VerificationIssue(
                 type="code_clarity",
-                severity=Severity.MEDIUM,
+                severity=Severity.LOW,  # Changed from MEDIUM - style should not block
                 message=f"Poor code clarity (score: {metrics.code_clarity_score:.2f})",
                 suggestion="Use descriptive names and avoid magic numbers"
             ))
-        
-        # Logical structure issues
+
+        # Logical structure issues (already LOW - good!)
         if metrics.logical_structure_score < 0.8:
             issues.append(VerificationIssue(
                 type="logical_structure",
@@ -916,12 +916,12 @@ class StyleMaintainabilityJudge(BaseAgent):
                 message=f"Poor logical structure (score: {metrics.logical_structure_score:.2f})",
                 suggestion="Organize functions and classes logically"
             ))
-        
-        # Consistency issues
+
+        # Consistency issues (CALIBRATED: LOW severity)
         if metrics.consistency_score < 0.8:
             issues.append(VerificationIssue(
                 type="consistency",
-                severity=Severity.MEDIUM,
+                severity=Severity.LOW,  # Changed from MEDIUM - style should not block
                 message=f"Inconsistent code style (score: {metrics.consistency_score:.2f})",
                 suggestion="Use consistent quotes, indentation, and formatting"
             ))

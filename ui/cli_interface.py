@@ -637,8 +637,6 @@ def _generate_batch_summary(results: List[Dict], failed_files: List[str]) -> Dic
 
 
 
-
-
 def _format_batch_summary_text(summary_data: Dict[str, Any]) -> str:
    """Format batch summary as text"""
    

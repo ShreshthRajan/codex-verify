@@ -1,0 +1,234 @@
+{
+  "metadata": {
+    "timestamp": "20251012_192918",
+    "evaluation_type": "claude_generated_patches",
+    "model": "claude-sonnet-4-5-20250929",
+    "total_samples": 5,
+    "sample_size_target": 5,
+    "total_execution_time": 102.66202425956726,
+    "methodology": "Generate patches with Claude Sonnet 4.5, evaluate with CodeX-Verify"
+  },
+  "statistics": {
+    "summary": {
+      "total_samples": 5,
+      "generated": 5,
+      "evaluated": 5,
+      "failed": 0,
+      "success_rate": 1.0
+    },
+    "verdict_distribution": {
+      "FAIL": 4,
+      "WARNING": 1
+    },
+    "quality_distribution": {
+      "LOW": 4,
+      "MEDIUM": 1
+    },
+    "score_statistics": {
+      "mean": 0.44,
+      "median": 0.4,
+      "std": 0.08944271909999157,
+      "min": 0.4,
+      "max": 0.6,
+      "q25": 0.4,
+      "q75": 0.4
+    },
+    "issue_statistics": {
+      "total_issues": 59,
+      "critical_issues": 0,
+      "high_issues": 24,
+      "avg_issues_per_sample": 11.8,
+      "samples_with_critical": 0,
+      "samples_with_high": 5
+    },
+    "agent_performance": {
+      "style": {
+        "mean": 0.6894028408865084,
+        "median": 0.6534301106162065,
+        "std": 0.28487435995506505,
+        "min": 0.29000000000000004,
+        "max": 1.0
+      },
+      "performance": {
+        "mean": 1.0,
+        "median": 1.0,
+        "std": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "correctness": {
+        "mean": 0.7286666666666667,
+        "median": 0.7133333333333333,
+        "std": 0.21957787785759397,
+        "min": 0.45,
+        "max": 1.0
+      },
+      "security": {
+        "mean": 1.0,
+        "median": 1.0,
+        "std": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      }
+    },
+    "repository_breakdown": {
+      "astropy/astropy": {
+        "count": 5,
+        "avg_score": 0.44,
+        "pass_rate": 0.0
+      }
+    },
+    "timing_statistics": {
+      "avg_generation_time": 17.906025314331053,
+      "avg_verification_time": 0.10912876129150391,
+      "total_generation_time": 89.53012657165527,
+      "total_verification_time": 0.5456438064575195
+    }
+  },
+  "detailed_results": [
+    {
+      "instance_id": "astropy__astropy-12907",
+      "repo": "astropy/astropy",
+      "problem_statement": "Modeling's `separability_matrix` does not compute separability correctly for nested CompoundModels\nConsider the following model:\r\n\r\n```python\r\nfrom astropy.modeling import models as m\r\nfrom astropy.modeling.separable import separability_matrix\r\n\r\ncm = m.Linear1D(10) & m.Linear1D(5)\r\n```\r\n\r\nIt's separability matrix as you might expect is a diagonal:\r\n\r\n```python\r\n>>> separability_matrix(cm)\r\narray([[ True, False],\r\n       [False,  True]])\r\n```\r\n\r\nIf I make the model more complex:\r\n```python\r\n>>> ",
+      "hints_text": null,
+      "claude_patch": "import numpy as np\nfrom astropy.modeling.core import Model, CompoundModel\nfrom astropy.modeling.separable import _separable, _coord_matrix\n\n\ndef _separable(transform):\n    \"\"\"\n    Calculate the separability of outputs.\n\n    Parameters\n    ----------\n    transform : `~astropy.modeling.core.Model`\n        A (compound) model.\n\n    Returns\n    -------\n    is_separable : ndarray of dtype bool\n        An array of shape (n_outputs,) where each element indicates\n        whether the output is separable.\n    \"\"\"\n    if isinstance(transform, CompoundModel):\n        sepleft = _separable(transform.left)\n        sepright = _separable(transform.right)\n        \n        if transform.op == '&':\n            return np.concatenate([sepleft, sepright])\n        elif transform.op == '|':\n            # For pipe operations, need to check if outputs from left\n            # are mixed in right\n            return sepright\n        elif transform.op == '+' or transform.op == '-' or transform.op == '*' or transform.op == '/' or transform.op == '**':\n            # Arithmetic operations mix outputs\n            return np.zeros(transform.n_outputs, dtype=bool)\n    else:\n        # A simple model is separable if n_inputs == n_outputs\n        return np.ones(transform.n_outputs, dtype=bool) if transform.n_inputs == transform.n_outputs else np.zeros(transform.n_outputs, dtype=bool)\n\n\ndef _coord_matrix(model, pos, noutp):\n    \"\"\"\n    Create a coordinate matrix for a model.\n\n    Parameters\n    ----------\n    model : `~astropy.modeling.core.Model`\n        A model.\n    pos : int\n        Position in the input.\n    noutp : int\n        Number of outputs.\n\n    Returns\n    -------\n    coord_matrix : ndarray\n        A coordinate matrix.\n    \"\"\"\n    if isinstance(model, CompoundModel):\n        if model.op == '&':\n            left = _coord_matrix(model.left, pos, noutp)\n            right = _coord_matrix(model.right, pos + model.left.n_inputs, noutp)\n            return left | right\n        elif model.op == '|':\n            # For pipe, right takes outputs from left\n            left = _coord_matrix(model.left, pos, model.left.n_outputs)\n            # Map left outputs to right inputs\n            right = _coord_matrix(model.right, 0, noutp)\n            # Combine: if right depends on an input, and that input depends on a left output,\n            # then the final output depends on the original inputs that the left output depends on\n            result = np.zeros((noutp, model.n_inputs), dtype=bool)\n            for i in range(noutp):\n                for j in range(model.right.n_inputs):\n                    if right[i, j]:\n                        result[i] |= left[j]\n            return result\n        elif model.op in ['+', '-', '*', '/', '**']:\n            # Arithmetic operations: outputs depend on all inputs from both operands\n            left = _coord_matrix(model.left, pos, model.left.n_outputs)\n            right = _coord_matrix(model.right, pos, model.right.n_outputs)\n            return left | right\n    else:\n        # Simple model\n        mat = np.zeros((noutp, model.n_inputs), dtype=bool)\n        for i in range(model.n_outputs):\n            mat[i, :] = True\n        return mat\n\n\ndef separability_matrix(transform):\n    \"\"\"\n    Compute the correlation between inputs and outputs for a transform.\n\n    Parameters\n    ----------\n    transform : `~astropy.modeling.core.Model`\n        A (compound) model.\n\n    Returns\n    -------\n    separable_matrix : ndarray\n        A boolean correlation matrix of shape (n_outputs, n_inputs).\n        Indicates the dependence of outputs on inputs. For completely\n        independent outputs, the diagonal elements are True and\n        off-diagonal elements are False.\n\n    Examples\n    --------\n    >>> from astropy.modeling.models import Shift, Scale, Rotation2D, Polynomial2D\n    >>> separability_matrix(Shift(1) & Shift(2) | Scale(1) & Scale(2))\n    array([[ True, False], [False,  True]]...)\n    >>> separability_matrix(Shift(1) & Shift(2) | Rotation2D(2))\n    array([[ True,  True], [ True,  True]]...)\n    >>> separability_matrix(Shift(1) & Shift(2) | Mapping([0, 1, 0, 1]) | \\\n    Polynomial2D(1) & Polynomial2D(2))\n    array([[ True,  True], [ True,  True]]...)\n    >>> separability_matrix(Shift(1) & Shift(2) | Mapping([0, 1, 0, 1]))\n    array([[ True, False], [False,  True], [ True, False], [False,  True]]...)\n    \"\"\"\n    if isinstance(transform, CompoundModel):\n        if transform.op == '&':\n            left_matrix = separability_matrix(transform.left)\n            right_matrix = separability_matrix(transform.right)\n            \n            # Create block diagonal matrix\n            n_inputs = transform.n_inputs\n            n_outputs = transform.n_outputs\n            matrix = np.zeros((n_outputs, n_inputs), dtype=bool)\n            \n            # Place left matrix in top-left\n            matrix[:transform.left.n_outputs, :transform.left.n_inputs] = left_matrix\n            \n            # Place right matrix in bottom-right\n            matrix[transform.left.n_outputs:, transform.left.n_inputs:] = right_matrix\n            \n            return matrix\n        elif transform.op == '|':\n            left_matrix = separability_matrix(transform.left)\n            right_matrix = separability_matrix(transform.right)\n            \n            # Matrix multiplication: right @ left\n            # Output i depends on input j if there exists k such that\n            # right[i,k] and left[k,j] are both True\n            return np.dot(right_matrix, left_matrix)\n        elif transform.op in ['+', '-', '*', '/', '**']:\n            # Arithmetic operations: all outputs depend on all inputs\n            left_matrix = separability_matrix(transform.left)\n            right_matrix = separability_matrix(transform.right)\n            return left_matrix | right_matrix\n    else:\n        # Simple model\n        matrix = np.zeros((transform.n_outputs, transform.n_inputs), dtype=bool)\n        \n        # For simple models, check if they have a separability defined\n        # Otherwise assume all outputs depend on all inputs\n        if hasattr(transform, 'separable') and transform.separable is not None:\n            # Use model-specific separability\n            if transform.separable:\n                # Diagonal matrix\n                for i in range(min(transform.n_outputs, transform.n_inputs)):\n                    matrix[i, i] = True\n            else:\n                # All outputs depend on all inputs\n                matrix[:] = True\n        else:\n            # Default: all outputs depend on all inputs\n            matrix[:] = True\n        \n        return matrix\n    \n    return matrix",
+      "generation_time": 28.624762773513794,
+      "model_used": "claude-sonnet-4-5-20250929",
+      "verification_score": 0.4,
+      "verification_verdict": "FAIL",
+      "issues_found": 16,
+      "critical_issues": 0,
+      "high_issues": 6,
+      "medium_issues": 4,
+      "low_issues": 6,
+      "agent_scores": {
+        "style": 0.29000000000000004,
+        "performance": 1.0,
+        "correctness": 0.5966666666666666,
+        "security": 1.0
+      },
+      "key_issues": [
+        "HIGH: maintainability_index - Low maintainability index: 41.7",
+        "HIGH: loop_nesting - Extreme loop nesting: 6 levels",
+        "HIGH: ast_analysis - Function 'separability_matrix' too long (81 lines) - production maintainability concern"
+      ],
+      "verification_time": 0.17088890075683594,
+      "patch_quality_estimate": "LOW"
+    },
+    {
+      "instance_id": "astropy__astropy-14182",
+      "repo": "astropy/astropy",
+      "problem_statement": "Please support header rows in RestructuredText output\n### Description\r\n\r\nIt would be great if the following would work:\r\n\r\n```Python\r\n>>> from astropy.table import QTable\r\n>>> import astropy.units as u\r\n>>> import sys\r\n>>> tbl = QTable({'wave': [350,950]*u.nm, 'response': [0.7, 1.2]*u.count})\r\n>>> tbl.write(sys.stdout,  format=\"ascii.rst\")\r\n===== ========\r\n wave response\r\n===== ========\r\n350.0      0.7\r\n950.0      1.2\r\n===== ========\r\n>>> tbl.write(sys.stdout,  format=\"ascii.fixed_width\", header",
+      "hints_text": null,
+      "claude_patch": "# Patch for astropy/io/ascii/rst.py\n\nfrom . import fixedwidth\n\n\nclass RST(fixedwidth.FixedWidth):\n    \"\"\"reStructuredText simple format table.\n\n    See: https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#simple-tables\n\n    Example::\n\n      ==== ===== ======\n      Col1  Col2  Col3\n      ==== ===== ======\n        1    2.3  Hello\n        2    4.5  World\n      ==== ===== ======\n\n    Currently there is no support for reading tables which utilize continuation lines,\n    or for ones which define column spans through the use of an additional\n    line of dashes in the header.\n\n    \"\"\"\n\n    data_class = fixedwidth.FixedWidthData\n    header_class = fixedwidth.FixedWidthHeader\n\n    def __init__(self, header_rows=None):\n        super().__init__(delimiter_pad=None, bookend=False, header_rows=header_rows)\n\n    def write(self, lines):\n        lines = super().write(lines)\n        lines = [lines[0]] + [re.sub(r'\\s', '=', lines[1])] + lines[2:]\n        if self.header.start_line is not None:\n            # Handle multi-row headers\n            header_end_line = self.header.start_line + len(self.header_rows) - 1\n            lines.insert(header_end_line + 1, re.sub(r'\\s', '=', lines[1]))\n        else:\n            lines.insert(1, re.sub(r'\\s', '=', lines[1]))\n        lines.append(re.sub(r'\\s', '=', lines[-1]))\n        return lines\n\n\nimport re",
+      "generation_time": 16.57844591140747,
+      "model_used": "claude-sonnet-4-5-20250929",
+      "verification_score": 0.4,
+      "verification_verdict": "FAIL",
+      "issues_found": 15,
+      "critical_issues": 0,
+      "high_issues": 4,
+      "medium_issues": 2,
+      "low_issues": 9,
+      "agent_scores": {
+        "style": 0.6534301106162065,
+        "performance": 1.0,
+        "correctness": 0.7133333333333333,
+        "security": 1.0
+      },
+      "key_issues": [
+        "HIGH: exception_coverage - Low exception handling coverage: 50.0%",
+        "HIGH: ast_analysis - Public function 'write' missing docstring - production documentation required",
+        "HIGH: edge_case_coverage - Low edge case coverage: 50.0%"
+      ],
+      "verification_time": 0.048592329025268555,
+      "patch_quality_estimate": "LOW"
+    },
+    {
+      "instance_id": "astropy__astropy-14365",
+      "repo": "astropy/astropy",
+      "problem_statement": "ascii.qdp Table format assumes QDP commands are upper case\n### Description\n\nascii.qdp assumes that commands in a QDP file are upper case, for example, for errors they must be \"READ SERR 1 2\" whereas QDP itself is not case sensitive and case use \"read serr 1 2\". \r\n\r\nAs many QDP files are created by hand, the expectation that all commands be all-caps should be removed.\n\n### Expected behavior\n\nThe following qdp file should read into a `Table` with errors, rather than crashing.\r\n```\r\nread serr 1 2 \r",
+      "hints_text": "Welcome to Astropy \ud83d\udc4b and thank you for your first issue!\n\nA project member will respond to you as soon as possible; in the meantime, please double-check the [guidelines for submitting issues](https://",
+      "claude_patch": "import re\nfrom astropy.io.ascii import qdp\n\n# Patch the _line_type function to make regex case-insensitive\noriginal_line_type = qdp._line_type\n\ndef _line_type_case_insensitive(line, delimiter=None):\n    \"\"\"Interpret a QDP file line.\n    \n    Parameters\n    ----------\n    line : str\n        a single line of the file\n    \n    Returns\n    -------\n    type : str\n        Line type: \"comment\", \"command\", or \"data\"\n    \n    Examples\n    --------\n    >>> _line_type_case_insensitive(\"READ TERR 1\")\n    'command'\n    >>> _line_type_case_insensitive(\"read terr 1\")\n    'command'\n    >>> _line_type_case_insensitive(\"READ SERR 1 2\")\n    'command'\n    >>> _line_type_case_insensitive(\"read serr 1 2\")\n    'command'\n    >>> _line_type_case_insensitive(\"! some comment\")\n    'comment'\n    >>> _line_type_case_insensitive(\"   \")\n    'comment'\n    >>> _line_type_case_insensitive(\" 21345.45\")\n    'data'\n    \"\"\"\n    _decimal_re = r\"[+-]?(\\d+(\\.\\d*)?|\\.\\d+)([eE][+-]?\\d+)?\"\n    _command_re = r\"^[a-zA-Z]+\"\n    \n    sep = delimiter\n    if delimiter is None:\n        sep = r\"\\s+\"\n    _new_re = rf\"^({_decimal_re}|NO|[-+]?nan)({sep}({_decimal_re}|NO|[-+]?nan))*$\"\n    _data_re = re.compile(_new_re, re.IGNORECASE)\n    _type_re = re.compile(_command_re, re.IGNORECASE)\n    _comment_re = re.compile(r\"^\\s*[!]\")\n    \n    if not line.strip():\n        return \"comment\"\n    elif _comment_re.match(line):\n        return \"comment\"\n    elif _type_re.match(line):\n        return \"command\"\n    elif _data_re.match(line):\n        return \"data\"\n    else:\n        return \"new\"\n\nqdp._line_type = _line_type_case_insensitive\n\n# Patch the _get_type_from_list_of_lines function to handle case-insensitive commands\noriginal_get_type_from_list_of_lines = qdp._get_type_from_list_of_lines\n\ndef _get_type_from_list_of_lines_case_insensitive(lines, delimiter=None):\n    \"\"\"Read through the list of QDP file lines and label each line by type.\n    \n    Parameters\n    ----------\n    lines : list\n        List containing one file line in each entry\n    \n    Returns\n    -------\n    contents : list\n        List containing the type for each line (see `line_type_and_data`)\n    ncol : int\n        The number of columns in the data lines. Must be the same throughout\n        the file\n    \n    Examples\n    --------\n    >>> line0 = \"! A comment\"\n    >>> line1 = \"543 12 456.0\"\n    >>> lines = [line0, line1]\n    >>> types, ncol = _get_type_from_list_of_lines_case_insensitive(lines)\n    >>> types[0]\n    'comment'\n    >>> types[1]\n    'data'\n    >>> ncol\n    3\n    >>> lines.append(\"read serr 1 2\")\n    >>> types, ncol = _get_type_from_list_of_lines_case_insensitive(lines)\n    >>> types[2]\n    'command'\n    \"\"\"\n    types = [_line_type_case_insensitive(line, delimiter=delimiter) for line in lines]\n    \n    # Analyze the data lines to get the number of columns\n    ncol = None\n    for line, line_type in zip(lines, types):\n        if line_type == \"data\":\n            line_stripped = line.strip()\n            if delimiter is None:\n                data = line_stripped.split()\n            else:\n                data = line_stripped.split(delimiter)\n            \n            if ncol is None:\n                ncol = len(data)\n            elif ncol != len(data):\n                raise ValueError(f\"Inconsistent number of columns in data line: {line}\")\n    \n    return types, ncol\n\nqdp._get_type_from_list_of_lines = _get_type_from_list_of_lines_case_insensitive\n\n# Patch the _get_lines_from_file function to handle case-insensitive commands\noriginal_get_lines_from_file = qdp._get_lines_from_file\n\ndef _get_lines_from_file_case_insensitive(qdp_file, delimiter=None):\n    \"\"\"Read a QDP file and return its contents as a list of lines.\n    \n    Parameters\n    ----------\n    qdp_file : str\n        Input QDP file name\n    \n    Returns\n    -------\n    lines : list\n        List containing one file line in each entry\n    ncol : int\n        Number of columns in the data\n    \"\"\"\n    if isinstance(qdp_file, str):\n        with open(qdp_file) as fobj:\n            lines = [line.strip() for line in fobj.readlines()]\n    else:\n        lines = [line.strip() for line in qdp_file.readlines()]\n    \n    return _get_type_from_list_of_lines_case_insensitive(lines, delimiter=delimiter)\n\n# Patch the _interpret_err_lines function to handle case-insensitive commands\noriginal_interpret_err_lines = qdp._interpret_err_lines\n\ndef _interpret_err_lines_case_insensitive(err_specs, ncols):\n    \"\"\"Interpret error specifications.\n    \n    Parameters\n    ----------\n    err_specs : dict\n        Dictionary containing error specifications\n    ncols : int\n        Number of data columns\n    \n    Returns\n    -------\n    serr_cols : list\n        List of columns with symmetric errors\n    terr_cols : list\n        List of columns with two-sided errors (lower, upper pairs)\n    \"\"\"\n    serr_cols = []\n    terr_cols = []\n    \n    for command, values in err_specs.items():\n        command_upper = command.upper()\n        if command_upper == \"SERR\" or command_upper == \"READ SERR\":\n            serr_cols.extend(values)\n        elif command_upper == \"TERR\" or command_upper == \"READ TERR\":\n            terr_cols.extend(values)\n    \n    return serr_cols, terr_cols\n\n# Patch the _understand_err_col function to handle case-insensitive commands\noriginal_understand_err_col = qdp._understand_err_col\n\ndef _understand_err_col_case_insensitive(err_specs):\n    \"\"\"Understand which columns have errors.\n    \n    Parameters\n    ----------\n    err_specs : dict\n        Dictionary with error specifications\n    \n    Returns\n    -------\n    serr_cols : list\n        Columns with symmetric errors\n    terr_cols : list\n        Columns with two-sided errors\n    \"\"\"\n    serr_cols = []\n    terr_cols = []\n    \n    for command, values in err_specs.items():\n        command_upper = command.upper()\n        if \"SERR\" in command_upper:\n            serr_cols.extend(values)\n        elif \"TERR\" in command_upper:\n            terr_cols.extend(values)\n    \n    return serr_cols, terr_cols\n\n# Patch command parsing in _get_tables_from_qdp_file\noriginal_get_tables_from_qdp_file = qdp._get_tables_from_qdp_file\n\ndef _get_tables_from_qdp_file_case_insensitive(qdp_file, input_colnames=None, \n                                                 delimiter=None, names=None):\n    \"\"\"Get all tables from a QDP file.\n    \n    Parameters\n    ----------\n    qdp_file : str\n        Input QDP file name\n    input_colnames : list of str\n        Column names\n    delimiter : str\n        Delimiter for data\n    names : list of str\n        Names for multiple tables\n    \n    Returns\n    -------\n    tables : dict\n        Dictionary of tables\n    \"\"\"\n    import re\n    from astropy.table import Table\n    from astropy.io.ascii.qdp import _line_type, _get_type_from_list_of_lines\n    \n    # Use the case-insensitive version\n    _line_type_func = _line_type_case_insensitive\n    _get_type_func = _get_type_from_list_of_lines_case_insensitive\n    \n    if isinstance(qdp_file, str):\n        with open(qdp_file) as fobj:\n            lines = [line.strip() for line in fobj.readlines()]\n    else:\n        lines = [line.strip() for line in qdp_file.readlines()]\n    \n    types, ncol = _get_type_func(lines, delimiter=delimiter)\n    \n    # Parse commands - make regex case insensitive\n    command_lines = {}\n    for line, line_type in zip(lines, types):\n        if line_type == \"command\":\n            # Make command parsing case-insensitive\n            line_upper = line.upper()\n            command_lines[line] = line_upper\n    \n    return original_get_tables_from_qdp_file(qdp_file, input_colnames=input_colnames,\n                                              delimiter=delimiter, names=names)\n\n# Apply the main patch to the QDP module\ndef patch_qdp_case_sensitivity():\n    \"\"\"Apply patches to make QDP format case-insensitive.\"\"\"\n    import astropy.io.ascii.qdp as qdp_module\n    \n    # Store original functions\n    if not hasattr(qdp_module, '_original_line_type'):\n        qdp_module._original_line_type = qdp_module._line_type\n        qdp_module._line_type = _line_type_case_insensitive\n    \n    if not hasattr(qdp_module, '_original_get_type_from_list_of_lines'):\n        qdp_module._original_get_type_from_list_of_lines = qdp_module._get_type_from_list_of_lines\n        qdp_module._get_type_from_list_of_lines = _get_type_from_list_of_lines_case_insensitive\n\npatch_qdp_case_sensitivity()",
+      "generation_time": 35.1269109249115,
+      "model_used": "claude-sonnet-4-5-20250929",
+      "verification_score": 0.4,
+      "verification_verdict": "FAIL",
+      "issues_found": 19,
+      "critical_issues": 0,
+      "high_issues": 9,
+      "medium_issues": 3,
+      "low_issues": 7,
+      "agent_scores": {
+        "style": 0.57925,
+        "performance": 1.0,
+        "correctness": 0.45,
+        "security": 1.0
+      },
+      "key_issues": [
+        "HIGH: missing_exception_handling - Function '_get_tables_from_qdp_file_case_insensitive' missing exception handling for production depl",
+        "HIGH: missing_exception_handling - Function '_get_lines_from_file_case_insensitive' missing exception handling for production deploymen",
+        "HIGH: maintainability_index - Low maintainability index: 42.1"
+      ],
+      "verification_time": 0.058203935623168945,
+      "patch_quality_estimate": "LOW"
+    },
+    {
+      "instance_id": "astropy__astropy-14995",
+      "repo": "astropy/astropy",
+      "problem_statement": "In v5.3, NDDataRef mask propagation fails when one of the operand does not have a mask\n### Description\n\nThis applies to v5.3. \r\n\r\nIt looks like when one of the operand does not have a mask, the mask propagation when doing arithmetic, in particular with `handle_mask=np.bitwise_or` fails.  This is not a problem in v5.2.\r\n\r\nI don't know enough about how all that works, but it seems from the error that the operand without a mask is set as a mask of None's and then the bitwise_or tries to operate on ",
+      "hints_text": "Welcome to Astropy \ud83d\udc4b and thank you for your first issue!\n\nA project member will respond to you as soon as possible; in the meantime, please double-check the [guidelines for submitting issues](https://",
+      "claude_patch": "import numpy as np\nfrom astropy.nddata import NDDataRef\n\n# Test to verify the fix\ndef test_mask_propagation_with_none_mask():\n    \"\"\"Test that mask propagation works when one operand has no mask.\"\"\"\n    array = np.array([[0, 1, 0], [1, 0, 1], [0, 1, 0]])\n    mask = np.array([[0, 1, 64], [8, 0, 1], [2, 1, 0]])\n\n    nref_nomask = NDDataRef(array)\n    nref_mask = NDDataRef(array, mask=mask)\n\n    # Test multiply mask by constant (mask * no mask)\n    result = nref_mask.multiply(1., handle_mask=np.bitwise_or)\n    assert np.array_equal(result.mask, mask)\n\n    # Test multiply mask by no mask (mask * no mask)\n    result = nref_mask.multiply(nref_nomask, handle_mask=np.bitwise_or)\n    assert np.array_equal(result.mask, mask)\n\n    # Test multiply no mask by mask (no mask * mask) - commutativity\n    result = nref_nomask.multiply(nref_mask, handle_mask=np.bitwise_or)\n    assert np.array_equal(result.mask, mask)\n\n    # Test with boolean masks\n    bool_mask = mask.astype(bool)\n    nref_bool_mask = NDDataRef(array, mask=bool_mask)\n    \n    result1 = nref_bool_mask.multiply(nref_nomask)\n    result2 = nref_nomask.multiply(nref_bool_mask)\n    \n    assert result1.mask.dtype == bool\n    assert result2.mask.dtype == bool\n    assert np.array_equal(result1.mask, result2.mask)\n\nif __name__ == \"__main__\":\n    test_mask_propagation_with_none_mask()\n    print(\"All tests passed!\")",
+      "generation_time": 6.930294990539551,
+      "model_used": "claude-sonnet-4-5-20250929",
+      "verification_score": 0.4,
+      "verification_verdict": "FAIL",
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 3,
+      "medium_issues": 0,
+      "low_issues": 4,
+      "agent_scores": {
+        "style": 0.9243340938163356,
+        "performance": 1.0,
+        "correctness": 0.8833333333333334,
+        "security": 1.0
+      },
+      "key_issues": [
+        "HIGH: edge_case_coverage - Low edge case coverage: 0.0%",
+        "HIGH: production_readiness - Low production readiness: 66.7%",
+        "HIGH: execution - Code execution failed: Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  F"
+      ],
+      "verification_time": 0.23421430587768555,
+      "patch_quality_estimate": "LOW"
+    },
+    {
+      "instance_id": "astropy__astropy-6938",
+      "repo": "astropy/astropy",
+      "problem_statement": "Possible bug in io.fits related to D exponents\nI came across the following code in ``fitsrec.py``:\r\n\r\n```python\r\n        # Replace exponent separator in floating point numbers\r\n        if 'D' in format:\r\n            output_field.replace(encode_ascii('E'), encode_ascii('D'))\r\n```\r\n\r\nI think this may be incorrect because as far as I can tell ``replace`` is not an in-place operation for ``chararray`` (it returns a copy). Commenting out this code doesn't cause any tests to fail so I think this code ",
+      "hints_text": "It is tested with `astropy/io/fits/tests/test_checksum.py:test_ascii_table_data` but indeed the operation is not inplace and it does not fail. Using 'D' is probably better, but since #5362 (I had vagu",
+      "claude_patch": "# Replace exponent separator in floating point numbers\nif 'D' in format:\n    output_field = output_field.replace(encode_ascii('E'), encode_ascii('D'))",
+      "generation_time": 2.269711971282959,
+      "model_used": "claude-sonnet-4-5-20250929",
+      "verification_score": 0.6,
+      "verification_verdict": "WARNING",
+      "issues_found": 2,
+      "critical_issues": 0,
+      "high_issues": 2,
+      "medium_issues": 0,
+      "low_issues": 0,
+      "agent_scores": {
+        "style": 1.0,
+        "performance": 1.0,
+        "correctness": 1.0,
+        "security": 1.0
+      },
+      "key_issues": [
+        "HIGH: potential_bug - Potential bug: Missing else clause in critical decision path",
+        "HIGH: execution - Code execution failed: Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  F"
+      ],
+      "verification_time": 0.03374433517456055,
+      "patch_quality_estimate": "MEDIUM"
+    }
+  ]
+}
