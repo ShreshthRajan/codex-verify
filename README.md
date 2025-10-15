@@ -210,7 +210,6 @@ CodeX‑Verify: +30.6% over Codex
 
 
 
-
 ### Real-World SWE-bench (50 samples)
 
 * **98% detection** of production bugs in live open-source projects
