@@ -1,0 +1,5111 @@
+{
+  "metadata": {
+    "timestamp": "20251021_213552",
+    "method": "distributional_validation",
+    "reference": "ICML 2025 Suitability Filter methodology",
+    "total_samples": 300,
+    "high_confidence_samples": 246
+  },
+  "labels": [
+    {
+      "instance_id": "astropy__astropy-12907",
+      "correctness_probability": 0.11915453101166776,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.020169964937303143,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9003555555555556,
+      "semantic_relevance": 0.3,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "astropy__astropy-14182",
+      "correctness_probability": 0.24204354377966844,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.20168216153399185,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9372317356301703,
+      "semantic_relevance": 0.14285714285714285,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "astropy__astropy-14365",
+      "correctness_probability": 0.12292962509653932,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04130970932158677,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.904414,
+      "semantic_relevance": 0.07142857142857142,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "astropy__astropy-14995",
+      "correctness_probability": 0.12031780722394504,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.021852781753760233,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9966371713917003,
+      "semantic_relevance": 0.10714285714285714,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "astropy__astropy-6938",
+      "correctness_probability": 0.12947279015984117,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.03258017641882073,
+      "distributional_distance": 2.0,
+      "agent_consensus": 1.0,
+      "semantic_relevance": 0.13333333333333333,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "astropy__astropy-7746",
+      "correctness_probability": 0.17336513197426778,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.10757641834833287,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.915399,
+      "semantic_relevance": 0.13043478260869565,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-10914",
+      "correctness_probability": 0.1730812910938434,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.10202089203882389,
+      "distributional_distance": 2.0,
+      "agent_consensus": 1.0,
+      "semantic_relevance": 0.03333333333333333,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-10924",
+      "correctness_probability": 0.11634836695409674,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.021195131362995317,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9484510833333334,
+      "semantic_relevance": 0.13333333333333333,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-11001",
+      "correctness_probability": 0.23492986657804724,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.20266528838880696,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.886524,
+      "semantic_relevance": 0.08823529411764706,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-11019",
+      "correctness_probability": 0.1442543633427925,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.06416614631893183,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8899323333333333,
+      "semantic_relevance": 0.20689655172413793,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-11039",
+      "correctness_probability": 0.28968555667117024,
+      "confidence": 0.4,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.3357115095302432,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.5,
+      "semantic_relevance": 0.09375,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-11049",
+      "correctness_probability": 0.1497328920868968,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07881931508812151,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9152906849490873,
+      "semantic_relevance": 0.06060606060606061,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-11099",
+      "correctness_probability": 0.365161713154961,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.3754575858923685,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.993111,
+      "semantic_relevance": 0.06060606060606061,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-11133",
+      "correctness_probability": 0.34247792597187765,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.3530934656741109,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.03125,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-11179",
+      "correctness_probability": 0.2342692281188312,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.1928052465189652,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.1111111111111111,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-11283",
+      "correctness_probability": 0.18716864600324123,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.13188514695140907,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9190786666666666,
+      "semantic_relevance": 0.058823529411764705,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-11422",
+      "correctness_probability": 0.2787633358838329,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.2643047655483327,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-11564",
+      "correctness_probability": 0.09511481910839722,
+      "confidence": 0.6500000000000001,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.05105688444056747,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.5,
+      "semantic_relevance": 0.1875,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-11583",
+      "correctness_probability": 0.28990502392344497,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.2802214627477786,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-11620",
+      "correctness_probability": 0.18294426272135025,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.1096242194720588,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.971164,
+      "semantic_relevance": 0.18181818181818182,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-11630",
+      "correctness_probability": 0.17824451258353205,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.10128526678391908,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9766740647995,
+      "semantic_relevance": 0.1935483870967742,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-11742",
+      "correctness_probability": 0.17058921429885657,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.09866824661741413,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.91104775,
+      "semantic_relevance": 0.20833333333333334,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-11797",
+      "correctness_probability": 0.14945885853995508,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.061359607965801276,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9817379963056084,
+      "semantic_relevance": 0.16666666666666666,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-11815",
+      "correctness_probability": 0.5755634858384482,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.6883049797692117,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-11848",
+      "correctness_probability": 0.1915280150458597,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.10569716435122813,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9879,
+      "semantic_relevance": 0.375,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-11905",
+      "correctness_probability": 0.3208173010697802,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.3075714285714286,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9885063440311348,
+      "semantic_relevance": 0.13333333333333333,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-11910",
+      "correctness_probability": 0.2063284867797028,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.15889210553782432,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.886524,
+      "semantic_relevance": 0.12903225806451613,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-11964",
+      "correctness_probability": 0.13152664977426837,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.040077394859813084,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9409747337239921,
+      "semantic_relevance": 0.1875,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-11999",
+      "correctness_probability": 0.18859344917304657,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.11977781343501939,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9991027009111365,
+      "semantic_relevance": 0.0967741935483871,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-12113",
+      "correctness_probability": 0.22690166488887506,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.1783806915439918,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9900487777777778,
+      "semantic_relevance": 0.06060606060606061,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-12125",
+      "correctness_probability": 0.2818715618152462,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.2638189799331103,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.06896551724137931,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-12184",
+      "correctness_probability": 0.14230070805707365,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.06834271922767497,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9273666666666667,
+      "semantic_relevance": 0.034482758620689655,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-12284",
+      "correctness_probability": 0.40076324228830246,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.4309372849016566,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.10714285714285714,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-12286",
+      "correctness_probability": 0.21415298763922846,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.1637983156750883,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9324416666666666,
+      "semantic_relevance": 0.125,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-12308",
+      "correctness_probability": 0.18527718479018457,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.12458145468526091,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9807016651050192,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-12453",
+      "correctness_probability": 0.4177982104310829,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.4619685247054686,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9147906666666666,
+      "semantic_relevance": 0.058823529411764705,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-12470",
+      "correctness_probability": 0.12932649667696614,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.036480079286422204,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.964375,
+      "semantic_relevance": 0.14705882352941177,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-12497",
+      "correctness_probability": 0.18323380791737207,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.106850253940917,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9272434444444445,
+      "semantic_relevance": 0.3142857142857143,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-12589",
+      "correctness_probability": 0.17278198787623256,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.1135960098912166,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9147906666666666,
+      "semantic_relevance": 0.03571428571428571,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-12700",
+      "correctness_probability": 0.2540173497545788,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.21615500603136312,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9993106775484687,
+      "semantic_relevance": 0.05555555555555555,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-12708",
+      "correctness_probability": 0.15310864652855335,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0734420127453082,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8631462222222223,
+      "semantic_relevance": 0.3076923076923077,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-12747",
+      "correctness_probability": 0.13999348422640945,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0563171939994844,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9195075877159796,
+      "semantic_relevance": 0.1724137931034483,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-12856",
+      "correctness_probability": 0.14664405111383277,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.08618489841658647,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8631462222222223,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-12908",
+      "correctness_probability": 0.42327870278608165,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.4731114670343038,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.886524,
+      "semantic_relevance": 0.06896551724137931,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-12915",
+      "correctness_probability": 0.13086885775471885,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04692274917340788,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.896896,
+      "semantic_relevance": 0.16666666666666666,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-12983",
+      "correctness_probability": 0.4268505966936848,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.4580765291872265,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9937884444444445,
+      "semantic_relevance": 0.13636363636363635,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-13028",
+      "correctness_probability": 0.6118100338179137,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.7452035461468033,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.886524,
+      "semantic_relevance": 0.030303030303030304,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-13033",
+      "correctness_probability": 0.5241053240422002,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.6153791772031433,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.886524,
+      "semantic_relevance": 0.09375,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-13158",
+      "correctness_probability": 0.11754972149667332,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.027486284677787298,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9830932222222222,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-13220",
+      "correctness_probability": 0.14863282496667013,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07081724493806713,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9300014744941707,
+      "semantic_relevance": 0.12121212121212122,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-13230",
+      "correctness_probability": 0.19587492122237252,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.14479606350670818,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8997222222222222,
+      "semantic_relevance": 0.09090909090909091,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-13265",
+      "correctness_probability": 0.11800289693555367,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.03500395480589298,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8992870000000001,
+      "semantic_relevance": 0.07142857142857142,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-13315",
+      "correctness_probability": 0.13209476502484094,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0545323786069156,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8454710000000001,
+      "semantic_relevance": 0.1875,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-13321",
+      "correctness_probability": 0.2742608534530786,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.2600528926880715,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.886524,
+      "semantic_relevance": 0.07142857142857142,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-13401",
+      "correctness_probability": 0.15702684638708125,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07731629087079324,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9290544277752599,
+      "semantic_relevance": 0.2,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-13447",
+      "correctness_probability": 0.1954701393138652,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.14854729042648504,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8631462222222223,
+      "semantic_relevance": 0.10344827586206896,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-13448",
+      "correctness_probability": 0.235161974878397,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.20089964665167825,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9119888888888888,
+      "semantic_relevance": 0.06666666666666667,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-13551",
+      "correctness_probability": 0.39506164895472057,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.4017909634972411,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9899315969183695,
+      "semantic_relevance": 0.2962962962962963,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-13590",
+      "correctness_probability": 0.2406593791324843,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.18938742679033757,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9951675180781945,
+      "semantic_relevance": 0.17142857142857143,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-13658",
+      "correctness_probability": 0.13978622569566265,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0468702611978854,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8911990000000001,
+      "semantic_relevance": 0.35714285714285715,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-13660",
+      "correctness_probability": 0.6575287255418614,
+      "confidence": 0.8500000000000001,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.8143646408839779,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.855504,
+      "semantic_relevance": 0.038461538461538464,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-13710",
+      "correctness_probability": 0.15355767684793006,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0684577522559475,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9849439312590968,
+      "semantic_relevance": 0.14285714285714285,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-13757",
+      "correctness_probability": 0.15460008899702,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07233493830519704,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9106240637693045,
+      "semantic_relevance": 0.25806451612903225,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-13768",
+      "correctness_probability": 0.1765546548411138,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.10182560946494415,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9972117266009731,
+      "semantic_relevance": 0.1111111111111111,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-13925",
+      "correctness_probability": 0.19384940720371,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.12769344359125812,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9858164374865284,
+      "semantic_relevance": 0.11764705882352941,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-13933",
+      "correctness_probability": 0.1704427270882395,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.10119829215370618,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.883136,
+      "semantic_relevance": 0.22580645161290322,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-13964",
+      "correctness_probability": 0.24745648961924707,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.20561132672752108,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9868985123256294,
+      "semantic_relevance": 0.0967741935483871,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-14016",
+      "correctness_probability": 0.13151178252405335,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05341604306157279,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8840626666666667,
+      "semantic_relevance": 0.11428571428571428,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-14017",
+      "correctness_probability": 0.22098488372093023,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.1817641196013289,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-14155",
+      "correctness_probability": 0.21502029612323964,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.1733610467493526,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8631462222222223,
+      "semantic_relevance": 0.14705882352941177,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-14238",
+      "correctness_probability": 0.13434926905555342,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05015830135424759,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9209560096472297,
+      "semantic_relevance": 0.14285714285714285,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-14382",
+      "correctness_probability": 0.1176617796219456,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.01729460580912863,
+      "distributional_distance": 2.0,
+      "agent_consensus": 1.0,
+      "semantic_relevance": 0.1111111111111111,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-14411",
+      "correctness_probability": 0.1710830719845022,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.09251584507042253,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9286044197366796,
+      "semantic_relevance": 0.2692307692307692,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-14534",
+      "correctness_probability": 0.1298818032634033,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.03769230769230769,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9895173333333334,
+      "semantic_relevance": 0.09090909090909091,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-14580",
+      "correctness_probability": 0.7022669313838645,
+      "confidence": 0.8500000000000001,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.8630073809685461,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.08823529411764706,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-14608",
+      "correctness_probability": 0.22111299825847117,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.17503469797293114,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.0967741935483871,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-14667",
+      "correctness_probability": 0.12418290217743967,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.03543279341973419,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9411678888888889,
+      "semantic_relevance": 0.10526315789473684,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-14672",
+      "correctness_probability": 0.1355202509804899,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.050220256502740646,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.914375,
+      "semantic_relevance": 0.17857142857142858,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-14730",
+      "correctness_probability": 0.18620453921765015,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.11791620727673649,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9911773957848008,
+      "semantic_relevance": 0.09090909090909091,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-14752",
+      "correctness_probability": 0.17111503178808005,
+      "confidence": 0.6500000000000001,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.16409290255440007,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.5,
+      "semantic_relevance": 0.125,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-14787",
+      "correctness_probability": 0.13147842584631425,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.03446305733146934,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9164,
+      "semantic_relevance": 0.3142857142857143,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-14855",
+      "correctness_probability": 0.42331348323534085,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.4658788676761027,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.06896551724137931,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-14915",
+      "correctness_probability": 0.1609438665837945,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.08616468842729971,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9927723333333334,
+      "semantic_relevance": 0.02702702702702703,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-14997",
+      "correctness_probability": 0.16167059298288453,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0861047388084158,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9698551111111111,
+      "semantic_relevance": 0.08823529411764706,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-14999",
+      "correctness_probability": 0.26539147784539097,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.24040503557744936,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.912256,
+      "semantic_relevance": 0.11764705882352941,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-15061",
+      "correctness_probability": 0.4161745359160613,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.4546540989277067,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.08333333333333333,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-15202",
+      "correctness_probability": 0.23995368769828884,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.21662723639438092,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8631462222222223,
+      "semantic_relevance": 0.04,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-15213",
+      "correctness_probability": 0.12524329799824202,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.03503567614509864,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.953611818395301,
+      "semantic_relevance": 0.10714285714285714,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-15252",
+      "correctness_probability": 0.1655036691945136,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.10230469913790544,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8631462222222223,
+      "semantic_relevance": 0.15151515151515152,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-15320",
+      "correctness_probability": 0.2041642464375768,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.14485441798774712,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9892,
+      "semantic_relevance": 0.07692307692307693,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-15347",
+      "correctness_probability": 0.1559512706866235,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07543778801843318,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.937698190737203,
+      "semantic_relevance": 0.1875,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-15388",
+      "correctness_probability": 0.18213764871704327,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.11899930118798044,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9883813788545696,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-15400",
+      "correctness_probability": 0.1456139634736333,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0584663763909047,
+      "distributional_distance": 2.0,
+      "agent_consensus": 1.0,
+      "semantic_relevance": 0.09375,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-15498",
+      "correctness_probability": 0.4110858543254689,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.4487144585601936,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.886524,
+      "semantic_relevance": 0.16666666666666666,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-15695",
+      "correctness_probability": 0.17839154010168162,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.10645226167404104,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9762495692985289,
+      "semantic_relevance": 0.125,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-15738",
+      "correctness_probability": 0.15992680373339824,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.09363952197449107,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8631462222222223,
+      "semantic_relevance": 0.16129032258064516,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-15781",
+      "correctness_probability": 0.47803113993637614,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.5457885332424421,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9441666666666666,
+      "semantic_relevance": 0.03125,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-15789",
+      "correctness_probability": 0.29268807730219715,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.26710647891488337,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9994431129254804,
+      "semantic_relevance": 0.11538461538461539,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-15790",
+      "correctness_probability": 0.18554211881922938,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.10711417096959266,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9969263392312322,
+      "semantic_relevance": 0.21739130434782608,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-15814",
+      "correctness_probability": 0.2176058346594122,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.17693690665630313,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-15819",
+      "correctness_probability": 0.16767649387584257,
+      "confidence": 0.6500000000000001,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.16318316859110515,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.5,
+      "semantic_relevance": 0.06896551724137931,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-15851",
+      "correctness_probability": 0.14769406044550387,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.06753189587452935,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9260923333333333,
+      "semantic_relevance": 0.15625,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-15902",
+      "correctness_probability": 0.4776735968758795,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.5445838526798279,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.886524,
+      "semantic_relevance": 0.15625,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-15996",
+      "correctness_probability": 0.18356632560159172,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.11698828236639039,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.963173850879756,
+      "semantic_relevance": 0.10714285714285714,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-16041",
+      "correctness_probability": 0.592231721981722,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.7094712430426716,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.037037037037037035,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-16046",
+      "correctness_probability": 0.20972769299356753,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.1640361328479536,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.886524,
+      "semantic_relevance": 0.125,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-16139",
+      "correctness_probability": 0.30891268832212493,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.29995939601573407,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9894111111111111,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-16229",
+      "correctness_probability": 0.1065529822988064,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.00954235566496152,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8320666666666667,
+      "semantic_relevance": 0.3333333333333333,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-16255",
+      "correctness_probability": 0.3351631960760999,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.3364447086801427,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.996519,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-16379",
+      "correctness_probability": 0.36187802868630703,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.37232325262065036,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.993999,
+      "semantic_relevance": 0.037037037037037035,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-16400",
+      "correctness_probability": 0.5954102635786913,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.7239398051124163,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.886524,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-16408",
+      "correctness_probability": 0.458745190862639,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.5214217012323414,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-16527",
+      "correctness_probability": 0.1626587772738717,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07905197363910854,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9770701111111111,
+      "semantic_relevance": 0.19230769230769232,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-16595",
+      "correctness_probability": 0.29090688418354155,
+      "confidence": 0.4,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.33343840597648794,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.5,
+      "semantic_relevance": 0.15,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-16816",
+      "correctness_probability": 0.18367081113930286,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.11822344322344322,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9797322441230439,
+      "semantic_relevance": 0.058823529411764705,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-16820",
+      "correctness_probability": 0.1032964024740612,
+      "confidence": 0.6500000000000001,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.05665719833956795,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.5,
+      "semantic_relevance": 0.2727272727272727,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-16873",
+      "correctness_probability": 0.3794285930394431,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.40201856148491877,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.980156,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "django__django-16910",
+      "correctness_probability": 0.21689468523769806,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.17021625163826998,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.886524,
+      "semantic_relevance": 0.18181818181818182,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-17051",
+      "correctness_probability": 0.6559213655172413,
+      "confidence": 0.8500000000000001,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.810384236453202,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.886524,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "django__django-17087",
+      "correctness_probability": 0.20736816400719624,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.15398277627625107,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9663904414323226,
+      "semantic_relevance": 0.058823529411764705,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-18869",
+      "correctness_probability": 0.13404098573286263,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05219982088821645,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9500111111111111,
+      "semantic_relevance": 0.05,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-22711",
+      "correctness_probability": 0.14031208798738093,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05929791934705215,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8769243333333333,
+      "semantic_relevance": 0.2222222222222222,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-22835",
+      "correctness_probability": 0.15408696733961025,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07810400096134797,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8899750000000001,
+      "semantic_relevance": 0.20833333333333334,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23299",
+      "correctness_probability": 0.15141497636709464,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07345696623870662,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.999951,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23314",
+      "correctness_probability": 0.14863781476708457,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07574315409970261,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9228427356395942,
+      "semantic_relevance": 0.06666666666666667,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23476",
+      "correctness_probability": 0.14356990689270566,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.06571044374719856,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9578688198395239,
+      "semantic_relevance": 0.03571428571428571,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23562",
+      "correctness_probability": 0.129557950755625,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.044598993142956345,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.927831,
+      "semantic_relevance": 0.1111111111111111,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23563",
+      "correctness_probability": 0.10935763319779447,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.016668557410059702,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9285093333333333,
+      "semantic_relevance": 0.0967741935483871,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23913",
+      "correctness_probability": 0.13352777333880947,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04404410220956396,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9624528888888889,
+      "semantic_relevance": 0.12903225806451613,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23964",
+      "correctness_probability": 0.22011058054787636,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.1805151150683948,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23987",
+      "correctness_probability": 0.1173455289818967,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.017376681614349774,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9777444444444444,
+      "semantic_relevance": 0.14814814814814814,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-24149",
+      "correctness_probability": 0.3263969159117458,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.3145665427509294,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9884739480962468,
+      "semantic_relevance": 0.14705882352941177,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-24265",
+      "correctness_probability": 0.11986591846444297,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0439408453432929,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.82210775,
+      "semantic_relevance": 0.13793103448275862,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-24334",
+      "correctness_probability": 0.15971453302103678,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.06073061860148109,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9553643333333334,
+      "semantic_relevance": 0.43333333333333335,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-24970",
+      "correctness_probability": 0.13228577423991306,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04620772052588315,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8840190833333333,
+      "semantic_relevance": 0.23076923076923078,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-25079",
+      "correctness_probability": 0.12900375968401775,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.038680767802565054,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9880222222222222,
+      "semantic_relevance": 0.0625,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-25311",
+      "correctness_probability": 0.11267564110989875,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.027288122220490287,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.880184,
+      "semantic_relevance": 0.1111111111111111,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-25332",
+      "correctness_probability": 0.11235674830685352,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.019393189380161106,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9137410833333334,
+      "semantic_relevance": 0.14814814814814814,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-25433",
+      "correctness_probability": 0.09980598784154773,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.005880522313322138,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8631462222222223,
+      "semantic_relevance": 0.1875,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-25442",
+      "correctness_probability": 0.16855921179836553,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.09930659983291562,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9904459191532458,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-25498",
+      "correctness_probability": 0.12800881593656321,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.03692353599403208,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9475493333333334,
+      "semantic_relevance": 0.14814814814814814,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-26011",
+      "correctness_probability": 0.11843388424814193,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.03551600541195974,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8840026666666667,
+      "semantic_relevance": 0.10344827586206896,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-26020",
+      "correctness_probability": 0.24202721082165438,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.2026469170428152,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9874579746311231,
+      "semantic_relevance": 0.02857142857142857,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "mwaskom__seaborn-2848",
+      "correctness_probability": 0.13660792889761814,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04168623996868272,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9708273333333334,
+      "semantic_relevance": 0.20689655172413793,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "mwaskom__seaborn-3010",
+      "correctness_probability": 0.12465157755182604,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.028655167767147285,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9903740455926738,
+      "semantic_relevance": 0.1111111111111111,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "mwaskom__seaborn-3190",
+      "correctness_probability": 0.110577648004138,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.013685274926546344,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.954424,
+      "semantic_relevance": 0.1111111111111111,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "mwaskom__seaborn-3407",
+      "correctness_probability": 0.11734747210946489,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.016133853876185166,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9735812222222222,
+      "semantic_relevance": 0.17391304347826086,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pallets__flask-4045",
+      "correctness_probability": 0.2662341014284756,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.2447595734692509,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.886524,
+      "semantic_relevance": 0.125,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "pallets__flask-4992",
+      "correctness_probability": 0.38431752450421114,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.3925593705147651,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9952596514387557,
+      "semantic_relevance": 0.2,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pallets__flask-5063",
+      "correctness_probability": 0.17900126336746433,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.1147180627471713,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8758750833333334,
+      "semantic_relevance": 0.2222222222222222,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "psf__requests-1963",
+      "correctness_probability": 0.12287661385162665,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.035717837815248954,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8715984166666666,
+      "semantic_relevance": 0.21428571428571427,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "psf__requests-2148",
+      "correctness_probability": 0.15066853040118228,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07181053612031887,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9513799722222223,
+      "semantic_relevance": 0.10526315789473684,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "psf__requests-2317",
+      "correctness_probability": 0.13250732394220846,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.043343653250773995,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9904176666666666,
+      "semantic_relevance": 0.0625,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "psf__requests-2674",
+      "correctness_probability": 0.10281075751103519,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.01746774882528834,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8258333333333334,
+      "semantic_relevance": 0.16,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "psf__requests-3362",
+      "correctness_probability": 0.17380971487122976,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.11244051931411202,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.02702702702702703,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "psf__requests-863",
+      "correctness_probability": 0.11622268197699911,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.015988967520293045,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9967326185565113,
+      "semantic_relevance": 0.10714285714285714,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pydata__xarray-3364",
+      "correctness_probability": 0.10455847715171755,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.02253624116912032,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.80449775,
+      "semantic_relevance": 0.16666666666666666,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pydata__xarray-4094",
+      "correctness_probability": 0.17380347788825096,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0928455398403585,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9547826666666667,
+      "semantic_relevance": 0.26666666666666666,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pydata__xarray-4248",
+      "correctness_probability": 0.10160142656467101,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.009966910946662744,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9105316033057851,
+      "semantic_relevance": 0.07142857142857142,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pydata__xarray-4493",
+      "correctness_probability": 0.12415836127067015,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.03671018276762402,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.951279,
+      "semantic_relevance": 0.06666666666666667,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pydata__xarray-5131",
+      "correctness_probability": 0.11795821268783592,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0322081523246141,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.893519,
+      "semantic_relevance": 0.12121212121212122,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "pylint-dev__pylint-5859",
+      "correctness_probability": 0.12372519971454939,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.032693752280385464,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9761376666666667,
+      "semantic_relevance": 0.06451612903225806,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pylint-dev__pylint-6506",
+      "correctness_probability": 0.1372129933749589,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04427754541658705,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9821871158334796,
+      "semantic_relevance": 0.16,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pylint-dev__pylint-7080",
+      "correctness_probability": 0.10889524588539853,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.021774447972779727,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9365313230445272,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pylint-dev__pylint-7114",
+      "correctness_probability": 0.11816147944766842,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.042018452241257914,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8420310833333333,
+      "semantic_relevance": 0.09090909090909091,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pylint-dev__pylint-7228",
+      "correctness_probability": 0.1265478984640573,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.030043290043290042,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9951759543375429,
+      "semantic_relevance": 0.12,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pylint-dev__pylint-7993",
+      "correctness_probability": 0.1464730357352441,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.061564386454075415,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.925084,
+      "semantic_relevance": 0.21739130434782608,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-11143",
+      "correctness_probability": 0.16068146500519212,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.08509345794392523,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9986604444444445,
+      "semantic_relevance": 0.025,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-11148",
+      "correctness_probability": 0.11848324781392396,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.024287231570911748,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9576790000000001,
+      "semantic_relevance": 0.11428571428571428,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5103",
+      "correctness_probability": 0.11992960419129077,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.034448327416129666,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.81815775,
+      "semantic_relevance": 0.28,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5221",
+      "correctness_probability": 0.1617633977521113,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.09368584202682563,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8618330833333334,
+      "semantic_relevance": 0.2,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5227",
+      "correctness_probability": 0.22963188358757977,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.17526777020447906,
+      "distributional_distance": 2.0,
+      "agent_consensus": 1.0,
+      "semantic_relevance": 0.1388888888888889,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5413",
+      "correctness_probability": 0.14106401721104422,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05464173517184296,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9881480259075414,
+      "semantic_relevance": 0.08,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5495",
+      "correctness_probability": 0.22676518637982915,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.16775474895140136,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.982257510027371,
+      "semantic_relevance": 0.2222222222222222,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5692",
+      "correctness_probability": 0.13790158567960753,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05040480708412397,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9856416666666666,
+      "semantic_relevance": 0.08108108108108109,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-6116",
+      "correctness_probability": 0.10249392331418707,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0102370696741525,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9360383661124583,
+      "semantic_relevance": 0.034482758620689655,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7168",
+      "correctness_probability": 0.1552782594341023,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.08274487599649026,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9090523333333334,
+      "semantic_relevance": 0.12903225806451613,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7220",
+      "correctness_probability": 0.1331848957637527,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04685499394821818,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9371973333333333,
+      "semantic_relevance": 0.13333333333333333,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7373",
+      "correctness_probability": 0.12682052211444028,
+      "confidence": 0.6500000000000001,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.10709810037512632,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.5,
+      "semantic_relevance": 0.037037037037037035,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7432",
+      "correctness_probability": 0.16093771878960184,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.08337394747720894,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9563151111111111,
+      "semantic_relevance": 0.1388888888888889,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7490",
+      "correctness_probability": 0.14358398159731653,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.06191916418664267,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9399056666666666,
+      "semantic_relevance": 0.125,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-8365",
+      "correctness_probability": 0.18673380923073832,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.10752371286935478,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9934599810097788,
+      "semantic_relevance": 0.24242424242424243,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-8906",
+      "correctness_probability": 0.10234414223321209,
+      "confidence": 0.6500000000000001,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.054040018858505734,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.5,
+      "semantic_relevance": 0.2903225806451613,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "pytest-dev__pytest-9359",
+      "correctness_probability": 0.12430414832365612,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.037182926176651594,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9410943333333334,
+      "semantic_relevance": 0.08333333333333333,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-10297",
+      "correctness_probability": 0.15201021266641307,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0692604466663044,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.910279,
+      "semantic_relevance": 0.25,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-10508",
+      "correctness_probability": 0.20648581962185072,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.14454013802440813,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9924711694415895,
+      "semantic_relevance": 0.12121212121212122,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-10949",
+      "correctness_probability": 0.13836546481374468,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05448054538252524,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8471184166666668,
+      "semantic_relevance": 0.3103448275862069,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-11040",
+      "correctness_probability": 0.13777208796894036,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.059168972230761355,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.889464,
+      "semantic_relevance": 0.14814814814814814,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-11281",
+      "correctness_probability": 0.29349482912370495,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.2809888849232652,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.919639,
+      "semantic_relevance": 0.0967741935483871,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-12471",
+      "correctness_probability": 0.1498851633353331,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05502319251986362,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.952975,
+      "semantic_relevance": 0.32142857142857145,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-13142",
+      "correctness_probability": 0.1627941666737907,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07778875042068623,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.928248,
+      "semantic_relevance": 0.3103448275862069,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-13241",
+      "correctness_probability": 0.16477372636101273,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.08897113533868731,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9864777777777778,
+      "semantic_relevance": 0.07692307692307693,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-13439",
+      "correctness_probability": 0.14776503689615383,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05781353375499511,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9929556326765724,
+      "semantic_relevance": 0.16,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-13496",
+      "correctness_probability": 0.13492571619167687,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.06411794786214976,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8036573333333333,
+      "semantic_relevance": 0.1935483870967742,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-13497",
+      "correctness_probability": 0.1592784326245023,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07680316348954873,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.873344,
+      "semantic_relevance": 0.36363636363636365,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-13584",
+      "correctness_probability": 0.15495489259238004,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.06634102767695099,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9942526412760525,
+      "semantic_relevance": 0.18181818181818182,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-13779",
+      "correctness_probability": 0.13759292061785558,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05754712469217463,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9314326666666667,
+      "semantic_relevance": 0.08333333333333333,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-14087",
+      "correctness_probability": 0.1588481783392291,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07446948151389193,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9931213387209733,
+      "semantic_relevance": 0.14814814814814814,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-14092",
+      "correctness_probability": 0.13760721400872516,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05347102001246451,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.941775,
+      "semantic_relevance": 0.12,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-14894",
+      "correctness_probability": 0.14731287580887864,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.056243806711096425,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9794221111111111,
+      "semantic_relevance": 0.2,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-14983",
+      "correctness_probability": 0.1320794938242398,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04069795391040471,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.992431,
+      "semantic_relevance": 0.08695652173913043,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-15512",
+      "correctness_probability": 0.16606576710680485,
+      "confidence": 0.6500000000000001,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.09927734504584598,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.7760610833333333,
+      "semantic_relevance": 0.3793103448275862,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-15535",
+      "correctness_probability": 0.12651371617999743,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.035962285787093075,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.932756,
+      "semantic_relevance": 0.16129032258064516,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-25500",
+      "correctness_probability": 0.14481376749908068,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05306722829538997,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.999744,
+      "semantic_relevance": 0.15384615384615385,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-25570",
+      "correctness_probability": 0.15012691612903226,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05949769585253456,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.939624,
+      "semantic_relevance": 0.2903225806451613,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-25638",
+      "correctness_probability": 0.12991256316146058,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.03364712594494366,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8969290833333333,
+      "semantic_relevance": 0.3333333333333333,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-25747",
+      "correctness_probability": 0.17579699090242207,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.10663271080928127,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9821291686533694,
+      "semantic_relevance": 0.058823529411764705,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-10325",
+      "correctness_probability": 0.14621128498583089,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05276922773016888,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9030730833333334,
+      "semantic_relevance": 0.3793103448275862,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-10451",
+      "correctness_probability": 0.15995017768179154,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.090780375043252,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8958573333333333,
+      "semantic_relevance": 0.13636363636363635,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-11445",
+      "correctness_probability": 0.13055458510100457,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0413915528810191,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9813222222222222,
+      "semantic_relevance": 0.06896551724137931,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-7686",
+      "correctness_probability": 0.1552794596589392,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07894021447875668,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.904975,
+      "semantic_relevance": 0.19047619047619047,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-7738",
+      "correctness_probability": 0.19808828630196645,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.14140588519328542,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9441666666666666,
+      "semantic_relevance": 0.09375,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-7975",
+      "correctness_probability": 0.1358430728572828,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04892084034556883,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9198310000000001,
+      "semantic_relevance": 0.19230769230769232,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8273",
+      "correctness_probability": 0.15270674380001883,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.08096977685716975,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9186123333333334,
+      "semantic_relevance": 0.08333333333333333,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8282",
+      "correctness_probability": 0.11166617419592184,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.02702401441908248,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8698013333333334,
+      "semantic_relevance": 0.11538461538461539,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8435",
+      "correctness_probability": 0.13898659919067685,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.06038935288109115,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.880184,
+      "semantic_relevance": 0.17391304347826086,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8474",
+      "correctness_probability": 0.0982587785666782,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.016774190925684274,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8285830833333334,
+      "semantic_relevance": 0.07317073170731707,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8506",
+      "correctness_probability": 0.13987381733531082,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05708287132557628,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.925084,
+      "semantic_relevance": 0.14814814814814814,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8595",
+      "correctness_probability": 0.12791528324893453,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04852064273657313,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9395083333333334,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8627",
+      "correctness_probability": 0.1280967985178156,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.035379562965769856,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9597816326530613,
+      "semantic_relevance": 0.14705882352941177,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8713",
+      "correctness_probability": 0.210747958974359,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.1367948717948718,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9960693333333334,
+      "semantic_relevance": 0.3076923076923077,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8721",
+      "correctness_probability": 0.12705135191619651,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05056169687661771,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8588893333333334,
+      "semantic_relevance": 0.11538461538461539,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8801",
+      "correctness_probability": 0.12626732128356372,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.032009351833662464,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9344410833333333,
+      "semantic_relevance": 0.20833333333333334,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-11400",
+      "correctness_probability": 0.13114238615629775,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04934529461742217,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9660067992410223,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-11870",
+      "correctness_probability": 0.11904013110592354,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04929175872274793,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.845359,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-11897",
+      "correctness_probability": 0.11004290286944046,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.03217987804878049,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.860464,
+      "semantic_relevance": 0.029411764705882353,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-12171",
+      "correctness_probability": 0.16984722808868788,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.08775956284153005,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9979484444444444,
+      "semantic_relevance": 0.1724137931034483,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-12236",
+      "correctness_probability": 0.09729055418068636,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.017092662476474105,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8044764166666667,
+      "semantic_relevance": 0.0975609756097561,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-12419",
+      "correctness_probability": 0.16671582686872377,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.08785083430225843,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.998631,
+      "semantic_relevance": 0.10714285714285714,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-12454",
+      "correctness_probability": 0.20140669794430546,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.13594057931662712,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9513718131155536,
+      "semantic_relevance": 0.2222222222222222,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-12481",
+      "correctness_probability": 0.14098716837501923,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04409385622560745,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9665993055555555,
+      "semantic_relevance": 0.2692307692307692,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-13031",
+      "correctness_probability": 0.14663349118489283,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.06361187918188149,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9301426666666667,
+      "semantic_relevance": 0.18181818181818182,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-13043",
+      "correctness_probability": 0.15966046464509911,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07329827602361098,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.994231,
+      "semantic_relevance": 0.17857142857142858,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-13146",
+      "correctness_probability": 0.11911555480206927,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.02348238384422595,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.91566775,
+      "semantic_relevance": 0.2222222222222222,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-13177",
+      "correctness_probability": 0.14592967102062404,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.054893244315177156,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.875044,
+      "semantic_relevance": 0.4,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-13437",
+      "correctness_probability": 0.15001050577490443,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.08520126221811744,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8568212222222222,
+      "semantic_relevance": 0.09375,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "sympy__sympy-13471",
+      "correctness_probability": 0.15483562859919828,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07556009139045597,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.95882958565273,
+      "semantic_relevance": 0.12121212121212122,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-13480",
+      "correctness_probability": 0.14114333872707657,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0557404838958237,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.99,
+      "semantic_relevance": 0.0625,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-13647",
+      "correctness_probability": 0.1253474936764257,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.03713892473118279,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9310024636459773,
+      "semantic_relevance": 0.125,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-13773",
+      "correctness_probability": 0.14185793375274364,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04765376755224471,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9850029646617232,
+      "semantic_relevance": 0.2,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-13895",
+      "correctness_probability": 0.12157231159708178,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04374858119311004,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.861864,
+      "semantic_relevance": 0.09523809523809523,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-13915",
+      "correctness_probability": 0.12286716618389944,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04087841387615884,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.913111,
+      "semantic_relevance": 0.058823529411764705,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-13971",
+      "correctness_probability": 0.1943111358144868,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.13179243211593356,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.987231,
+      "semantic_relevance": 0.06666666666666667,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-14024",
+      "correctness_probability": 0.11110817542616358,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.02946349905601007,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.861359,
+      "semantic_relevance": 0.08695652173913043,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-14308",
+      "correctness_probability": 0.13452785686413413,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.03208681288428008,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9147885255102041,
+      "semantic_relevance": 0.4117647058823529,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-14317",
+      "correctness_probability": 0.1506663910924997,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.06611395034751355,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.981366258492402,
+      "semantic_relevance": 0.125,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-14396",
+      "correctness_probability": 0.13815419094167825,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.06408944570615688,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9066,
+      "semantic_relevance": 0.05263157894736842,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-14774",
+      "correctness_probability": 0.1450885275519422,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05790424570912375,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.99,
+      "semantic_relevance": 0.1111111111111111,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-14817",
+      "correctness_probability": 0.13807364071204425,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05478282049200292,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.978025894445653,
+      "semantic_relevance": 0.038461538461538464,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-15011",
+      "correctness_probability": 0.1176375963387382,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04081744062216056,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.82613775,
+      "semantic_relevance": 0.12903225806451613,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-15308",
+      "correctness_probability": 0.13965043381258407,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04330203243067566,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.982279,
+      "semantic_relevance": 0.2222222222222222,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-15345",
+      "correctness_probability": 0.11851841620410619,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.024429880291580282,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9808416666666666,
+      "semantic_relevance": 0.06666666666666667,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-15346",
+      "correctness_probability": 0.10901815413765743,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.015768955828837375,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9108333333333333,
+      "semantic_relevance": 0.13793103448275862,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "sympy__sympy-15609",
+      "correctness_probability": 0.13863215460263006,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05733888752756677,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9849493333333333,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-15678",
+      "correctness_probability": 0.14594166910926548,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.06588538444180782,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.935719,
+      "semantic_relevance": 0.125,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-16106",
+      "correctness_probability": 0.15152289100024893,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.069615795333197,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9761942047390756,
+      "semantic_relevance": 0.10344827586206896,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-16281",
+      "correctness_probability": 0.13674364981369913,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.06361548218999623,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8958123333333333,
+      "semantic_relevance": 0.05263157894736842,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-16503",
+      "correctness_probability": 0.17400569083493264,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.10741581230387201,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8631462222222223,
+      "semantic_relevance": 0.25,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "sympy__sympy-16792",
+      "correctness_probability": 0.14811868173772064,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05913772387301277,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9982572330247373,
+      "semantic_relevance": 0.13793103448275862,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-16988",
+      "correctness_probability": 0.14136691957847217,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04941119555166353,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.99086775,
+      "semantic_relevance": 0.15384615384615385,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-17022",
+      "correctness_probability": 0.13385488896645845,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04730329468139956,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.961971281440242,
+      "semantic_relevance": 0.09090909090909091,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-17139",
+      "correctness_probability": 0.13399685733142597,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04758251047346567,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.944391,
+      "semantic_relevance": 0.125,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-17630",
+      "correctness_probability": 0.1100587811899074,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.013164675509391535,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8884350833333333,
+      "semantic_relevance": 0.24,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-17655",
+      "correctness_probability": 0.160822855372327,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07966407576163674,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9979484444444444,
+      "semantic_relevance": 0.10526315789473684,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-18057",
+      "correctness_probability": 0.12965054925985703,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.027380618633772544,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.942679,
+      "semantic_relevance": 0.32432432432432434,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-18087",
+      "correctness_probability": 0.13119312582700693,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.047894449594136856,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9766701111111111,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-18189",
+      "correctness_probability": 0.7557668855534709,
+      "confidence": 0.8500000000000001,
+      "assessment_label": "LIKELY_CORRECT",
+      "similarity_to_dev_patch": 0.9457384079335299,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "sympy__sympy-18199",
+      "correctness_probability": 0.17581692991444733,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0986022552497546,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9315898760325548,
+      "semantic_relevance": 0.2727272727272727,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-18532",
+      "correctness_probability": 0.14163162348552014,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04881115385149491,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.969375,
+      "semantic_relevance": 0.21052631578947367,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-18621",
+      "correctness_probability": 0.7068452850364232,
+      "confidence": 0.7000000000000002,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.9383504071948903,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.5,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "sympy__sympy-18698",
+      "correctness_probability": 0.11532547251593483,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.02252615328363363,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.886876,
+      "semantic_relevance": 0.21739130434782608,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-18835",
+      "correctness_probability": 0.2781436881174124,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.24897841796069742,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9902008586750486,
+      "semantic_relevance": 0.0967741935483871,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-19007",
+      "correctness_probability": 0.1626202286084837,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.09381867578989736,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.913916,
+      "semantic_relevance": 0.1111111111111111,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-19254",
+      "correctness_probability": 0.16702565123922825,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.09370853351635781,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9448523333333333,
+      "semantic_relevance": 0.1388888888888889,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-19487",
+      "correctness_probability": 0.18269205751007228,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.08985316152232545,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9979484444444444,
+      "semantic_relevance": 0.4,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-20049",
+      "correctness_probability": 0.20376859849087553,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.1542155216536317,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8831773333333334,
+      "semantic_relevance": 0.15,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-20154",
+      "correctness_probability": 0.15224755376097468,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.08808362250031712,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8575030833333334,
+      "semantic_relevance": 0.0967741935483871,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-20212",
+      "correctness_probability": 0.1516920613880743,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0913326816552623,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8453337777777779,
+      "semantic_relevance": 0.06451612903225806,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-20322",
+      "correctness_probability": 0.13960720175316083,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05357586549532581,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8631462222222223,
+      "semantic_relevance": 0.3157894736842105,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "sympy__sympy-20442",
+      "correctness_probability": 0.1591093886855033,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0950687177299907,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8667893333333333,
+      "semantic_relevance": 0.11764705882352941,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-20590",
+      "correctness_probability": 0.1764841276803119,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.11124756335282651,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9861083333333334,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-20639",
+      "correctness_probability": 0.13923622905949815,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.06370332722785449,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.926439,
+      "semantic_relevance": 0.04,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-21055",
+      "correctness_probability": 0.1535134800170678,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.07978983772279861,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9289868884920399,
+      "semantic_relevance": 0.09523809523809523,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-21171",
+      "correctness_probability": 0.3784264279909065,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.3988836114155807,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.992079,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-21379",
+      "correctness_probability": 0.20688250528330665,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.1680885585679891,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.849348,
+      "semantic_relevance": 0.08571428571428572,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-21612",
+      "correctness_probability": 0.46799085937857504,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.5346297991122501,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.0,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "sympy__sympy-21614",
+      "correctness_probability": 0.12158836198500296,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.021580828809744473,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.996636,
+      "semantic_relevance": 0.13636363636363635,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-21627",
+      "correctness_probability": 0.12170185530309825,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04192010497845204,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.855396,
+      "semantic_relevance": 0.13636363636363635,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-21847",
+      "correctness_probability": 0.13170541664130372,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.015586686614723998,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9964088985715077,
+      "semantic_relevance": 0.4230769230769231,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-22005",
+      "correctness_probability": 0.35961941118563195,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.35518290267898167,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9375,
+      "semantic_relevance": 0.3448275862068966,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "sympy__sympy-22714",
+      "correctness_probability": 0.14133709209838743,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.05293877841245763,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9892280435252422,
+      "semantic_relevance": 0.10714285714285714,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-22840",
+      "correctness_probability": 0.15916797137238167,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.0951476416430849,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8631462222222223,
+      "semantic_relevance": 0.125,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": NaN
+    },
+    {
+      "instance_id": "sympy__sympy-23117",
+      "correctness_probability": 0.19255688178749725,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.1309963695038322,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.989363462117378,
+      "semantic_relevance": 0.038461538461538464,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-23191",
+      "correctness_probability": 0.11923617077539453,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.04298351607369284,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.8629056666666667,
+      "semantic_relevance": 0.05714285714285714,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-23262",
+      "correctness_probability": 0.12399130104008245,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.027142536274201517,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9573226638888213,
+      "semantic_relevance": 0.18518518518518517,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-24066",
+      "correctness_probability": 0.12250230069921564,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.03312709623697472,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9131333333333334,
+      "semantic_relevance": 0.16,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-24102",
+      "correctness_probability": 0.12988396885030098,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.028468694996228314,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9525,
+      "semantic_relevance": 0.29411764705882354,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-24152",
+      "correctness_probability": 0.32100937534929713,
+      "confidence": 0.55,
+      "assessment_label": "UNCERTAIN",
+      "similarity_to_dev_patch": 0.3134231520407826,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9988903098971486,
+      "semantic_relevance": 0.034482758620689655,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-24213",
+      "correctness_probability": 0.20696575940877335,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.1522967313500075,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.9383630833333334,
+      "semantic_relevance": 0.13043478260869565,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    },
+    {
+      "instance_id": "sympy__sympy-24909",
+      "correctness_probability": 0.1723351850772681,
+      "confidence": 0.8,
+      "assessment_label": "LIKELY_BUGGY",
+      "similarity_to_dev_patch": 0.11230633162298806,
+      "distributional_distance": 2.0,
+      "agent_consensus": 0.878384,
+      "semantic_relevance": 0.11764705882352941,
+      "signals_used": [
+        "code_similarity",
+        "distributional_conformity",
+        "agent_consensus",
+        "semantic_relevance"
+      ],
+      "p_value": 0.0
+    }
+  ]
+}

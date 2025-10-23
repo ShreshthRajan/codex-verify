@@ -1,0 +1,42 @@
+{
+  "confusion_matrix": {
+    "TP": 179,
+    "TN": 0,
+    "FP": 1,
+    "FN": 62,
+    "total": 242
+  },
+  "metrics": {
+    "accuracy": 0.7396694214876033,
+    "true_positive_rate": 0.7427385892116183,
+    "false_positive_rate": 1.0,
+    "precision": 0.9944444444444445,
+    "f1_score": 0.8503562945368172
+  },
+  "confidence_intervals": {
+    "accuracy": [
+      0.15269839480142242,
+      0.17236340662835617
+    ],
+    "tpr": [
+      1.0,
+      1.0
+    ],
+    "fpr": [
+      0.0,
+      0.0
+    ]
+  },
+  "sample_statistics": {
+    "total_samples": 300,
+    "high_confidence_samples": 246,
+    "likely_correct": 1,
+    "likely_buggy": 241,
+    "uncertain": 58
+  },
+  "distributional_statistics": {
+    "avg_similarity_to_dev": 0.13356045888151538,
+    "avg_dist_distance": 2.0,
+    "avg_agent_consensus": 0.92126208729883
+  }
+}

@@ -291,7 +291,9 @@ class ClaudePatchGenerator:
                 'repo': repo,
                 'problem_statement': problem,
                 'claude_generated': True,
-                'model': self.model
+                'model': self.model,
+                'swe_bench_sample': True,  # CRITICAL: Triggers patch_context mode for appropriate thresholds
+                'github_issue': True  # Additional signal for patch evaluation
             }
 
             eval_results = await self.evaluate_patch(claude_patch, context)

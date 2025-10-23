@@ -1,0 +1,980 @@
+{
+  "total_samples": 97,
+  "accuracy": 0.24742268041237114,
+  "true_positive_rate": 0.2638888888888889,
+  "true_negative_rate": 0.2,
+  "false_positive_rate": 0.8,
+  "execution_time": 1.9825122356414795,
+  "detailed_results": [
+    {
+      "problem_id": "django_forms_001",
+      "should_reject": true,
+      "our_verdict": "PASS",
+      "our_score": 0.8,
+      "correct_detection": false,
+      "issues_found": 6,
+      "critical_issues": 0,
+      "high_issues": 1
+    },
+    {
+      "problem_id": "numpy_array_001",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "async_deadlock_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 14,
+      "critical_issues": 0,
+      "high_issues": 5
+    },
+    {
+      "problem_id": "serialization_bomb_001",
+      "should_reject": true,
+      "our_verdict": "ERROR",
+      "our_score": 0.0,
+      "correct_detection": false,
+      "issues_found": 1,
+      "critical_issues": 1,
+      "high_issues": 0
+    },
+    {
+      "problem_id": "integer_overflow_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 17,
+      "critical_issues": 0,
+      "high_issues": 4
+    },
+    {
+      "problem_id": "logging_injection_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 25,
+      "critical_issues": 0,
+      "high_issues": 8
+    },
+    {
+      "problem_id": "good_code_001",
+      "should_reject": false,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": true,
+      "issues_found": 9,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "good_code_002",
+      "should_reject": false,
+      "our_verdict": "PASS",
+      "our_score": 0.8,
+      "correct_detection": true,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 1
+    },
+    {
+      "problem_id": "good_code_003",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 14,
+      "critical_issues": 0,
+      "high_issues": 4
+    },
+    {
+      "problem_id": "good_code_004",
+      "should_reject": false,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": true,
+      "issues_found": 15,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "good_code_005",
+      "should_reject": false,
+      "our_verdict": "WARNING",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 13,
+      "critical_issues": 0,
+      "high_issues": 4
+    },
+    {
+      "problem_id": "data_processing_001",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "search_algorithm_001",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 10,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "caching_strategy_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 18,
+      "critical_issues": 0,
+      "high_issues": 5
+    },
+    {
+      "problem_id": "file_upload_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 17,
+      "critical_issues": 0,
+      "high_issues": 8
+    },
+    {
+      "problem_id": "database_connection_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 17,
+      "critical_issues": 0,
+      "high_issues": 4
+    },
+    {
+      "problem_id": "memory_leak_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 14,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "api_endpoint_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 14,
+      "critical_issues": 0,
+      "high_issues": 6
+    },
+    {
+      "problem_id": "file_upload_security_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 17,
+      "critical_issues": 0,
+      "high_issues": 6
+    },
+    {
+      "problem_id": "command_injection_001",
+      "should_reject": true,
+      "our_verdict": "ERROR",
+      "our_score": 0.0,
+      "correct_detection": false,
+      "issues_found": 1,
+      "critical_issues": 1,
+      "high_issues": 0
+    },
+    {
+      "problem_id": "data_analysis_001",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 12,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "graph_analysis_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 10,
+      "critical_issues": 0,
+      "high_issues": 5
+    },
+    {
+      "problem_id": "recursive_explosion_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 14,
+      "critical_issues": 0,
+      "high_issues": 4
+    },
+    {
+      "problem_id": "event_system_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 12,
+      "critical_issues": 0,
+      "high_issues": 4
+    },
+    {
+      "problem_id": "financial_calculation_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 11,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "timezone_conversion_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "payment_integration_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 11,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "regex_catastrophic_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 10,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "state_mutation_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 13,
+      "critical_issues": 0,
+      "high_issues": 4
+    },
+    {
+      "problem_id": "good_code_006",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 12,
+      "critical_issues": 0,
+      "high_issues": 4
+    },
+    {
+      "problem_id": "good_code_007",
+      "should_reject": false,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": true,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "good_code_008",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_009",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_010",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_011",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_012",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_013",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_014",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_015",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_016",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_017",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_018",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_019",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_020",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_021",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_022",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_023",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_024",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "good_code_025",
+      "should_reject": false,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": false,
+      "issues_found": 8,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "sql_injection_002",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.4,
+      "correct_detection": true,
+      "issues_found": 10,
+      "critical_issues": 0,
+      "high_issues": 3
+    },
+    {
+      "problem_id": "off_by_one_001",
+      "should_reject": true,
+      "our_verdict": "FAIL",
+      "our_score": 0.6,
+      "correct_detection": true,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_003",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_004",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_005",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_006",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_007",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_008",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_009",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_010",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_011",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_012",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_013",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_014",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_015",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_016",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_017",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_018",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_019",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_020",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_021",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_022",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_023",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_024",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_025",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_026",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_027",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_028",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_029",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_030",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_031",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_032",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_033",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_034",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_035",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_036",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_037",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_038",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_039",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_040",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_041",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_042",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_043",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_044",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_045",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_046",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_047",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    },
+    {
+      "problem_id": "bad_code_048",
+      "should_reject": true,
+      "our_verdict": "WARNING",
+      "our_score": 0.6,
+      "correct_detection": false,
+      "issues_found": 7,
+      "critical_issues": 0,
+      "high_issues": 2
+    }
+  ]
+}

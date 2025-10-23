@@ -102,17 +102,17 @@
       "our_verdict": "WARNING",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.022295236587524414,
+      "execution_time": 0.020489931106567383,
       "issues_found": 6,
       "critical_issues": 0,
       "high_issues": 1,
       "medium_issues": 2,
       "actual_issue": "Treats empty string '' same as None, but '' should be preserved for text fields",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.986,
-        "security": 1.0,
-        "correctness": 0.8366666666666667
+        "correctness": 0.8366666666666667,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -167,17 +167,17 @@
       "our_verdict": "WARNING",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.018631935119628906,
+      "execution_time": 0.018597841262817383,
       "issues_found": 8,
       "critical_issues": 0,
       "high_issues": 2,
       "medium_issues": 1,
       "actual_issue": "Negative indices crash instead of counting from end like standard Python",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.768,
-        "security": 1.0,
-        "correctness": 0.8066666666666665
+        "correctness": 0.8066666666666665,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -246,17 +246,17 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.017007112503051758,
+      "execution_time": 0.020659923553466797,
       "issues_found": 14,
       "critical_issues": 0,
       "high_issues": 5,
       "medium_issues": 4,
       "actual_issue": "Async coordination failures: deadlock potential, race conditions, no error recovery",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.548,
-        "security": 1.0,
-        "correctness": 0.58
+        "correctness": 0.58,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -295,13 +295,6 @@
           "confidence": 1.0
         },
         {
-          "type": "loop_nesting",
-          "severity": "medium",
-          "message": "Deep loop nesting: 3 levels",
-          "suggestion": "Consider reducing nesting levels",
-          "confidence": 1.0
-        },
-        {
           "type": "docstring_coverage",
           "severity": "medium",
           "message": "Low docstring coverage: 0.0%",
@@ -320,6 +313,13 @@
           "severity": "medium",
           "message": "Code contains potentially dangerous operations - skipping execution",
           "suggestion": "Manual review recommended for code with system operations",
+          "confidence": 1.0
+        },
+        {
+          "type": "loop_nesting",
+          "severity": "medium",
+          "message": "Deep loop nesting: 3 levels",
+          "suggestion": "Consider reducing nesting levels",
           "confidence": 1.0
         },
         {
@@ -367,7 +367,7 @@
       "our_verdict": "ERROR",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.043081045150756836,
+      "execution_time": 0.03998589515686035,
       "issues_found": 1,
       "critical_issues": 1,
       "high_issues": 0,
@@ -392,17 +392,17 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.026609182357788086,
+      "execution_time": 0.022443771362304688,
       "issues_found": 17,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 10,
       "actual_issue": "Integer overflow vulnerabilities: silent truncation, wrong calculations, no bounds checking",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.8140000000000001,
-        "security": 1.0,
-        "correctness": 0.4
+        "correctness": 0.4,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -534,17 +534,17 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.018776893615722656,
+      "execution_time": 0.0194089412689209,
       "issues_found": 25,
       "critical_issues": 0,
       "high_issues": 8,
       "medium_issues": 12,
       "actual_issue": "Logging security failures: injection attacks, sensitive data exposure, unbounded growth",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.532,
-        "security": 0.75,
-        "correctness": 0.4
+        "correctness": 0.4,
+        "performance": 1.0,
+        "security": 0.75
       },
       "detailed_issues": [
         {
@@ -576,13 +576,6 @@
           "confidence": 1.0
         },
         {
-          "type": "crypto_compliance_failure",
-          "severity": "high",
-          "message": "Cryptographic compliance failure: Weak cryptographic algorithms detected",
-          "suggestion": "Use enterprise-approved cryptographic algorithms",
-          "confidence": 1.0
-        },
-        {
           "type": "exception_coverage",
           "severity": "high",
           "message": "Low exception handling coverage: 14.3%",
@@ -601,6 +594,13 @@
           "severity": "high",
           "message": "Low production readiness: 66.7%",
           "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "crypto_compliance_failure",
+          "severity": "high",
+          "message": "Cryptographic compliance failure: Weak cryptographic algorithms detected",
+          "suggestion": "Use enterprise-approved cryptographic algorithms",
           "confidence": 1.0
         },
         {
@@ -732,17 +732,17 @@
       "our_verdict": "WARNING",
       "should_reject": false,
       "correct_detection": true,
-      "execution_time": 0.023733139038085938,
+      "execution_time": 0.02290201187133789,
       "issues_found": 9,
       "critical_issues": 0,
       "high_issues": 2,
       "medium_issues": 1,
       "actual_issue": "None - this is good code",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.902794114959675,
-        "security": 1.0,
-        "correctness": 0.55
+        "correctness": 0.55,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -818,17 +818,17 @@
       "our_verdict": "WARNING",
       "should_reject": false,
       "correct_detection": true,
-      "execution_time": 0.018543004989624023,
+      "execution_time": 0.017876148223876953,
       "issues_found": 7,
       "critical_issues": 0,
       "high_issues": 1,
       "medium_issues": 2,
       "actual_issue": "None - this is good code",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.974,
-        "security": 1.0,
-        "correctness": 0.9633333333333334
+        "correctness": 0.9633333333333334,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -890,17 +890,17 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.007560014724731445,
+      "execution_time": 0.007608890533447266,
       "issues_found": 14,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 6,
       "actual_issue": "None - this is good code with proper cleanup",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.9408488991632442,
-        "security": 0.7999999999999999,
-        "correctness": 0.4999999999999999
+        "correctness": 0.4999999999999999,
+        "performance": 1.0,
+        "security": 0.7999999999999999
       },
       "detailed_issues": [
         {
@@ -1011,17 +1011,17 @@
       "our_verdict": "WARNING",
       "should_reject": false,
       "correct_detection": true,
-      "execution_time": 0.022362709045410156,
+      "execution_time": 0.020280838012695312,
       "issues_found": 15,
       "critical_issues": 0,
       "high_issues": 2,
       "medium_issues": 8,
       "actual_issue": "None - this is properly thread-safe code",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.89,
-        "security": 1.0,
-        "correctness": 0.5933333333333333
+        "correctness": 0.5933333333333333,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -1139,26 +1139,19 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.015316009521484375,
+      "execution_time": 0.016440868377685547,
       "issues_found": 13,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 3,
       "actual_issue": "None - this is secure code with proper validation",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.6940000000000001,
-        "security": 1.0,
-        "correctness": 0.55
+        "correctness": 0.55,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
-        {
-          "type": "loop_nesting",
-          "severity": "high",
-          "message": "Extreme loop nesting: 5 levels",
-          "suggestion": "Redesign algorithm to reduce nesting complexity",
-          "confidence": 1.0
-        },
         {
           "type": "logic",
           "severity": "high",
@@ -1178,6 +1171,13 @@
           "severity": "high",
           "message": "Potential bug: Missing else clause in critical decision path",
           "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "loop_nesting",
+          "severity": "high",
+          "message": "Extreme loop nesting: 5 levels",
+          "suggestion": "Redesign algorithm to reduce nesting complexity",
           "confidence": 1.0
         },
         {
@@ -1253,17 +1253,17 @@
       "our_verdict": "WARNING",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.022911787033081055,
+      "execution_time": 0.019424915313720703,
       "issues_found": 7,
       "critical_issues": 0,
       "high_issues": 2,
       "medium_issues": 2,
       "actual_issue": "N+1 queries + memory explosion - timeouts/crashes with real user volumes",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.9501995557946045,
-        "security": 1.0,
-        "correctness": 0.7933333333333333
+        "correctness": 0.7933333333333333,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -1325,26 +1325,19 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.026066064834594727,
+      "execution_time": 0.023998022079467773,
       "issues_found": 10,
       "critical_issues": 0,
       "high_issues": 3,
       "medium_issues": 4,
       "actual_issue": "O(n\u00b2) complexity + full table scans + memory explosion = complete failure at scale",
       "agent_scores": {
-        "performance": 0.975,
         "style": 0.8138727472498437,
-        "security": 1.0,
-        "correctness": 0.5533333333333332
+        "correctness": 0.5533333333333332,
+        "performance": 0.975,
+        "security": 1.0
       },
       "detailed_issues": [
-        {
-          "type": "loop_nesting",
-          "severity": "high",
-          "message": "Extreme loop nesting: 4 levels",
-          "suggestion": "Redesign algorithm to reduce nesting complexity",
-          "confidence": 1.0
-        },
         {
           "type": "exception_coverage",
           "severity": "high",
@@ -1357,6 +1350,13 @@
           "severity": "high",
           "message": "Potential bug: Missing else clause in critical decision path",
           "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "loop_nesting",
+          "severity": "high",
+          "message": "Extreme loop nesting: 4 levels",
+          "suggestion": "Redesign algorithm to reduce nesting complexity",
           "confidence": 1.0
         },
         {
@@ -1418,17 +1418,17 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.03254389762878418,
+      "execution_time": 0.04580807685852051,
       "issues_found": 18,
       "critical_issues": 0,
       "high_issues": 5,
       "medium_issues": 7,
       "actual_issue": "Cache management failures: unbounded growth, no LRU, caching errors",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.742,
-        "security": 1.0,
-        "correctness": 0.4
+        "correctness": 0.4,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -1567,26 +1567,19 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.011188030242919922,
+      "execution_time": 0.011358976364135742,
       "issues_found": 17,
       "critical_issues": 0,
       "high_issues": 8,
       "medium_issues": 5,
       "actual_issue": "Resource leaks: temp files + file descriptors accumulate until system failure",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.8768225544120246,
-        "security": 0.75,
-        "correctness": 0.44666666666666655
+        "correctness": 0.44666666666666655,
+        "performance": 1.0,
+        "security": 0.75
       },
       "detailed_issues": [
-        {
-          "type": "resource_leak_risk",
-          "severity": "high",
-          "message": "File opened without context manager",
-          "suggestion": "Use 'with' statement for automatic resource cleanup",
-          "confidence": 1.0
-        },
         {
           "type": "resource_leak_risk",
           "severity": "high",
@@ -1595,24 +1588,17 @@
           "confidence": 1.0
         },
         {
+          "type": "resource_leak_risk",
+          "severity": "high",
+          "message": "File opened without context manager",
+          "suggestion": "Use 'with' statement for automatic resource cleanup",
+          "confidence": 1.0
+        },
+        {
           "type": "dangerous_import",
           "severity": "high",
           "message": "High-risk import: os (risk level: 2)",
           "suggestion": "Review security implications of os usage",
-          "confidence": 1.0
-        },
-        {
-          "type": "loop_nesting",
-          "severity": "high",
-          "message": "Extreme loop nesting: 4 levels",
-          "suggestion": "Redesign algorithm to reduce nesting complexity",
-          "confidence": 1.0
-        },
-        {
-          "type": "crypto_compliance_failure",
-          "severity": "high",
-          "message": "Cryptographic compliance failure: Weak cryptographic algorithms detected",
-          "suggestion": "Use enterprise-approved cryptographic algorithms",
           "confidence": 1.0
         },
         {
@@ -1634,6 +1620,20 @@
           "severity": "high",
           "message": "Low production readiness: 66.7%",
           "suggestion": "Address correctness issues before production deployment",
+          "confidence": 1.0
+        },
+        {
+          "type": "loop_nesting",
+          "severity": "high",
+          "message": "Extreme loop nesting: 4 levels",
+          "suggestion": "Redesign algorithm to reduce nesting complexity",
+          "confidence": 1.0
+        },
+        {
+          "type": "crypto_compliance_failure",
+          "severity": "high",
+          "message": "Cryptographic compliance failure: Weak cryptographic algorithms detected",
+          "suggestion": "Use enterprise-approved cryptographic algorithms",
           "confidence": 1.0
         },
         {
@@ -1709,17 +1709,17 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.030169010162353516,
+      "execution_time": 0.030579328536987305,
       "issues_found": 17,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 7,
       "actual_issue": "Unbounded connection creation + cursor leaks + corrupt connection reuse",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.7929250566953008,
-        "security": 1.0,
-        "correctness": 0.4
+        "correctness": 0.4,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -1851,17 +1851,17 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.024359941482543945,
+      "execution_time": 0.023114919662475586,
       "issues_found": 14,
       "critical_issues": 0,
       "high_issues": 3,
       "medium_issues": 6,
       "actual_issue": "Multiple memory leaks: unbounded lists, temp buffers, no cleanup",
       "agent_scores": {
-        "performance": 0.988,
         "style": 0.786246774933729,
-        "security": 1.0,
-        "correctness": 0.4999999999999999
+        "correctness": 0.4999999999999999,
+        "performance": 0.988,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -1972,17 +1972,17 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.1444089412689209,
+      "execution_time": 0.1570570468902588,
       "issues_found": 14,
       "critical_issues": 0,
       "high_issues": 6,
       "medium_issues": 3,
       "actual_issue": "Multiple security holes: no auth, SQL injection, field injection, XSS",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.740737056068688,
-        "security": 0.44999999999999996,
-        "correctness": 0.55
+        "correctness": 0.55,
+        "performance": 1.0,
+        "security": 0.44999999999999996
       },
       "detailed_issues": [
         {
@@ -1998,13 +1998,6 @@
           "message": "SQL injection via f-string formatting",
           "suggestion": "Use parameterized queries or ORM to prevent SQL injection",
           "confidence": 0.9
-        },
-        {
-          "type": "compliance_failure",
-          "severity": "high",
-          "message": "Enterprise compliance failure: 2 high vulnerabilities exceed limit",
-          "suggestion": "Reduce high-severity vulnerabilities for enterprise compliance",
-          "confidence": 1.0
         },
         {
           "type": "logic",
@@ -2028,6 +2021,13 @@
           "confidence": 1.0
         },
         {
+          "type": "compliance_failure",
+          "severity": "high",
+          "message": "Enterprise compliance failure: 2 high vulnerabilities exceed limit",
+          "suggestion": "Reduce high-severity vulnerabilities for enterprise compliance",
+          "confidence": 1.0
+        },
+        {
           "type": "missing_edge_case",
           "severity": "medium",
           "message": "Function 'update_user' missing None value handling",
@@ -2035,17 +2035,17 @@
           "confidence": 1.0
         },
         {
-          "type": "loop_nesting",
-          "severity": "medium",
-          "message": "Deep loop nesting: 3 levels",
-          "suggestion": "Consider reducing nesting levels",
-          "confidence": 1.0
-        },
-        {
           "type": "halstead_complexity",
           "severity": "medium",
           "message": "Moderate Halstead complexity: 212.9",
           "suggestion": "Consider simplifying complex expressions",
+          "confidence": 1.0
+        },
+        {
+          "type": "loop_nesting",
+          "severity": "medium",
+          "message": "Deep loop nesting: 3 levels",
+          "suggestion": "Consider reducing nesting levels",
           "confidence": 1.0
         },
         {
@@ -2093,17 +2093,17 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.008893966674804688,
+      "execution_time": 0.013365030288696289,
       "issues_found": 17,
       "critical_issues": 0,
       "high_issues": 6,
       "medium_issues": 4,
       "actual_issue": "File upload vulnerabilities: no content validation, path traversal, overwrite",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.7622208726771427,
-        "security": 0.7999999999999999,
-        "correctness": 0.4
+        "correctness": 0.4,
+        "performance": 1.0,
+        "security": 0.7999999999999999
       },
       "detailed_issues": [
         {
@@ -2235,7 +2235,7 @@
       "our_verdict": "ERROR",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.011759281158447266,
+      "execution_time": 0.01341104507446289,
       "issues_found": 1,
       "critical_issues": 1,
       "high_issues": 0,
@@ -2260,17 +2260,17 @@
       "our_verdict": "WARNING",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.035346031188964844,
+      "execution_time": 0.0305330753326416,
       "issues_found": 12,
       "critical_issues": 0,
       "high_issues": 2,
       "medium_issues": 6,
       "actual_issue": "O(n\u00b3) total complexity: O(n\u00b2) pairs \u00d7 O(n) string ops = complete failure at scale",
       "agent_scores": {
-        "performance": 0.988,
         "style": 0.754,
-        "security": 1.0,
-        "correctness": 0.6066666666666666
+        "correctness": 0.6066666666666666,
+        "performance": 0.988,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -2316,17 +2316,17 @@
           "confidence": 1.0
         },
         {
-          "type": "loop_nesting",
-          "severity": "medium",
-          "message": "Deep loop nesting: 3 levels",
-          "suggestion": "Consider reducing nesting levels",
-          "confidence": 1.0
-        },
-        {
           "type": "halstead_complexity",
           "severity": "medium",
           "message": "Moderate Halstead complexity: 325.2",
           "suggestion": "Consider simplifying complex expressions",
+          "confidence": 1.0
+        },
+        {
+          "type": "loop_nesting",
+          "severity": "medium",
+          "message": "Deep loop nesting: 3 levels",
+          "suggestion": "Consider reducing nesting levels",
           "confidence": 1.0
         },
         {
@@ -2367,26 +2367,19 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.023834943771362305,
+      "execution_time": 0.021505117416381836,
       "issues_found": 10,
       "critical_issues": 0,
       "high_issues": 5,
       "medium_issues": 2,
       "actual_issue": "O(n! \u00d7 n\u00b2) complexity: exponential path finding for every pair of nodes",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.9437364125900708,
-        "security": 0.7999999999999999,
-        "correctness": 0.55
+        "correctness": 0.55,
+        "performance": 1.0,
+        "security": 0.7999999999999999
       },
       "detailed_issues": [
-        {
-          "type": "crypto_compliance_failure",
-          "severity": "high",
-          "message": "Cryptographic compliance failure: Weak cryptographic algorithms detected",
-          "suggestion": "Use enterprise-approved cryptographic algorithms",
-          "confidence": 1.0
-        },
         {
           "type": "logic",
           "severity": "high",
@@ -2413,6 +2406,13 @@
           "severity": "high",
           "message": "Potential bug: Missing else clause in critical decision path",
           "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "crypto_compliance_failure",
+          "severity": "high",
+          "message": "Cryptographic compliance failure: Weak cryptographic algorithms detected",
+          "suggestion": "Use enterprise-approved cryptographic algorithms",
           "confidence": 1.0
         },
         {
@@ -2460,17 +2460,17 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.031042098999023438,
+      "execution_time": 0.02767491340637207,
       "issues_found": 14,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 8,
       "actual_issue": "Exponential recursion: mutable defaults, repeated calculations, no memoization",
       "agent_scores": {
-        "performance": 0.988,
         "style": 0.946,
-        "security": 1.0,
-        "correctness": 0.4
+        "correctness": 0.4,
+        "performance": 0.988,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -2544,17 +2544,17 @@
           "confidence": 1.0
         },
         {
-          "type": "loop_nesting",
-          "severity": "medium",
-          "message": "Deep loop nesting: 3 levels",
-          "suggestion": "Consider reducing nesting levels",
-          "confidence": 1.0
-        },
-        {
           "type": "edge_case_coverage",
           "severity": "medium",
           "message": "Moderate edge case coverage: 75.0%",
           "suggestion": "Consider additional edge case handling",
+          "confidence": 1.0
+        },
+        {
+          "type": "loop_nesting",
+          "severity": "medium",
+          "message": "Deep loop nesting: 3 levels",
+          "suggestion": "Consider reducing nesting levels",
           "confidence": 1.0
         },
         {
@@ -2581,17 +2581,17 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.023561954498291016,
+      "execution_time": 0.020696163177490234,
       "issues_found": 12,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 3,
       "actual_issue": "Multiple memory leaks: unbounded event history, unreferenced callbacks, zombie subscriptions",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.8075653834603259,
-        "security": 1.0,
-        "correctness": 0.5133333333333332
+        "correctness": 0.5133333333333332,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -2688,17 +2688,17 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.02179098129272461,
+      "execution_time": 0.020915985107421875,
       "issues_found": 11,
       "critical_issues": 0,
       "high_issues": 3,
       "medium_issues": 4,
       "actual_issue": "Financial precision errors: wrong rounding, accumulated floating point errors",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.9401109187650312,
-        "security": 1.0,
-        "correctness": 0.6466666666666666
+        "correctness": 0.6466666666666666,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -2788,17 +2788,17 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.020405054092407227,
+      "execution_time": 0.020761966705322266,
       "issues_found": 8,
       "critical_issues": 0,
       "high_issues": 3,
       "medium_issues": 1,
       "actual_issue": "Timezone logic errors: no DST handling, wrong historical conversions, event skipping",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.9453759936932487,
-        "security": 1.0,
-        "correctness": 0.8166666666666668
+        "correctness": 0.8166666666666668,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -2867,17 +2867,17 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.09420895576477051,
+      "execution_time": 0.09346580505371094,
       "issues_found": 11,
       "critical_issues": 0,
       "high_issues": 3,
       "medium_issues": 3,
       "actual_issue": "Payment integration failures: no idempotency, exposed credentials, no atomicity",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.6886511966320437,
-        "security": 1.0,
-        "correctness": 0.6999999999999998
+        "correctness": 0.6999999999999998,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -2967,17 +2967,17 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.024064064025878906,
+      "execution_time": 0.022074222564697266,
       "issues_found": 10,
       "critical_issues": 0,
       "high_issues": 3,
       "medium_issues": 4,
       "actual_issue": "Regex ReDoS vulnerabilities: catastrophic backtracking patterns cause hanging",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.9417264907210484,
-        "security": 1.0,
-        "correctness": 0.6066666666666666
+        "correctness": 0.6066666666666666,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -3060,17 +3060,17 @@
       "our_verdict": "FAIL",
       "should_reject": true,
       "correct_detection": true,
-      "execution_time": 0.02945399284362793,
+      "execution_time": 0.026141881942749023,
       "issues_found": 13,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 5,
       "actual_issue": "State mutation bugs: mutable references, uncontrolled mutations, memory leaks",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.802,
-        "security": 1.0,
-        "correctness": 0.4
+        "correctness": 0.4,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -3174,17 +3174,17 @@
       "our_verdict": "WARNING",
       "should_reject": false,
       "correct_detection": true,
-      "execution_time": 4.124641418457031e-05,
+      "execution_time": 4.673004150390625e-05,
       "issues_found": 9,
       "critical_issues": 0,
       "high_issues": 2,
       "medium_issues": 1,
       "actual_issue": "None - this is good code",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.902794114959675,
-        "security": 1.0,
-        "correctness": 0.55
+        "correctness": 0.55,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -3260,17 +3260,17 @@
       "our_verdict": "WARNING",
       "should_reject": false,
       "correct_detection": true,
-      "execution_time": 1.3113021850585938e-05,
+      "execution_time": 1.2636184692382812e-05,
       "issues_found": 7,
       "critical_issues": 0,
       "high_issues": 1,
       "medium_issues": 2,
       "actual_issue": "None - this is good code",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.974,
-        "security": 1.0,
-        "correctness": 0.9633333333333334
+        "correctness": 0.9633333333333334,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -3332,17 +3332,17 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 1.5020370483398438e-05,
+      "execution_time": 1.2159347534179688e-05,
       "issues_found": 14,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 6,
       "actual_issue": "None - this is good code with proper cleanup",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.9408488991632442,
-        "security": 0.7999999999999999,
-        "correctness": 0.4999999999999999
+        "correctness": 0.4999999999999999,
+        "performance": 1.0,
+        "security": 0.7999999999999999
       },
       "detailed_issues": [
         {
@@ -3453,17 +3453,17 @@
       "our_verdict": "WARNING",
       "should_reject": false,
       "correct_detection": true,
-      "execution_time": 1.1205673217773438e-05,
+      "execution_time": 1.0013580322265625e-05,
       "issues_found": 15,
       "critical_issues": 0,
       "high_issues": 2,
       "medium_issues": 8,
       "actual_issue": "None - this is properly thread-safe code",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.89,
-        "security": 1.0,
-        "correctness": 0.5933333333333333
+        "correctness": 0.5933333333333333,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -3581,26 +3581,19 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.015580177307128906,
+      "execution_time": 0.016731977462768555,
       "issues_found": 13,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 3,
       "actual_issue": "None - this is secure code with proper validation",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.6940000000000001,
-        "security": 1.0,
-        "correctness": 0.55
+        "correctness": 0.55,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
-        {
-          "type": "loop_nesting",
-          "severity": "high",
-          "message": "Extreme loop nesting: 5 levels",
-          "suggestion": "Redesign algorithm to reduce nesting complexity",
-          "confidence": 1.0
-        },
         {
           "type": "logic",
           "severity": "high",
@@ -3620,6 +3613,13 @@
           "severity": "high",
           "message": "Potential bug: Missing else clause in critical decision path",
           "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "loop_nesting",
+          "severity": "high",
+          "message": "Extreme loop nesting: 5 levels",
+          "suggestion": "Redesign algorithm to reduce nesting complexity",
           "confidence": 1.0
         },
         {
@@ -3697,17 +3697,17 @@
       "our_verdict": "WARNING",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.022295236587524414,
+      "execution_time": 0.020489931106567383,
       "issues_found": 6,
       "critical_issues": 0,
       "high_issues": 1,
       "medium_issues": 2,
       "actual_issue": "Treats empty string '' same as None, but '' should be preserved for text fields",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.986,
-        "security": 1.0,
-        "correctness": 0.8366666666666667
+        "correctness": 0.8366666666666667,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -3762,17 +3762,17 @@
       "our_verdict": "WARNING",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.018631935119628906,
+      "execution_time": 0.018597841262817383,
       "issues_found": 8,
       "critical_issues": 0,
       "high_issues": 2,
       "medium_issues": 1,
       "actual_issue": "Negative indices crash instead of counting from end like standard Python",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.768,
-        "security": 1.0,
-        "correctness": 0.8066666666666665
+        "correctness": 0.8066666666666665,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -3841,7 +3841,7 @@
       "our_verdict": "ERROR",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.043081045150756836,
+      "execution_time": 0.03998589515686035,
       "issues_found": 1,
       "critical_issues": 1,
       "high_issues": 0,
@@ -3866,17 +3866,17 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.007560014724731445,
+      "execution_time": 0.007608890533447266,
       "issues_found": 14,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 6,
       "actual_issue": "None - this is good code with proper cleanup",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.9408488991632442,
-        "security": 0.7999999999999999,
-        "correctness": 0.4999999999999999
+        "correctness": 0.4999999999999999,
+        "performance": 1.0,
+        "security": 0.7999999999999999
       },
       "detailed_issues": [
         {
@@ -3987,26 +3987,19 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.015316009521484375,
+      "execution_time": 0.016440868377685547,
       "issues_found": 13,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 3,
       "actual_issue": "None - this is secure code with proper validation",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.6940000000000001,
-        "security": 1.0,
-        "correctness": 0.55
+        "correctness": 0.55,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
-        {
-          "type": "loop_nesting",
-          "severity": "high",
-          "message": "Extreme loop nesting: 5 levels",
-          "suggestion": "Redesign algorithm to reduce nesting complexity",
-          "confidence": 1.0
-        },
         {
           "type": "logic",
           "severity": "high",
@@ -4026,6 +4019,13 @@
           "severity": "high",
           "message": "Potential bug: Missing else clause in critical decision path",
           "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "loop_nesting",
+          "severity": "high",
+          "message": "Extreme loop nesting: 5 levels",
+          "suggestion": "Redesign algorithm to reduce nesting complexity",
           "confidence": 1.0
         },
         {
@@ -4101,17 +4101,17 @@
       "our_verdict": "WARNING",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.022911787033081055,
+      "execution_time": 0.019424915313720703,
       "issues_found": 7,
       "critical_issues": 0,
       "high_issues": 2,
       "medium_issues": 2,
       "actual_issue": "N+1 queries + memory explosion - timeouts/crashes with real user volumes",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.9501995557946045,
-        "security": 1.0,
-        "correctness": 0.7933333333333333
+        "correctness": 0.7933333333333333,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -4173,7 +4173,7 @@
       "our_verdict": "ERROR",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.011759281158447266,
+      "execution_time": 0.01341104507446289,
       "issues_found": 1,
       "critical_issues": 1,
       "high_issues": 0,
@@ -4198,17 +4198,17 @@
       "our_verdict": "WARNING",
       "should_reject": true,
       "correct_detection": false,
-      "execution_time": 0.035346031188964844,
+      "execution_time": 0.0305330753326416,
       "issues_found": 12,
       "critical_issues": 0,
       "high_issues": 2,
       "medium_issues": 6,
       "actual_issue": "O(n\u00b3) total complexity: O(n\u00b2) pairs \u00d7 O(n) string ops = complete failure at scale",
       "agent_scores": {
-        "performance": 0.988,
         "style": 0.754,
-        "security": 1.0,
-        "correctness": 0.6066666666666666
+        "correctness": 0.6066666666666666,
+        "performance": 0.988,
+        "security": 1.0
       },
       "detailed_issues": [
         {
@@ -4254,17 +4254,17 @@
           "confidence": 1.0
         },
         {
-          "type": "loop_nesting",
-          "severity": "medium",
-          "message": "Deep loop nesting: 3 levels",
-          "suggestion": "Consider reducing nesting levels",
-          "confidence": 1.0
-        },
-        {
           "type": "halstead_complexity",
           "severity": "medium",
           "message": "Moderate Halstead complexity: 325.2",
           "suggestion": "Consider simplifying complex expressions",
+          "confidence": 1.0
+        },
+        {
+          "type": "loop_nesting",
+          "severity": "medium",
+          "message": "Deep loop nesting: 3 levels",
+          "suggestion": "Consider reducing nesting levels",
           "confidence": 1.0
         },
         {
@@ -4305,17 +4305,17 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 1.5020370483398438e-05,
+      "execution_time": 1.2159347534179688e-05,
       "issues_found": 14,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 6,
       "actual_issue": "None - this is good code with proper cleanup",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.9408488991632442,
-        "security": 0.7999999999999999,
-        "correctness": 0.4999999999999999
+        "correctness": 0.4999999999999999,
+        "performance": 1.0,
+        "security": 0.7999999999999999
       },
       "detailed_issues": [
         {
@@ -4426,26 +4426,19 @@
       "our_verdict": "FAIL",
       "should_reject": false,
       "correct_detection": false,
-      "execution_time": 0.015580177307128906,
+      "execution_time": 0.016731977462768555,
       "issues_found": 13,
       "critical_issues": 0,
       "high_issues": 4,
       "medium_issues": 3,
       "actual_issue": "None - this is secure code with proper validation",
       "agent_scores": {
-        "performance": 1.0,
         "style": 0.6940000000000001,
-        "security": 1.0,
-        "correctness": 0.55
+        "correctness": 0.55,
+        "performance": 1.0,
+        "security": 1.0
       },
       "detailed_issues": [
-        {
-          "type": "loop_nesting",
-          "severity": "high",
-          "message": "Extreme loop nesting: 5 levels",
-          "suggestion": "Redesign algorithm to reduce nesting complexity",
-          "confidence": 1.0
-        },
         {
           "type": "logic",
           "severity": "high",
@@ -4465,6 +4458,13 @@
           "severity": "high",
           "message": "Potential bug: Missing else clause in critical decision path",
           "suggestion": "Review and fix potential issue",
+          "confidence": 1.0
+        },
+        {
+          "type": "loop_nesting",
+          "severity": "high",
+          "message": "Extreme loop nesting: 5 levels",
+          "suggestion": "Redesign algorithm to reduce nesting complexity",
           "confidence": 1.0
         },
         {
