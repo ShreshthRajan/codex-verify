@@ -1,0 +1,98 @@
+[
+  {
+    "config_name": "Single-C",
+    "agents_used": [
+      "correctness"
+    ],
+    "agent_count": 1,
+    "accuracy": 0.7586206896551724,
+    "tpr": 0.7916666666666666,
+    "fpr": 0.4,
+    "tnr": 0.6,
+    "correct_detections": 22,
+    "total_samples": 29,
+    "true_positives": 19,
+    "true_negatives": 3,
+    "false_positives": 2,
+    "false_negatives": 5,
+    "execution_time": 0.6604268550872803,
+    "avg_time_per_sample": 0.02277333983059587
+  },
+  {
+    "config_name": "Single-S",
+    "agents_used": [
+      "security"
+    ],
+    "agent_count": 1,
+    "accuracy": 0.20689655172413793,
+    "tpr": 0.041666666666666664,
+    "fpr": 0.0,
+    "tnr": 1.0,
+    "correct_detections": 6,
+    "total_samples": 29,
+    "true_positives": 1,
+    "true_negatives": 5,
+    "false_positives": 0,
+    "false_negatives": 23,
+    "execution_time": 0.04576516151428223,
+    "avg_time_per_sample": 0.0015781090177338698
+  },
+  {
+    "config_name": "Single-P",
+    "agents_used": [
+      "performance"
+    ],
+    "agent_count": 1,
+    "accuracy": 0.1724137931034483,
+    "tpr": 0.0,
+    "fpr": 0.0,
+    "tnr": 1.0,
+    "correct_detections": 5,
+    "total_samples": 29,
+    "true_positives": 0,
+    "true_negatives": 5,
+    "false_positives": 0,
+    "false_negatives": 24,
+    "execution_time": 0.0836496353149414,
+    "avg_time_per_sample": 0.0028844701832738415
+  },
+  {
+    "config_name": "Single-St",
+    "agents_used": [
+      "style"
+    ],
+    "agent_count": 1,
+    "accuracy": 0.1724137931034483,
+    "tpr": 0.0,
+    "fpr": 0.0,
+    "tnr": 1.0,
+    "correct_detections": 5,
+    "total_samples": 29,
+    "true_positives": 0,
+    "true_negatives": 5,
+    "false_positives": 0,
+    "false_negatives": 24,
+    "execution_time": 0.09939694404602051,
+    "avg_time_per_sample": 0.003427480829173121
+  },
+  {
+    "config_name": "Pair-C+S",
+    "agents_used": [
+      "correctness",
+      "security"
+    ],
+    "agent_count": 2,
+    "accuracy": 0.6896551724137931,
+    "tpr": 0.7083333333333334,
+    "fpr": 0.4,
+    "tnr": 0.6,
+    "correct_detections": 20,
+    "total_samples": 29,
+    "true_positives": 17,
+    "true_negatives": 3,
+    "false_positives": 2,
+    "false_negatives": 7,
+    "execution_time": 0.7226018905639648,
+    "avg_time_per_sample": 0.0249173065711712
+  }
+]

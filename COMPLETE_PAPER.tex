@@ -1,0 +1,149 @@
+% ========================================================================
+% CodeX-Verify: Multi-Agent Verification of LLM-Generated Code
+% Complete LaTeX Document for Overleaf
+% ========================================================================
+
+\documentclass[11pt]{article}
+
+% ========================================================================
+% PACKAGES
+% ========================================================================
+
+% Page layout
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+
+% Math and algorithms
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{enumerate}
+
+% Tables and figures
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+% References and citations
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{url}
+
+% Formatting
+\usepackage{verbatim}
+\usepackage{enumitem}
+
+% Custom colors
+\definecolor{ForestGreen}{RGB}{34,139,34}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+
+% Custom commands
+\newcommand{\checkmark}{\ding{51}}
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    citecolor=blue,
+}
+
+% Line spacing
+\onehalfspacing
+
+% ========================================================================
+% TITLE AND AUTHORS
+% ========================================================================
+
+\title{\textbf{CodeX-Verify: Multi-Agent Verification of LLM-Generated Code via Compound Vulnerability Detection and Information-Theoretic Ensemble}}
+
+\author{
+    Shreshth Rajan \\
+    [Your Institution] \\
+    \texttt{your.email@institution.edu}
+    % Add co-authors as needed
+}
+
+\date{October 2025}
+
+% ========================================================================
+% DOCUMENT START
+% ========================================================================
+
+\begin{document}
+
+\maketitle
+
+% ========================================================================
+% ABSTRACT
+% ========================================================================
+
+\begin{abstract}
+Large language models generate code with systematic correctness failures: 29.6\% of SWE-bench ``solved'' patches exhibit behavioral incorrectness, 62\% of BaxBench solutions contain vulnerabilities, and traditional static analyzers achieve only 65\% detection accuracy with 35\% false positive rates. Current verification approaches analyze code along a single dimension, missing the complementary nature of bug patterns across correctness, security, performance, and maintainability spaces.
+
+We introduce \textsc{CodeX-Verify}, a multi-agent verification framework with two novel contributions: (1) \emph{information-theoretic foundations} proving multi-agent systems achieve strictly higher mutual information with bug presence than any single agent when detection patterns are non-redundant, and (2) \emph{compound vulnerability detection}, the first formalization of exponential risk amplification for co-occurring vulnerabilities via attack graph theory. Our framework employs four specialized agents that analyze orthogonal bug dimensions (empirical correlation $\rho = 0.05$--$0.25$), with weighted aggregation optimizing the precision-recall frontier.
+
+Rigorous evaluation on 99 samples with perfect ground truth yields 76.1\% true positive rate, matching state-of-the-art Meta Prompt Testing (75\%) while operating purely via static analysis. Comprehensive ablation across 15 configurations proves multi-agent architectures provide 39.7 percentage point improvement over single-agent baselines (32.8\% $\to$ 72.4\%), with the optimal 2-agent pair (Correctness + Performance) achieving 79.3\% accuracy. Real-world validation on 300 Claude Sonnet 4.5-generated patches demonstrates practical deployment at sub-200ms latency.
+
+Our compound vulnerability formalization introduces risk amplification factors $\alpha \in \{1.5, 2.0, 2.5, 3.0\}$ for attack chains, where traditional additive models compute risk as 20 for (SQL injection + credentials) versus our exponential model yielding risk of 300, reflecting 15$\times$ real-world impact. PAC-style sample complexity analysis validates our 99-sample evaluation provides generalization guarantees with 95\% confidence bounds. This work establishes the first rigorous multi-agent framework for code verification, with implications for reducing false positive acceptance in automated software development.
+\end{abstract}
+
+\textbf{Keywords:} Multi-agent systems, Code verification, LLM-generated code, Static analysis, Compound vulnerabilities, Information theory, Ensemble learning
+
+\vspace{0.5cm}
+
+% ========================================================================
+% NOTE: PASTE CONTENT FROM paper_title_abstract.tex HERE
+% ========================================================================
+
+% Starting from Section 1 (Introduction) through Appendix
+% Copy from line 56 onwards in paper_title_abstract.tex
+
+% [CONTENT GOES HERE - See instructions below]
+
+% ========================================================================
+% BIBLIOGRAPHY
+% ========================================================================
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+% NOTE: Create references.bib file with BibTeX entries from
+% paper_title_abstract.tex (lines 1245-1704 in the \begin{comment} block)
+
+\end{document}
+
+% ========================================================================
+% INSTRUCTIONS FOR OVERLEAF:
+% ========================================================================
+%
+% 1. Create new Overleaf project
+%
+% 2. Create main.tex and paste THIS FILE
+%
+% 3. In the section marked [CONTENT GOES HERE], paste from
+%    paper_title_abstract.tex starting from:
+%    "% SECTION 1: INTRODUCTION"
+%    through
+%    "% END OF APPENDIX"
+%
+% 4. Create references.bib file and paste BibTeX entries from
+%    paper_title_abstract.tex (the content inside \begin{comment}...\end{comment})
+%
+% 5. Compile: pdflatex -> bibtex -> pdflatex -> pdflatex
+%
+% Expected output: ~18-19 page paper with:
+%   - Title & Abstract
+%   - 8 numbered sections (Intro through Conclusion)
+%   - References
+%   - Appendix (A-J)
+%
+% ========================================================================

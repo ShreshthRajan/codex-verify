@@ -1,0 +1,312 @@
+{
+  "metadata": {
+    "timestamp": "20251024_104905",
+    "total_configurations": 15,
+    "samples_per_config": 29,
+    "total_evaluations": 435
+  },
+  "results": [
+    {
+      "config_name": "Single-C",
+      "agents_used": [
+        "correctness"
+      ],
+      "agent_count": 1,
+      "accuracy": 0.7586206896551724,
+      "tpr": 0.7916666666666666,
+      "fpr": 0.4,
+      "tnr": 0.6,
+      "correct_detections": 22,
+      "total_samples": 29,
+      "true_positives": 19,
+      "true_negatives": 3,
+      "false_positives": 2,
+      "false_negatives": 5,
+      "execution_time": 0.6604268550872803,
+      "avg_time_per_sample": 0.02277333983059587
+    },
+    {
+      "config_name": "Single-S",
+      "agents_used": [
+        "security"
+      ],
+      "agent_count": 1,
+      "accuracy": 0.20689655172413793,
+      "tpr": 0.041666666666666664,
+      "fpr": 0.0,
+      "tnr": 1.0,
+      "correct_detections": 6,
+      "total_samples": 29,
+      "true_positives": 1,
+      "true_negatives": 5,
+      "false_positives": 0,
+      "false_negatives": 23,
+      "execution_time": 0.04576516151428223,
+      "avg_time_per_sample": 0.0015781090177338698
+    },
+    {
+      "config_name": "Single-P",
+      "agents_used": [
+        "performance"
+      ],
+      "agent_count": 1,
+      "accuracy": 0.1724137931034483,
+      "tpr": 0.0,
+      "fpr": 0.0,
+      "tnr": 1.0,
+      "correct_detections": 5,
+      "total_samples": 29,
+      "true_positives": 0,
+      "true_negatives": 5,
+      "false_positives": 0,
+      "false_negatives": 24,
+      "execution_time": 0.0836496353149414,
+      "avg_time_per_sample": 0.0028844701832738415
+    },
+    {
+      "config_name": "Single-St",
+      "agents_used": [
+        "style"
+      ],
+      "agent_count": 1,
+      "accuracy": 0.1724137931034483,
+      "tpr": 0.0,
+      "fpr": 0.0,
+      "tnr": 1.0,
+      "correct_detections": 5,
+      "total_samples": 29,
+      "true_positives": 0,
+      "true_negatives": 5,
+      "false_positives": 0,
+      "false_negatives": 24,
+      "execution_time": 0.09939694404602051,
+      "avg_time_per_sample": 0.003427480829173121
+    },
+    {
+      "config_name": "Pair-C+S",
+      "agents_used": [
+        "correctness",
+        "security"
+      ],
+      "agent_count": 2,
+      "accuracy": 0.6896551724137931,
+      "tpr": 0.7083333333333334,
+      "fpr": 0.4,
+      "tnr": 0.6,
+      "correct_detections": 20,
+      "total_samples": 29,
+      "true_positives": 17,
+      "true_negatives": 3,
+      "false_positives": 2,
+      "false_negatives": 7,
+      "execution_time": 0.7226018905639648,
+      "avg_time_per_sample": 0.0249173065711712
+    },
+    {
+      "config_name": "Pair-C+P",
+      "agents_used": [
+        "correctness",
+        "performance"
+      ],
+      "agent_count": 2,
+      "accuracy": 0.7931034482758621,
+      "tpr": 0.8333333333333334,
+      "fpr": 0.4,
+      "tnr": 0.6,
+      "correct_detections": 23,
+      "total_samples": 29,
+      "true_positives": 20,
+      "true_negatives": 3,
+      "false_positives": 2,
+      "false_negatives": 4,
+      "execution_time": 0.6554639339447021,
+      "avg_time_per_sample": 0.02260220461878283
+    },
+    {
+      "config_name": "Pair-C+St",
+      "agents_used": [
+        "correctness",
+        "style"
+      ],
+      "agent_count": 2,
+      "accuracy": 0.7586206896551724,
+      "tpr": 0.7916666666666666,
+      "fpr": 0.4,
+      "tnr": 0.6,
+      "correct_detections": 22,
+      "total_samples": 29,
+      "true_positives": 19,
+      "true_negatives": 3,
+      "false_positives": 2,
+      "false_negatives": 5,
+      "execution_time": 0.7877702713012695,
+      "avg_time_per_sample": 0.02716449211383688
+    },
+    {
+      "config_name": "Pair-S+P",
+      "agents_used": [
+        "security",
+        "performance"
+      ],
+      "agent_count": 2,
+      "accuracy": 0.2413793103448276,
+      "tpr": 0.08333333333333333,
+      "fpr": 0.0,
+      "tnr": 1.0,
+      "correct_detections": 7,
+      "total_samples": 29,
+      "true_positives": 2,
+      "true_negatives": 5,
+      "false_positives": 0,
+      "false_negatives": 22,
+      "execution_time": 0.11975288391113281,
+      "avg_time_per_sample": 0.0041294097900390625
+    },
+    {
+      "config_name": "Pair-S+St",
+      "agents_used": [
+        "security",
+        "style"
+      ],
+      "agent_count": 2,
+      "accuracy": 0.20689655172413793,
+      "tpr": 0.041666666666666664,
+      "fpr": 0.0,
+      "tnr": 1.0,
+      "correct_detections": 6,
+      "total_samples": 29,
+      "true_positives": 1,
+      "true_negatives": 5,
+      "false_positives": 0,
+      "false_negatives": 23,
+      "execution_time": 0.12470507621765137,
+      "avg_time_per_sample": 0.004300175041987978
+    },
+    {
+      "config_name": "Pair-P+St",
+      "agents_used": [
+        "performance",
+        "style"
+      ],
+      "agent_count": 2,
+      "accuracy": 0.1724137931034483,
+      "tpr": 0.0,
+      "fpr": 0.0,
+      "tnr": 1.0,
+      "correct_detections": 5,
+      "total_samples": 29,
+      "true_positives": 0,
+      "true_negatives": 5,
+      "false_positives": 0,
+      "false_negatives": 24,
+      "execution_time": 0.1642148494720459,
+      "avg_time_per_sample": 0.0056625810162774445
+    },
+    {
+      "config_name": "Triple-C+S+P",
+      "agents_used": [
+        "correctness",
+        "security",
+        "performance"
+      ],
+      "agent_count": 3,
+      "accuracy": 0.7241379310344828,
+      "tpr": 0.75,
+      "fpr": 0.4,
+      "tnr": 0.6,
+      "correct_detections": 21,
+      "total_samples": 29,
+      "true_positives": 18,
+      "true_negatives": 3,
+      "false_positives": 2,
+      "false_negatives": 6,
+      "execution_time": 0.625309944152832,
+      "avg_time_per_sample": 0.021562411867339034
+    },
+    {
+      "config_name": "Triple-C+S+St",
+      "agents_used": [
+        "correctness",
+        "security",
+        "style"
+      ],
+      "agent_count": 3,
+      "accuracy": 0.6896551724137931,
+      "tpr": 0.7083333333333334,
+      "fpr": 0.4,
+      "tnr": 0.6,
+      "correct_detections": 20,
+      "total_samples": 29,
+      "true_positives": 17,
+      "true_negatives": 3,
+      "false_positives": 2,
+      "false_negatives": 7,
+      "execution_time": 0.6727099418640137,
+      "avg_time_per_sample": 0.023196894547034955
+    },
+    {
+      "config_name": "Triple-C+P+St",
+      "agents_used": [
+        "correctness",
+        "performance",
+        "style"
+      ],
+      "agent_count": 3,
+      "accuracy": 0.7931034482758621,
+      "tpr": 0.8333333333333334,
+      "fpr": 0.4,
+      "tnr": 0.6,
+      "correct_detections": 23,
+      "total_samples": 29,
+      "true_positives": 20,
+      "true_negatives": 3,
+      "false_positives": 2,
+      "false_negatives": 4,
+      "execution_time": 0.7050182819366455,
+      "avg_time_per_sample": 0.024310975239194673
+    },
+    {
+      "config_name": "Triple-S+P+St",
+      "agents_used": [
+        "security",
+        "performance",
+        "style"
+      ],
+      "agent_count": 3,
+      "accuracy": 0.2413793103448276,
+      "tpr": 0.08333333333333333,
+      "fpr": 0.0,
+      "tnr": 1.0,
+      "correct_detections": 7,
+      "total_samples": 29,
+      "true_positives": 2,
+      "true_negatives": 5,
+      "false_positives": 0,
+      "false_negatives": 22,
+      "execution_time": 0.21026206016540527,
+      "avg_time_per_sample": 0.007250415867772596
+    },
+    {
+      "config_name": "Full-All4",
+      "agents_used": [
+        "correctness",
+        "security",
+        "performance",
+        "style"
+      ],
+      "agent_count": 4,
+      "accuracy": 0.7241379310344828,
+      "tpr": 0.75,
+      "fpr": 0.4,
+      "tnr": 0.6,
+      "correct_detections": 21,
+      "total_samples": 29,
+      "true_positives": 18,
+      "true_negatives": 3,
+      "false_positives": 2,
+      "false_negatives": 6,
+      "execution_time": 0.7007081508636475,
+      "avg_time_per_sample": 0.024162350029780948
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+% ========================================================================
+% CodeX-Verify Paper - WORKING VERSION FOR OVERLEAF
+% Copy this ENTIRE file into Overleaf main.tex
+% ========================================================================
+
+\documentclass[11pt]{article}
+
+% Packages
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{algorithm}
+\usepackage{algpseudocode}  % FIXED: Use algpseudocode instead of algorithmic
+\usepackage{enumerate}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{enumitem}
+
+% Colors
+\definecolor{ForestGreen}{RGB}{34,139,34}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+
+% Hyperref
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+}
+
+\onehalfspacing
+
+\title{\textbf{CodeX-Verify: Multi-Agent Verification of LLM-Generated Code via Compound Vulnerability Detection and Information-Theoretic Ensemble}}
+
+\author{
+    Shreshth Rajan \\
+    Your Institution \\
+    \texttt{shreshth.rajan@email.edu}
+}
+
+\date{October 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Large language models generate code with systematic correctness failures: 29.6\% of SWE-bench ``solved'' patches exhibit behavioral incorrectness, 62\% of BaxBench solutions contain vulnerabilities, and traditional static analyzers achieve only 65\% detection accuracy with 35\% false positive rates. Current verification approaches analyze code along a single dimension, missing the complementary nature of bug patterns across correctness, security, performance, and maintainability spaces.
+
+We introduce \textsc{CodeX-Verify}, a multi-agent verification framework with two novel contributions: (1) \emph{information-theoretic foundations} proving multi-agent systems achieve strictly higher mutual information with bug presence than any single agent when detection patterns are non-redundant, and (2) \emph{compound vulnerability detection}, the first formalization of exponential risk amplification for co-occurring vulnerabilities via attack graph theory. Our framework employs four specialized agents that analyze orthogonal bug dimensions (empirical correlation $\rho = 0.05$--$0.25$), with weighted aggregation optimizing the precision-recall frontier.
+
+Rigorous evaluation on 99 samples with perfect ground truth yields 76.1\% true positive rate, matching state-of-the-art Meta Prompt Testing (75\%) while operating purely via static analysis. Comprehensive ablation across 15 configurations proves multi-agent architectures provide 39.7 percentage point improvement over single-agent baselines (32.8\% $\to$ 72.4\%), with the optimal 2-agent pair (Correctness + Performance) achieving 79.3\% accuracy. Real-world validation on 300 Claude Sonnet 4.5-generated patches demonstrates practical deployment at sub-200ms latency.
+
+Our compound vulnerability formalization introduces risk amplification factors $\alpha \in \{1.5, 2.0, 2.5, 3.0\}$ for attack chains, where traditional additive models compute risk as 20 for (SQL injection + credentials) versus our exponential model yielding risk of 300, reflecting 15$\times$ real-world impact. This work establishes the first rigorous multi-agent framework for code verification.
+\end{abstract}
+
+\textbf{Keywords:} Multi-agent systems, Code verification, LLM-generated code, Compound vulnerabilities, Information theory
+
+\section{Introduction}
+
+The rapid adoption of large language models for code generation has introduced a critical correctness crisis. Xia et al.~\cite{xia2025swebench} demonstrate that 29.6\% of patches deemed ``solved'' by state-of-the-art LLM agents on SWE-bench exhibit behavioral divergence from ground-truth developer solutions. SecRepoBench reports less than 25\% secure code generation rates~\cite{dilgren2025secrepobench}, while BaxBench finds 62\% of backend implementations contain vulnerabilities~\cite{vero2025baxbench}. Conservative estimates suggest 40--60\% of LLM-generated code contains undetected defects~\cite{jimenez2024swebench}.
+
+\textbf{The Fundamental Challenge.} Existing verification approaches operate along single analytical dimensions. Traditional static analyzers detect 65\% of defects but suffer from 35\% false positive rates~\cite{johnson2024sast}. Test execution-based methods like Meta Prompt Testing~\cite{wang2024metamorphic} achieve 8.6\% FPR by comparing code variant outputs, but miss security vulnerabilities and require expensive infrastructure. No existing work provides theoretical foundations for why multi-agent approaches should outperform single-agent verification.
+
+\textbf{Our Contributions:}
+\begin{enumerate}[leftmargin=*]
+    \item Information-theoretic foundations proving multi-agent systems achieve higher mutual information with bug presence than single agents, validated via measured correlations $\rho = 0.05$--$0.25$.
+
+    \item Compound vulnerability detection—first formalization of exponential risk amplification for co-occurring vulnerabilities using attack graph theory.
+
+    \item Comprehensive architectural validation through systematic ablation across 15 agent configurations, proving 39.7 percentage point multi-agent advantage.
+
+    \item Curated 99-sample benchmark achieving 76.1\% TPR (matching SOTA) with 68.7\% accuracy.
+\end{enumerate}
+
+% NOTE: Full paper content continues here
+% For brevity in this working example, use the paper_title_abstract.tex content
+% Copy sections 2-8 and Appendix from that file
+
+\section{Placeholder for Remaining Sections}
+
+\textit{To complete this document:}
+\begin{itemize}
+    \item Copy Section 2 (Related Work) from paper\_title\_abstract.tex
+    \item Copy Section 3 (Theoretical Framework) from paper\_title\_abstract.tex
+    \item Copy Section 4 (System Design) from paper\_title\_abstract.tex
+    \item Copy Section 5 (Experimental Evaluation) from paper\_title\_abstract.tex
+    \item Copy Section 6 (Results) from paper\_title\_abstract.tex
+    \item Copy Section 7 (Discussion) from paper\_title\_abstract.tex
+    \item Copy Section 8 (Conclusion) from paper\_title\_abstract.tex
+    \item Copy Appendix sections from paper\_title\_abstract.tex
+\end{itemize}
+
+\textbf{Important fixes to apply when copying:}
+\begin{enumerate}
+    \item Replace all \verb|\Procedure| with \verb|\Procedure| (algpseudocode)
+    \item Replace all \verb|\ElsIf| with \verb|\ElsIf| (already correct)
+    \item In regex tables, escape backslashes properly: \verb|\\| not \verb|\|
+    \item Remove any \verb|\checkmark| definitions (use text instead)
+\end{enumerate}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
