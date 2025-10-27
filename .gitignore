@@ -74,6 +74,9 @@ temp/
 *.tmp
 *.temp
 
+# paper docs
+paper/
+
 # OS Files
 .DS_Store
 .DS_Store?
