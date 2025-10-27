@@ -3,20 +3,20 @@
 % Complete LaTeX Document for Overleaf
 % ========================================================================
 
-\documentclass[11pt]{article}
+\documentclass[10pt,twocolumn]{article}
 
 % ========================================================================
 % PACKAGES
 % ========================================================================
 
-% Page layout
-\usepackage[margin=1in]{geometry}
+% Page layout - two column for compression
+\usepackage[margin=0.75in]{geometry}
 \usepackage{setspace}
 
 % Math and algorithms
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{algorithm}
-\usepackage{algorithmic}
+\usepackage{algpseudocode}
 \usepackage{enumerate}
 
 % Tables and figures
@@ -44,8 +44,7 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{definition}{Definition}
 
-% Custom commands
-\newcommand{\checkmark}{\ding{51}}
+% Custom commands (removed \checkmark - already defined in some packages)
 
 % Hyperref setup
 \hypersetup{
@@ -56,8 +55,21 @@
     citecolor=blue,
 }
 
-% Line spacing
-\onehalfspacing
+% Line spacing - single space for compression
+\singlespacing
+
+% Compress spacing
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\floatsep}{10pt plus 2pt minus 2pt}
+\setlength{\intextsep}{10pt plus 2pt minus 2pt}
+\setlength{\abovecaptionskip}{5pt}
+\setlength{\belowcaptionskip}{5pt}
+
+% Compress section spacing
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{10pt}{5pt}
+\titlespacing*{\subsection}{0pt}{8pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{6pt}{3pt}
 
 % ========================================================================
 % TITLE AND AUTHORS
@@ -67,9 +79,8 @@
 
 \author{
     Shreshth Rajan \\
-    [Your Institution] \\
-    \texttt{your.email@institution.edu}
-    % Add co-authors as needed
+    Noumenon Labs, Harvard University \\
+    \texttt{shreshthrajan@college.harvard.edu}
 }
 
 \date{October 2025}
@@ -80,11 +91,9 @@
 
 \begin{document}
 
+\twocolumn[
+\begin{@twocolumnfalse}
 \maketitle
-
-% ========================================================================
-% ABSTRACT
-% ========================================================================
 
 \begin{abstract}
 Large language models generate code with systematic correctness failures: 29.6\% of SWE-bench ``solved'' patches exhibit behavioral incorrectness, 62\% of BaxBench solutions contain vulnerabilities, and traditional static analyzers achieve only 65\% detection accuracy with 35\% false positive rates. Current verification approaches analyze code along a single dimension, missing the complementary nature of bug patterns across correctness, security, performance, and maintainability spaces.
@@ -96,9 +105,13 @@ Rigorous evaluation on 99 samples with perfect ground truth yields 76.1\% true p
 Our compound vulnerability formalization introduces risk amplification factors $\alpha \in \{1.5, 2.0, 2.5, 3.0\}$ for attack chains, where traditional additive models compute risk as 20 for (SQL injection + credentials) versus our exponential model yielding risk of 300, reflecting 15$\times$ real-world impact. PAC-style sample complexity analysis validates our 99-sample evaluation provides generalization guarantees with 95\% confidence bounds. This work establishes the first rigorous multi-agent framework for code verification, with implications for reducing false positive acceptance in automated software development.
 \end{abstract}
 
-\textbf{Keywords:} Multi-agent systems, Code verification, LLM-generated code, Static analysis, Compound vulnerabilities, Information theory, Ensemble learning
+\vspace{0.2cm}
+\noindent\textbf{Keywords:} Multi-agent systems, Code verification, LLM-generated code, Compound vulnerabilities
 
-\vspace{0.5cm}
+\end{abstract}
+\vspace{0.3cm}
+\end{@twocolumnfalse}
+]
 
 
 % ========================================================================
@@ -291,29 +304,21 @@ Attack success probability via compound vulnerability is:
     P(\text{compromise} \mid v_i, v_j) = P(\text{exploit } v_i) \cdot P(\text{leverage for } v_j \mid v_i) \cdot P(\text{chain succeeds})
 \end{equation}
 
-The term $P(\text{chain succeeds})$ represents the attacker's ability to combine vulnerabilities, creating attack vectors unavailable to either vulnerability alone. For example, SQL injection ($v_1$) alone provides limited query manipulation; hardcoded credentials ($v_2$) alone are unexploitable without injection capabilities. Their combination enables full database access, a capability unavailable to either vulnerability individually.
+The term $P(\text{chain succeeds})$ represents the attacker's ability to combine vulnerabilities, creating attack vectors unavailable individually. SQL injection alone provides limited access; credentials alone are unexploitable. Their combination enables full database access.
 
-Normalizing to risk scores, $P(\text{chain succeeds}) = \alpha(v_1, v_2)$ where $\alpha > 1$ quantifies the multiplicative advantage. In our formulation:
+Normalizing to risk scores, $P(\text{chain succeeds}) = \alpha(v_1, v_2)$ where $\alpha > 1$ quantifies multiplicative advantage:
 \begin{equation}
     \text{Risk}_{\text{compound}} = \text{Risk}(v_i) \times \text{Risk}(v_j) \times \alpha(v_i, v_j)
 \end{equation}
 \end{proof}
 
-\textbf{Comparison to Additive Models.} Traditional risk assessment computes total risk as $R_{\text{linear}} = \sum_i \text{Risk}(v_i)$. For SQL injection (risk = 10) and hardcoded credentials (risk = 10), linear models yield total risk = 20. Our exponential model with $\alpha = 3.0$ yields:
+\textbf{Comparison to Additive Models.} Traditional risk: $R_{\text{linear}} = \sum_i \text{Risk}(v_i)$. For SQL injection (risk=10) + credentials (risk=10), linear models yield total risk = 20. Our exponential model with $\alpha = 3.0$ yields:
 \begin{equation}
     R_{\text{compound}} = 10 + 10 + (10 \times 10 \times 3.0 - 10 - 10) = 300
 \end{equation}
+This 15$\times$ amplification reflects real-world impact: combined vulnerabilities enable complete database compromise~\cite{sheyner2002attack, owasp2024}.
 
-This 15$\times$ amplification reflects documented real-world impact: isolated SQL injection enables limited reconnaissance, isolated credentials are unexploitable, but their combination enables complete database compromise with persistent access~\cite{sheyner2002attack, owasp2024}.
-
-\textbf{Amplification Factor Calibration.} We empirically set $\alpha(v_i, v_j)$ based on attack chain literature:
-\begin{align}
-    \alpha(\text{SQL injection}, \text{hardcoded secret}) &= 3.0 \quad \text{(full DB access)} \nonumber \\
-    \alpha(\text{code execution}, \text{dangerous import}) &= 2.0 \quad \text{(system compromise)} \nonumber \\
-    \alpha(\text{complexity}, \text{algorithm inefficiency}) &= 1.8 \quad \text{(cascading failure)}
-\end{align}
-
-Higher $\alpha$ values reflect stronger synergistic exploitation potential, calibrated from CVSS impact scores and attack graph analysis~\cite{cvss2024}.
+\textbf{Amplification Factors.} We set $\alpha$ = 3.0 for SQL injection + credentials, 2.0 for code execution + imports, 1.8 for complexity + inefficiency. Values calibrated from CVSS scores~\cite{cvss2024}.
 
 \subsection{Sample Complexity and Generalization}
 
@@ -434,13 +439,13 @@ Table~\ref{tab:theory_validation} summarizes our theoretical claims and their em
 \toprule
 \textbf{Theoretical Prediction} & \textbf{Empirical Observation} & \textbf{Validation} \\
 \midrule
-Multi-agent $>$ single-agent & +39.7pp improvement & \checkmark \\
-Diminishing returns with more agents & +14.9pp, +13.5pp, +11.2pp & \checkmark \\
-Agent correlation $\rho \approx 0$ (orthogonal) & Measured $\rho = 0.05$--$0.25$ & \checkmark \\
-Sample $n=99$ gives $\pm$9\% CI & Measured $\pm$9.1\% CI & \checkmark \\
-Accuracy $\geq 51.7\%$ (PAC bound) & Measured 68.7\% & \checkmark \\
-Optimal $n^* = 4$ agents & Marginal gains <10pp for agent 5 & \checkmark \\
-Compound $\alpha > 1$ improves detection & Compound detection active & \checkmark \\
+Multi-agent $>$ single-agent & +39.7pp improvement & Yes \\
+Diminishing returns with more agents & +14.9pp, +13.5pp, +11.2pp & Yes \\
+Agent correlation $\rho \approx 0$ (orthogonal) & Measured $\rho = 0.05$--$0.25$ & Yes \\
+Sample $n=99$ gives $\pm$9\% CI & Measured $\pm$9.1\% CI & Yes \\
+Accuracy $\geq 51.7\%$ (PAC bound) & Measured 68.7\% & Yes \\
+Optimal $n^* = 4$ agents & Marginal gains <10pp for agent 5 & Yes \\
+Compound $\alpha > 1$ improves detection & Compound detection active & Yes \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -459,7 +464,7 @@ We describe the \textsc{CodeX-Verify} architecture, detailing agent specializati
 
 \textsc{CodeX-Verify} employs a modular pipeline: code input $\to$ parallel agent execution $\to$ result aggregation $\to$ compound detection $\to$ deployment decision. Figure~\ref{fig:architecture} illustrates the system flow.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \small
 \begin{verbatim}
@@ -478,11 +483,11 @@ We describe the \textsc{CodeX-Verify} architecture, detailing agent specializati
                   Decision Logic
             (FAIL / WARNING / PASS)
 \end{verbatim}
-\caption{CodeX-Verify architecture. Four specialized agents analyze code in parallel, with results aggregated via weighted combination and compound vulnerability detection before final deployment decision.}
+\caption{System architecture: parallel multi-agent analysis.}
 \label{fig:architecture}
-\end{figure}
+\end{figure*}
 
-\textbf{Design Principles.} Our architecture follows three key principles: (1) \emph{Agent specialization}: Each agent focuses on orthogonal bug dimensions (validated by $\rho = 0.05$--$0.25$ correlation), enabling complementary detection as predicted by Theorem~\ref{thm:information}. (2) \emph{Parallel execution}: Agents run asynchronously via Python's \texttt{asyncio}, achieving sub-200ms total latency through concurrent analysis. (3) \emph{Hierarchical aggregation}: Individual agent verdicts combine via weighted scores, then undergo compound vulnerability analysis, finally producing a multi-threshold deployment decision respecting asymmetric security costs.
+\textbf{Design Principles.} (1) \emph{Agent specialization}: Orthogonal bug dimensions ($\rho = 0.05$--$0.25$). (2) \emph{Parallel execution}: Async via \texttt{asyncio}, sub-200ms latency. (3) \emph{Hierarchical aggregation}: Weighted combination, compound detection, final decision.
 
 \subsection{Agent Specializations}
 
@@ -535,11 +540,12 @@ Each pattern includes context multipliers: SQL injection near ``password'' keywo
 \textbf{Context-Aware Severity Escalation.} Base severity escalates based on code context: SQL injection in authentication code (keywords: \texttt{auth}, \texttt{login}, \texttt{password}) escalates from HIGH to CRITICAL. This context awareness reduces false positives on benign pattern matches.
 
 \textbf{Compound Detection Algorithm.} After individual vulnerability detection, identifies dangerous pairs:
+\begin{algorithm}
 \begin{algorithmic}[1]
 \Procedure{DetectCompounds}{$V$}
-    \State $C \gets \emptyset$ \Comment{Compound vulnerabilities}
+    \State $C \gets \emptyset$
     \For{$(v_i, v_j) \in V \times V$ where $i < j$}
-        \If{$(v_i.\text{type}, v_j.\text{type}) \in E$} \Comment{Known attack chain}
+        \If{$(v_i.\text{type}, v_j.\text{type}) \in E$}
             \State $\alpha \gets \textsc{GetAmplification}(v_i, v_j)$
             \State $\text{risk} \gets \text{Risk}(v_i) \times \text{Risk}(v_j) \times \alpha$
             \If{$\text{risk} > \text{threshold}$}
@@ -550,6 +556,7 @@ Each pattern includes context multipliers: SQL injection near ``password'' keywo
     \State \Return $C$
 \EndProcedure
 \end{algorithmic}
+\end{algorithm}
 
 Complexity: $O(|V|^2)$ for pairwise interactions, acceptable for typical $|V| < 20$ vulnerabilities per code sample.
 
@@ -611,18 +618,9 @@ When both vulnerabilities in a pair are detected, creates compound issue with ex
 
 \textbf{Technology Stack.} Python 3.9+ with \texttt{asyncio} for concurrency, \texttt{ast} module for syntax analysis, \texttt{tree-sitter} (optional) for advanced parsing, regex-based pattern matching for vulnerability detection. No external LLM calls during analysis (fully offline), ensuring determinism and privacy.
 
-\textbf{Caching Layer.} Multi-tier caching (in-memory LRU + disk-based) with TTL-based invalidation. Cache key: $\texttt{SHA256}(\text{code} || \text{config} || \text{agent\_versions})$. Typical hit rate: 60--70\% in CI/CD scenarios with repeated file analysis. Cache disabled for our evaluation to ensure independent measurements.
+\textbf{Caching Layer.} Multi-tier caching (in-memory LRU + disk-based) with TTL-based invalidation. Cache key uses SHA256 hash of code, config, and agent versions. Typical hit rate: 60--70\% in CI/CD scenarios. Cache disabled for evaluation.
 
-\textbf{Extensibility.} Agent interface (\texttt{BaseAgent} abstract class) enables custom agents via:
-\begin{verbatim}
-class CustomAgent(BaseAgent):
-    async def _analyze_implementation(self, code, context):
-        # Domain-specific analysis
-        issues = detect_custom_patterns(code)
-        return AgentResult(issues=issues, score=calculate_score(issues))
-\end{verbatim}
-
-Configuration via YAML allows enabling/disabling agents, adjusting thresholds, and setting weights without code changes, supporting deployment-specific tuning (strict enterprise vs. permissive development environments).
+\textbf{Extensibility.} Agent interface (\texttt{BaseAgent} abstract class) enables custom agents via subclassing with \texttt{\_analyze\_implementation} method. Configuration via YAML allows enabling/disabling agents, adjusting thresholds, and setting weights without code changes, supporting deployment-specific tuning.
 
 \textbf{Scalability.} Stateless agent design enables horizontal scaling: multiple \textsc{CodeX-Verify} instances can process code samples in parallel with no coordination overhead. Measured throughput: 300 samples in 10 minutes (30 samples/minute, limited by disk I/O for result persistence, not analysis latency).
 
@@ -630,31 +628,13 @@ Configuration via YAML allows enabling/disabling agents, adjusting thresholds, a
 
 We detail the highest-performing individual agent to illustrate analysis depth.
 
-\textbf{AST-Based Metrics.} Traverses Python AST computing structural metrics:
-\begin{itemize}[leftmargin=*, itemsep=0pt]
-    \item Cyclomatic complexity: $M = 1 + \#\{\texttt{if}, \texttt{while}, \texttt{for}, \texttt{except}\}$
-    \item Nesting depth: Maximum depth of nested control structures
-    \item Exception coverage: $\#\{\text{functions with } \texttt{try}\} / \#\{\text{functions with risky ops}\}$
-    \item Input validation: $\#\{\text{functions with validation}\} / \#\{\text{functions with params}\}$
-\end{itemize}
+\textbf{AST-Based Metrics.} Traverses Python AST computing: (1) Cyclomatic complexity via control flow counting, (2) Maximum nesting depth of control structures, (3) Exception coverage ratio (functions with try-except / functions with risky operations), (4) Input validation coverage (functions with validation / functions with parameters).
 
-\textbf{Exception Handling Detection.} Identifies functions calling \texttt{open()}, \texttt{request()}, \texttt{json.loads()}, or \texttt{pickle.loads()} without enclosing \texttt{try-except}. Flags bare \texttt{except} clauses (catch-all error hiding) and empty exception handlers (\texttt{except: pass}) as production anti-patterns.
+\textbf{Exception Handling Detection.} Identifies functions calling file/network operations without \texttt{try-except} blocks. Flags bare \texttt{except} clauses and empty handlers as anti-patterns.
 
-\textbf{Edge Case Patterns.} Searches function bodies for:
-\begin{itemize}[leftmargin=*, itemsep=0pt]
-    \item \texttt{None} checks: \texttt{if x is None}
-    \item Empty collection checks: \texttt{if not lst} or \texttt{if len(lst) == 0}
-    \item Boundary validation: \texttt{if 0 <= index < len(arr)}
-\end{itemize}
+\textbf{Edge Case Patterns.} Searches for None checks, empty collection handling, and boundary validation. Functions accepting inputs without these checks flagged for edge case risk.
 
-Functions accepting inputs without these checks flagged for edge case risk. Coverage score: (\# functions with edge case handling) / (\# functions with inputs).
-
-\textbf{Contract Validation.} Parses docstrings (when present) for promises:
-\begin{itemize}[leftmargin=*, itemsep=0pt]
-    \item If docstring mentions ``raises,'' validates implementation contains \texttt{raise} statements
-    \item If docstring mentions ``returns,'' validates function has non-None \texttt{return}
-    \item Flags contract violations as MEDIUM severity (promises not fulfilled)
-\end{itemize}
+\textbf{Contract Validation.} Compares docstring promises against implementation (raises vs actual exceptions, returns vs actual return statements). Flags contract violations as MEDIUM severity.
 
 \textbf{Scoring Function.} Computes weighted penalty:
 \begin{equation}
@@ -704,19 +684,19 @@ The final decision implements Equation (8) with asymmetric severity handling:
 \label{alg:decision}
 \begin{algorithmic}[1]
 \Procedure{DecideDeployment}{$S_{\text{sys}}$, $\mathcal{I}$}
-    \State Partition $\mathcal{I}$ by severity and agent source
-    \If{$|\mathcal{I}_{\text{CRITICAL}}| > 0$ or compound vulnerabilities detected}
-        \State \Return FAIL \Comment{Zero tolerance}
-    \ElsIf{$|\mathcal{I}_{\text{HIGH}}^{\text{security}}| \geq 1$}
-        \State \Return FAIL \Comment{Any security HIGH blocks}
-    \ElsIf{$|\mathcal{I}_{\text{HIGH}}^{\text{correctness}}| \geq 2$}
-        \State \Return FAIL \Comment{Multiple correctness issues block}
-    \ElsIf{$|\mathcal{I}_{\text{HIGH}}^{\text{correctness}}| = 1$ or $S_{\text{sys}} \in [0.50, 0.85]$}
-        \State \Return WARNING \Comment{Human review recommended}
-    \ElsIf{$S_{\text{sys}} \geq 0.70$ and no high security/correctness issues}
+    \State Partition issues by severity and agent source
+    \If{critical issues detected or compound vulnerabilities found}
+        \State \Return FAIL
+    \ElsIf{security HIGH issues $\geq 1$}
+        \State \Return FAIL
+    \ElsIf{correctness HIGH issues $\geq 2$}
+        \State \Return FAIL
+    \ElsIf{correctness HIGH $= 1$ or score in range $[0.50, 0.85]$}
+        \State \Return WARNING
+    \ElsIf{score $\geq 0.70$ and no high security/correctness issues}
         \State \Return PASS
     \Else
-        \State \Return WARNING \Comment{Low score but no critical bugs}
+        \State \Return WARNING
     \EndIf
 \EndProcedure
 \end{algorithmic}
@@ -868,7 +848,7 @@ Beyond controlled evaluation, we validate practical applicability on authentic L
 
 \textbf{Hyperparameters.} Agent weights: $w = (0.45, 0.35, 0.15, 0.05)$. Decision thresholds: FAIL if critical issues $> 0$, security HIGH $\geq 1$, or correctness HIGH $\geq 2$; WARNING if score $\in [0.50, 0.85]$ or correctness HIGH $= 1$; PASS otherwise (Algorithm~\ref{alg:decision}). Complexity thresholds: cyclomatic $\leq 15$, nesting $\leq 4$, exception coverage $\geq 80\%$, input validation $\geq 70\%$ (Section~4.3). Entropy threshold for secrets: $H > 3.5$.
 
-\textbf{Reproducibility Package.} We release: (1) Complete source code (6,122 lines across 4 agents, orchestrator, aggregator)~\footnote{Code available at: \url{https://github.com/your-org/codex-verify}}, (2) 99-sample benchmark with ground truth labels (JSON format), (3) Evaluation scripts reproducing all results, (4) Docker container for environment isolation, (5) Ablation study results (15 configurations $\times$ 99 samples). All random seeds fixed (\texttt{random\_state=42}) for deterministic reproduction.
+\textbf{Reproducibility Package.} We release: (1) Complete source code (6,122 lines)~\footnote{Code: \url{https://github.com/ShreshthRajan/codex-verify}}, (2) 99-sample benchmark with ground truth labels, (3) Evaluation scripts, (4) Docker container, (5) Ablation results. All random seeds fixed (\texttt{random\_state=42}).
 
 \textbf{Computational Cost.} Main evaluation (99 samples): 10 minutes total (6 seconds net analysis time + 9.5 minutes result persistence). Ablation study (15 configs $\times$ 99): 2.5 hours. Claude patch generation: 260 minutes (API rate-limited). Total experimental compute: <3 hours on consumer hardware, demonstrating accessibility without specialized infrastructure.
 
@@ -914,7 +894,7 @@ We present main evaluation results, ablation study findings validating multi-age
 
 Table~\ref{tab:main_results} presents our system's performance on the 99-sample benchmark compared to baselines.
 
-\begin{table}[t]
+\begin{table*}[t]
 \centering
 \caption{Main evaluation results on 99 samples with perfect ground truth. Confidence intervals computed via 1,000-iteration bootstrap. Statistical significance tested via McNemar's test with Bonferroni correction ($p < 0.017$).}
 \label{tab:main_results}
@@ -936,7 +916,7 @@ Meta Prompt Testing$^{\dagger}$ & --- & 75.0\% & 8.6\% & --- \\
 \vspace{1mm}
 \footnotesize{$^{\dagger}$Different methodology (test-based vs. static) and dataset (HumanEval vs. ours).}\\
 \footnotesize{$^{***}p < 0.001$, $^{**}p < 0.01$, $^{*}p < 0.05$ (McNemar's test, Bonferroni-corrected).}
-\end{table}
+\end{table*}
 
 \textbf{Overall Performance.} \textsc{CodeX-Verify} achieves 68.7\% accuracy with 95\% confidence interval [59.6\%, 77.8\%], improving 28.7 percentage points over Codex baseline (40\%) and 3.7 points over traditional static analyzers (65\%), both statistically significant ($p < 0.001$ and $p < 0.05$ respectively, McNemar's test). True positive rate of 76.1\% matches state-of-the-art Meta Prompt Testing (75\%), demonstrating competitive bug detection capability while operating purely via static analysis without test execution infrastructure.
 
@@ -969,13 +949,13 @@ Edge case logic & 2 & 0 & 0.0\% \\
 Serialization security & 1 & 0 & 0.0\% \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
 \subsection{Ablation Study Results}
 
 Table~\ref{tab:ablation} presents comprehensive results across 15 agent configurations, validating Theorems~\ref{thm:information} and~\ref{thm:diminishing}.
 
-\begin{table}[t]
+\begin{table*}[t]
 \centering
 \caption{Ablation study results across 15 configurations on 29 unique samples. Configurations ranked by accuracy. Agent abbreviations: C=Correctness, S=Security, P=Performance, St=Style.}
 \label{tab:ablation}
@@ -1010,11 +990,11 @@ S + St & 2 & 20.7\% & 4.2\% & 0.0\% \\
 P + St & 2 & 17.2\% & 0.0\% & 0.0\% \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
 \textbf{Multi-Agent Advantage Validated.} Averaging across agent counts: 1 agent (32.8\%), 2 agents (47.7\%), 3 agents (61.2\%), 4 agents (72.4\%), demonstrating clear progressive improvement. The full 4-agent system improves 39.7 percentage points over the single-agent average, significantly exceeding AutoReview's reported +18.72\% F1 gain~\cite{autoreview2025} and providing strong empirical validation of Theorem~\ref{thm:information}'s information-theoretic prediction.
 
-\textbf{Diminishing Returns Confirmed.} Marginal gains from adding agents 2, 3, 4 are +14.9pp, +13.5pp, +11.2pp respectively (Figure~\ref{fig:diminishing}), confirming Theorem~\ref{thm:diminishing}'s prediction of sublinear information gain. Extrapolating the trend $(14.9, 13.5, 11.2) \to \approx 9.0$ suggests agent 5 would contribute <10pp, validating our claim that $n^* = 4$ is near-optimal (Corollary 1).
+\textbf{Diminishing Returns Confirmed.} Marginal gains from adding agents 2, 3, 4 are +14.9pp, +13.5pp, +11.2pp respectively (Figure~\ref{fig:ablation_scaling}), confirming Theorem~\ref{thm:diminishing}'s prediction of sublinear information gain. Extrapolating the trend $(14.9, 13.5, 11.2) \to \approx 9.0$ suggests agent 5 would contribute <10pp, validating our claim that $n^* = 4$ is near-optimal (Corollary 1).
 
 \textbf{Agent Specialization.} Correctness alone achieves 75.9\% (strongest individual agent), while Security (20.7\%), Performance (17.2\%), and Style (17.2\%) individually underperform. However, configurations excluding Correctness (e.g., S+P+St: 24.1\%) perform poorly, demonstrating Correctness provides essential base coverage while other agents add specialized detection. The best 2-agent configuration (C+P: 79.3\%) exceeds the full 4-agent system (72.4\%), indicating potential for simplified deployment in resource-constrained settings, though losing security-specific coverage.
 
@@ -1026,35 +1006,26 @@ P + St & 2 & 17.2\% & 0.0\% & 0.0\% \\
 
 Figure~\ref{fig:comparison} visualizes our position relative to baselines on the TPR-FPR plane.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
-\small
+\footnotesize
 \begin{verbatim}
 FPR
  |
-60% +  Codex (40% TPR, 60% FPR)
- |     [No verification baseline]
+60% +  Codex (40% TPR, 60% FPR) [No verification]
  |
 50% +  CodeX-Verify (76% TPR, 50% FPR) <-- OURS
- |     [Static analysis, multi-agent]
  |
 35% +  Static Analyzers (65% TPR, 35% FPR)
- |     [Traditional SAST tools]
  |
+10% +  Meta Prompt (75% TPR, 8.6% FPR) [Test-based]
  |
-10% +  Meta Prompt (75% TPR, 8.6% FPR)
- |     [Test-based, different methodology]
- |
-  +----+----+----+----+----+----+----+----+-> TPR
-  0%  40%  50%  65%  75%  80%  90% 100%
-
-Ideal region (top-right): High TPR, Low FPR
-Our position: Competitive TPR (76%, matching Meta),
-              Higher FPR (50% vs. 8.6%, static vs. test tradeoff)
+  +----+----+----+----+----+----+-> TPR
+  0%  40%  50%  65%  75%  80% 100%
 \end{verbatim}
-\caption{TPR-FPR comparison. Our system (76\% TPR, 50\% FPR) achieves competitive bug detection matching Meta Prompt's 75\% TPR while operating via static analysis. The FPR gap (50\% vs. 8.6\%) reflects methodology differences: static analysis flags quality issues (missing exception handling, edge cases) that test-based methods miss.}
+\caption{TPR-FPR comparison. Our system achieves competitive TPR (76\%) while operating via static analysis.}
 \label{fig:comparison}
-\end{figure}
+\end{figure*}
 
 \textbf{Statistical Significance.} McNemar's test on verdict disagreements: CodeX-Verify vs. Codex baseline yields $\chi^2 = 42.3$, $p < 0.001$ (highly significant improvement). CodeX-Verify vs. static analyzer baseline (estimated from literature) yields $p < 0.05$ (significant but modest gain). Improvement over Codex is robust; improvement over static analyzers is marginal but statistically validated.
 
@@ -1064,43 +1035,30 @@ Our position: Competitive TPR (76%, matching Meta),
 
 Figure~\ref{fig:ablation_scaling} visualizes multi-agent scaling behavior, validating theoretical predictions.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
-\small
+\footnotesize
 \begin{verbatim}
 Accuracy
    |
-80%+           /-- Best config: C+P (79.3%)
-   |          /
-75%+         /
-   |        /  Full 4-agent (72.4%)
-70%+       /
-   |      /
-65%+     /
-   |    /  3-agent avg (61.2%)
-60%+   /         +13.5pp
-   |  /
+80%+      /-- C+P (79.3%)
+75%+     /  Full 4-agent (72.4%)
+70%+    /
+65%+   /
+60%+  /  3-agent (61.2%) +13.5pp
 55%+ /
-   | /  2-agent avg (47.7%)
-50%+/          +14.9pp
-   |
+50%+/  2-agent (47.7%) +14.9pp
 45%+
-   |
 40%+
-   |    1-agent avg (32.8%)
-35%+          +11.2pp
-   |
+35%+  1-agent (32.8%) +11.2pp
 30%+
-   |
-   +----+----+----+----+----+
-        1    2    3    4    5 (agents)
-
+   +----+----+----+----+
+       1    2    3    4  (agents)
 Diminishing returns: +14.9pp, +13.5pp, +11.2pp
-Predicts agent 5: <10pp gain (not cost-effective)
 \end{verbatim}
-\caption{Multi-agent scaling: Progressive accuracy improvement with diminishing marginal returns. Adding agents 2, 3, 4 yields +14.9pp, +13.5pp, +11.2pp respectively, validating Theorem~\ref{thm:diminishing}'s prediction of sublinear information gain.}
+\caption{Multi-agent scaling with diminishing marginal returns.}
 \label{fig:ablation_scaling}
-\end{figure}
+\end{figure*}
 
 \textbf{Key Finding 1: Progressive Improvement.} Each additional agent improves average performance: 1$\to$2 agents (+14.9pp), 2$\to$3 agents (+13.5pp), 3$\to$4 agents (+11.2pp), totaling +39.7pp gain. This validates Theorem~\ref{thm:information}'s claim that combining non-redundant agents increases mutual information with bug presence. The 39.7pp improvement is the strongest reported multi-agent gain for code verification, exceeding AutoReview's +18.72\% F1 by factor of 2$\times$.
 
@@ -1112,7 +1070,7 @@ Predicts agent 5: <10pp gain (not cost-effective)
 
 Table~\ref{tab:claude} reports system behavior on 300 Claude Sonnet 4.5-generated patches for SWE-bench Lite issues (no ground truth available).
 
-\begin{table}[t]
+\begin{table*}[t]
 \centering
 \caption{Verification verdicts on 300 Claude Sonnet 4.5-generated patches for SWE-bench Lite issues. No ground truth available (would require test execution); table reports system behavior distribution.}
 \label{tab:claude}
@@ -1130,7 +1088,7 @@ Acceptable (PASS + WARNING) & 75 & 25.0\% \\
 Flagged (FAIL + ERROR) & 225 & 75.0\% \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
 \textbf{Interpretation.} Our system flags 72\% of Claude patches as requiring correction (FAIL), with additional 23\% warranting human review (WARNING). Only 2\% pass automatic verification without concerns. This strict behavior reflects our calibrated enterprise deployment standards (Section~4.6), designed for zero-tolerance security and correctness requirements.
 
@@ -1765,14 +1723,22 @@ The shift from single-dimensional to multi-dimensional code analysis, grounded i
 % ========================================================================
 
 \section*{Acknowledgments}
-
-We thank the reviewers for their constructive feedback. This work was supported by [YOUR FUNDING SOURCE]. Code and data available at \url{https://github.com/your-org/codex-verify}.
+\small
+We thank the reviewers for their constructive feedback. Code and data: \url{https://github.com/ShreshthRajan/codex-verify}.
 
 % ========================================================================
-% APPENDIX
+% APPENDIX - Supplementary Material
+% Note: Can be published as separate online supplement for ArXiv
+% Comment out from here to end to exclude appendix from main paper
 % ========================================================================
 
+\clearpage
+\onecolumn
 \appendix
+
+\noindent\textit{Note: The following appendix provides supplementary material including complete agent specifications, detailed proofs, dataset examples, and reproducibility details. This can be published as a separate online supplement.}
+
+\vspace{0.5cm}
 
 \section{Agent Implementation Details}
 
@@ -1852,21 +1818,21 @@ Table~\ref{tab:security_patterns} lists all 15 vulnerability detection patterns 
 \toprule
 \textbf{Pattern Name} & \textbf{Regex} & \textbf{CWE} & \textbf{Severity} \\
 \midrule
-SQL injection (direct) & \texttt{execute(...\textbackslash\%...)} & CWE-89 & HIGH \\
-SQL injection (format) & \texttt{SELECT.*\.format\(} & CWE-89 & HIGH \\
-SQL injection (f-string) & \texttt{f"SELECT.*\{.*\}"} & CWE-89 & HIGH \\
-Command injection (concat) & \texttt{os.system.*\textbackslash+} & CWE-78 & HIGH \\
-Shell injection & \texttt{shell\textbackslash s*=\textbackslash s*True} & CWE-78 & MEDIUM \\
-\texttt{eval()} execution & \texttt{eval\textbackslash s*\textbackslash(} & CWE-94 & CRITICAL \\
-\texttt{exec()} execution & \texttt{exec\textbackslash s*\textbackslash(} & CWE-94 & CRITICAL \\
-\texttt{pickle.loads} unsafe & \texttt{pickle\.loads\textbackslash s*\textbackslash(} & CWE-502 & HIGH \\
-\texttt{yaml.load} unsafe & \texttt{yaml\.load\textbackslash s*\textbackslash(} & CWE-502 & HIGH \\
-MD5 usage & \texttt{hashlib\.md5\textbackslash s*\textbackslash(} & CWE-327 & MEDIUM \\
-SHA1 usage & \texttt{hashlib\.sha1\textbackslash s*\textbackslash(} & CWE-327 & MEDIUM \\
-Weak random & \texttt{random\.(randint|choice)} & CWE-338 & MEDIUM \\
-Hardcoded password & \texttt{password\textbackslash s*=\textbackslash s*['"]} & CWE-798 & HIGH \\
-Hardcoded API key & \texttt{api\_key\textbackslash s*=\textbackslash s*['"]} & CWE-798 & HIGH \\
-Timing attack & \texttt{password|token.*==} & CWE-208 & MEDIUM \\
+SQL injection (direct) & Pattern: execute with percent & CWE-89 & HIGH \\
+SQL injection (format) & Pattern: SELECT with format() & CWE-89 & HIGH \\
+SQL injection (f-string) & Pattern: f-string with SELECT & CWE-89 & HIGH \\
+Command injection & Pattern: os.system with concat & CWE-78 & HIGH \\
+Shell injection & Pattern: shell=True & CWE-78 & MEDIUM \\
+eval() execution & Pattern: eval() call & CWE-94 & CRITICAL \\
+exec() execution & Pattern: exec() call & CWE-94 & CRITICAL \\
+pickle.loads unsafe & Pattern: pickle.loads() & CWE-502 & HIGH \\
+yaml.load unsafe & Pattern: yaml.load() & CWE-502 & HIGH \\
+MD5 usage & Pattern: hashlib.md5() & CWE-327 & MEDIUM \\
+SHA1 usage & Pattern: hashlib.sha1() & CWE-327 & MEDIUM \\
+Weak random & Pattern: random.randint/choice & CWE-338 & MEDIUM \\
+Hardcoded password & Pattern: password = string & CWE-798 & HIGH \\
+Hardcoded API key & Pattern: api key = string & CWE-798 & HIGH \\
+Timing attack & Pattern: password/token comparison & CWE-208 & MEDIUM \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1889,28 +1855,30 @@ Typical entropy values: English text 2.5--3.0, random base64 4.5--5.5, API keys 
 \subsection{Performance Profiler: Algorithm Classification}
 
 \textbf{Complexity Classification Algorithm.}
+\begin{algorithm}
 \begin{algorithmic}[1]
-\Procedure{ClassifyComplexity}{$\text{code}$}
-    \State $\text{tree} \gets \texttt{ast.parse}(\text{code})$
-    \State $\text{max\_nest} \gets \textsc{MaxNestedLoops}(\text{tree})$
-    \State $\text{has\_recursion} \gets \textsc{DetectRecursion}(\text{tree})$
-    \If{$\text{has\_recursion}$}
-        \If{$\textsc{IsTailRecursive}(\text{tree})$}
+\Procedure{ClassifyComplexity}{code}
+    \State Parse AST from code
+    \State Count maximum nested loop depth
+    \State Detect if function is recursive
+    \If{recursive}
+        \If{tail recursive}
             \State \Return $O(n)$
         \Else
             \State \Return $O(2^n)$
         \EndIf
-    \ElsIf{$\text{max\_nest} = 0$}
+    \ElsIf{no loops}
         \State \Return $O(1)$
-    \ElsIf{$\text{max\_nest} = 1$}
-        \State \Return $O(n)$ or $O(n \log n)$ \Comment{Check for efficient ops}
-    \ElsIf{$\text{max\_nest} = 2$}
+    \ElsIf{one loop}
+        \State \Return $O(n)$ or $O(n \log n)$
+    \ElsIf{two nested loops}
         \State \Return $O(n^2)$
     \Else
-        \State \Return $O(n^{\text{max\_nest}})$
+        \State \Return $O(n^k)$ where $k$ is nesting depth
     \EndIf
 \EndProcedure
 \end{algorithmic}
+\end{algorithm}
 
 Context-aware tolerance: Patch context allows $O(n^2)$ without flagging; full file context flags $O(n^2)$ for sorting/searching operations.
 
@@ -2201,19 +2169,19 @@ Requires semantic understanding beyond AST patterns.
 Following NeurIPS/ICML reproducibility guidelines, we provide:
 
 \begin{itemize}[leftmargin=*, itemsep=2pt]
-    \item[\checkmark] \textbf{Code:} Complete implementation (6,122 lines) at \url{https://github.com/your-org/codex-verify}
-    \item[\checkmark] \textbf{Data:} 99-sample benchmark with ground truth labels (JSON format)
-    \item[\checkmark] \textbf{Environment:} Dockerfile with exact dependencies (Python 3.10, all packages pinned)
-    \item[\checkmark] \textbf{Seeds:} All random operations use \texttt{random\_state=42}
-    \item[\checkmark] \textbf{Hyperparameters:} All thresholds, weights listed in Section~5.6 and Appendix A
-    \item[\checkmark] \textbf{Evaluation scripts:} Automated reproduction of all results (\texttt{swe\_bench\_mirror\_evaluator.py}, \texttt{ablation\_study.py})
-    \item[\checkmark] \textbf{Compute requirements:} Consumer hardware (16GB RAM, <3 hours), no specialized infrastructure
-    \item[\checkmark] \textbf{Results:} All raw results (JSON) and processed metrics (CSV) included
+    \item \textbf{Code:} Complete implementation (6,122 lines) at \url{https://github.com/ShreshthRajan/codex-verify}
+    \item \textbf{Data:} 99-sample benchmark with ground truth labels (JSON format)
+    \item \textbf{Environment:} Dockerfile with exact dependencies (Python 3.10, all packages pinned)
+    \item \textbf{Seeds:} All random operations use \texttt{random\_state=42}
+    \item \textbf{Hyperparameters:} All thresholds, weights listed in Section~5.6 and Appendix A
+    \item \textbf{Evaluation scripts:} Automated reproduction of all results (\texttt{swe\_bench\_mirror\_evaluator.py}, \texttt{ablation\_study.py})
+    \item \textbf{Compute requirements:} Consumer hardware (16GB RAM, less than 3 hours), no specialized infrastructure
+    \item \textbf{Results:} All raw results (JSON) and processed metrics (CSV) included
 \end{itemize}
 
 \textbf{One-Command Reproduction:}
 \begin{verbatim}
-git clone https://github.com/your-org/codex-verify
+git clone https://github.com/ShreshthRajan/codex-verify
 cd codex-verify
 docker build -t codex-verify .
 docker run codex-verify python swe_bench_mirror_evaluator.py
@@ -2338,25 +2306,27 @@ Achieves $2.0\times$ speedup over sequential execution (Table~\ref{tab:timing}),
 
 Proposed pipeline combining our static analysis with Meta Prompt testing:
 
+\begin{algorithm}
 \begin{algorithmic}[1]
 \Procedure{HybridVerify}{code, prompt}
-    \State $\text{static\_result} \gets \textsc{CodeX-Verify}(\text{code})$
-    \If{$\text{static\_result} = \text{FAIL}$}
-        \State \Return FAIL \Comment{Immediate rejection}
-    \ElsIf{$\text{static\_result} = \text{PASS}$}
-        \State $\text{paraphrases} \gets \textsc{GenerateParaphrases}(\text{prompt}, k=5)$
-        \State $\text{variants} \gets [\textsc{LLM}(p) \text{ for } p \text{ in paraphrases}]$
-        \State $\text{outputs} \gets [\textsc{Execute}(v, \text{test\_inputs}) \text{ for } v \text{ in variants}]$
-        \If{$\textsc{OutputsConsistent}(\text{outputs})$}
-            \State \Return PASS \Comment{Static + dynamic both pass}
+    \State Run static analysis on code
+    \If{static result is FAIL}
+        \State \Return FAIL
+    \ElsIf{static result is PASS}
+        \State Generate 5 paraphrased prompts
+        \State Generate code variants from paraphrases
+        \State Execute all variants with test inputs
+        \If{outputs are consistent}
+            \State \Return PASS
         \Else
-            \State \Return FAIL \Comment{Inconsistent outputs}
+            \State \Return FAIL
         \EndIf
     \Else
-        \State \Return WARNING \Comment{Static uncertain, skip expensive dynamic}
+        \State \Return WARNING
     \EndIf
 \EndProcedure
 \end{algorithmic}
+\end{algorithm}
 
 \textbf{Expected Performance:} Static triage (200ms) filters 70\%, dynamic validation (5s) on remaining 30\%, total time $0.2 + 0.3 \times 5 = 1.7$s per sample (vs. 5s pure dynamic). Predicted metrics: 80--85\% TPR (combining static security + dynamic correctness), 15--20\% FPR (test execution validates functional correctness, filtering quality-only false positives).
 
@@ -2404,3 +2374,4 @@ Proposed pipeline combining our static analysis with Meta Prompt testing:
 %   - Appendix (A-J)
 %
 % ========================================================================
+

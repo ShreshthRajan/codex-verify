@@ -3,7 +3,8 @@
 
 **CodeX-Verify: Information-Theoretic Foundations**
 
-Author: Based on empirical results from 99-sample evaluation + 15-configuration ablation study
+Shreshth Rajan
+ Based on empirical results from 99-sample evaluation + 15-configuration ablation study
 Date: October 2025
 
 ---
