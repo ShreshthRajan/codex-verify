@@ -1,311 +1,211 @@
 # CodeX-Verify: Multi-Agent Code Verification Framework
 
-**Enterprise-grade verification system addressing the 40–60% false positive rate in LLM code generation (Codex, SWE-bench, GPT-Code).**
+**Multi-agent verification system for detecting bugs in LLM-generated code with information-theoretic foundations.**
 
-[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Verification Accuracy](https://img.shields.io/badge/verification-70.6%25-green.svg)](docs/evaluation.md)
+[![Paper](https://img.shields.io/badge/paper-arXiv-red.svg)](https://arxiv.org/abs/XXXXX)
 
 ---
 
-## Current State 
+## Overview
 
-LLM-generated code is  unsuitable for direct enterprise deployment due to a **40–60% rate of undetected bad outputs**, as demonstrated by SWE-bench, Meta Prompt Testing, and SecRepoBench. Code may pass test cases but still fails in production due to subtle correctness, security, performance, or maintainability issues.
+Large language models generate code with 40-60% latent bug rates. CodeX-Verify addresses this through multi-agent verification across four orthogonal dimensions: correctness, security, performance, and maintainability.
 
-The primary goal of this project is to improve **true positive detection** of such bad outputs — reducing the risk of unsafe code shipping undetected. False positive rate on “good”* code is tunable, but not the immediate focus.
-
-**CodeX‑Verify** is a *multi-agent verification* system addressing this barrier:
-
-* **70.6% accuracy** (+30.6 pts over Codex baseline)
-* **91.7% true positive rate** for actual bugs
-* **98% detection** of SWE-bench real production issues
-* **Sub‑200 ms latency** (CI/CD and PR pipeline ready)
-* **Enterprise production gating** with zero-tolerance deploy blockers
-
-
-*“good code” = should pass verification without blocking deploy — correct, secure, performant, maintainable
-
+**Key Results (99-sample evaluation with perfect ground truth):**
+* **68.7% accuracy** (±9.1% CI) - improves 28.7pp over Codex baseline (40%)
+* **76.1% TPR** - matches SOTA Meta Prompt Testing (75%)
+* **50.0% FPR** - reflects static analysis vs test execution tradeoff
+* **+39.7pp multi-agent advantage** - validated through 15-configuration ablation
+* **Sub-200ms latency** - CI/CD ready
 
 ---
 
-## Architecture Overview
+## Novel Contributions
 
-```mermaid
-graph TB
-    Input[Code Input] --> Orchestrator[AsyncOrchestrator]
-    Orchestrator --> |Parallel Execution| A1[CorrectnessAgent]
-    Orchestrator --> |Parallel Execution| A2[SecurityAuditor] 
-    Orchestrator --> |Parallel Execution| A3[PerformanceProfiler]
-    Orchestrator --> |Parallel Execution| A4[StyleMaintainabilityJudge]
-    
-    A1 --> Aggregator[ResultAggregator]
-    A2 --> Aggregator
-    A3 --> Aggregator
-    A4 --> Aggregator
-    
-    Aggregator --> |Enterprise Scoring| Report[VerificationReport]
-    Aggregator --> |Compound Detection| Vulnerabilities[CompoundVulnerabilities]
-    
-    Report --> Dashboard[StreamlitDashboard]
-    Report --> CLI[CLIInterface]
-```
----
+### 1. Information-Theoretic Foundations
+Formal proof that multi-agent systems achieve higher mutual information with bug presence: $I(A_1, A_2, A_3, A_4; B) > \max_i I(A_i; B)$ when agents exhibit low correlation (measured ρ = 0.05-0.25).
 
-## Core Innovations: Multi-Agent Verification
-
-### Correctness Critic
-
-* AST-based static analysis (Python, etc.)
-* Exception path analysis
-* Input validation & type safety
-* Edge case coverage
-* Semantic contract validation
-
-### Security Auditor
-
-* Compound vulnerability detection with exponential risk scoring
-* OWASP Top 10 / CWE mapping
-* Entropy-based secret detection
-* Context-aware severity escalation
-* Code execution path & injection vulnerabilities
-
-### Performance Profiler
-
-* Context-aware algorithmic complexity analysis
-* Scale-aware performance thresholds
-* Memory/resource profiling (leak detection)
-* Bottleneck identification with optimization suggestions
-
-### Style & Maintainability Judge
-
-* Multi-linter integration (Black, Flake8, Pylint)
-* Halstead complexity & technical debt
-* Documentation coverage analysis
-* Architectural pattern (SOLID) checks
-* Code smell detection & refactoring recommendations
-
----
-
----
-
-
-## Technical Breakthroughs
-
-1. **Compound Vulnerability Detection** — Novel compound vulnerability detection with risk amplification scoring:
-
+### 2. Compound Vulnerability Detection
+First formalization of exponential risk amplification for co-occurring vulnerabilities:
 ```python
-compound_multipliers = {
-    ('sql_injection','hardcoded_secret'):3.0,
-    ('code_execution','dangerous_import'):2.0,
-    ('complexity','algorithm_inefficiency'):1.8
-}
+Risk(v1 ∪ v2) = Risk(v1) × Risk(v2) × α(v1, v2)
+# α ∈ {1.5, 2.0, 2.5, 3.0} calibrated from attack chains
+# Example: SQL injection + credentials = 15× impact (300 vs 20)
 ```
 
-2. **Context-Aware Analysis** — thresholds adapted for patch vs snippet vs full file
-
-3. **Enterprise Production Scoring** — zero-tolerance deploy gating:
-
-```python
-if critical_count>0 or compound_vulns:
-    return "FAIL"
-```
-
-4. **Parallel Agent Orchestration** — sub‑200 ms async execution:
-
-```python
-async def _execute_agents_parallel(self, code, context):
-    tasks = {name: asyncio.create_task(agent.analyze(code, context)) 
-             for name, agent in self.agents.items()}
-    return await asyncio.gather(*tasks.values())
-```
-
-5. **Local-First Architecture** — full offline operation for enterprise privacy needs
+### 3. Comprehensive Ablation Validation
+Systematic testing across 15 agent configurations proves:
+- Single-agent average: 32.8%
+- 4-agent system: 72.4%
+- Improvement: +39.7pp (exceeds AutoReview's +18.72% F1 by 2×)
+- Diminishing returns: +14.9pp, +13.5pp, +11.2pp for agents 2, 3, 4
 
 ---
 
-## Comparison to SOTA
+## Architecture
 
-| System                     | Accuracy/Performance | False Positive Rate | True Positive Rate | Scope/Notes                                    |
-|----------------------------|---------------------|-------------------|-------------------|-----------------------------------------------|
-| **o3 (SWE-bench Verified)**   | 72% (2025)         | —                 | —                 | Latest OpenAI reasoning model                  |
-| **GPT-4.1 (SWE-bench Verified)** | 54.6% (2025)    | —                 | —                 | Latest OpenAI API model                       |
-| **Meta Prompt Testing**       | 89.0% (boosted)    | 8.6%             | 75%               | Function-level validation (Wang & Zhu, 2024) |
-| **SecRepoBench**              | <25% secure-pass@1 | —                | —                 | Repository-level security (318 tasks, 19 LLMs)|
-| **BaxBench**                  | 38% secure-pass@1  | —                | —                 | Backend security (392 tasks, GPT-4 best)     |
-| **Static Analyzers**          | ~65%               | 15-25%           | 60-80%            | Traditional SAST tools                        |
-| **SWE-bench Empirical Study** | 29.6% incorrect    | —                | 98% detection     | Real production bugs (Xia et al., 2025)      |
-| **CodeX-Verify (ours)**       | **70.6%**          | **80%** (tunable)| **91.7%**         | **Full multi-agent across all dimensions**   |
+Four specialized agents analyze code in parallel:
 
-*Note:*
-FPR is currently high on "good code" because the verifier is enforced to be **strict for enterprise deployment**:
+### Correctness Critic (Solo: 75.9%)
+- AST analysis (cyclomatic complexity, nesting depth)
+- Exception path analysis (80% coverage target)
+- Input validation detection (70% target)
+- Edge case coverage
+- Contract validation (docstring vs implementation)
 
-```yaml
-max_critical_vulnerabilities: 0
-max_high_vulnerabilities: 1
-crypto_compliance_required: True
-```
+### Security Auditor (Solo: 20.7%)
+- 15+ vulnerability patterns (SQL injection, code execution, deserialization)
+- Entropy-based secret detection (H > 3.5)
+- CWE/OWASP mapping
+- **Compound vulnerability detection** (novel)
 
-**Any flagged issue blocks deploy**, as intended.
-This FPR is tunable but not the focus of the SWE-bench goal (which targets reducing *false positives on bad Codex outputs*).
-The verifier exceeds that goal with 91.7% TPR and 98% real-world detection.
+### Performance Profiler (Solo: 17.2%)
+- Algorithm complexity classification (O(1) through O(2^n))
+- Context-aware thresholds (patch vs full file)
+- Bottleneck identification
+- Resource leak detection
 
----
-
-## **Relevant Papers**
-
-1. *Validating LLM-Generated Programs with Metamorphic Prompt Testing* - Wang & Zhu (2024)
-2. *Are "Solved Issues" in SWE-bench Really Solved Correctly? An Empirical Study* - Xia et al. (2025)
-3. *SecRepoBench: Benchmarking LLMs for Secure Code Generation in Real-World Repositories* - Dilgren et al. (2025)
-4. *BaxBench: Can LLMs Generate Secure and Correct Backends?* - Vero et al. (2025)
-5. *Vulnerability Detection with Code Language Models: How Far Are We?* - Ding et al. (2024)
-6. *When LLMs meet cybersecurity: a systematic literature review* - (2025)
-7. *SWE-bench: Can Language Models Resolve Real-world Github Issues?* - Jimenez et al. (2024)
-8. *Utilizing Precise and Complete Code Context to Guide LLM in Automatic False Positive Mitigation* - (2024)
-9. *Minimizing False Positives in Static Bug Detection via LLM-Enhanced Path Feasibility Analysis* - (2024)
-10. *LLM4CodeBench*
-11. *SWE‑bench: Can Foundation Models Solve Software Engineering Tasks?*
+### Style & Maintainability (Solo: 17.2%)
+- Multi-linter integration (Black, Flake8, Pylint)
+- Halstead complexity, maintainability index
+- Documentation coverage
+- **All issues LOW severity** (never blocks deployment)
 
 ---
 
-## Performance Validation
+## Installation
 
-### Comprehensive Test Results (34 cases)
-
-```
-✅ Accuracy: 70.6%  
-🎯 TPR: 91.7%  
-⚠️ FPR: 80% (good code — tuning in progress)
-
-Baseline:  
-Codex: ~40%  
-Static Analyzers: ~65%  
-CodeX‑Verify: +30.6% over Codex
+```bash
+git clone https://github.com/ShreshthRajan/codex-verify.git
+cd codex-verify
+pip install -r requirements.txt
 ```
 
-### Breakdown by Category
-
-* Algorithmic Complexity: **100%**
-* Resource Management: **100%**
-* Scalability Performance: **100%**
-* Edge Case Logic: **100%**
-* Security Validation: **83.3%**
-* Input Validation: **66.7%**
-
----
-
-### Real-World SWE-bench (50 samples)
-
-* **98% detection** of production bugs in live open-source projects
-* Targets: `django`, `requests`, `pytorch`, `scikit-learn`, `pandas`
-
----
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Enterprise Features
-
-```python
-enterprise_thresholds = {
-    'max_critical_vulnerabilities': 0,
-    'max_high_vulnerabilities': 1,
-    'max_secrets_per_file': 0,
-    'crypto_compliance_required': True
-}
-```
-
-* Risk scoring: LOW / MEDIUM / HIGH / CRITICAL
-* Compound risk detection
-* Multi-tier caching (<200 ms)
-* Horizontal scaling (stateless agents)
-* Offline mode for air-gapped environments
-* Integration-ready: GitHub Actions, Jenkins, SonarQube, SIEM
+**Requirements:**
+- Python 3.9+
+- 16GB RAM recommended
+- ~10 minutes for main evaluation
 
 ---
 
 ## Quick Start
 
+### Run Main Evaluation (99 samples)
 ```bash
-git clone https://github.com/your‑org/codex‑verify.git
-cd codex‑verify
-pip install ‑r requirements.txt
-
+cd experiments
 python swe_bench_mirror_evaluator.py
-python swe_bench_real_evaluator.py
-
-streamlit run ui/streamlit_dashboard.py
+# Output: 68.7% accuracy, 76.1% TPR, 50.0% FPR
 ```
 
----
-
-## Project Structure
-
-## Project Structure
-
-```text
-codex-verify/
-├── src/
-│   ├── agents/                 # 4 verification agents
-│   │   ├── base_agent.py
-│   │   ├── correctness_critic.py
-│   │   ├── security_auditor.py
-│   │   ├── performance_profiler.py
-│   │   ├── style_maintainability_judge.py
-│   ├── orchestration/          # Async orchestration engine
-│   │   ├── async_orchestrator.py
-│   │   ├── caching_layer.py
-│   │   ├── result_aggregator.py
-├── ui/
-│   ├── cli_interface.py        # CLI interface
-│   ├── streamlit_dashboard.py  # Streamlit dashboard
-│   ├── components/             # UI components
-│   │   ├── code_editor.py
-│   │   ├── feedback_component.py
-│   │   ├── metrics_charts.py
-│   │   ├── verification_report.py
-├── config/                     # YAML config files
-├── tests/                      # Comprehensive test suite
-├── demo_samples/               # Demo test cases & example data
-├── swe_bench_real_evaluator.py # Real SWE-bench runner
-├── swe_bench_mirror_evaluator.py # Mirror benchmark runner
-├── README.md
-├── requirements.txt
-├── setup.py
-```
-
-
-## Development & Testing
-
+### Run Ablation Study (15 configurations)
 ```bash
-python -m pytest tests/ -v
-python swe_bench_real_evaluator.py
+python ablation_study.py
+# Output: +39.7pp multi-agent advantage
+```
+
+### Generate Claude Patches (requires API key)
+```bash
+# Add ANTHROPIC_API_KEY to .env
+python generate_claude_patches.py
+# Generates 300 patches (~260 min, ~$25)
 ```
 
 ---
 
-## Conclusion
+## Project Structure
 
-**CodeX‑Verify** is a full *multi-agent verification system* designed to close the 40–60% false positive gap in Codex and other LLM-generated code, validated across SWE‑bench and real-world production issues.
+```
+codex-verify/
+├── src/                  # Core implementation (6,122 lines)
+│   ├── agents/          # 4 verification agents
+│   └── orchestration/   # Async orchestration, aggregation
+├── experiments/         # Evaluation scripts
+│   ├── swe_bench_mirror_evaluator.py  # Main eval
+│   ├── ablation_study.py               # Ablation study
+│   └── generate_claude_patches.py      # Patch generation
+├── results/             # Experimental outputs
+│   ├── ablation/       # Ablation results
+│   ├── claude_patches/ # 300 Claude patch evaluations
+│   └── mirror_eval/    # 99-sample benchmark results
+├── paper/               # LaTeX paper source
+├── tests/               # Unit & integration tests
+├── ui/                  # Streamlit dashboard
+└── docs/                # Documentation
+```
+
+---
+
+## Results Summary
+
+### Main Evaluation (99 samples, perfect ground truth)
+| Metric | Value | Comparison |
+|--------|-------|------------|
+| Accuracy | 68.7% ± 9.1% | +28.7pp over Codex (40%) |
+| TPR (bug detection) | 76.1% | Matches Meta Prompt (75%) |
+| FPR (false alarms) | 50.0% | Higher than Meta (8.6%), static vs dynamic tradeoff |
+| F1 Score | 0.777 | Balanced precision-recall |
+
+### Ablation Study (15 configurations)
+| Agent Count | Avg Accuracy | Marginal Gain |
+|-------------|--------------|---------------|
+| 1 agent | 32.8% | baseline |
+| 2 agents | 47.7% | +14.9pp |
+| 3 agents | 61.2% | +13.5pp |
+| 4 agents | 72.4% | +11.2pp |
+
+**Total multi-agent advantage: +39.7pp**
+
+### Real-World Validation (300 Claude Sonnet 4.5 patches)
+- 72% flagged as FAIL
+- 23% flagged as WARNING
+- 2% passed verification
+- Demonstrates strict enterprise standards
+
+---
+
+## Paper
+
+**Title:** CodeX-Verify: Multi-Agent Verification of LLM-Generated Code via Compound Vulnerability Detection and Information-Theoretic Ensemble
+
+**Authors:** Shreshth Rajan (Noumenon Labs, Harvard University)
+
+**Status:** Submitted to ArXiv (cs.SE, cs.LG)
+
+**Paper source:** `paper/main.tex`
+
+---
+
+## Citation
+
+If you use CodeX-Verify in your research, please cite:
+
+```bibtex
+@article{rajan2025codexverify,
+  title={CodeX-Verify: Multi-Agent Verification of LLM-Generated Code via Compound Vulnerability Detection and Information-Theoretic Ensemble},
+  author={Rajan, Shreshth},
+  journal={arXiv preprint},
+  year={2025}
+}
+```
+
+---
+
+## License
+
+MIT License - see LICENSE file
+
+---
+
+## Contact
+
+**Shreshth Rajan**
+- Email: shreshthrajan@college.harvard.edu
+- GitHub: [@ShreshthRajan](https://github.com/ShreshthRajan)
+- Noumenon Labs, Harvard University
+
+---
+
+## Acknowledgments
+
+Built on research from SWE-bench, Meta Prompt Testing, and multi-agent systems literature. See paper for complete references.
