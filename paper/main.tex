@@ -91,8 +91,6 @@
 
 \begin{document}
 
-\twocolumn[
-\begin{@twocolumnfalse}
 \maketitle
 
 \begin{abstract}
@@ -110,8 +108,6 @@ Our compound vulnerability formalization introduces risk amplification factors $
 
 \end{abstract}
 \vspace{0.3cm}
-\end{@twocolumnfalse}
-]
 
 
 % ========================================================================
@@ -430,7 +426,7 @@ where $\mathcal{I}_{\text{high}}^{\text{sec}}$, $\mathcal{I}_{\text{high}}^{\tex
 
 Table~\ref{tab:theory_validation} summarizes our theoretical claims and their empirical validation.
 
-\begin{table}[t]
+\begin{table*}[t]
 \centering
 \caption{Theoretical predictions vs. empirical observations from our evaluation.}
 \label{tab:theory_validation}
@@ -448,7 +444,7 @@ Optimal $n^* = 4$ agents & Marginal gains <10pp for agent 5 & Yes \\
 Compound $\alpha > 1$ improves detection & Compound detection active & Yes \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
 All theoretical predictions align with experimental observations, validating our mathematical framework. The information-theoretic foundation (Theorem~\ref{thm:information}) predicts multi-agent advantage, confirmed by +39.7pp empirical gain. Diminishing returns (Theorem~\ref{thm:diminishing}) predict sublinear gains, confirmed by measured +14.9pp, +13.5pp, +11.2pp. PAC bounds (Theorems~\ref{thm:sample_complexity},~\ref{thm:generalization}) predict $n=99$ sufficiency and accuracy $\geq 51.7\%$, both confirmed. This tight theory-empirics correspondence demonstrates our framework accurately models multi-agent code verification dynamics.
 
@@ -733,7 +729,7 @@ We evaluate \textsc{CodeX-Verify} on curated samples with perfect ground truth, 
 
 \textbf{Dataset Statistics.} Table~\ref{tab:dataset} summarizes the benchmark composition.
 
-\begin{table}[t]
+\begin{table*}[t]
 \centering
 \caption{Evaluation dataset composition (99 samples with perfect ground truth).}
 \label{tab:dataset}
@@ -765,7 +761,7 @@ Hard & 31 & 31.3\% \\
 Expert & 8 & 8.1\% \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
 \textbf{Sample Quality Validation.} To ensure evaluation rigor, we manually reviewed all 99 samples for: (1) bug authenticity (bugs must be realistic, not contrived), (2) label correctness (ground truth must be unambiguous), (3) difficulty calibration (samples span easy to expert), and (4) category coverage (no over-representation of any single bug type). The 71:28 buggy-to-correct ratio reflects realistic LLM failure rates (40--60\% documented in literature).
 
@@ -926,7 +922,7 @@ Meta Prompt Testing$^{\dagger}$ & --- & 75.0\% & 8.6\% & --- \\
 
 \textbf{Performance by Category.} Table~\ref{tab:category} breaks down results by bug category, demonstrating strong performance on security (87.5\% detection) and resource management (100\% detection), with weaker performance on edge case logic (0\% on 2-sample category) due to sample scarcity.
 
-\begin{table}[t]
+\begin{table*}[t]
 \centering
 \caption{Performance by bug category on 99-sample evaluation.}
 \label{tab:category}
@@ -1835,7 +1831,7 @@ Hardcoded API key & Pattern: api key = string & CWE-798 & HIGH \\
 Timing attack & Pattern: password/token comparison & CWE-208 & MEDIUM \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
 \textbf{Context Multipliers.} Each pattern includes context-aware severity escalation:
 \begin{itemize}[leftmargin=*, itemsep=0pt]
@@ -1944,7 +1940,7 @@ P+St & 2 & 17.2 & 0.0 & 0.0 & --- & 0.0 & 72 \\
 4 agents & --- & 72.4 & 75.0 & 40.0 & --- & --- & 148 \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
 \textbf{Key Observations:}
 \begin{enumerate}[leftmargin=*, itemsep=0pt]
@@ -2207,7 +2203,7 @@ Hard & 31 & 23 & 74.2\% \\
 Expert & 8 & 6 & 75.0\% \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
 Detection rates remain consistent across difficulty levels (75--78\%), suggesting our system doesn't exhibit difficulty-dependent performance degradation. This validates that agent patterns (AST analysis, vulnerability regex, complexity classification) generalize from simple to complex code without specialized handling.
 
@@ -2236,7 +2232,7 @@ Sequential estimate & 297 & --- \\
 Parallelization speedup & 2.0$\times$ & --- \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
 \section{Theoretical Generalizations}
 
