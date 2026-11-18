@@ -112,3 +112,5 @@ tree-sitter-*/
 # Local configuration overrides
 config/local_*.yaml
 config/dev_*.yaml
+sast_env/
+data/SecurityEval/
