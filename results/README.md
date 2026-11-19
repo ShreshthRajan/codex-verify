@@ -1,3 +1,5 @@
+> **Superseded.** The results described below come from the earlier 99-sample, self-labeled evaluation. The execution-grounded re-evaluation is in `bench/` and `results/rebuild/`; see the paper (Appendix A) for what each earlier number does and does not show.
+
 # Experimental Results
 
 This directory contains all experimental outputs from CodeX-Verify evaluations.
