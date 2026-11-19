@@ -4,7 +4,8 @@ roles. Every call returns a probability that the code is defective, which
 gives each verifier a full ROC/PR curve.
 
 usage: python bench/run_llm.py <model> <dataset: heval|swe> <roles: single,correctness,...>
-Results are cached in results/rebuild/llm_<model>_<dataset>.jsonl (one line per
+Set ANTHROPIC_BASE_URL / ANTHROPIC_API_KEY / MODEL_PREFIX (e.g. "anthropic/") to call
+the same model through an Anthropic-compatible gateway. Results are cached in results/rebuild/llm_<model>_<dataset>.jsonl (one line per
 item x role); reruns only make the missing calls.
 """
 import asyncio, json, os, sys, time
@@ -62,7 +63,7 @@ async def call(client, sem, model, item, role):
         for attempt in range(6):
             try:
                 r = await client.messages.create(
-                    model=model, max_tokens=4000, system=SYSTEM,
+                    model=os.environ.get("MODEL_PREFIX", "") + model, max_tokens=int(os.environ.get("MAX_TOKENS", "4000")), system=SYSTEM,
                     output_config={"effort": "low",
                                    "format": {"type": "json_schema", "schema": SCHEMA}},
                     messages=[{"role": "user", "content": prompt(item, role)}])
@@ -83,7 +84,7 @@ async def call(client, sem, model, item, role):
 async def main(model, dataset, roles):
     src = {"heval": "heval_fix.jsonl", "swe": "swe_patches.jsonl"}[dataset]
     items = [json.loads(l) for l in open(ROOT / "bench" / "data" / src)]
-    out = ROOT / "results" / "rebuild" / f"llm_{model}_{dataset}.jsonl"
+    out = ROOT / "results" / "rebuild" / f"llm_{model}_{dataset}{os.environ.get('RUN_TAG', '')}.jsonl"
     done = set()
     if out.exists():
         for l in open(out):

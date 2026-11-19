@@ -69,8 +69,11 @@ async def subset_reports(agent_results, code, ctx):
     out = {}
     for s in SUBSETS:
         sub = {k: agent_results[k] for k in s}
-        rep = await agg.aggregate_results(sub, code, ctx, time.time())
-        out["+".join(s)] = {"score": rep.overall_score, "status": rep.overall_status}
+        try:
+            rep = await agg.aggregate_results(sub, code, ctx, time.time())
+            out["+".join(s)] = {"score": rep.overall_score, "status": rep.overall_status}
+        except Exception as e:  # the orchestrator turns aggregator crashes into an ERROR report, score 0
+            out["+".join(s)] = {"score": 0.0, "status": "ERROR", "error": repr(e)}
     return out
 
 
@@ -141,7 +144,12 @@ def main(dataset):
     items = [json.loads(l) for l in open(ROOT / "bench" / "data" / src)]
     out = ROOT / "results" / "rebuild" / f"static_{dataset}.jsonl"
     out.parent.mkdir(parents=True, exist_ok=True)
-    with Pool(8) as p, open(out, "w") as f:
+    done = set()
+    if out.exists():
+        done = {json.loads(l)["id"] for l in open(out)}
+    items = [it for it in items if it["id"] not in done]
+    print(len(done), "already done;", len(items), "to run", flush=True)
+    with Pool(8) as p, open(out, "a") as f:
         for i, rec in enumerate(p.imap_unordered(process, items, chunksize=1)):
             f.write(json.dumps(rec) + "\n")
             if i % 25 == 0:
