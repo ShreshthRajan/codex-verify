@@ -101,6 +101,22 @@ def systems_for(ds):
             add(f"{mname} 4 agents, any reject", "llm-ma",
                 {i: sum(rj[i].values()) + 0.01 * np.mean(list(p[i].values())) for i in ids},
                 {i: any(rj[i].values()) for i in ids})
+    # compute-matched control: the single judge's score averaged over repeated runs (SWE only)
+    if ds == "swe":
+        reps = []
+        for tag in ("", "_run2", "_run3"):
+            p = RES / f"llm_claude-sonnet-5-5_swe{tag}.jsonl"
+            if p.exists():
+                d = {}
+                for l in open(p):
+                    r = json.loads(l)
+                    if r.get("role") == "single" and "p_defect" in r:
+                        d[r["id"]] = r["p_defect"] / 100
+                if all(i in d for i in ids):
+                    reps.append(d)
+        if len(reps) == 3:
+            m = {i: float(np.mean([d[i] for d in reps])) for i in ids}
+            add("Sonnet 5.5 single judge, mean of 3 runs", "llm", m, {i: m[i] >= 0.5 for i in ids})
     return items, S, static
 
 
@@ -305,6 +321,10 @@ def main():
                 if bname in S:
                     c[f"{a} vs {bname}"] = {"auc": paired_auc_diff(items, S, a, bname, sub),
                                             "mcnemar": mcnemar(items, S, a, bname, sub)}
+            if f"{m} single judge, mean of 3 runs" in S:
+                c[f"{m} single judge, mean of 3 runs vs {m} 4 agents, mean"] = {
+                    "auc": paired_auc_diff(items, S, f"{m} single judge, mean of 3 runs", f"{m} 4 agents, mean", sub),
+                    "mcnemar": mcnemar(items, S, f"{m} single judge, mean of 3 runs", f"{m} 4 agents, mean", sub)}
             c[f"{a} vs CodeX-Verify"] = {"auc": paired_auc_diff(items, S, a, "CodeX-Verify (FAIL or WARN)", sub),
                                          "mcnemar": mcnemar(items, S, a, "CodeX-Verify (FAIL or WARN)", sub)}
         comps[ds] = c
@@ -342,7 +362,7 @@ def main():
 MAIN_ROWS = ["Always flag", "CodeX-Verify (FAIL)", "CodeX-Verify (FAIL or WARN)", "Static agents, majority vote",
              "CodeX-Verify, patch-aware", "Semgrep", "Bandit",
              "Haiku 5.5 single judge", "Haiku 5.5 4 agents, mean", "Haiku 5.5 4 agents, majority vote",
-             "Sonnet 5.5 single judge", "Sonnet 5.5 correctness agent", "Sonnet 5.5 4 agents, mean",
+             "Sonnet 5.5 single judge", "Sonnet 5.5 single judge, mean of 3 runs", "Sonnet 5.5 correctness agent", "Sonnet 5.5 4 agents, mean",
              "Sonnet 5.5 4 agents, max", "Sonnet 5.5 4 agents, weighted", "Sonnet 5.5 4 agents, majority vote",
              "Sonnet 5.5 4 agents, any reject"]
 
@@ -502,6 +522,8 @@ def make_macros():
         sysm(tag + "CvFail", ds, "CodeX-Verify (FAIL)")
         sysm(tag + "Vote", ds, "Static agents, majority vote")
         sysm(tag + "Semgrep", ds, "Semgrep"); sysm(tag + "Bandit", ds, "Bandit")
+        if "Sonnet 5.5 single judge, mean of 3 runs" in ev[ds]:
+            sysm(tag + "SonnetThree", ds, "Sonnet 5.5 single judge, mean of 3 runs")
         for m in ("Sonnet", "Haiku"):
             sysm(tag + m, ds, f"{m} 5.5 single judge")
             sysm(tag + m + "Corr", ds, f"{m} 5.5 correctness agent")
