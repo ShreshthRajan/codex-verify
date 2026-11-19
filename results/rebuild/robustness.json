@@ -1,0 +1,287 @@
+{
+ "recall": {
+  "claude-sonnet-5-5": {
+   "rates": {
+    "single": {
+     "agent": 0.8733333333333333,
+     "gold": 0.98
+    },
+    "correctness": {
+     "agent": 0.7766666666666666,
+     "gold": 0.9666666666666667
+    },
+    "security": {
+     "agent": 0.31666666666666665,
+     "gold": 0.44666666666666666
+    },
+    "performance": {
+     "agent": 0.59,
+     "gold": 0.8066666666666666
+    },
+    "style": {
+     "agent": 0.5133333333333333,
+     "gold": 0.7733333333333333
+    }
+   },
+   "n_clean_single": 38,
+   "n_clean_all": 19,
+   "auc_single_all": 0.8916171410697529,
+   "auc_single_clean": 0.9818181818181818,
+   "auc_single_mentioned": 0.870831389925373,
+   "auc_mean4_clean_all": 0.9583333333333334,
+   "auc_single_clean_all": 0.9583333333333334,
+   "clean_all_pos": 16
+  },
+  "claude-haiku-5-5": {
+   "rates": {
+    "single": {
+     "agent": 0.22666666666666666,
+     "gold": 0.46
+    },
+    "correctness": {
+     "agent": 0.17,
+     "gold": 0.38
+    },
+    "security": {
+     "agent": 0.05,
+     "gold": 0.06
+    },
+    "performance": {
+     "agent": 0.1,
+     "gold": 0.1
+    },
+    "style": {
+     "agent": 0.09,
+     "gold": 0.08666666666666667
+    }
+   },
+   "n_clean_single": 232,
+   "n_clean_all": 176,
+   "auc_single_all": 0.8299968720675632,
+   "auc_single_clean": 0.834805993084902,
+   "auc_single_mentioned": 0.7698863636363638,
+   "auc_mean4_clean_all": 0.7689852373985901,
+   "auc_single_clean_all": 0.8181939087644634,
+   "clean_all_pos": 103
+  }
+ },
+ "recall_heval_sonnet": 0.09146341463414634,
+ "trivial_features_auc": {
+  "patch length": 0.517851557263506,
+  "changed lines": 0.5000670271236427,
+  "files touched": 0.44651235533312483,
+  "generator (GPT-4o agent)": 0.5502703427320256
+ },
+ "patch_aware_by_generator": {
+  "20241022_tools_claude-3-5-sonnet-updated": {
+   "auc": 0.5258850738302793,
+   "mean_score": 6.605333333333333
+  },
+  "20241028_agentless-1.5_gpt4o": {
+   "auc": 0.5351906158357771,
+   "mean_score": 0.212
+  }
+ },
+ "stack_cv_auc": {
+  "claude-sonnet-5-5": 0.8925108360516555,
+  "claude-haiku-5-5": 0.8357165199517405
+ },
+ "permutation_gain": {
+  "claude-sonnet-5-5": {
+   "observed_gain": 0.02994737058005359,
+   "observed_gain_mm": 0.02032940364079394,
+   "null_mean": 0.2683993759392769,
+   "null_p05": 0.22301531403773514,
+   "p_le": 0.0
+  },
+  "claude-haiku-5-5": {
+   "observed_gain": 0.03113054158247175,
+   "observed_gain_mm": 0.019108082908396717,
+   "null_mean": 0.11457686737394086,
+   "null_p05": 0.08669891823690265,
+   "p_le": 0.0
+  }
+ },
+ "holm": [
+  {
+   "dataset": "heval",
+   "comparison": "Sonnet 5.5 single judge vs Sonnet 5.5 4 agents, mean",
+   "p": 0.101,
+   "p_holm": 1.0
+  },
+  {
+   "dataset": "heval",
+   "comparison": "Sonnet 5.5 single judge vs Sonnet 5.5 4 agents, max",
+   "p": 0.761,
+   "p_holm": 1.0
+  },
+  {
+   "dataset": "heval",
+   "comparison": "Sonnet 5.5 single judge vs Sonnet 5.5 4 agents, weighted",
+   "p": 0.042,
+   "p_holm": 0.656
+  },
+  {
+   "dataset": "heval",
+   "comparison": "Sonnet 5.5 single judge vs Sonnet 5.5 correctness agent",
+   "p": 0.413,
+   "p_holm": 1.0
+  },
+  {
+   "dataset": "heval",
+   "comparison": "Haiku 5.5 single judge vs Haiku 5.5 4 agents, mean",
+   "p": 0.058,
+   "p_holm": 0.812
+  },
+  {
+   "dataset": "heval",
+   "comparison": "Haiku 5.5 single judge vs Haiku 5.5 4 agents, max",
+   "p": 0.981,
+   "p_holm": 1.0
+  },
+  {
+   "dataset": "heval",
+   "comparison": "Haiku 5.5 single judge vs Haiku 5.5 4 agents, weighted",
+   "p": 0.173,
+   "p_holm": 1.0
+  },
+  {
+   "dataset": "heval",
+   "comparison": "Haiku 5.5 single judge vs Haiku 5.5 correctness agent",
+   "p": 0.903,
+   "p_holm": 1.0
+  },
+  {
+   "dataset": "swe",
+   "comparison": "Sonnet 5.5 single judge vs Sonnet 5.5 4 agents, mean",
+   "p": 0.202,
+   "p_holm": 1.0
+  },
+  {
+   "dataset": "swe",
+   "comparison": "Sonnet 5.5 single judge vs Sonnet 5.5 4 agents, max",
+   "p": 0.041,
+   "p_holm": 0.656
+  },
+  {
+   "dataset": "swe",
+   "comparison": "Sonnet 5.5 single judge vs Sonnet 5.5 4 agents, weighted",
+   "p": 0.817,
+   "p_holm": 1.0
+  },
+  {
+   "dataset": "swe",
+   "comparison": "Sonnet 5.5 single judge vs Sonnet 5.5 correctness agent",
+   "p": 0.118,
+   "p_holm": 1.0
+  },
+  {
+   "dataset": "swe",
+   "comparison": "Sonnet 5.5 single judge, mean of 3 runs vs Sonnet 5.5 4 agents, mean",
+   "p": 0.062,
+   "p_holm": 0.812
+  },
+  {
+   "dataset": "swe",
+   "comparison": "Haiku 5.5 single judge vs Haiku 5.5 4 agents, mean",
+   "p": 0.012,
+   "p_holm": 0.20400000000000001
+  },
+  {
+   "dataset": "swe",
+   "comparison": "Haiku 5.5 single judge vs Haiku 5.5 4 agents, max",
+   "p": 0.335,
+   "p_holm": 1.0
+  },
+  {
+   "dataset": "swe",
+   "comparison": "Haiku 5.5 single judge vs Haiku 5.5 4 agents, weighted",
+   "p": 0.471,
+   "p_holm": 1.0
+  },
+  {
+   "dataset": "swe",
+   "comparison": "Haiku 5.5 single judge vs Haiku 5.5 correctness agent",
+   "p": 0.115,
+   "p_holm": 1.0
+  }
+ ],
+ "static_dependence": {
+  "heval": {
+   "pairs": {
+    "C-S": [
+     0.06472449196747405,
+     0.059085061875131045
+    ],
+    "C-P": [
+     -0.0813512256797751,
+     -0.09503656903819915
+    ],
+    "C-St": [
+     0.16739146903877955,
+     0.17946409417965095
+    ],
+    "S-P": [
+     -0.025246495070330204,
+     -0.020380247317284782
+    ],
+    "S-St": [
+     0.1253571411113249,
+     0.1246526927784624
+    ],
+    "P-St": [
+     0.16732177162490436,
+     0.1742197417892213
+    ]
+   },
+   "agent_auc": {
+    "correctness": 0.5056328078524688,
+    "security": 0.5,
+    "performance": 0.49715571088637717,
+    "style": 0.5012455383700178
+   },
+   "constant_agents": []
+  },
+  "swe_patch_aware": {
+   "pairs": {
+    "C-S": [
+     0.4811453411665335,
+     0.5553966031359422
+    ],
+    "C-P": [
+     0.19784657285486093,
+     0.2391868912328937
+    ],
+    "C-St": [
+     0.8410282703321588,
+     0.8207871842057736
+    ],
+    "S-P": [
+     0.09855088731707792,
+     0.2837090677856297
+    ],
+    "S-St": [
+     0.4920348288458056,
+     0.6096565005382161
+    ],
+    "P-St": [
+     0.2382541426963422,
+     0.19597734481395235
+    ]
+   },
+   "agent_auc": {
+    "correctness": 0.4780597881942893,
+    "security": 0.5216497609365923,
+    "performance": 0.5225211135439475,
+    "style": 0.4506233522498771
+   },
+   "constant_agents": []
+  }
+ },
+ "v1_lite_gold": {
+  "n": 300,
+  "fail": 297,
+  "syntax_critical": 289
+ },
+ "logged_cost_usd": 27.032140500000008
+}
