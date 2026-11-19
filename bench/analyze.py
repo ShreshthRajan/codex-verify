@@ -339,8 +339,12 @@ def main():
     # correlations + information (static agents and LLM agents)
     summary["correlation"] = {}
     for ds, items, static, sub in (("heval", h_items, h_static, None), ("swe", s_items, s_static, agent_ids)):
-        sc = {i: {a: 1 - static[i]["subsets"][a]["score"] for a in AGENTS} for i in static}
-        fl = {i: {a: static[i]["subsets"][a]["status"] != "PASS" for a in AGENTS} for i in static}
+        if ds == "heval":
+            sc = {i: {a: 1 - static[i]["subsets"][a]["score"] for a in AGENTS} for i in static}
+            fl = {i: {a: static[i]["subsets"][a]["status"] != "PASS" for a in AGENTS} for i in static}
+        else:  # patch-aware view: the snippet view is degenerate (unparseable input)
+            sc = {i: {a: sum(SEV_W.get(s, 0.3) * n for t, s, n in static[i]["diff_new_issues"][a]) for a in AGENTS} for i in static}
+            fl = {i: {a: any(s in ("HIGH", "CRITICAL") for t, s, n in static[i]["diff_new_issues"][a]) for a in AGENTS} for i in static}
         corr, mi = correlations(items, sc, fl, sub)
         summary["correlation"][f"static_{ds}"] = {"pairs": corr, "mi_bits": mi}
         for model, mname in MODELS.items():
@@ -415,7 +419,7 @@ def make_tables(summary, data, agent_ids):
     # correlation table
     C = summary["correlation"]
     keys = [k for k in ["static_heval", "static_swe", "Sonnet 5.5_heval", "Sonnet 5.5_swe"] if k in C]
-    lab = {"static_heval": "Static, HEF", "static_swe": "Static, SWE", "Sonnet 5.5_heval": "LLM, HEF",
+    lab = {"static_heval": "Static, HEF", "static_swe": "Static (patch-aware), SWE", "Sonnet 5.5_heval": "LLM, HEF",
            "Sonnet 5.5_swe": "LLM, SWE"}
     lines = [r"\begin{tabular}{@{}l " + "c" * len(keys) + "@{}}", r"\toprule",
              "Agent pair & " + " & ".join(lab[k] for k in keys) + r" \\", r"\midrule"]
@@ -541,7 +545,7 @@ def make_macros():
     for ds, tag in (("heval", "Hef"), ("swe", "Swe")):
         for k, v in d["paired"][ds].items():
             key = tag + "Diff" + macro_name(k.replace("5.5", "").replace("vs", "Vs"))
-            put(key, f"{v['auc']['diff']:+.3f}"); put(key + "Abs", f"{abs(v['auc']['diff']):.3f}"); put(key + "Lo", f"{v['auc']['ci'][0]:+.3f}")
+            put(key, f"{v['auc']['diff']:+.3f}"); put(key + "Abs", f"{abs(v['auc']['diff']):.3f}"); put(key + "LoAbs", f"{abs(v['auc']['ci'][0]):.3f}"); put(key + "Lo", f"{v['auc']['ci'][0]:+.3f}")
             put(key + "Hi", f"{v['auc']['ci'][1]:+.3f}"); put(key + "P", f"{v['auc']['p_boot']:.3f}")
         sh = d["ablation"][ds]["shapley_auc"]
         for a in AGENTS:
@@ -602,6 +606,48 @@ def make_macros():
     full = ROOT / "bench/data/swe_patches.jsonl"  # rebuilt by bench/build_swe.py
     if full.exists():
         put("NTruncated", str(sum(len(json.loads(l)["patch"]) > 30000 for l in open(full))))
+    rb = RES / "robustness.json"  # written by bench/robustness.py
+    if rb.exists():
+        r = json.loads(rb.read_text())
+        for model, t in (("claude-sonnet-5-5", "Sonnet"), ("claude-haiku-5-5", "Haiku")):
+            q = r["recall"][model]
+            put(t + "RecallAgent", f"{100 * q['rates']['single']['agent']:.0f}")
+            put(t + "RecallGold", f"{100 * q['rates']['single']['gold']:.0f}")
+            put(t + "RecallCorr", f"{100 * q['rates']['correctness']['agent']:.0f}")
+            put(t + "RecallStyle", f"{100 * q['rates']['style']['agent']:.0f}")
+            put(t + "RecallSec", f"{100 * q['rates']['security']['agent']:.0f}")
+            put(t + "CleanN", str(q["n_clean_single"])); put(t + "CleanAllN", str(q["n_clean_all"]))
+            put(t + "CleanAuc", f"{q['auc_single_clean']:.2f}"); put(t + "MentionedAuc", f"{q['auc_single_mentioned']:.2f}")
+            put(t + "CleanAllSingleAuc", f"{q['auc_single_clean_all']:.2f}"); put(t + "CleanAllMeanAuc", f"{q['auc_mean4_clean_all']:.2f}")
+            put(t + "StackAuc", f"{r['stack_cv_auc'][model]:.3f}")
+            pg = r["permutation_gain"][model]
+            put(t + "PermObs", f"{pg['observed_gain']:.3f}"); put(t + "PermObsMm", f"{pg['observed_gain_mm']:.3f}")
+            put(t + "PermNull", f"{pg['null_mean']:.3f}"); put(t + "PermNullLo", f"{pg['null_p05']:.3f}")
+        put("SonnetSingleAucExact", f"{r['recall']['claude-sonnet-5-5']['auc_single_all']:.3f}")
+        put("HaikuSingleAucExact", f"{r['recall']['claude-haiku-5-5']['auc_single_all']:.3f}")
+        put("HefRecallSonnet", f"{100 * r['recall_heval_sonnet']:.0f}")
+        tf = r["trivial_features_auc"]
+        put("TrivLen", f"{tf['patch length']:.2f}"); put("TrivLines", f"{tf['changed lines']:.2f}")
+        put("TrivFiles", f"{tf['files touched']:.2f}"); put("TrivGen", f"{tf['generator (GPT-4o agent)']:.2f}")
+        pa = r["patch_aware_by_generator"]
+        put("PaClaudeAuc", f"{pa['20241022_tools_claude-3-5-sonnet-updated']['auc']:.2f}")
+        put("PaGptAuc", f"{pa['20241028_agentless-1.5_gpt4o']['auc']:.2f}")
+        put("PaClaudeScore", f"{pa['20241022_tools_claude-3-5-sonnet-updated']['mean_score']:.1f}")
+        put("PaGptScore", f"{pa['20241028_agentless-1.5_gpt4o']['mean_score']:.1f}")
+        holm = {(h["dataset"], h["comparison"]): h for h in r["holm"]}
+        put("HolmN", str(len(r["holm"])))
+        put("HolmMinP", f"{min(h['p_holm'] for h in r['holm']):.2f}")
+        put("HolmSonnetMaxP", f"{holm[('swe', 'Sonnet 5.5 single judge vs Sonnet 5.5 4 agents, max')]['p_holm']:.2f}")
+        sdp = r["static_dependence"]["swe_patch_aware"]
+        rh = [x for v in sdp["pairs"].values() for x in v if x == x]
+        put("PaRhoMin", f"{min(rh):.2f}"); put("PaRhoMax", f"{max(rh):.2f}")
+        aa = sdp["agent_auc"]
+        put("PaAgentAucMin", f"{min(aa.values()):.2f}"); put("PaAgentAucMax", f"{max(aa.values()):.2f}")
+        ha = r["static_dependence"]["heval"]["agent_auc"]
+        put("HefAgentAucMin", f"{min(ha.values()):.2f}"); put("HefAgentAucMax", f"{max(ha.values()):.2f}")
+        v1 = r["v1_lite_gold"]
+        put("LiteN", str(v1["n"])); put("LiteFail", str(v1["fail"])); put("LiteSyntax", str(v1["syntax_critical"]))
+        put("CostUsd", f"{r['logged_cost_usd']:.0f}")
     lines = ["% generated by bench/analyze.py; do not edit"]
     for k, v in sorted(M.items()):
         lines.append(f"\\newcommand{{\\n{k}}}{{{v}}}")
