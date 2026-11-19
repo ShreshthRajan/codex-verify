@@ -112,10 +112,10 @@ def systems_for(ds):
                     r = json.loads(l)
                     if r.get("role") == "single" and "p_defect" in r:
                         d[r["id"]] = r["p_defect"] / 100
-                if all(i in d for i in ids):
-                    reps.append(d)
-        if len(reps) == 3:
-            m = {i: float(np.mean([d[i] for d in reps])) for i in ids}
+                reps.append(d)
+        if len(reps) == 3 and all(any(i in d for d in reps) for i in ids):
+            # an item missing from one run (one failed call, a gold patch) averages the runs it has
+            m = {i: float(np.mean([d[i] for d in reps if i in d])) for i in ids}
             add("Sonnet 5.5 single judge, mean of 3 runs", "llm", m, {i: m[i] >= 0.5 for i in ids})
     return items, S, static
 
