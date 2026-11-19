@@ -1,0 +1,12 @@
+\begin{tabular}{@{}l cccc@{}}
+\toprule
+ & \multicolumn{2}{c}{Claude 3.5 Sonnet agent (77 res./73 unres.)} & \multicolumn{2}{c}{GPT-4o Agentless (62 res./88 unres.)} \\
+Verifier & AUC & Bal.\ acc. & AUC & Bal.\ acc. \\
+\midrule
+CodeX-Verify (FAIL or WARN) & 0.48 & 50.0 & 0.49 & 49.4 \\
+CodeX-Verify, patch-aware & 0.53 & 53.1 & 0.54 & 54.3 \\
+Haiku 5.5 single judge & 0.79 & 71.0 & 0.89 & 80.9 \\
+Sonnet 5.5 single judge & 0.87 & 78.9 & 0.92 & 86.4 \\
+Sonnet 5.5 4 agents, mean & 0.85 & 75.9 & 0.92 & 83.4 \\
+\bottomrule
+\end{tabular}

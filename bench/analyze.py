@@ -471,4 +471,121 @@ def make_figures(data, agent_ids):
 
 
 if __name__ == "__main__":
-    main()
+    import sys as _sys
+    if "--macros-only" not in _sys.argv:
+        main()
+
+
+# ---------------------------------------------------------------- in-text numbers as LaTeX macros
+
+def macro_name(s):
+    return "".join(ch for ch in s.title() if ch.isalpha())
+
+
+def make_macros():
+    """Every number quoted in the paper's prose is a macro defined here."""
+    d = json.loads((RES / "summary.json").read_text())
+    ev = d["eval"]; M = {}
+
+    def put(k, v):
+        M[k] = v
+
+    def sysm(prefix, ds, name):
+        m = ev[ds][name]
+        put(prefix + "Auc", f"{m['auc']:.2f}")
+        put(prefix + "AucLo", f"{m['auc_ci'][0]:.2f}"); put(prefix + "AucHi", f"{m['auc_ci'][1]:.2f}")
+        put(prefix + "Tpr", f"{100 * m['tpr']:.1f}"); put(prefix + "Fpr", f"{100 * m['fpr']:.1f}")
+        put(prefix + "Bal", f"{100 * m['bal_acc']:.1f}"); put(prefix + "Ap", f"{m['ap']:.2f}")
+
+    for ds, tag in (("heval", "Hef"), ("swe", "Swe")):
+        sysm(tag + "Cv", ds, "CodeX-Verify (FAIL or WARN)")
+        sysm(tag + "CvFail", ds, "CodeX-Verify (FAIL)")
+        sysm(tag + "Vote", ds, "Static agents, majority vote")
+        sysm(tag + "Semgrep", ds, "Semgrep"); sysm(tag + "Bandit", ds, "Bandit")
+        for m in ("Sonnet", "Haiku"):
+            sysm(tag + m, ds, f"{m} 5.5 single judge")
+            sysm(tag + m + "Corr", ds, f"{m} 5.5 correctness agent")
+            for agg in ("mean", "max", "weighted", "majority vote", "any reject"):
+                sysm(tag + m + macro_name(agg), ds, f"{m} 5.5 4 agents, {agg}")
+    sysm("SweCvDiff", "swe", "CodeX-Verify, patch-aware")
+    g = ev["swe_gold_flag_rate"]
+    put("GoldCv", f"{100 * g['CodeX-Verify (FAIL or WARN)']:.1f}"); put("GoldCvFail", f"{100 * g['CodeX-Verify (FAIL)']:.1f}")
+    put("GoldSonnet", f"{100 * g['Sonnet 5.5 single judge']:.1f}"); put("GoldHaiku", f"{100 * g['Haiku 5.5 single judge']:.1f}")
+    put("GoldCvDiff", f"{100 * g['CodeX-Verify, patch-aware']:.1f}")
+    put("GoldSemgrep", f"{100 * g['Semgrep']:.1f}")
+    w = d["heval_within_pair"]
+    put("HefCvTie", f"{100 * w['CodeX-Verify (FAIL or WARN)']['tie']:.1f}")
+    put("HefSonnetPairWin", f"{100 * w['Sonnet 5.5 single judge']['buggy_higher']:.1f}")
+    for ds, tag in (("heval", "Hef"), ("swe", "Swe")):
+        for k, v in d["paired"][ds].items():
+            key = tag + "Diff" + macro_name(k.replace("5.5", "").replace("vs", "Vs"))
+            put(key, f"{v['auc']['diff']:+.3f}"); put(key + "Abs", f"{abs(v['auc']['diff']):.3f}"); put(key + "Lo", f"{v['auc']['ci'][0]:+.3f}")
+            put(key + "Hi", f"{v['auc']['ci'][1]:+.3f}"); put(key + "P", f"{v['auc']['p_boot']:.3f}")
+        sh = d["ablation"][ds]["shapley_auc"]
+        for a in AGENTS:
+            put(tag + "Shap" + macro_name(a), f"{sh[a]:+.3f}")
+        put(tag + "AblCP", f"{d['ablation'][ds]['rows']['correctness+performance']['auc']:.2f}")
+        best = max(d["ablation"][ds]["rows"].items(), key=lambda kv: kv[1]["auc"])
+        put(tag + "AblBest", f"{best[1]['auc']:.2f}"); put(tag + "AblWorst", f"{min(r['auc'] for r in d['ablation'][ds]['rows'].values()):.2f}")
+    C = d["correlation"]
+    for key, tag in (("static_heval", "StaticHef"), ("static_swe", "StaticSwe"), ("Sonnet 5.5_heval", "SonnetHef"),
+                     ("Sonnet 5.5_swe", "SonnetSwe"), ("Haiku 5.5_swe", "HaikuSwe")):
+        rhos = [x for p in C[key]["pairs"].values() for x in (p["rho_correct"], p["rho_buggy"]) if not np.isnan(x)]
+        put(tag + "RhoMin", f"{min(rhos):.2f}"); put(tag + "RhoMax", f"{max(rhos):.2f}")
+        put(tag + "MiC", f"{C[key]['mi_bits']['C']:.3f}"); put(tag + "MiAll", f"{C[key]['mi_bits']['C+S+P+St']:.3f}")
+        put(tag + "MiBestSingle", f"{max(C[key]['mi_bits'][a] for a in ['C', 'S', 'P', 'St']):.3f}")
+    # static-system internals on SWE snippets
+    st = load("static_swe.jsonl")
+    put("SweNItems", str(len(st)))
+    put("SweSyntaxCrit", str(sum(any(t == "ast_analysis" and s == "CRITICAL" for t, s in r["agents"]["correctness"]["issues"]) for r in st)))
+    put("SweExecHigh", str(sum(any(t == "execution" and s == "HIGH" for t, s in r["agents"]["correctness"]["issues"]) for r in st)))
+    hs = load("static_heval.jsonl")
+    put("HefPotentialBugBuggy", f"{100 * np.mean([any(t == 'potential_bug' for t, s in r['agents']['correctness']['issues']) for r in hs if r['label'] == 1]):.1f}")
+    put("HefPotentialBugFixed", f"{100 * np.mean([any(t == 'potential_bug' for t, s in r['agents']['correctness']['issues']) for r in hs if r['label'] == 0]):.1f}")
+    # repeat runs of the Sonnet single judge on SWE
+    runs = []
+    agent = {it for it in [json.loads(l)["id"] for l in open(ROOT / "bench/data/swe_labels.jsonl")]}
+    lab = {json.loads(l)["id"]: (json.loads(l)["label"], json.loads(l)["generator"]) for l in open(ROOT / "bench/data/swe_labels.jsonl")}
+    for tag in ("", "_run2", "_run3"):
+        p = RES / f"llm_claude-sonnet-5-5_swe{tag}.jsonl"
+        if not p.exists():
+            continue
+        sc = {}
+        for l in open(p):
+            r = json.loads(l)
+            if r.get("role") == "single" and "p_defect" in r:
+                sc[r["id"]] = r["p_defect"] / 100
+        ids = [i for i in sc if lab[i][1] != "gold"]
+        if len(ids) == 300:
+            runs.append(roc_auc_score([lab[i][0] for i in ids], [sc[i] for i in ids]))
+    put("SonnetRuns", str(len(runs)))
+    put("SonnetRunMean", f"{np.mean(runs):.3f}"); put("SonnetRunSd", f"{np.std(runs, ddof=1) if len(runs) > 1 else 0:.3f}")
+    # v1 re-analysis
+    o = json.loads((RES / "old_set_leak.json").read_text())
+    put("OldN", str(o["n"])); put("OldBuggy", str(o["buggy"])); put("OldMajority", f"{100 * o['majority_baseline_acc']:.1f}")
+    put("OldBugComments", str(o["samples_with_#BUG"])); put("OldBugCommentsBuggy", str(o["buggy_with_#BUG"]))
+    put("OldCvAcc", f"{100 * o['codexverify_FAILonly_code']['acc']:.1f}"); put("OldCvTpr", f"{100 * o['codexverify_FAILonly_code']['tpr']:.1f}")
+    put("OldCvFpr", f"{100 * o['codexverify_FAILonly_code']['fpr']:.1f}")
+    put("OldCvStripAcc", f"{100 * o['codexverify_FAILonly_stripped']['acc']:.1f}")
+    put("OldSonnetAcc", f"{100 * o['sonnet_single_code']['acc']:.1f}"); put("OldSonnetStripAcc", f"{100 * o['sonnet_single_stripped']['acc']:.1f}")
+    put("OldSonnetTpr", f"{100 * o['sonnet_single_code']['tpr']:.1f}"); put("OldSonnetStripTpr", f"{100 * o['sonnet_single_stripped']['tpr']:.1f}")
+    for key, tag in (("Sonnet 5.5_swe", "SonnetSwe"), ("Haiku 5.5_swe", "HaikuSwe"), ("Sonnet 5.5_heval", "SonnetHef")):
+        mi = C[key]["mi_bits"]
+        put(tag + "MiGain", f"{mi['C+S+P+St'] - mi['C']:.3f}")
+        for a in ("S", "P", "St"):
+            put(tag + "Mi" + a, f"{mi[a]:.3f}")
+    for g, tag in (("swe_20241022_tools_claude-3-5-sonnet-updated", "GenClaude"), ("swe_20241028_agentless-1.5_gpt4o", "GenGpt")):
+        for name, t2 in (("Sonnet 5.5 single judge", "Sonnet"), ("Haiku 5.5 single judge", "Haiku")):
+            put(tag + t2 + "Auc", f"{ev[g][name]['auc']:.2f}")
+    full = ROOT / "bench/data/swe_patches.jsonl"  # rebuilt by bench/build_swe.py
+    if full.exists():
+        put("NTruncated", str(sum(len(json.loads(l)["patch"]) > 30000 for l in open(full))))
+    lines = ["% generated by bench/analyze.py; do not edit"]
+    for k, v in sorted(M.items()):
+        lines.append(f"\\newcommand{{\\n{k}}}{{{v}}}")
+    write("numbers.tex", "\n".join(lines) + "\n")
+    return M
+
+
+if __name__ == "__main__" and True:
+    make_macros()

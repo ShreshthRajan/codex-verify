@@ -1,0 +1,31 @@
+\begin{tabular}{@{}l cc cc@{}}
+\toprule
+ & \multicolumn{2}{c}{HumanEvalFix} & \multicolumn{2}{c}{SWE-bench agent patches} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Agents & AUC & TPR$-$FPR & AUC & TPR$-$FPR \\
+\midrule
+C & 0.51 & 0.0 & 0.49 & -1.2 \\
+S & 0.50 & 0.0 & 0.52 & 4.6 \\
+P & 0.50 & 0.0 & 0.49 & -1.4 \\
+St & 0.50 & 0.0 & 0.50 & -0.5 \\
+\midrule
+C+S & 0.50 & 0.0 & 0.49 & -0.6 \\
+C+P & 0.50 & 0.0 & 0.49 & -1.2 \\
+C+St & 0.50 & 0.0 & 0.48 & -1.2 \\
+S+P & 0.50 & 0.0 & 0.52 & 3.2 \\
+S+St & 0.50 & 0.0 & 0.53 & 2.4 \\
+P+St & 0.50 & 0.0 & 0.50 & 0.3 \\
+\midrule
+C+S+P & 0.50 & 0.0 & 0.48 & -0.6 \\
+C+S+St & 0.50 & 0.0 & 0.49 & -0.6 \\
+C+P+St & 0.50 & 0.0 & 0.49 & -1.2 \\
+S+P+St & 0.50 & 0.0 & 0.52 & 0.9 \\
+\midrule
+C+S+P+St & 0.50 & 0.0 & 0.48 & -0.6 \\
+\midrule
+Shapley, C & +0.005 & & -0.024 & \\
+Shapley, S & -0.000 & & +0.010 & \\
+Shapley, P & -0.001 & & -0.005 & \\
+Shapley, St & +0.000 & & +0.003 & \\
+\bottomrule
+\end{tabular}
