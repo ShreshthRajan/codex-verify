@@ -114,3 +114,7 @@ config/local_*.yaml
 config/dev_*.yaml
 sast_env/
 data/SecurityEval/
+
+# rebuild benchmark: raw downloads and the large file-content cache are rebuilt by bench/build_*.py
+bench/raw/
+bench/data/swe_patches.jsonl

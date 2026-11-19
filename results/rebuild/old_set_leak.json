@@ -1,0 +1,59 @@
+{
+ "n": 99,
+ "buggy": 71,
+ "majority_baseline_acc": 0.7171717171717171,
+ "samples_with_#BUG": 60,
+ "samples_with_any_leaky_comment": 60,
+ "buggy_with_#BUG": 59,
+ "correct_with_#BUG": 1,
+ "codexverify_code": {
+  "acc": 0.7272727272727273,
+  "tpr": 0.9859154929577465,
+  "fpr": 0.9285714285714286,
+  "tp": 70,
+  "tn": 2,
+  "n": 99
+ },
+ "codexverify_FAILonly_code": {
+  "acc": 0.6868686868686869,
+  "tpr": 0.7605633802816901,
+  "fpr": 0.5,
+  "tp": 54,
+  "tn": 14,
+  "n": 99
+ },
+ "sonnet_single_code": {
+  "acc": 0.8282828282828283,
+  "tpr": 0.8309859154929577,
+  "fpr": 0.17857142857142858,
+  "tp": 59,
+  "tn": 23,
+  "n": 99
+ },
+ "sonnet_single_code_errors": 0,
+ "codexverify_stripped": {
+  "acc": 0.7272727272727273,
+  "tpr": 0.9859154929577465,
+  "fpr": 0.9285714285714286,
+  "tp": 70,
+  "tn": 2,
+  "n": 99
+ },
+ "codexverify_FAILonly_stripped": {
+  "acc": 0.6767676767676768,
+  "tpr": 0.7464788732394366,
+  "fpr": 0.5,
+  "tp": 53,
+  "tn": 14,
+  "n": 99
+ },
+ "sonnet_single_stripped": {
+  "acc": 0.7676767676767676,
+  "tpr": 0.7605633802816901,
+  "fpr": 0.21428571428571427,
+  "tp": 54,
+  "tn": 22,
+  "n": 99
+ },
+ "sonnet_single_stripped_errors": 0
+}
